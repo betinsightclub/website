@@ -43,9 +43,9 @@ jobs:
           """
 
           js_marker = """  <script>
-            "use strict";
+    "use strict";
 
-          """
+"""
 
           required_markers = {
               "CSS-Einfügepunkt": css_marker,
@@ -66,7 +66,7 @@ jobs:
               print("Fehlende Prüfpunkte:", ", ".join(missing))
               sys.exit(1)
 
-          # Versionshinweis aktualisieren, wenn alter Stand vorhanden.
+          # Versionshinweis aktualisieren.
           text = text.replace(
               "Version: 2026.07.30-01",
               "Version: 2026.08.19-02",
@@ -74,79 +74,87 @@ jobs:
           )
 
           cta_css = r"""
-              .calculator-cta {
-                margin-top: 22px;
-                padding: 24px;
-                text-align: center;
-                background:
-                  radial-gradient(circle at 50% 0%, rgba(29, 155, 240, 0.13), transparent 24rem),
-                  linear-gradient(180deg, rgba(15, 45, 63, 0.96), rgba(7, 29, 42, 0.98));
-                border: 1px solid var(--border);
-                border-radius: 18px;
-                box-shadow: 0 15px 34px rgba(0, 0, 0, 0.22);
-              }
+    .calculator-cta {
+      margin-top: 22px;
+      padding: 24px;
+      text-align: center;
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(29, 155, 240, 0.13),
+          transparent 24rem
+        ),
+        linear-gradient(
+          180deg,
+          rgba(15, 45, 63, 0.96),
+          rgba(7, 29, 42, 0.98)
+        );
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 15px 34px rgba(0, 0, 0, 0.22);
+    }
 
-              .calculator-cta h2 {
-                margin: 0 0 8px;
-                font-size: clamp(21px, 3vw, 27px);
-              }
+    .calculator-cta h2 {
+      margin: 0 0 8px;
+      font-size: clamp(21px, 3vw, 27px);
+    }
 
-              .calculator-cta p {
-                max-width: 680px;
-                margin: 0 auto 18px;
-                color: var(--text-muted);
-                line-height: 1.55;
-              }
+    .calculator-cta p {
+      max-width: 680px;
+      margin: 0 auto 18px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
 
-              .calculator-cta-actions {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 12px;
-              }
+    .calculator-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
 
-              .calculator-action {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                min-height: 48px;
-                padding: 12px 22px;
-                border-radius: 999px;
-                text-decoration: none;
-                text-align: center;
-                font-weight: 800;
-                transition:
-                  transform 0.18s ease,
-                  box-shadow 0.18s ease,
-                  border-color 0.18s ease;
-              }
+    .calculator-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 800;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+    }
 
-              .calculator-action:hover {
-                transform: translateY(-2px);
-              }
+    .calculator-action:hover {
+      transform: translateY(-2px);
+    }
 
-              .calculator-back {
-                color: var(--text);
-                background: rgba(255, 255, 255, 0.045);
-                border: 1px solid rgba(255, 255, 255, 0.18);
-              }
+    .calculator-back {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
 
-              .calculator-back:hover {
-                border-color: rgba(22, 199, 243, 0.55);
-              }
+    .calculator-back:hover {
+      border-color: rgba(22, 199, 243, 0.55);
+    }
 
-              .calculator-register {
-                color: #ffffff;
-                border: 1px solid transparent;
-                background: linear-gradient(90deg, #168aff, #006fe6);
-                box-shadow: 0 10px 24px rgba(0, 132, 255, 0.27);
-              }
+    .calculator-register {
+      color: #ffffff;
+      border: 1px solid transparent;
+      background: linear-gradient(90deg, #168aff, #006fe6);
+      box-shadow: 0 10px 24px rgba(0, 132, 255, 0.27);
+    }
 
-              .calculator-register:hover {
-                box-shadow: 0 14px 30px rgba(0, 132, 255, 0.38);
-              }
+    .calculator-register:hover {
+      box-shadow: 0 14px 30px rgba(0, 132, 255, 0.38);
+    }
 
-          """
+"""
 
           text = text.replace(
               css_marker,
@@ -154,14 +162,13 @@ jobs:
               1
           )
 
-          # Mobile-Ergänzung direkt in vorhandene Mobile-Regel setzen.
           mobile_marker = """      .totals { grid-template-columns: 1fr; }
           """
 
           mobile_addition = """      .totals { grid-template-columns: 1fr; }
-              .calculator-cta { padding: 20px 15px; }
-              .calculator-cta-actions { display: grid; }
-              .calculator-action { width: 100%; }
+      .calculator-cta { padding: 20px 15px; }
+      .calculator-cta-actions { display: grid; }
+      .calculator-action { width: 100%; }
           """
 
           if mobile_marker not in text:
@@ -175,31 +182,37 @@ jobs:
           )
 
           cta_html = r"""
-              <section class="calculator-cta" aria-labelledby="calculator-cta-title">
-                <h2 id="calculator-cta-title">Möchtest du BetInsight selbst ausprobieren?</h2>
-                <p>
-                  Erstelle deinen kostenlosen BetInsight-Zugang und starte mit
-                  5 kostenlosen Start-Units.
-                </p>
+    <section
+      class="calculator-cta"
+      aria-labelledby="calculator-cta-title"
+    >
+      <h2 id="calculator-cta-title">
+        Möchtest du BetInsight selbst ausprobieren?
+      </h2>
 
-                <div class="calculator-cta-actions">
-                  <a
-                    id="calculatorBackButton"
-                    class="calculator-action calculator-back"
-                    href="../"
-                    data-preserve-ref
-                  >← Zurück zu BetInsight</a>
+      <p>
+        Erstelle deinen kostenlosen BetInsight-Zugang und starte mit
+        5 kostenlosen Start-Units.
+      </p>
 
-                  <a
-                    id="calculatorRegisterButton"
-                    class="calculator-action calculator-register"
-                    href="https://betinsight.systeme.io/registrierung?ref=POOL"
-                    data-registration-link
-                  >Jetzt kostenlos mit 5 Start-Units testen</a>
-                </div>
-              </section>
+      <div class="calculator-cta-actions">
+        <a
+          id="calculatorBackButton"
+          class="calculator-action calculator-back"
+          href="../"
+          data-preserve-ref
+        >← Zurück zu BetInsight</a>
 
-          """
+        <a
+          id="calculatorRegisterButton"
+          class="calculator-action calculator-register"
+          href="https://betinsight.systeme.io/registrierung?ref=POOL"
+          data-registration-link
+        >Jetzt kostenlos mit 5 Start-Units testen</a>
+      </div>
+    </section>
+
+"""
 
           text = text.replace(
               html_marker,
@@ -208,99 +221,130 @@ jobs:
           )
 
           referral_js = r"""    const REF_STORAGE_KEY = "betinsight_ref_code";
-              const DEFAULT_REF_CODE = "POOL";
+    const DEFAULT_REF_CODE = "POOL";
 
-              function cleanReferralCode(value) {
-                if (!value) return "";
-                const cleaned = String(value).trim();
-                return /^[A-Za-z0-9_-]{2,50}$/.test(cleaned) ? cleaned : "";
-              }
+    function cleanReferralCode(value) {
+      if (!value) return "";
 
-              function getCookieReferralCode() {
-                const match = document.cookie
-                  .split("; ")
-                  .find(row => row.startsWith(REF_STORAGE_KEY + "="));
+      const cleaned = String(value).trim();
 
-                if (!match) return "";
+      return /^[A-Za-z0-9_-]{2,50}$/.test(cleaned)
+        ? cleaned
+        : "";
+    }
 
-                try {
-                  return cleanReferralCode(
-                    decodeURIComponent(match.split("=").slice(1).join("="))
-                  );
-                } catch (error) {
-                  return "";
-                }
-              }
+    function getCookieReferralCode() {
+      const match = document.cookie
+        .split("; ")
+        .find(row => row.startsWith(REF_STORAGE_KEY + "="));
 
-              function saveReferralCode(refCode) {
-                if (!refCode || refCode === DEFAULT_REF_CODE) return;
+      if (!match) return "";
 
-                try {
-                  localStorage.setItem(REF_STORAGE_KEY, refCode);
-                } catch (error) {}
+      try {
+        return cleanReferralCode(
+          decodeURIComponent(
+            match.split("=").slice(1).join("=")
+          )
+        );
+      } catch (error) {
+        return "";
+      }
+    }
 
-                document.cookie =
-                  `${REF_STORAGE_KEY}=${encodeURIComponent(refCode)}; ` +
-                  "Max-Age=15552000; Path=/; SameSite=Lax; Secure";
-              }
+    function saveReferralCode(refCode) {
+      if (!refCode || refCode === DEFAULT_REF_CODE) return;
 
-              function getActiveReferralCode() {
-                const params = new URLSearchParams(window.location.search);
+      try {
+        localStorage.setItem(
+          REF_STORAGE_KEY,
+          refCode
+        );
+      } catch (error) {}
 
-                const fromUrl = cleanReferralCode(
-                  params.get("ref") || params.get("ref_code")
-                );
+      document.cookie =
+        `${REF_STORAGE_KEY}=${encodeURIComponent(refCode)}; ` +
+        "Max-Age=15552000; Path=/; SameSite=Lax; Secure";
+    }
 
-                if (fromUrl) {
-                  saveReferralCode(fromUrl);
-                  return fromUrl;
-                }
+    function getActiveReferralCode() {
+      const params =
+        new URLSearchParams(window.location.search);
 
-                let fromStorage = "";
+      const fromUrl = cleanReferralCode(
+        params.get("ref") ||
+        params.get("ref_code")
+      );
 
-                try {
-                  fromStorage = cleanReferralCode(
-                    localStorage.getItem(REF_STORAGE_KEY)
-                  );
-                } catch (error) {}
+      if (fromUrl) {
+        saveReferralCode(fromUrl);
+        return fromUrl;
+      }
 
-                return (
-                  fromStorage ||
-                  getCookieReferralCode() ||
-                  DEFAULT_REF_CODE
-                );
-              }
+      let fromStorage = "";
 
-              const activeReferralCode = getActiveReferralCode();
+      try {
+        fromStorage = cleanReferralCode(
+          localStorage.getItem(
+            REF_STORAGE_KEY
+          )
+        );
+      } catch (error) {}
 
-              document
-                .querySelectorAll("[data-registration-link]")
-                .forEach(link => {
-                  try {
-                    const target = new URL(link.href, window.location.href);
-                    target.searchParams.set("ref", activeReferralCode);
-                    link.href = target.toString();
-                  } catch (error) {}
-                });
+      return (
+        fromStorage ||
+        getCookieReferralCode() ||
+        DEFAULT_REF_CODE
+      );
+    }
 
-              document
-                .querySelectorAll("[data-preserve-ref]")
-                .forEach(link => {
-                  try {
-                    const target = new URL(link.href, window.location.href);
+    const activeReferralCode =
+      getActiveReferralCode();
 
-                    if (activeReferralCode !== DEFAULT_REF_CODE) {
-                      target.searchParams.set("ref", activeReferralCode);
-                    } else {
-                      target.searchParams.delete("ref");
-                      target.searchParams.delete("ref_code");
-                    }
+    document
+      .querySelectorAll("[data-registration-link]")
+      .forEach(link => {
+        try {
+          const target = new URL(
+            link.href,
+            window.location.href
+          );
 
-                    link.href = target.toString();
-                  } catch (error) {}
-                });
+          target.searchParams.set(
+            "ref",
+            activeReferralCode
+          );
 
-          """
+          link.href = target.toString();
+        } catch (error) {}
+      });
+
+    document
+      .querySelectorAll("[data-preserve-ref]")
+      .forEach(link => {
+        try {
+          const target = new URL(
+            link.href,
+            window.location.href
+          );
+
+          if (
+            activeReferralCode !==
+            DEFAULT_REF_CODE
+          ) {
+            target.searchParams.set(
+              "ref",
+              activeReferralCode
+            );
+          } else {
+            target.searchParams.delete("ref");
+            target.searchParams.delete("ref_code");
+          }
+
+          link.href = target.toString();
+        } catch (error) {}
+      });
+
+"""
 
           text = text.replace(
               js_marker,
@@ -308,35 +352,58 @@ jobs:
               1
           )
 
-          path.write_text(text, encoding="utf-8")
+          path.write_text(
+              text,
+              encoding="utf-8"
+          )
 
-          # Sicherheitsprüfungen nach der Änderung.
-          final_text = path.read_text(encoding="utf-8")
+          final_text = path.read_text(
+              encoding="utf-8"
+          )
 
           required_after = [
               'id="calculatorBackButton"',
               'id="calculatorRegisterButton"',
               "https://betinsight.systeme.io/registrierung?ref=POOL",
-              'data-registration-link',
-              'data-preserve-ref',
+              "data-registration-link",
+              "data-preserve-ref",
               'const REF_STORAGE_KEY = "betinsight_ref_code";',
               "^[A-Za-z0-9_-]{2,50}$",
           ]
 
           for marker in required_after:
               if marker not in final_text:
-                  print("FEHLER nach Änderung:", marker)
+                  print(
+                      "FEHLER nach Änderung:",
+                      marker
+                  )
                   sys.exit(1)
 
-          if final_text.count('id="calculatorRegisterButton"') != 1:
-              print("FEHLER: Registrierungsbutton ist nicht genau einmal vorhanden.")
+          if (
+              final_text.count(
+                  'id="calculatorRegisterButton"'
+              ) != 1
+          ):
+              print(
+                  "FEHLER: Registrierungsbutton "
+                  "ist nicht genau einmal vorhanden."
+              )
               sys.exit(1)
 
-          if final_text.count('id="calculatorBackButton"') != 1:
-              print("FEHLER: Zurück-Button ist nicht genau einmal vorhanden.")
+          if (
+              final_text.count(
+                  'id="calculatorBackButton"'
+              ) != 1
+          ):
+              print(
+                  "FEHLER: Zurück-Button "
+                  "ist nicht genau einmal vorhanden."
+              )
               sys.exit(1)
 
-          print("OK: Rechner wurde sicher aktualisiert.")
+          print(
+              "OK: Rechner wurde sicher aktualisiert."
+          )
           PY
 
       - name: Änderung prüfen
@@ -349,7 +416,10 @@ jobs:
           echo "Geänderte Dateien:"
           git status --short
 
-          CHANGED="$(git status --short | awk '{print $2}')"
+          CHANGED="$(
+            git status --short |
+            awk '{print $2}'
+          )"
 
           if [ "$CHANGED" != "de/rechner/index.html" ]; then
             echo "FEHLER: Es wurde mehr als die erlaubte Rechnerdatei verändert."
@@ -361,14 +431,21 @@ jobs:
         run: |
           set -euo pipefail
 
-          git config user.name "BetInsight Website Builder"
-          git config user.email "actions@github.com"
+          git config \
+            user.name \
+            "BetInsight Website Builder"
+
+          git config \
+            user.email \
+            "actions@github.com"
 
           git add de/rechner/index.html
 
           if git diff --cached --quiet; then
             echo "Keine Änderung notwendig."
           else
-            git commit -m "Rechner: Navigation und Registrierungs-CTA ergänzen"
+            git commit \
+              -m "Rechner: Navigation und Registrierungs-CTA ergänzen"
+
             git push
           fi
