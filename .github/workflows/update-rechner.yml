@@ -1,0 +1,374 @@
+name: BetInsight Rechner CTA einbauen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Website laden
+        uses: actions/checkout@v6
+
+      - name: Rechner sicher aktualisieren
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 <<'PY'
+          from pathlib import Path
+          import sys
+
+          path = Path("de/rechner/index.html")
+
+          if not path.exists():
+              print("FEHLER: de/rechner/index.html fehlt.")
+              sys.exit(1)
+
+          text = path.read_text(encoding="utf-8")
+
+          # Nicht doppelt einbauen.
+          if 'id="calculatorRegisterButton"' in text:
+              print("OK: Rechner-CTA ist bereits eingebaut.")
+              sys.exit(0)
+
+          css_marker = """    .disclaimer {
+          """
+
+          html_marker = """    <p class="disclaimer">
+          """
+
+          js_marker = """  <script>
+            "use strict";
+
+          """
+
+          required_markers = {
+              "CSS-Einfügepunkt": css_marker,
+              "HTML-Einfügepunkt": html_marker,
+              "JavaScript-Einfügepunkt": js_marker,
+              "Reset-Button": 'id="resetButton"',
+              "Rechner-Tabelle": 'id="betTableBody"',
+          }
+
+          missing = [
+              name
+              for name, marker in required_markers.items()
+              if marker not in text
+          ]
+
+          if missing:
+              print("FEHLER: Rechner entspricht nicht dem erwarteten Stand.")
+              print("Fehlende Prüfpunkte:", ", ".join(missing))
+              sys.exit(1)
+
+          # Versionshinweis aktualisieren, wenn alter Stand vorhanden.
+          text = text.replace(
+              "Version: 2026.07.30-01",
+              "Version: 2026.08.19-02",
+              1
+          )
+
+          cta_css = r"""
+              .calculator-cta {
+                margin-top: 22px;
+                padding: 24px;
+                text-align: center;
+                background:
+                  radial-gradient(circle at 50% 0%, rgba(29, 155, 240, 0.13), transparent 24rem),
+                  linear-gradient(180deg, rgba(15, 45, 63, 0.96), rgba(7, 29, 42, 0.98));
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                box-shadow: 0 15px 34px rgba(0, 0, 0, 0.22);
+              }
+
+              .calculator-cta h2 {
+                margin: 0 0 8px;
+                font-size: clamp(21px, 3vw, 27px);
+              }
+
+              .calculator-cta p {
+                max-width: 680px;
+                margin: 0 auto 18px;
+                color: var(--text-muted);
+                line-height: 1.55;
+              }
+
+              .calculator-cta-actions {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+              }
+
+              .calculator-action {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 48px;
+                padding: 12px 22px;
+                border-radius: 999px;
+                text-decoration: none;
+                text-align: center;
+                font-weight: 800;
+                transition:
+                  transform 0.18s ease,
+                  box-shadow 0.18s ease,
+                  border-color 0.18s ease;
+              }
+
+              .calculator-action:hover {
+                transform: translateY(-2px);
+              }
+
+              .calculator-back {
+                color: var(--text);
+                background: rgba(255, 255, 255, 0.045);
+                border: 1px solid rgba(255, 255, 255, 0.18);
+              }
+
+              .calculator-back:hover {
+                border-color: rgba(22, 199, 243, 0.55);
+              }
+
+              .calculator-register {
+                color: #ffffff;
+                border: 1px solid transparent;
+                background: linear-gradient(90deg, #168aff, #006fe6);
+                box-shadow: 0 10px 24px rgba(0, 132, 255, 0.27);
+              }
+
+              .calculator-register:hover {
+                box-shadow: 0 14px 30px rgba(0, 132, 255, 0.38);
+              }
+
+          """
+
+          text = text.replace(
+              css_marker,
+              cta_css + css_marker,
+              1
+          )
+
+          # Mobile-Ergänzung direkt in vorhandene Mobile-Regel setzen.
+          mobile_marker = """      .totals { grid-template-columns: 1fr; }
+          """
+
+          mobile_addition = """      .totals { grid-template-columns: 1fr; }
+              .calculator-cta { padding: 20px 15px; }
+              .calculator-cta-actions { display: grid; }
+              .calculator-action { width: 100%; }
+          """
+
+          if mobile_marker not in text:
+              print("FEHLER: Mobile-Einfügepunkt fehlt.")
+              sys.exit(1)
+
+          text = text.replace(
+              mobile_marker,
+              mobile_addition,
+              1
+          )
+
+          cta_html = r"""
+              <section class="calculator-cta" aria-labelledby="calculator-cta-title">
+                <h2 id="calculator-cta-title">Möchtest du BetInsight selbst ausprobieren?</h2>
+                <p>
+                  Erstelle deinen kostenlosen BetInsight-Zugang und starte mit
+                  5 kostenlosen Start-Units.
+                </p>
+
+                <div class="calculator-cta-actions">
+                  <a
+                    id="calculatorBackButton"
+                    class="calculator-action calculator-back"
+                    href="../"
+                    data-preserve-ref
+                  >← Zurück zu BetInsight</a>
+
+                  <a
+                    id="calculatorRegisterButton"
+                    class="calculator-action calculator-register"
+                    href="https://betinsight.systeme.io/registrierung?ref=POOL"
+                    data-registration-link
+                  >Jetzt kostenlos mit 5 Start-Units testen</a>
+                </div>
+              </section>
+
+          """
+
+          text = text.replace(
+              html_marker,
+              cta_html + html_marker,
+              1
+          )
+
+          referral_js = r"""    const REF_STORAGE_KEY = "betinsight_ref_code";
+              const DEFAULT_REF_CODE = "POOL";
+
+              function cleanReferralCode(value) {
+                if (!value) return "";
+                const cleaned = String(value).trim();
+                return /^[A-Za-z0-9_-]{2,50}$/.test(cleaned) ? cleaned : "";
+              }
+
+              function getCookieReferralCode() {
+                const match = document.cookie
+                  .split("; ")
+                  .find(row => row.startsWith(REF_STORAGE_KEY + "="));
+
+                if (!match) return "";
+
+                try {
+                  return cleanReferralCode(
+                    decodeURIComponent(match.split("=").slice(1).join("="))
+                  );
+                } catch (error) {
+                  return "";
+                }
+              }
+
+              function saveReferralCode(refCode) {
+                if (!refCode || refCode === DEFAULT_REF_CODE) return;
+
+                try {
+                  localStorage.setItem(REF_STORAGE_KEY, refCode);
+                } catch (error) {}
+
+                document.cookie =
+                  `${REF_STORAGE_KEY}=${encodeURIComponent(refCode)}; ` +
+                  "Max-Age=15552000; Path=/; SameSite=Lax; Secure";
+              }
+
+              function getActiveReferralCode() {
+                const params = new URLSearchParams(window.location.search);
+
+                const fromUrl = cleanReferralCode(
+                  params.get("ref") || params.get("ref_code")
+                );
+
+                if (fromUrl) {
+                  saveReferralCode(fromUrl);
+                  return fromUrl;
+                }
+
+                let fromStorage = "";
+
+                try {
+                  fromStorage = cleanReferralCode(
+                    localStorage.getItem(REF_STORAGE_KEY)
+                  );
+                } catch (error) {}
+
+                return (
+                  fromStorage ||
+                  getCookieReferralCode() ||
+                  DEFAULT_REF_CODE
+                );
+              }
+
+              const activeReferralCode = getActiveReferralCode();
+
+              document
+                .querySelectorAll("[data-registration-link]")
+                .forEach(link => {
+                  try {
+                    const target = new URL(link.href, window.location.href);
+                    target.searchParams.set("ref", activeReferralCode);
+                    link.href = target.toString();
+                  } catch (error) {}
+                });
+
+              document
+                .querySelectorAll("[data-preserve-ref]")
+                .forEach(link => {
+                  try {
+                    const target = new URL(link.href, window.location.href);
+
+                    if (activeReferralCode !== DEFAULT_REF_CODE) {
+                      target.searchParams.set("ref", activeReferralCode);
+                    } else {
+                      target.searchParams.delete("ref");
+                      target.searchParams.delete("ref_code");
+                    }
+
+                    link.href = target.toString();
+                  } catch (error) {}
+                });
+
+          """
+
+          text = text.replace(
+              js_marker,
+              js_marker + referral_js,
+              1
+          )
+
+          path.write_text(text, encoding="utf-8")
+
+          # Sicherheitsprüfungen nach der Änderung.
+          final_text = path.read_text(encoding="utf-8")
+
+          required_after = [
+              'id="calculatorBackButton"',
+              'id="calculatorRegisterButton"',
+              "https://betinsight.systeme.io/registrierung?ref=POOL",
+              'data-registration-link',
+              'data-preserve-ref',
+              'const REF_STORAGE_KEY = "betinsight_ref_code";',
+              "^[A-Za-z0-9_-]{2,50}$",
+          ]
+
+          for marker in required_after:
+              if marker not in final_text:
+                  print("FEHLER nach Änderung:", marker)
+                  sys.exit(1)
+
+          if final_text.count('id="calculatorRegisterButton"') != 1:
+              print("FEHLER: Registrierungsbutton ist nicht genau einmal vorhanden.")
+              sys.exit(1)
+
+          if final_text.count('id="calculatorBackButton"') != 1:
+              print("FEHLER: Zurück-Button ist nicht genau einmal vorhanden.")
+              sys.exit(1)
+
+          print("OK: Rechner wurde sicher aktualisiert.")
+          PY
+
+      - name: Änderung prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git diff --check
+
+          echo "Geänderte Dateien:"
+          git status --short
+
+          CHANGED="$(git status --short | awk '{print $2}')"
+
+          if [ "$CHANGED" != "de/rechner/index.html" ]; then
+            echo "FEHLER: Es wurde mehr als die erlaubte Rechnerdatei verändert."
+            exit 1
+          fi
+
+      - name: Rechner speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "BetInsight Website Builder"
+          git config user.email "actions@github.com"
+
+          git add de/rechner/index.html
+
+          if git diff --cached --quiet; then
+            echo "Keine Änderung notwendig."
+          else
+            git commit -m "Rechner: Navigation und Registrierungs-CTA ergänzen"
+            git push
+          fi
