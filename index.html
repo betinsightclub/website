@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>BetInsight.club</title>
+  <script>
+    (function () {
+      const target =
+        "./de/" +
+        window.location.search +
+        window.location.hash;
+
+      window.location.replace(target);
+    })();
+  </script>
+</head>
+<body>
+  <p>
+    Weiterleitung zu
+    <a id="fallback" href="./de/">BetInsight.club</a>
+  </p>
+
+  <script>
+    document.getElementById("fallback").href =
+      "./de/" +
+      window.location.search +
+      window.location.hash;
+  </script>
+</body>
+</html>
