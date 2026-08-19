@@ -2,7 +2,7 @@
 <!--
 Projekt: BetInsight
 Datei: rechner/index.html
-Version: 2026.07.30-01
+Version: 2026.08.19-02
 Beschreibung: Kundenrechner für Wettentwicklung und Paketverbrauch
 -->
 <html lang="de">
@@ -261,6 +261,73 @@ Beschreibung: Kundenrechner für Wettentwicklung und Paketverbrauch
       box-shadow: 0 10px 24px rgba(0, 174, 255, 0.25);
     }
 
+    .calculator-cta {
+      margin-top: 22px;
+      padding: 24px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--panel-soft), var(--panel-deep));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 15px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .calculator-cta h2 {
+      margin: 0 0 8px;
+      font-size: clamp(21px, 3vw, 27px);
+    }
+
+    .calculator-cta p {
+      max-width: 680px;
+      margin: 0 auto 18px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .calculator-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .calculator-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 800;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .calculator-action:hover {
+      transform: translateY(-2px);
+    }
+
+    .calculator-back {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .calculator-back:hover {
+      border-color: rgba(22, 199, 243, 0.55);
+    }
+
+    .calculator-register {
+      color: #fff;
+      border: 1px solid transparent;
+      background: linear-gradient(90deg, #168aff, #006fe6);
+      box-shadow: 0 10px 24px rgba(0, 132, 255, 0.27);
+    }
+
+    .calculator-register:hover {
+      box-shadow: 0 14px 30px rgba(0, 132, 255, 0.38);
+    }
+
     .disclaimer {
       margin: 20px 0 0;
       padding: 14px 16px;
@@ -288,6 +355,9 @@ Beschreibung: Kundenrechner für Wettentwicklung und Paketverbrauch
       .panel { padding: 15px; }
       .mode-switch { grid-template-columns: 1fr; }
       .totals { grid-template-columns: 1fr; }
+      .calculator-cta { padding: 20px 15px; }
+      .calculator-cta-actions { display: grid; }
+      .calculator-action { width: 100%; }
     }
   </style>
 </head>
@@ -481,6 +551,15 @@ Beschreibung: Kundenrechner für Wettentwicklung und Paketverbrauch
     <div class="footer-actions">
       <button id="resetButton" class="reset-button" type="button">Berechnung zurücksetzen</button>
     </div>
+
+    <section class="calculator-cta" aria-labelledby="calculator-cta-title">
+      <h2 id="calculator-cta-title">Möchtest du BetInsight selbst ausprobieren?</h2>
+      <p>Erstelle deinen kostenlosen BetInsight-Zugang und starte mit 5 kostenlosen Start-Units.</p>
+      <div class="calculator-cta-actions">
+        <a id="calculatorBackButton" class="calculator-action calculator-back" href="../">← Zurück zu BetInsight</a>
+        <a id="calculatorRegisterButton" class="calculator-action calculator-register" href="https://betinsight.systeme.io/registrierung?ref=POOL">Jetzt kostenlos mit 5 Start-Units testen</a>
+      </div>
+    </section>
 
     <p class="disclaimer">
       Hinweis: Dies ist eine mathematische Simulation und keine Gewinnzusage oder Wettberatung.
@@ -691,6 +770,60 @@ Beschreibung: Kundenrechner für Wettentwicklung und Paketverbrauch
     });
 
     document.getElementById("resetButton").addEventListener("click", reset);
+
+    const REF_STORAGE_KEY = "betinsight_ref_code";
+    const DEFAULT_REF_CODE = "POOL";
+
+    function cleanReferralCode(value) {
+      if (!value) return "";
+      const cleaned = String(value).trim();
+      return /^[A-Za-z0-9_-]{2,50}$/.test(cleaned) ? cleaned : "";
+    }
+
+    function getCalculatorReferralCode() {
+      const params = new URLSearchParams(window.location.search);
+      const fromUrl = cleanReferralCode(params.get("ref") || params.get("ref_code"));
+
+      if (fromUrl) {
+        try {
+          localStorage.setItem(REF_STORAGE_KEY, fromUrl);
+        } catch (error) {}
+
+        return fromUrl;
+      }
+
+      try {
+        return cleanReferralCode(
+          localStorage.getItem(REF_STORAGE_KEY)
+        ) || DEFAULT_REF_CODE;
+      } catch (error) {
+        return DEFAULT_REF_CODE;
+      }
+    }
+
+    function updateCalculatorLinks() {
+      const refCode = getCalculatorReferralCode();
+      const backButton = document.getElementById("calculatorBackButton");
+      const registerButton = document.getElementById("calculatorRegisterButton");
+
+      if (backButton) {
+        const backUrl = new URL("../", window.location.href);
+
+        if (refCode !== DEFAULT_REF_CODE) {
+          backUrl.searchParams.set("ref", refCode);
+        }
+
+        backButton.href = backUrl.toString();
+      }
+
+      if (registerButton) {
+        const registerUrl = new URL("https://betinsight.systeme.io/registrierung");
+        registerUrl.searchParams.set("ref", refCode);
+        registerButton.href = registerUrl.toString();
+      }
+    }
+
+    updateCalculatorLinks();
 
     simulate();
   </script>
