@@ -1,0 +1,204 @@
+name: BetInsight EN Rechner erstellen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Website laden
+        uses: actions/checkout@v6
+
+      - name: Python-Datei prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+
+          path = Path(
+              ".github/scripts/create_en_rechner.py"
+          )
+
+          if not path.exists():
+              raise SystemExit(
+                  "FEHLER: create_en_rechner.py fehlt."
+              )
+
+          source = path.read_text(
+              encoding="utf-8"
+          )
+
+          ast.parse(
+              source,
+              filename=str(path)
+          )
+
+          print(
+              "OK: Python-Syntax ist gültig."
+          )
+          PY
+
+      - name: Englischen Rechner erstellen
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          DE_HASH_BEFORE="$(
+            sha256sum de/rechner/index.html |
+            awk '{print $1}'
+          )"
+
+          python3 \
+            .github/scripts/create_en_rechner.py
+
+          DE_HASH_AFTER="$(
+            sha256sum de/rechner/index.html |
+            awk '{print $1}'
+          )"
+
+          if [ "$DE_HASH_BEFORE" != "$DE_HASH_AFTER" ]; then
+            echo "FEHLER: Deutscher Rechner wurde verändert."
+            exit 1
+          fi
+
+          echo "OK: Deutscher Rechner ist unverändert."
+
+      - name: Änderungen kontrollieren
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f en/rechner/index.html
+
+          git diff --check -- en/index.html
+
+          echo "Geänderte Dateien:"
+          git status \
+            --short \
+            --untracked-files=all
+
+          ALLOWED_FILES=(
+            "en/index.html"
+            "en/rechner/index.html"
+          )
+
+          while read -r FILE
+          do
+            [ -z "$FILE" ] && continue
+
+            ALLOWED="false"
+
+            for ALLOWED_FILE in \
+              "${ALLOWED_FILES[@]}"
+            do
+              if [ "$FILE" = "$ALLOWED_FILE" ]; then
+                ALLOWED="true"
+                break
+              fi
+            done
+
+            if [ "$ALLOWED" != "true" ]; then
+              echo \
+                "FEHLER: Unerwartete Datei verändert: $FILE"
+              exit 1
+            fi
+
+          done < <(
+            git status \
+              --short \
+              --untracked-files=all |
+            awk '{print $2}'
+          )
+
+          grep -q \
+            '<html lang="en">' \
+            en/rechner/index.html
+
+          grep -q \
+            'BetInsight Betting Calculator' \
+            en/rechner/index.html
+
+          grep -q \
+            'Starting bankroll' \
+            en/rechner/index.html
+
+          grep -q \
+            'Unit and package costs' \
+            en/rechner/index.html
+
+          grep -q \
+            'Start free with 5 starter units' \
+            en/rechner/index.html
+
+          grep -q \
+            'betinsight_ref_code' \
+            en/rechner/index.html
+
+          if grep -q \
+            'BetInsight Kundenrechner' \
+            en/rechner/index.html
+          then
+            echo \
+              "FEHLER: Deutscher Resttext im EN-Rechner."
+            exit 1
+          fi
+
+          if grep -q \
+            '../de/rechner/' \
+            en/index.html
+          then
+            echo \
+              "FEHLER: EN-Landingpage zeigt noch auf DE-Rechner."
+            exit 1
+          fi
+
+          LINK_COUNT="$(
+            grep -o \
+              'href="../en/rechner/"' \
+              en/index.html |
+            wc -l |
+            tr -d ' '
+          )"
+
+          if [ "$LINK_COUNT" != "3" ]; then
+            echo \
+              "FEHLER: Erwartet 3 EN-Rechnerlinks, gefunden: $LINK_COUNT"
+            exit 1
+          fi
+
+          echo \
+            "OK: Englischer Rechner und Landingpage geprüft."
+
+      - name: Englischen Rechner speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config \
+            user.name \
+            "BetInsight Website Builder"
+
+          git config \
+            user.email \
+            "actions@github.com"
+
+          git add \
+            en/index.html \
+            en/rechner/index.html
+
+          if git diff --cached --quiet; then
+            echo "Keine Änderung notwendig."
+          else
+            git commit \
+              -m "Website: englischen Rechner erstellen"
+
+            git push
+          fi
