@@ -1,0 +1,96 @@
+name: BetInsight EN Legal Pages link
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v6
+
+      - name: Check Python file
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+
+          path = Path(".github/scripts/update_en_legal.py")
+          if not path.exists():
+              raise SystemExit("ERROR: update_en_legal.py missing.")
+
+          ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+          print("OK: Python syntax valid.")
+          PY
+
+      - name: Link English legal pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/update_en_legal.py
+
+      - name: Validate changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f en/privacy/index.html
+          test -f en/terms/index.html
+          test -f en/legal-notice/index.html
+
+          git diff --check
+
+          echo "Changed files:"
+          git status --short --untracked-files=all
+
+          while read -r FILE
+          do
+            [ -z "$FILE" ] && continue
+            if [ "$FILE" != "en/index.html" ]; then
+              echo "ERROR: unexpected modified file: $FILE"
+              exit 1
+            fi
+          done < <(
+            git status --short --untracked-files=all |
+            awk '{print $2}'
+          )
+
+          grep -q 'href="./terms/"' en/index.html
+          grep -q 'href="./privacy/"' en/index.html
+          grep -q 'href="./legal-notice/"' en/index.html
+
+          if grep -q 'https://betinsight.systeme.io/agbs' en/index.html; then
+            echo "ERROR: old Terms link remains."
+            exit 1
+          fi
+
+          if grep -q 'https://betinsight.systeme.io/datenschutz' en/index.html; then
+            echo "ERROR: old Privacy link remains."
+            exit 1
+          fi
+
+          echo "OK: English legal pages linked."
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "BetInsight Website Builder"
+          git config user.email "actions@github.com"
+
+          git add en/index.html
+
+          if git diff --cached --quiet; then
+            echo "No change necessary."
+          else
+            git commit -m "Website: link English legal pages"
+            git push
+          fi
