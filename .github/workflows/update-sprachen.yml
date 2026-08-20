@@ -18,12 +18,37 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m py_compile .github/scripts/update_sprachen.py
+
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+
+          path = Path(".github/scripts/update_sprachen.py")
+
+          if not path.exists():
+              raise SystemExit(
+                  "FEHLER: update_sprachen.py fehlt."
+              )
+
+          source = path.read_text(
+              encoding="utf-8"
+          )
+
+          ast.parse(
+              source,
+              filename=str(path)
+          )
+
+          print(
+              "OK: Python-Syntax ist gültig."
+          )
+          PY
 
       - name: Sprachsteuerung vorbereiten
         shell: bash
         run: |
           set -euo pipefail
+
           python3 .github/scripts/update_sprachen.py
 
       - name: Änderungen kontrollieren
@@ -61,6 +86,7 @@ jobs:
               echo "FEHLER: Unerwartete Datei verändert: $FILE"
               exit 1
             fi
+
           done < <(
             git status --short |
             awk '{print $2}'
