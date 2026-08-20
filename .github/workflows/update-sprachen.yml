@@ -1,0 +1,113 @@
+name: BetInsight DE EN Sprachsteuerung
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Website laden
+        uses: actions/checkout@v6
+
+      - name: Python-Datei prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile .github/scripts/update_sprachen.py
+
+      - name: Sprachsteuerung vorbereiten
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/update_sprachen.py
+
+      - name: Änderungen kontrollieren
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git diff --check
+
+          echo "Geänderte Dateien:"
+          git status --short
+
+          ALLOWED_FILES=(
+            "index.html"
+            "de/index.html"
+            "en/index.html"
+            "assets/language-switch.js"
+          )
+
+          while read -r FILE
+          do
+            [ -z "$FILE" ] && continue
+
+            ALLOWED="false"
+
+            for ALLOWED_FILE in "${ALLOWED_FILES[@]}"
+            do
+              if [ "$FILE" = "$ALLOWED_FILE" ]; then
+                ALLOWED="true"
+                break
+              fi
+            done
+
+            if [ "$ALLOWED" != "true" ]; then
+              echo "FEHLER: Unerwartete Datei verändert: $FILE"
+              exit 1
+            fi
+          done < <(
+            git status --short |
+            awk '{print $2}'
+          )
+
+          grep -q \
+            'language-switch.js' \
+            de/index.html
+
+          grep -q \
+            'language-switch.js' \
+            en/index.html
+
+          grep -q \
+            'betinsight_language' \
+            assets/language-switch.js
+
+          grep -q \
+            'betinsight_ref_code' \
+            assets/language-switch.js
+
+          echo "OK: Änderungen wurden geprüft."
+
+      - name: Sprachsteuerung speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config \
+            user.name \
+            "BetInsight Website Builder"
+
+          git config \
+            user.email \
+            "actions@github.com"
+
+          git add \
+            index.html \
+            de/index.html \
+            en/index.html \
+            assets/language-switch.js
+
+          if git diff --cached --quiet; then
+            echo "Keine Änderung notwendig."
+          else
+            git commit \
+              -m "Website: DE EN Sprachsteuerung aktivieren"
+
+            git push
+          fi
