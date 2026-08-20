@@ -1,0 +1,542 @@
+from pathlib import Path
+import sys
+
+ROOT = Path("index.html")
+DE = Path("de/index.html")
+EN = Path("en/index.html")
+ASSET_DIR = Path("assets")
+LANGUAGE_JS = ASSET_DIR / "language-switch.js"
+
+for path in (ROOT, DE, EN):
+    if not path.exists():
+        sys.exit(f"FEHLER: Pflichtdatei fehlt: {path}")
+
+ASSET_DIR.mkdir(exist_ok=True)
+
+root_html = """<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>BetInsight.club</title>
+
+  <script>
+    (function () {
+      const LANGUAGE_KEY = "betinsight_language";
+      const SUPPORTED = ["de", "en"];
+
+      function cleanLanguage(value) {
+        const language = String(value || "")
+          .trim()
+          .toLowerCase()
+          .split("-")[0];
+
+        return SUPPORTED.includes(language)
+          ? language
+          : "";
+      }
+
+      function savedLanguage() {
+        try {
+          return cleanLanguage(
+            localStorage.getItem(LANGUAGE_KEY)
+          );
+        } catch (error) {
+          return "";
+        }
+      }
+
+      function browserLanguage() {
+        const list = Array.isArray(navigator.languages)
+          ? navigator.languages
+          : [navigator.language];
+
+        for (const value of list) {
+          const language = cleanLanguage(value);
+
+          if (language) {
+            return language;
+          }
+        }
+
+        return "de";
+      }
+
+      const params =
+        new URLSearchParams(window.location.search);
+
+      const requested =
+        cleanLanguage(params.get("lang"));
+
+      const language =
+        requested ||
+        savedLanguage() ||
+        browserLanguage() ||
+        "de";
+
+      if (requested) {
+        try {
+          localStorage.setItem(
+            LANGUAGE_KEY,
+            requested
+          );
+        } catch (error) {}
+
+        params.delete("lang");
+      }
+
+      const query = params.toString();
+
+      const target =
+        "./" +
+        language +
+        "/" +
+        (query ? "?" + query : "") +
+        window.location.hash;
+
+      window.location.replace(target);
+    })();
+  </script>
+</head>
+
+<body>
+  <p>
+    Weiterleitung zu BetInsight …
+    <a id="fallbackDe" href="./de/">Deutsch</a>
+    ·
+    <a id="fallbackEn" href="./en/">English</a>
+  </p>
+
+  <script>
+    (function () {
+      const params =
+        new URLSearchParams(window.location.search);
+
+      params.delete("lang");
+
+      const query = params.toString();
+
+      const suffix =
+        (query ? "?" + query : "") +
+        window.location.hash;
+
+      document.getElementById("fallbackDe").href =
+        "./de/" + suffix;
+
+      document.getElementById("fallbackEn").href =
+        "./en/" + suffix;
+    })();
+  </script>
+</body>
+</html>
+"""
+
+language_js = r"""(() => {
+  "use strict";
+
+  const LANGUAGE_KEY = "betinsight_language";
+  const REF_STORAGE_KEY = "betinsight_ref_code";
+  const DEFAULT_REF_CODE = "POOL";
+  const SUPPORTED = ["de", "en"];
+
+  function cleanLanguage(value) {
+    const language = String(value || "")
+      .trim()
+      .toLowerCase()
+      .split("-")[0];
+
+    return SUPPORTED.includes(language)
+      ? language
+      : "";
+  }
+
+  function cleanReferral(value) {
+    const referral = String(value || "").trim();
+
+    return /^[A-Za-z0-9_-]{2,50}$/.test(referral)
+      ? referral
+      : "";
+  }
+
+  function currentLanguage() {
+    const htmlLanguage =
+      cleanLanguage(document.documentElement.lang);
+
+    if (htmlLanguage) {
+      return htmlLanguage;
+    }
+
+    const parts = window.location.pathname
+      .split("/")
+      .filter(Boolean);
+
+    for (const part of parts) {
+      const language = cleanLanguage(part);
+
+      if (language) {
+        return language;
+      }
+    }
+
+    return "de";
+  }
+
+  function getCookieReferral() {
+    const prefix = REF_STORAGE_KEY + "=";
+
+    const row = document.cookie
+      .split("; ")
+      .find(item => item.startsWith(prefix));
+
+    if (!row) {
+      return "";
+    }
+
+    try {
+      return cleanReferral(
+        decodeURIComponent(
+          row.substring(prefix.length)
+        )
+      );
+    } catch (error) {
+      return "";
+    }
+  }
+
+  function saveReferral(referral) {
+    if (
+      !referral ||
+      referral === DEFAULT_REF_CODE
+    ) {
+      return;
+    }
+
+    try {
+      localStorage.setItem(
+        REF_STORAGE_KEY,
+        referral
+      );
+    } catch (error) {}
+
+    document.cookie =
+      REF_STORAGE_KEY +
+      "=" +
+      encodeURIComponent(referral) +
+      "; Max-Age=15552000; Path=/; SameSite=Lax; Secure";
+  }
+
+  function activeReferral() {
+    const params =
+      new URLSearchParams(window.location.search);
+
+    const fromUrl = cleanReferral(
+      params.get("ref") ||
+      params.get("ref_code")
+    );
+
+    if (fromUrl) {
+      saveReferral(fromUrl);
+      return fromUrl;
+    }
+
+    try {
+      const stored = cleanReferral(
+        localStorage.getItem(REF_STORAGE_KEY)
+      );
+
+      if (stored) {
+        return stored;
+      }
+    } catch (error) {}
+
+    return getCookieReferral() ||
+      DEFAULT_REF_CODE;
+  }
+
+  function saveLanguage(language) {
+    if (!SUPPORTED.includes(language)) {
+      return;
+    }
+
+    try {
+      localStorage.setItem(
+        LANGUAGE_KEY,
+        language
+      );
+    } catch (error) {}
+  }
+
+  function languageUrl(language, referral) {
+    const siteRoot =
+      new URL("../", window.location.href);
+
+    const target =
+      new URL(language + "/", siteRoot);
+
+    const params =
+      new URLSearchParams(window.location.search);
+
+    params.delete("lang");
+    params.delete("ref_code");
+
+    if (
+      referral &&
+      referral !== DEFAULT_REF_CODE
+    ) {
+      params.set("ref", referral);
+    } else {
+      params.delete("ref");
+    }
+
+    target.search = params.toString();
+    target.hash = window.location.hash;
+
+    return target.toString();
+  }
+
+  function addStyles() {
+    if (
+      document.getElementById(
+        "betinsight-language-styles"
+      )
+    ) {
+      return;
+    }
+
+    const style =
+      document.createElement("style");
+
+    style.id =
+      "betinsight-language-styles";
+
+    style.textContent = `
+      .language-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        padding: 4px;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 999px;
+        background: rgba(255,255,255,.035);
+        flex-shrink: 0;
+      }
+
+      .language-switch a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 38px;
+        min-height: 34px;
+        padding: 7px 9px;
+        border-radius: 999px;
+        color: #b8ccd6;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .04em;
+        line-height: 1;
+        transition:
+          color .18s ease,
+          background .18s ease,
+          box-shadow .18s ease;
+      }
+
+      .language-switch a:hover,
+      .language-switch a:focus-visible {
+        color: #fff;
+        background: rgba(105,184,255,.11);
+        outline: none;
+      }
+
+      .language-switch a[aria-current="page"] {
+        color: #fff;
+        background:
+          linear-gradient(
+            135deg,
+            var(--blue, #1687ff),
+            var(--blue-2, #0a69d8)
+          );
+        box-shadow:
+          0 7px 18px rgba(22,135,255,.22);
+      }
+
+      @media (max-width: 720px) {
+        .language-switch {
+          padding: 3px;
+          gap: 2px;
+        }
+
+        .language-switch a {
+          min-width: 34px;
+          min-height: 32px;
+          padding: 6px 7px;
+          font-size: 11px;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  function buildSwitch() {
+    if (
+      document.querySelector(
+        "[data-language-switch]"
+      )
+    ) {
+      return;
+    }
+
+    const navActions =
+      document.querySelector(".nav-actions");
+
+    if (!navActions) {
+      console.warn(
+        "BetInsight: .nav-actions nicht gefunden."
+      );
+      return;
+    }
+
+    const current = currentLanguage();
+    const referral = activeReferral();
+
+    const wrapper =
+      document.createElement("div");
+
+    wrapper.className = "language-switch";
+    wrapper.dataset.languageSwitch = "";
+    wrapper.setAttribute(
+      "aria-label",
+      current === "de"
+        ? "Sprache wählen"
+        : "Choose language"
+    );
+
+    for (const language of SUPPORTED) {
+      const link =
+        document.createElement("a");
+
+      link.href =
+        languageUrl(language, referral);
+
+      link.textContent =
+        language.toUpperCase();
+
+      link.dataset.languageLink = "";
+      link.dataset.lang = language;
+
+      if (language === current) {
+        link.setAttribute(
+          "aria-current",
+          "page"
+        );
+      }
+
+      link.addEventListener(
+        "click",
+        () => saveLanguage(language)
+      );
+
+      wrapper.appendChild(link);
+    }
+
+    navActions.prepend(wrapper);
+  }
+
+  function init() {
+    addStyles();
+    buildSwitch();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      init,
+      { once: true }
+    );
+  } else {
+    init();
+  }
+})();
+"""
+
+ROOT.write_text(
+    root_html,
+    encoding="utf-8"
+)
+
+LANGUAGE_JS.write_text(
+    language_js,
+    encoding="utf-8"
+)
+
+script_tag = (
+    '  <script src="../assets/language-switch.js" '
+    'defer></script>\n'
+)
+
+for path in (DE, EN):
+    text = path.read_text(encoding="utf-8")
+
+    if (
+        "../assets/language-switch.js"
+        in text
+    ):
+        continue
+
+    if "</body>" not in text:
+        sys.exit(
+            f"FEHLER: </body> fehlt in {path}"
+        )
+
+    text = text.replace(
+        "</body>",
+        script_tag + "</body>",
+        1
+    )
+
+    path.write_text(
+        text,
+        encoding="utf-8"
+    )
+
+for path in (ROOT, DE, EN, LANGUAGE_JS):
+    if not path.exists():
+        sys.exit(
+            f"FEHLER nach Verarbeitung: {path}"
+        )
+
+for path in (DE, EN):
+    content = path.read_text(
+        encoding="utf-8"
+    )
+
+    if (
+        content.count(
+            "../assets/language-switch.js"
+        ) != 1
+    ):
+        sys.exit(
+            f"FEHLER: Sprachscript in {path} "
+            "nicht genau einmal vorhanden."
+        )
+
+asset_content = LANGUAGE_JS.read_text(
+    encoding="utf-8"
+)
+
+for marker in (
+    'const SUPPORTED = ["de", "en"];',
+    "languageSwitch",
+    "betinsight_language",
+    "betinsight_ref_code",
+):
+    if marker not in asset_content:
+        sys.exit(
+            f"FEHLER: JS-Prüfpunkt fehlt: {marker}"
+        )
+
+print(
+    "OK: DE/EN-Sprachsteuerung vorbereitet."
+)
