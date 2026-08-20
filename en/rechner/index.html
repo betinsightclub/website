@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<!--
+Projekt: BetInsight
+Datei: rechner/index.html
+Version: 2026.08.20-EN-01
+Description: Betting calculator for bankroll development and unit usage
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BetInsight calculator for a non-binding simulation of betting bankroll development and unit usage.">
+  <title>BetInsight Betting Calculator</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg-1: #061923;
+      --bg-2: #071d2b;
+      --bg-3: #04131c;
+      --panel: rgba(11, 37, 53, 0.96);
+      --panel-soft: rgba(15, 45, 63, 0.94);
+      --panel-deep: rgba(7, 29, 42, 0.98);
+      --border: rgba(80, 168, 214, 0.24);
+      --border-strong: rgba(0, 217, 166, 0.40);
+      --text: #ffffff;
+      --text-soft: #c9e6f4;
+      --text-muted: #84a9bc;
+      --blue: #1d9bf0;
+      --cyan: #16c7f3;
+      --green: #11d6a0;
+      --green-dark: #08aa7e;
+      --orange: #f1a313;
+      --red: #e96868;
+      --yellow: #ffcf33;
+    }
+
+    html { min-height: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(0, 200, 255, 0.11), transparent 34%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 48%, var(--bg-3) 100%);
+    }
+
+    button, input, select { font: inherit; }
+
+    .page {
+      width: min(1240px, 100%);
+      margin: 0 auto;
+      padding: 24px 22px 70px;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 18px 20px;
+      background: rgba(8, 31, 45, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+    }
+
+    .logo {
+      width: 118px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    h1 { margin: 0; font-size: clamp(24px, 4vw, 32px); }
+    .subtitle { margin: 6px 0 0; color: var(--text-muted); line-height: 1.45; }
+
+    .panel {
+      padding: 20px;
+      background: linear-gradient(180deg, var(--panel-soft), var(--panel));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 15px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .panel h2 { margin: 0 0 6px; font-size: 21px; }
+    .panel-note { margin: 0 0 17px; color: var(--text-muted); font-size: 13px; }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin: 0 0 7px;
+      color: var(--text-soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 11px;
+      outline: none;
+    }
+
+    .field input:focus, .field select:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(22, 199, 243, 0.12);
+    }
+
+    .field select option { color: #08202d; background: #fff; }
+
+    .input-error {
+      min-height: 17px;
+      margin-top: 5px;
+      color: var(--red);
+      font-size: 12px;
+    }
+
+    .mode-wrap { grid-column: span 2; }
+
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      padding: 4px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+    }
+
+    .mode-button {
+      min-height: 38px;
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 9px;
+      color: var(--text-muted);
+      background: transparent;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .mode-button.active {
+      color: #fff;
+      background: linear-gradient(90deg, var(--green-dark), var(--green));
+      box-shadow: 0 5px 16px rgba(17, 214, 160, 0.22);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .summary-card {
+      padding: 17px;
+      background: rgba(7, 29, 42, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .summary-card.primary { border-color: var(--border-strong); }
+    .summary-card.expense { border-color: rgba(241, 163, 19, 0.45); }
+    .summary-label { display: block; color: var(--text-muted); font-size: 12px; font-weight: 700; }
+    .summary-value { display: block; margin-top: 7px; font-size: clamp(21px, 3vw, 28px); font-weight: 900; }
+    .summary-detail { display: block; margin-top: 5px; color: var(--text-soft); font-size: 12px; }
+    .green { color: var(--green); }
+    .cyan { color: var(--cyan); }
+    .orange { color: var(--orange); }
+    .yellow { color: var(--yellow); }
+
+    .tables {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 18px;
+    }
+
+    .table-scroll {
+      max-height: 660px;
+      overflow: auto;
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding: 11px 9px;
+      color: var(--text-soft);
+      background: #0a2939;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    th:first-child, td:first-child { text-align: center; }
+
+    td {
+      padding: 10px 9px;
+      text-align: right;
+      border-top: 1px solid rgba(255, 255, 255, 0.065);
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.022); }
+    tbody tr:hover { background: rgba(22, 199, 243, 0.06); }
+
+    .totals {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .total-box {
+      padding: 13px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .total-box span { display: block; color: var(--text-muted); font-size: 12px; }
+    .total-box strong { display: block; margin-top: 5px; font-size: 18px; }
+
+    .footer-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .reset-button {
+      min-height: 46px;
+      padding: 11px 24px;
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(90deg, #168aff, #00b8ff);
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0, 174, 255, 0.25);
+    }
+
+    .calculator-cta {
+      margin-top: 22px;
+      padding: 24px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--panel-soft), var(--panel-deep));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 15px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .calculator-cta h2 {
+      margin: 0 0 8px;
+      font-size: clamp(21px, 3vw, 27px);
+    }
+
+    .calculator-cta p {
+      max-width: 680px;
+      margin: 0 auto 18px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .calculator-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .calculator-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 800;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .calculator-action:hover {
+      transform: translateY(-2px);
+    }
+
+    .calculator-back {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .calculator-back:hover {
+      border-color: rgba(22, 199, 243, 0.55);
+    }
+
+    .calculator-register {
+      color: #fff;
+      border: 1px solid transparent;
+      background: linear-gradient(90deg, #168aff, #006fe6);
+      box-shadow: 0 10px 24px rgba(0, 132, 255, 0.27);
+    }
+
+    .calculator-register:hover {
+      box-shadow: 0 14px 30px rgba(0, 132, 255, 0.38);
+    }
+
+    .disclaimer {
+      margin: 20px 0 0;
+      padding: 14px 16px;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1000px) {
+      .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tables { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .page { padding: 14px 12px 50px; }
+      .header { grid-template-columns: 82px 1fr; padding: 15px; gap: 13px; }
+      .logo { width: 82px; }
+      .controls { grid-template-columns: 1fr; }
+      .mode-wrap { grid-column: auto; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .panel { padding: 15px; }
+      .mode-switch { grid-template-columns: 1fr; }
+      .totals { grid-template-columns: 1fr; }
+      .calculator-cta { padding: 20px 15px; }
+      .calculator-cta-actions { display: grid; }
+      .calculator-action { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <img
+        class="logo"
+        src="../../assets/betinsight-logo.png"
+        alt="BetInsight Club Logo"
+        width="118"
+        height="118"
+      >
+      <div>
+        <h1>BetInsight Betting Calculator</h1>
+        <p class="subtitle">Simulate your betting bankroll development and see separately how many packages and units are required.</p>
+      </div>
+    </header>
+
+    <section class="panel" aria-labelledby="settings-title">
+      <h2 id="settings-title">Your settings</h2>
+      <p class="panel-note">Only these fields can be changed. All results below are calculated automatically.</p>
+
+      <div class="controls">
+        <div class="field">
+          <label for="startCapital">Starting bankroll (minimum €100)</label>
+          <input id="startCapital" type="number" min="100" step="10" value="1000" inputmode="decimal">
+          <div id="capitalError" class="input-error" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <label for="tipUnits">Tip cost / stake</label>
+          <select id="tipUnits">
+            <option value="3">3 Units = 3 %</option>
+            <option value="5">5 Units = 5 %</option>
+            <option value="8">8 Units = 8 %</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="odds">Average odds</label>
+          <select id="odds">
+            <option value="1.7">1.70</option>
+            <option value="1.8" selected>1.80</option>
+            <option value="1.9">1.90</option>
+            <option value="2">2.00</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="hitRate">Hit rate</label>
+          <select id="hitRate">
+            <option value="7" selected>7 of 10</option>
+            <option value="8">8 of 10</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="packageKey">Unit package</label>
+          <select id="packageKey">
+            <option value="starter">Starter – 50 Units / 49 €</option>
+            <option value="basic">Basic – 110 Units / 99 €</option>
+            <option value="pro">Pro – 240 Units / 199 €</option>
+            <option value="elite">Elite – 365 Units / 299 €</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="betCount">Number of bets</label>
+          <select id="betCount"></select>
+        </div>
+
+        <div class="field mode-wrap">
+          <label>Profit handling</label>
+          <div class="mode-switch" role="group" aria-label="Profit handling">
+            <button class="mode-button active" type="button" data-mode="reinvest" aria-pressed="true">Keep profits in bankroll</button>
+            <button class="mode-button" type="button" data-mode="payout" aria-pressed="false">Withdraw profits</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary-grid" aria-label="Overall result">
+      <article class="summary-card primary">
+        <span class="summary-label">Total wealth</span>
+        <strong id="totalWealth" class="summary-value green">–</strong>
+        <span class="summary-detail">Betting bankroll plus profit account</span>
+      </article>
+      <article class="summary-card">
+        <span class="summary-label">Current betting bankroll</span>
+        <strong id="currentCapital" class="summary-value cyan">–</strong>
+        <span class="summary-detail">Bankroll after all selected bets</span>
+      </article>
+      <article class="summary-card">
+        <span class="summary-label">Profit account</span>
+        <strong id="payoutAccount" class="summary-value yellow">–</strong>
+        <span id="payoutStatus" class="summary-detail">Inactive in current mode</span>
+      </article>
+      <article class="summary-card expense">
+        <span class="summary-label">Total package spending</span>
+        <strong id="packageExpenses" class="summary-value orange">–</strong>
+        <span id="packageSummary" class="summary-detail">–</span>
+      </article>
+    </section>
+
+    <section class="tables">
+      <article class="panel">
+        <h2>Betting bankroll development</h2>
+        <p class="panel-note">One stake applies to each individual bet within each block of 10.</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Bets</th>
+                <th>Bankroll before</th>
+                <th>Stake per bet</th>
+                <th>Block profit</th>
+                <th>Bankroll after</th>
+                <th>Profit account</th>
+              </tr>
+            </thead>
+            <tbody id="betTableBody"></tbody>
+          </table>
+        </div>
+        <div class="totals">
+          <div class="total-box">
+            <span>Total bankroll deposits</span>
+            <strong id="capitalDeposits">–</strong>
+          </div>
+          <div class="total-box">
+            <span>Total betting profit</span>
+            <strong id="totalBetProfit" class="green">–</strong>
+          </div>
+          <div class="total-box">
+            <span>Bankroll + profits</span>
+            <strong id="leftGrandTotal" class="cyan">–</strong>
+          </div>
+          <div class="total-box">
+            <span>Profit versus deposits</span>
+            <strong id="profitPercent">–</strong>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Unit and package costs</h2>
+        <p class="panel-note">A new full package is automatically included as soon as the available units are insufficient.</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Bets</th>
+                <th>Units used</th>
+                <th>Packages purchased</th>
+                <th>Units remaining</th>
+                <th>Total spending</th>
+              </tr>
+            </thead>
+            <tbody id="costTableBody"></tbody>
+          </table>
+        </div>
+        <div class="totals">
+          <div class="total-box">
+            <span>Price per package</span>
+            <strong id="packagePrice">–</strong>
+          </div>
+          <div class="total-box">
+            <span>Price per unit</span>
+            <strong id="unitPrice">–</strong>
+          </div>
+          <div class="total-box">
+            <span>Total packages</span>
+            <strong id="totalPackages">–</strong>
+          </div>
+          <div class="total-box">
+            <span>Total spending</span>
+            <strong id="rightGrandTotal" class="orange">–</strong>
+          </div>
+          <div class="total-box">
+            <span>Total units purchased</span>
+            <strong id="unitsPurchased">–</strong>
+          </div>
+          <div class="total-box">
+            <span>Units remaining after simulation</span>
+            <strong id="unitsRemaining" class="green">–</strong>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="footer-actions">
+      <button id="resetButton" class="reset-button" type="button">Reset calculation</button>
+    </div>
+
+    <section class="calculator-cta" aria-labelledby="calculator-cta-title">
+      <h2 id="calculator-cta-title">Would you like to try BetInsight yourself?</h2>
+      <p>Create your free BetInsight account and start with 5 free starter units.</p>
+      <div class="calculator-cta-actions">
+        <a id="calculatorBackButton" class="calculator-action calculator-back" href="../">← Back to BetInsight</a>
+        <a id="calculatorRegisterButton" class="calculator-action calculator-register" href="https://betinsight.systeme.io/registrierung?ref=POOL">Start free with 5 starter units</a>
+      </div>
+    </section>
+
+    <p class="disclaimer">
+      Note: This is a mathematical simulation and not a guarantee of profit or betting advice.
+      The calculation assumes exactly the selected number of winning bets and constant odds in every block of 10.
+      Actual results, odds, betting limits and risks can differ significantly. Gambling can be addictive.
+    </p>
+  </main>
+
+  <script>
+    "use strict";
+
+    const packages = Object.freeze({
+      starter: { name: "Starter", units: 50, price: 49 },
+      basic:   { name: "Basic", units: 110, price: 99 },
+      pro:     { name: "Pro", units: 240, price: 199 },
+      elite:   { name: "Elite", units: 365, price: 299 }
+    });
+
+    const defaults = Object.freeze({
+      startCapital: 1000,
+      tipUnits: "3",
+      odds: "1.8",
+      hitRate: "7",
+      packageKey: "starter",
+      betCount: "100",
+      mode: "reinvest"
+    });
+
+    const elements = {
+      startCapital: document.getElementById("startCapital"),
+      tipUnits: document.getElementById("tipUnits"),
+      odds: document.getElementById("odds"),
+      hitRate: document.getElementById("hitRate"),
+      packageKey: document.getElementById("packageKey"),
+      betCount: document.getElementById("betCount"),
+      capitalError: document.getElementById("capitalError"),
+      betTableBody: document.getElementById("betTableBody"),
+      costTableBody: document.getElementById("costTableBody")
+    };
+
+    let mode = defaults.mode;
+
+    const euro = new Intl.NumberFormat("en-GB", {
+      style: "currency",
+      currency: "EUR",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    const number = new Intl.NumberFormat("en-GB", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    });
+
+    function fillBetCountOptions() {
+      const fragment = document.createDocumentFragment();
+      for (let count = 10; count <= 1000; count += 10) {
+        const option = document.createElement("option");
+        option.value = String(count);
+        option.textContent = count + " bets";
+        if (count === 100) option.selected = true;
+        fragment.appendChild(option);
+      }
+      elements.betCount.appendChild(fragment);
+    }
+
+    function readStartCapital() {
+      const value = Number.parseFloat(elements.startCapital.value);
+      if (!Number.isFinite(value) || value < 100) {
+        elements.capitalError.textContent = "Please enter at least €100.";
+        return 100;
+      }
+      elements.capitalError.textContent = "";
+      return value;
+    }
+
+    function setText(id, value) {
+      document.getElementById(id).textContent = value;
+    }
+
+    function createCell(value, className = "") {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      if (className) cell.className = className;
+      return cell;
+    }
+
+    function simulate() {
+      const startCapital = readStartCapital();
+      const unitCostPerTip = Number(elements.tipUnits.value);
+      const stakeRate = unitCostPerTip / 100;
+      const odds = Number(elements.odds.value);
+      const wins = Number(elements.hitRate.value);
+      const losses = 10 - wins;
+      const totalBets = Number(elements.betCount.value);
+      const selectedPackage = packages[elements.packageKey.value];
+      const blocks = totalBets / 10;
+
+      let capital = startCapital;
+      let payoutAccount = 0;
+      let totalProfit = 0;
+      const capitalDeposits = startCapital;
+
+      const betFragment = document.createDocumentFragment();
+      const costFragment = document.createDocumentFragment();
+
+      for (let block = 1; block <= blocks; block += 1) {
+        const cumulativeBets = block * 10;
+        const capitalBefore = capital;
+        const stakePerBet = capitalBefore * stakeRate;
+        const blockProfit = (wins * stakePerBet * (odds - 1)) - (losses * stakePerBet);
+        totalProfit += blockProfit;
+
+        if (mode === "reinvest") {
+          capital += blockProfit;
+        } else if (blockProfit >= 0) {
+          payoutAccount += blockProfit;
+        } else {
+          capital += blockProfit;
+        }
+
+        const betRow = document.createElement("tr");
+        betRow.append(
+          createCell(number.format(cumulativeBets)),
+          createCell(euro.format(capitalBefore)),
+          createCell(euro.format(stakePerBet)),
+          createCell(euro.format(blockProfit), blockProfit >= 0 ? "green" : "red"),
+          createCell(euro.format(capital)),
+          createCell(euro.format(payoutAccount), "yellow")
+        );
+        betFragment.appendChild(betRow);
+
+        const unitsUsed = cumulativeBets * unitCostPerTip;
+        const packageCount = Math.ceil(unitsUsed / selectedPackage.units);
+        const purchasedUnits = packageCount * selectedPackage.units;
+        const remainingUnits = purchasedUnits - unitsUsed;
+        const expenses = packageCount * selectedPackage.price;
+
+        const costRow = document.createElement("tr");
+        costRow.append(
+          createCell(number.format(cumulativeBets)),
+          createCell(number.format(unitsUsed)),
+          createCell(number.format(packageCount)),
+          createCell(number.format(remainingUnits), "green"),
+          createCell(euro.format(expenses), "orange")
+        );
+        costFragment.appendChild(costRow);
+      }
+
+      elements.betTableBody.replaceChildren(betFragment);
+      elements.costTableBody.replaceChildren(costFragment);
+
+      const totalUnitsUsed = totalBets * unitCostPerTip;
+      const totalPackageCount = Math.ceil(totalUnitsUsed / selectedPackage.units);
+      const totalUnitsPurchased = totalPackageCount * selectedPackage.units;
+      const totalUnitsRemaining = totalUnitsPurchased - totalUnitsUsed;
+      const totalPackageExpenses = totalPackageCount * selectedPackage.price;
+      const totalWealth = capital + payoutAccount;
+      const profitPercent = capitalDeposits > 0 ? (totalProfit / capitalDeposits) * 100 : 0;
+
+      setText("totalWealth", euro.format(totalWealth));
+      setText("currentCapital", euro.format(capital));
+      setText("payoutAccount", euro.format(payoutAccount));
+      setText("payoutStatus", mode === "payout" ? "Accumulated amount available for possible withdrawal" : "Inactive in current mode");
+      setText("packageExpenses", euro.format(totalPackageExpenses));
+      setText("packageSummary", totalPackageCount + " × " + selectedPackage.name + " package");
+
+      setText("capitalDeposits", euro.format(capitalDeposits));
+      setText("totalBetProfit", euro.format(totalProfit));
+      setText("leftGrandTotal", euro.format(totalWealth));
+      setText("profitPercent", number.format(profitPercent) + " %");
+
+      setText("packagePrice", euro.format(selectedPackage.price));
+      setText("unitPrice", euro.format(selectedPackage.price / selectedPackage.units));
+      setText("totalPackages", number.format(totalPackageCount));
+      setText("rightGrandTotal", euro.format(totalPackageExpenses));
+      setText("unitsPurchased", number.format(totalUnitsPurchased));
+      setText("unitsRemaining", number.format(totalUnitsRemaining));
+    }
+
+    function setMode(nextMode) {
+      mode = nextMode;
+      document.querySelectorAll(".mode-button").forEach(button => {
+        const active = button.dataset.mode === mode;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      simulate();
+    }
+
+    function reset() {
+      elements.startCapital.value = defaults.startCapital;
+      elements.tipUnits.value = defaults.tipUnits;
+      elements.odds.value = defaults.odds;
+      elements.hitRate.value = defaults.hitRate;
+      elements.packageKey.value = defaults.packageKey;
+      elements.betCount.value = defaults.betCount;
+      setMode(defaults.mode);
+    }
+
+    fillBetCountOptions();
+
+    [elements.startCapital, elements.tipUnits, elements.odds, elements.hitRate, elements.packageKey, elements.betCount]
+      .forEach(control => control.addEventListener("input", simulate));
+
+    document.querySelectorAll(".mode-button").forEach(button => {
+      button.addEventListener("click", () => setMode(button.dataset.mode));
+    });
+
+    document.getElementById("resetButton").addEventListener("click", reset);
+
+    const REF_STORAGE_KEY = "betinsight_ref_code";
+    const DEFAULT_REF_CODE = "POOL";
+
+    function cleanReferralCode(value) {
+      if (!value) return "";
+      const cleaned = String(value).trim();
+      return /^[A-Za-z0-9_-]{2,50}$/.test(cleaned) ? cleaned : "";
+    }
+
+    function getCalculatorReferralCode() {
+      const params = new URLSearchParams(window.location.search);
+      const fromUrl = cleanReferralCode(params.get("ref") || params.get("ref_code"));
+
+      if (fromUrl) {
+        try {
+          localStorage.setItem(REF_STORAGE_KEY, fromUrl);
+        } catch (error) {}
+
+        return fromUrl;
+      }
+
+      try {
+        return cleanReferralCode(
+          localStorage.getItem(REF_STORAGE_KEY)
+        ) || DEFAULT_REF_CODE;
+      } catch (error) {
+        return DEFAULT_REF_CODE;
+      }
+    }
+
+    function updateCalculatorLinks() {
+      const refCode = getCalculatorReferralCode();
+      const backButton = document.getElementById("calculatorBackButton");
+      const registerButton = document.getElementById("calculatorRegisterButton");
+
+      if (backButton) {
+        const backUrl = new URL("../", window.location.href);
+
+        if (refCode !== DEFAULT_REF_CODE) {
+          backUrl.searchParams.set("ref", refCode);
+        }
+
+        backButton.href = backUrl.toString();
+      }
+
+      if (registerButton) {
+        const registerUrl = new URL("https://betinsight.systeme.io/registrierung");
+        registerUrl.searchParams.set("ref", refCode);
+        registerButton.href = registerUrl.toString();
+      }
+    }
+
+    updateCalculatorLinks();
+
+    simulate();
+  </script>
+</body>
+</html>
