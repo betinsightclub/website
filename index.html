@@ -5,28 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>BetInsight.club</title>
+
   <script>
     (function () {
+      const LANGUAGE_KEY = "betinsight_language";
+      const SUPPORTED = ["de", "en"];
+
+      function cleanLanguage(value) {
+        const language = String(value || "")
+          .trim()
+          .toLowerCase()
+          .split("-")[0];
+
+        return SUPPORTED.includes(language)
+          ? language
+          : "";
+      }
+
+      function savedLanguage() {
+        try {
+          return cleanLanguage(
+            localStorage.getItem(LANGUAGE_KEY)
+          );
+        } catch (error) {
+          return "";
+        }
+      }
+
+      function browserLanguage() {
+        const list = Array.isArray(navigator.languages)
+          ? navigator.languages
+          : [navigator.language];
+
+        for (const value of list) {
+          const language = cleanLanguage(value);
+
+          if (language) {
+            return language;
+          }
+        }
+
+        return "de";
+      }
+
+      const params =
+        new URLSearchParams(window.location.search);
+
+      const requested =
+        cleanLanguage(params.get("lang"));
+
+      const language =
+        requested ||
+        savedLanguage() ||
+        browserLanguage() ||
+        "de";
+
+      if (requested) {
+        try {
+          localStorage.setItem(
+            LANGUAGE_KEY,
+            requested
+          );
+        } catch (error) {}
+
+        params.delete("lang");
+      }
+
+      const query = params.toString();
+
       const target =
-        "./de/" +
-        window.location.search +
+        "./" +
+        language +
+        "/" +
+        (query ? "?" + query : "") +
         window.location.hash;
 
       window.location.replace(target);
     })();
   </script>
 </head>
+
 <body>
   <p>
-    Weiterleitung zu
-    <a id="fallback" href="./de/">BetInsight.club</a>
+    Weiterleitung zu BetInsight …
+    <a id="fallbackDe" href="./de/">Deutsch</a>
+    ·
+    <a id="fallbackEn" href="./en/">English</a>
   </p>
 
   <script>
-    document.getElementById("fallback").href =
-      "./de/" +
-      window.location.search +
-      window.location.hash;
+    (function () {
+      const params =
+        new URLSearchParams(window.location.search);
+
+      params.delete("lang");
+
+      const query = params.toString();
+
+      const suffix =
+        (query ? "?" + query : "") +
+        window.location.hash;
+
+      document.getElementById("fallbackDe").href =
+        "./de/" + suffix;
+
+      document.getElementById("fallbackEn").href =
+        "./en/" + suffix;
+    })();
   </script>
 </body>
 </html>
