@@ -1,0 +1,43 @@
+<!doctype html>
+<!--
+BetInsight öffentlicher Referral-Einstieg
+Pfad: /website/ref/index.html
+Stand: 24.08.2026
+
+Zweck:
+- Öffentlicher Referral-Link unter https://betinsight.club/ref/?ref=CODE
+- Übergibt ausschließlich den öffentlichen Referral-Code an Systeme.io.
+- Keine Profil-UUID, keine Dashboard-Tokens und keine Zugangsdaten werden übertragen.
+-->
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#041823">
+  <title>BetInsight – Registrierung</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const ref = String(params.get("ref") || params.get("ref_code") || "").trim();
+
+      if (ref) {
+        window.location.replace(
+          "https://betinsight.systeme.io/registrierung?ref=" + encodeURIComponent(ref)
+        );
+        return;
+      }
+
+      window.location.replace("https://betinsight.club/");
+    })();
+  </script>
+</head>
+<body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#041823;color:#fff;font-family:Arial,sans-serif;text-align:center;padding:24px;">
+  <main>
+    <h1>BetInsight</h1>
+    <p>Du wirst zur Registrierung weitergeleitet …</p>
+    <p><a href="https://betinsight.club/" style="color:#31d9b0;">Zur BetInsight-Startseite</a></p>
+  </main>
+</body>
+</html>
