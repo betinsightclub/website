@@ -25,12 +25,12 @@ new_legal = '''          <div class="footer-links">
           </div>'''
 
 old_imprint = '''      <div class="imprint" id="impressum">
-        <strong>Impressum:</strong> LucMedia LTDA · Av 33 850 · CEP 14780-192 Barretos, SP · Brasilien · E-Mail:
+        <strong>Impressum:</strong> LucMedia LTDA – em fase de constituição · Av 33 850 · CEP 14780-192 Barretos, SP · Brasilien · E-Mail:
         <a href="mailto:betinsight.club@gmail.com">betinsight.club@gmail.com</a>
       </div>'''
 
 new_imprint = '''      <div class="imprint">
-        <strong>Anbieter:</strong> LucMedia LTDA · Av. 33, 850 · CEP 14780-192 · Barretos – SP · Brasilien ·
+        <strong>Anbieter:</strong> LucMedia LTDA – em fase de constituição · Av. 33, 850 · CEP 14780-192 · Barretos – SP · Brasilien ·
         <a href="./impressum/">Impressum</a> ·
         <a href="mailto:betinsight.club@gmail.com">betinsight.club@gmail.com</a>
       </div>'''
@@ -57,7 +57,7 @@ for required in (
     'href="./agb/"',
     'href="./datenschutz/"',
     'href="./impressum/"',
-    'LucMedia LTDA',
+    'LucMedia LTDA – em fase de constituição',
 ):
     if required not in html:
         sys.exit(f"FEHLER: Neuer Prüfpunkt fehlt: {required}")

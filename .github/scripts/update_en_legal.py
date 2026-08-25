@@ -25,12 +25,12 @@ new_legal = '''          <div class="footer-links">
           </div>'''
 
 old_notice = '''      <div class="imprint" id="impressum">
-        <strong>Legal Notice:</strong> LucMedia LTDA · Av 33 850 · CEP 14780-192 Barretos, SP · Brazil · Email:
+        <strong>Legal Notice:</strong> LucMedia LTDA – em fase de constituição · Av 33 850 · CEP 14780-192 Barretos, SP · Brazil · Email:
         <a href="mailto:betinsight.club@gmail.com">betinsight.club@gmail.com</a>
       </div>'''
 
 new_notice = '''      <div class="imprint">
-        <strong>Provider:</strong> LucMedia LTDA · Av. 33, 850 · CEP 14780-192 · Barretos – SP · Brazil ·
+        <strong>Provider:</strong> LucMedia LTDA – em fase de constituição · Av. 33, 850 · CEP 14780-192 · Barretos – SP · Brazil ·
         <a href="./legal-notice/">Legal Notice</a> ·
         <a href="mailto:betinsight.club@gmail.com">betinsight.club@gmail.com</a>
       </div>'''
@@ -57,7 +57,7 @@ for required in (
     'href="./terms/"',
     'href="./privacy/"',
     'href="./legal-notice/"',
-    'LucMedia LTDA',
+    'LucMedia LTDA – em fase de constituição',
 ):
     if required not in html:
         sys.exit(f"ERROR: required marker missing: {required}")
