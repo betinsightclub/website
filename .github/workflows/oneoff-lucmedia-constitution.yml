@@ -1,0 +1,92 @@
+name: One-off LucMedia company designation update
+
+on:
+  push:
+    paths:
+      - ".github/workflows/oneoff-lucmedia-constitution.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Replace company designation everywhere in tracked text files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+
+          old_pattern = re.compile(r"LucMedia LTDA(?! – em fase de constituição)")
+          replacement = "LucMedia LTDA – em fase de constituição"
+          self_path = Path(".github/workflows/oneoff-lucmedia-constitution.yml")
+
+          tracked = subprocess.check_output(["git", "ls-files", "-z"]).split(b"\0")
+          changed = []
+
+          for raw in tracked:
+              if not raw:
+                  continue
+              path = Path(raw.decode("utf-8"))
+              if path == self_path or not path.is_file():
+                  continue
+              try:
+                  text = path.read_text(encoding="utf-8")
+              except (UnicodeDecodeError, OSError):
+                  continue
+              new_text, count = old_pattern.subn(replacement, text)
+              if count:
+                  path.write_text(new_text, encoding="utf-8")
+                  changed.append((str(path), count))
+
+          if not changed:
+              print("Keine alten Bezeichnungen mehr gefunden.")
+          else:
+              print("Geändert:")
+              for path, count in changed:
+                  print(f"- {path}: {count} Vorkommen")
+
+          remaining = []
+          for raw in tracked:
+              if not raw:
+                  continue
+              path = Path(raw.decode("utf-8"))
+              if path == self_path or not path.is_file():
+                  continue
+              try:
+                  text = path.read_text(encoding="utf-8")
+              except (UnicodeDecodeError, OSError):
+                  continue
+              if old_pattern.search(text):
+                  remaining.append(str(path))
+
+          if remaining:
+              raise SystemExit("Alte Bezeichnung verbleibt in: " + ", ".join(remaining))
+          PY
+
+      - name: Remove one-off workflow and commit changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "BetInsight Website Builder"
+          git config user.email "actions@github.com"
+          git rm .github/workflows/oneoff-lucmedia-constitution.yml
+          git add -A
+          git diff --check
+          echo "Geänderte Dateien:"
+          git status --short
+          if git diff --cached --quiet; then
+            echo "Keine Änderung notwendig."
+            exit 0
+          fi
+          git commit -m "Website: LucMedia Gründungsphase kennzeichnen"
+          git push
