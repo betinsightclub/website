@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- BetInsight Academy · Öffentlicher Bereich · v1.1 · 2026-08-27 -->
+<!-- BetInsight Academy · Öffentlicher Bereich · v1.2 · 2026-08-27 -->
 <html lang="de">
 <head>
   <meta charset="utf-8">
@@ -65,7 +65,7 @@
     .hero p{max-width:720px;margin:0 auto;color:var(--muted);font-size:18px}
     .academy-grid{display:grid;gap:24px;padding:32px 0 78px}
     .lesson{
-      overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+      overflow:hidden;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
       border:1px solid var(--line);border-radius:26px;
       background:linear-gradient(145deg,rgba(10,43,59,.95),rgba(4,25,35,.98));
       box-shadow:var(--shadow);
@@ -74,14 +74,12 @@
       position:relative;min-height:380px;display:grid;place-items:center;padding:24px;
       background:linear-gradient(145deg,#06283a,#051b28);border-right:1px solid var(--line);
     }
-    .preview img{
-      width:100%;max-width:560px;height:auto;border:1px solid rgba(126,211,255,.18);
-      border-radius:18px;box-shadow:0 18px 48px rgba(0,0,0,.35);
+    .video-frame{
+      width:100%;max-width:620px;aspect-ratio:16/9;overflow:hidden;
+      border:1px solid rgba(126,211,255,.24);border-radius:18px;
+      background:#020b10;box-shadow:0 18px 48px rgba(0,0,0,.38);
     }
-    .preview-fallback{
-      display:none;place-items:center;min-height:260px;width:100%;border:1px dashed rgba(126,211,255,.28);
-      border-radius:18px;color:var(--muted);text-align:center;padding:24px;
-    }
+    .video-frame iframe{display:block;width:100%;height:100%;border:0}
     .lesson-body{padding:42px}
     .lesson-number{margin-bottom:12px;color:var(--blue);font-size:12px;font-weight:950;letter-spacing:.13em;text-transform:uppercase}
     .lesson h2{margin:0 0 12px;font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-.03em}
@@ -96,7 +94,6 @@
     }
     .btn-primary{color:#00251a;background:linear-gradient(135deg,#27efb5,#00bd85);box-shadow:0 12px 28px rgba(0,217,155,.20)}
     .btn-secondary{color:#fff;border-color:rgba(22,135,255,.34);background:rgba(22,135,255,.10)}
-    .btn-disabled{color:#8199a6;border-color:rgba(255,255,255,.08);background:rgba(255,255,255,.025);cursor:default}
     .notice{
       margin-top:22px;padding:15px 17px;border:1px solid rgba(247,201,80,.20);border-radius:14px;
       color:#d9d0b2;background:rgba(247,201,80,.045);font-size:13px;
@@ -141,25 +138,29 @@
       <div class="container">
         <div class="eyebrow">🎓 BetInsight Academy · Erste Schritte</div>
         <h1>BetInsight einfach erklärt.</h1>
-        <p>Kurze Anleitungen zum Ansehen und Nachlesen. Starte mit der Registrierung und lerne BetInsight Schritt für Schritt kennen.</p>
+        <p>Kurze Video- und PDF-Anleitungen zum Ansehen und Nachlesen. Starte mit der Registrierung und lerne BetInsight Schritt für Schritt kennen.</p>
       </div>
     </section>
 
     <section class="container academy-grid" aria-label="Academy Lektionen">
       <article class="lesson">
         <div class="preview">
-          <img
-            src="../../assets/academy/betinsight-academy-01-registrierung-vorschau.png"
-            alt="Vorschau der BetInsight PDF-Anleitung Registrierung Schritt für Schritt"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='grid';"
-          >
-          <div class="preview-fallback">Vorschaubild wird nach dem Upload automatisch hier angezeigt.</div>
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/TthBEfLi1ZA?rel=0"
+              title="BetInsight Academy #01 – Registrierung Schritt für Schritt"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
 
         <div class="lesson-body">
           <div class="lesson-number">Lektion 01</div>
           <h2>Registrierung Schritt für Schritt</h2>
-          <p class="lesson-copy">Diese Anleitung zeigt dir den kompletten Einstieg – von der kostenlosen Registrierung bis zum persönlichen BetInsight-Zugang.</p>
+          <p class="lesson-copy">Video und PDF zeigen dir den kompletten Einstieg – von der kostenlosen Registrierung bis zum persönlichen BetInsight-Zugang.</p>
 
           <ul class="points">
             <li>Kostenlos registrieren</li>
@@ -169,12 +170,12 @@
           </ul>
 
           <div class="actions">
+            <a class="btn btn-secondary" href="https://youtu.be/TthBEfLi1ZA" target="_blank" rel="noopener noreferrer">▶ Video auf YouTube öffnen</a>
             <a class="btn btn-primary" href="../../downloads/academy/BetInsight_Academy_Registrierung_Schritt_fuer_Schritt.pdf" download>📄 PDF herunterladen</a>
             <a class="btn btn-secondary" href="../../downloads/academy/BetInsight_Academy_Registrierung_Schritt_fuer_Schritt.pdf" target="_blank" rel="noopener">PDF ansehen</a>
-            <span class="btn btn-disabled" aria-disabled="true">▶ Video-Anleitung folgt</span>
           </div>
 
-          <div class="notice">Hinweis: Die PDF ist eine visuelle Kurzanleitung. Persönliche Zugangsdaten, Tokens oder Passwörter dürfen niemals weitergegeben werden.</div>
+          <div class="notice">Sicherheitshinweis: Persönliche Zugangsdaten, Profil-Links, Tokens oder Passwörter niemals weitergeben oder öffentlich zeigen.</div>
         </div>
       </article>
     </section>
