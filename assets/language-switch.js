@@ -4,6 +4,7 @@
   const LANGUAGE_KEY = "betinsight_language";
   const REF_STORAGE_KEY = "betinsight_ref_code";
   const DEFAULT_REF_CODE = "POOL";
+  const YOUTUBE_URL = "https://www.youtube.com/@betinsightclub";
   const SUPPORTED = ["de", "en"];
 
   function cleanLanguage(value) {
@@ -227,6 +228,50 @@
           0 7px 18px rgba(22,135,255,.22);
       }
 
+      .betinsight-footer-social {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 18px;
+      }
+
+      .betinsight-footer-social-label {
+        color: #718a96;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+      }
+
+      .betinsight-footer-social-link {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: 10px;
+        background: rgba(255,255,255,.035);
+        text-decoration: none;
+        transition:
+          transform .16s ease,
+          border-color .16s ease,
+          background .16s ease;
+      }
+
+      .betinsight-footer-social-link:hover,
+      .betinsight-footer-social-link:focus-visible {
+        transform: translateY(-1px);
+        border-color: rgba(255,80,90,.50);
+        background: rgba(255,0,51,.08);
+        outline: none;
+      }
+
+      .betinsight-footer-social-icon {
+        display: block;
+        width: 20px;
+        height: 20px;
+      }
+
       @media (max-width: 720px) {
         .language-switch {
           padding: 3px;
@@ -238,6 +283,12 @@
           min-height: 32px;
           padding: 6px 7px;
           font-size: 11px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .betinsight-footer-social-link {
+          transition: none;
         }
       }
     `;
@@ -310,9 +361,49 @@
     navActions.prepend(wrapper);
   }
 
+  function buildFooterSocial() {
+    if (document.querySelector("[data-betinsight-footer-social]")) {
+      return;
+    }
+
+    const footerBrand = document.querySelector(
+      ".site-footer .footer-grid > div:first-child"
+    );
+
+    if (!footerBrand) {
+      return;
+    }
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "betinsight-footer-social";
+    wrapper.dataset.betinsightFooterSocial = "";
+
+    const label = document.createElement("span");
+    label.className = "betinsight-footer-social-label";
+    label.textContent = currentLanguage() === "de" ? "Folge uns" : "Follow us";
+
+    const youtube = document.createElement("a");
+    youtube.className = "betinsight-footer-social-link";
+    youtube.href = YOUTUBE_URL;
+    youtube.target = "_blank";
+    youtube.rel = "noopener noreferrer";
+    youtube.setAttribute(
+      "aria-label",
+      currentLanguage() === "de"
+        ? "BetInsight Club auf YouTube öffnen"
+        : "Open BetInsight Club on YouTube"
+    );
+    youtube.title = "BetInsight Club · YouTube";
+    youtube.innerHTML = '<svg class="betinsight-footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.2" width="20" height="13.6" rx="4.2" fill="#ff0033"/><path d="M10 8.7 16 12l-6 3.3Z" fill="#fff"/></svg>';
+
+    wrapper.append(label, youtube);
+    footerBrand.appendChild(wrapper);
+  }
+
   function init() {
     addStyles();
     buildSwitch();
+    buildFooterSocial();
   }
 
   if (document.readyState === "loading") {
