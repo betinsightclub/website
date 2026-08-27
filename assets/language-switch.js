@@ -400,10 +400,35 @@
     footerBrand.appendChild(wrapper);
   }
 
+  function buildFooterAcademyLink() {
+    if (currentLanguage() !== "de") {
+      return;
+    }
+
+    if (document.querySelector("[data-betinsight-academy-link]")) {
+      return;
+    }
+
+    const footerLinks = document.querySelector(
+      ".site-footer .footer-grid > div:nth-child(2) .footer-links"
+    );
+
+    if (!footerLinks) {
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.href = "academy/";
+    link.textContent = "Academy & Hilfe";
+    link.dataset.betinsightAcademyLink = "";
+    footerLinks.appendChild(link);
+  }
+
   function init() {
     addStyles();
     buildSwitch();
     buildFooterSocial();
+    buildFooterAcademyLink();
   }
 
   if (document.readyState === "loading") {
