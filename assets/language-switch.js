@@ -5,6 +5,7 @@
   const REF_STORAGE_KEY = "betinsight_ref_code";
   const DEFAULT_REF_CODE = "POOL";
   const YOUTUBE_URL = "https://www.youtube.com/@betinsightclub";
+  const TELEGRAM_URL = "https://t.me/+iKZj1FvUf4RmMjdh";
   const SUPPORTED = ["de", "en"];
 
   function cleanLanguage(value) {
@@ -396,7 +397,21 @@
     youtube.title = "BetInsight Club · YouTube";
     youtube.innerHTML = '<svg class="betinsight-footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.2" width="20" height="13.6" rx="4.2" fill="#ff0033"/><path d="M10 8.7 16 12l-6 3.3Z" fill="#fff"/></svg>';
 
-    wrapper.append(label, youtube);
+    const telegram = document.createElement("a");
+    telegram.className = "betinsight-footer-social-link betinsight-footer-telegram";
+    telegram.href = TELEGRAM_URL;
+    telegram.target = "_blank";
+    telegram.rel = "noopener noreferrer";
+    telegram.setAttribute(
+      "aria-label",
+      currentLanguage() === "de"
+        ? "BetInsight Club auf Telegram öffnen"
+        : "Open BetInsight Club on Telegram"
+    );
+    telegram.title = "BetInsight Club · Telegram";
+    telegram.innerHTML = '<svg class="betinsight-footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#229ED9"/><path d="M17.8 7.2 15 17.3c-.2.7-.8.9-1.4.5l-4.2-3.1-2 1.9c-.2.2-.4.4-.8.4l.3-4.3 7.8-7c.3-.3-.1-.5-.5-.2l-9.6 6-4.1-1.3c-.9-.3-.9-.9.2-1.3l16-6.2c.8-.3 1.5.2 1.1 1.5Z" fill="#fff" transform="translate(2 2) scale(.83)"/></svg>';
+
+    wrapper.append(label, youtube, telegram);
     footerBrand.appendChild(wrapper);
   }
 
