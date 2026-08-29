@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BetInsight.club · Live Tombola</title>
+<style>
+:root {
+  --bg:#02111a;
+  --panel:#061f2d;
+  --cyan:#2cc8ff;
+  --cyan2:#6ed9ff;
+  --green:#67e33c;
+  --gold:#ffbd37;
+  --gold2:#ffe28a;
+  --text:#f7fbff;
+  --muted:#a8bac7;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  min-height:100vh;
+  background:#000b12;
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+.app {
+  min-height:100vh;
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.stage {
+  width:100%;
+  max-width:1600px;
+  margin:0 auto;
+  aspect-ratio:16/9;
+  min-height:620px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(44,200,255,.45);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(0,30,50,.08) 0 20%, rgba(0,20,35,.68) 52%, rgba(0,8,15,.96) 100%),
+    linear-gradient(180deg,#031521 0%,#03111a 54%,#001019 100%);
+  box-shadow:0 0 0 1px rgba(0,180,255,.10) inset, 0 22px 70px rgba(0,0,0,.45);
+}
+.stage:before {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 25%, rgba(70,190,255,.15), transparent 16%),
+    radial-gradient(circle at 88% 25%, rgba(70,190,255,.15), transparent 16%),
+    radial-gradient(circle at 50% 95%, rgba(0,255,180,.07), transparent 32%);
+}
+.topline {
+  position:absolute;
+  inset:18px 24px auto 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  z-index:30;
+}
+.logo {
+  width:230px;
+  max-width:26vw;
+  filter:drop-shadow(0 0 10px rgba(58,167,255,.22));
+}
+.live {
+  text-align:right;
+  font-size:18px;
+  line-height:1.25;
+}
+.live strong { color:#7cf356; letter-spacing:.08em; }
+.live .dot {
+  display:inline-block;width:10px;height:10px;border-radius:50%;
+  background:#7cf356;box-shadow:0 0 14px #7cf356;margin-right:8px;
+  animation:ledPulse 1.25s infinite;
+}
+@keyframes ledPulse { 0%,100%{opacity:.35} 50%{opacity:1} }
+
+.flood {
+  position:absolute; top:16%; width:18%; height:7%;
+  display:grid; grid-template-columns:repeat(9,1fr); gap:5px;
+  opacity:.88; transform:skewY(-8deg); z-index:2;
+}
+.flood.left { left:1.5%; }
+.flood.right { right:1.5%; transform:scaleX(-1) skewY(-8deg); }
+.flood i {
+  display:block;border-radius:50%;
+  background:#eaf8ff;box-shadow:0 0 8px #82d9ff,0 0 18px #1caeff;
+  animation:stadiumBlink 2.8s infinite ease-in-out;
+}
+.flood i:nth-child(3n) { animation-delay:.35s; }
+.flood i:nth-child(4n) { animation-delay:.85s; }
+@keyframes stadiumBlink {
+  0%,100%{opacity:.62;transform:scale(.88)} 50%{opacity:1;transform:scale(1.12)}
+}
+
+.ledline {
+  position:absolute; left:2%; right:2%; top:57%;
+  height:24px; overflow:hidden; white-space:nowrap;
+  color:#35bfff; opacity:.58; font-weight:800; letter-spacing:.05em;
+  transform:perspective(500px) rotateX(54deg);
+  text-shadow:0 0 9px rgba(0,180,255,.7);
+  z-index:2;
+}
+.ledline span { margin-right:36px; animation:ledText 2.2s infinite alternate; }
+@keyframes ledText { from{opacity:.35} to{opacity:.95} }
+
+.crowd {
+  position:absolute; left:0; right:0; top:34%; bottom:17%;
+  opacity:.34; z-index:1;
+  background-image:
+    radial-gradient(circle,#2db9ff 0 1px,transparent 1.5px),
+    radial-gradient(circle,#7fffd2 0 1px,transparent 1.5px);
+  background-size:18px 18px, 29px 29px;
+  background-position:0 0,9px 13px;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 22%,#000 75%,transparent 100%);
+}
+
+.centerTitle {
+  position:absolute; top:18%; left:50%; transform:translateX(-50%);
+  width:44%; text-align:center; z-index:10; pointer-events:none;
+}
+.trophy { color:var(--gold); font-size:45px; filter:drop-shadow(0 0 15px rgba(255,188,55,.5)); }
+.brandSmall { margin-top:3px; font-size:clamp(18px,2vw,34px); color:#69c9ff; font-weight:900; }
+.title {
+  margin-top:0;
+  font-size:clamp(38px,5vw,78px);
+  font-weight:1000;
+  letter-spacing:.035em;
+  background:linear-gradient(#fff2ad,#ffb62d 55%,#c67900);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 12px rgba(0,0,0,.45));
+}
+.subtitle {
+  margin-top:4px;font-size:clamp(12px,1.15vw,19px);letter-spacing:.28em;color:#eaf4fb;
+}
+.message { margin-top:20px;color:#d9e5ed;font-size:clamp(13px,1.1vw,18px); }
+.message b { display:block;color:#75f048;margin-top:4px; }
+
+.ring {
+  position:absolute; inset:0; z-index:12;
+}
+.nameChip {
+  position:absolute;
+  transform:translate(-50%,-50%);
+  transform-origin:center;
+  min-width:82px;
+  max-width:142px;
+  padding:5px 10px;
+  border:1px solid rgba(56,204,255,.58);
+  border-radius:10px;
+  background:linear-gradient(180deg,rgba(3,32,48,.96),rgba(2,18,29,.95));
+  color:#f8fcff;
+  font-size:clamp(8px,.67vw,12px);
+  font-weight:800;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;
+  box-shadow:0 0 11px rgba(0,188,255,.12);
+  transition:
+    left .35s ease, top .35s ease,
+    transform .16s ease,
+    border-color .16s ease,
+    background .16s ease,
+    box-shadow .16s ease,
+    font-size .16s ease;
+}
+.nameChip .person { color:#45d5ff;margin-right:4px; }
+.nameChip.active {
+  transform:translate(-50%,-50%) scale(1.72);
+  z-index:65;
+  border-color:var(--gold);
+  background:linear-gradient(180deg,rgba(55,43,10,.98),rgba(16,22,27,.98));
+  box-shadow:0 0 7px #fff2b2,0 0 22px rgba(255,185,45,.85),0 0 50px rgba(255,165,0,.4);
+  color:#fff;
+}
+.nameChip.winner {
+  border-color:#7eff44!important;
+  background:linear-gradient(180deg,rgba(30,95,20,.98),rgba(5,28,17,.98))!important;
+  box-shadow:0 0 9px #caffad,0 0 30px rgba(82,255,52,.95),0 0 70px rgba(82,255,52,.45)!important;
+}
+
+.ball {
+  position:absolute;
+  left:50%; top:50%;
+  width:48px; height:48px;
+  display:grid; place-items:center;
+  font-size:42px;
+  z-index:70;
+  transform:translate(-50%,-50%);
+  filter:drop-shadow(0 0 8px rgba(255,255,255,.92)) drop-shadow(0 0 20px rgba(255,183,38,.9));
+  transition:left .20s cubic-bezier(.15,.82,.23,1), top .20s cubic-bezier(.15,.82,.23,1), transform .20s ease;
+  pointer-events:none;
+}
+.ball.bounce { transform:translate(-50%,-58%) scale(1.12) rotate(22deg); }
+.trailDot {
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:var(--gold2);
+  box-shadow:0 0 10px #ffd35a,0 0 22px rgba(255,161,23,.7);
+  z-index:24; pointer-events:none;
+  animation:trailFade .75s forwards;
+}
+@keyframes trailFade { to{opacity:0;transform:scale(.15)} }
+
+.winnerPanel {
+  position:absolute;
+  left:50%; bottom:15.5%; transform:translateX(-50%);
+  min-width:300px; max-width:52%;
+  padding:12px 30px;
+  border-radius:14px;
+  border:2px solid #6cf83d;
+  background:linear-gradient(180deg,rgba(12,82,37,.95),rgba(4,30,24,.96));
+  box-shadow:0 0 12px rgba(188,255,143,.7),0 0 36px rgba(75,255,61,.45);
+  text-align:center;
+  z-index:80;
+  opacity:0;
+  transform-origin:center;
+  pointer-events:none;
+}
+.winnerPanel.show {
+  opacity:1;
+  animation:winnerPop .7s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes winnerPop {
+  0%{transform:translateX(-50%) scale(.65);opacity:0}
+  70%{transform:translateX(-50%) scale(1.08);opacity:1}
+  100%{transform:translateX(-50%) scale(1);opacity:1}
+}
+.winnerPanel .crown { color:#ffd355;font-size:32px;margin-bottom:2px; }
+.winnerPanel .winnerName { font-size:clamp(28px,3.2vw,50px);font-weight:1000; }
+.winnerPanel .winnerLabel { color:#8cff5e;letter-spacing:.28em;font-weight:900; }
+
+.bottomBar {
+  position:absolute; left:2%; right:2%; bottom:1.5%; height:12.5%;
+  z-index:45;
+  border:1px solid rgba(44,200,255,.48);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(4,29,42,.92),rgba(1,13,21,.97));
+  display:grid;
+  grid-template-columns:1.15fr .8fr .9fr 1.25fr;
+  align-items:center;
+  overflow:hidden;
+}
+.info {
+  height:68%; padding:0 20px;
+  display:flex; flex-direction:column; justify-content:center;
+  border-right:1px solid rgba(60,190,230,.18);
+}
+.info:last-child { border-right:0; }
+.kicker { color:#76ea43;font-size:clamp(9px,.85vw,14px);font-weight:900;letter-spacing:.06em; }
+.value { font-size:clamp(17px,1.65vw,28px);font-weight:900;margin-top:3px; }
+.mini { color:#9eb1be;font-size:clamp(8px,.7vw,12px);margin-top:3px; }
+.bottomBrand { display:flex;align-items:center;gap:12px; }
+.bottomBrand img { width:150px;max-width:42%; }
+.bottomBrandText { color:#a9bbc7;font-size:clamp(8px,.7vw,12px);line-height:1.45; }
+
+.controls {
+  width:100%;max-width:1600px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto auto auto;
+  gap:10px;align-items:end;
+  background:#071923;border:1px solid rgba(58,194,240,.18);
+  border-radius:14px;padding:12px;
+}
+.controls .group label { display:block;color:#9cc2d4;font-size:12px;margin-bottom:6px; }
+textarea,input,button {
+  font:inherit;
+}
+textarea {
+  width:100%;height:78px;resize:vertical;
+  border:1px solid #1b607a;border-radius:9px;padding:9px 11px;
+  background:#03111a;color:#eafaff;outline:none;
+}
+input[type=number] {
+  width:92px;padding:11px;border:1px solid #1b607a;border-radius:9px;
+  background:#03111a;color:#fff;outline:none;
+}
+button {
+  min-height:44px;border:0;border-radius:10px;padding:0 18px;
+  cursor:pointer;font-weight:900;
+}
+button.primary { background:linear-gradient(180deg,#45ceff,#138cc4);color:#001019; }
+button.secondary { background:#143447;color:#eaf8ff;border:1px solid #285f79; }
+button:disabled { opacity:.45;cursor:not-allowed; }
+.note {
+  width:100%;max-width:1600px;margin:0 auto;color:#83a6b8;font-size:12px;line-height:1.5;
+}
+@media (max-width:900px) {
+  .stage { min-height:560px; aspect-ratio:auto; height:74vh; }
+  .centerTitle { width:58%; top:20%; }
+  .bottomBar { grid-template-columns:1fr 1fr; height:22%; }
+  .info { border-bottom:1px solid rgba(60,190,230,.14); }
+  .winnerPanel { bottom:24%; max-width:74%; }
+  .controls { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="stage" id="stage">
+    <div class="topline">
+      <img class="logo" src="../assets/betinsight-logo.png" alt="betInsight.club">
+      <div class="live"><span class="dot"></span><strong>LIVE</strong><br><span>Webinar</span></div>
+    </div>
+
+    <div class="flood left"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="flood right"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="crowd"></div>
+    <div class="ledline">
+      <span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span><span>betInsight.club</span>
+    </div>
+
+    <div class="centerTitle">
+      <div class="trophy">🏆</div>
+      <div class="brandSmall">betInsight.club</div>
+      <div class="title">TOMBOLA</div>
+      <div class="subtitle">LIVE-GEWINNERAUSWAHL</div>
+      <div class="message">Der Ball entscheidet.<b>Viel Glück!</b></div>
+    </div>
+
+    <div class="ring" id="ring"></div>
+    <div class="ball" id="ball">⚽</div>
+
+    <div class="winnerPanel" id="winnerPanel">
+      <div class="crown">♛</div>
+      <div class="winnerName" id="winnerName">–</div>
+      <div class="winnerLabel">GEWINNER</div>
+    </div>
+
+    <div class="bottomBar">
+      <div class="info">
+        <div class="kicker">HEUTIGER PREIS</div>
+        <div class="value" id="prizeValue">–</div>
+        <div class="mini">je volle 10 Teilnehmer = 10 Units</div>
+      </div>
+      <div class="info">
+        <div class="kicker">TEILNEHMER</div>
+        <div class="value" id="participantCount">0</div>
+        <div class="mini">LIVE DABEI</div>
+      </div>
+      <div class="info">
+        <div class="kicker">VERBLEIBENDE ZEIT</div>
+        <div class="value" id="timeValue">00:15</div>
+        <div class="mini" id="drawStatus">BEREIT</div>
+      </div>
+      <div class="info">
+        <div class="bottomBrand">
+          <img src="../assets/betinsight-logo.png" alt="betInsight.club">
+          <div class="bottomBrandText">Live-Webinar · Tombola<br>Der Ball stoppt beim Gewinner.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="controls">
+    <div class="group">
+      <label for="namesInput">Teilnehmer – ein Name pro Zeile</label>
+      <textarea id="namesInput" spellcheck="false"></textarea>
+    </div>
+    <div class="group">
+      <label for="durationInput">Ziehung</label>
+      <input id="durationInput" type="number" min="5" max="90" value="15" aria-label="Ziehungsdauer in Sekunden">
+    </div>
+    <button class="secondary" id="applyBtn">Liste übernehmen</button>
+    <button class="primary" id="startBtn">⚽ Ziehung starten</button>
+  </section>
+
+  <div class="note">
+    Demo-Regel: Der Preis wird automatisch als <b>volle Zehner der Teilnehmerzahl</b> berechnet:
+    39 Teilnehmer = 30 Units, 131 Teilnehmer = 130 Units. Während der Ziehung springt der Ball
+    zufällig von Name zu Name. Jeder berührte Name wird vergrößert. Bei 00:00 bleibt der Ball stehen;
+    genau dieser Name ist der Gewinner.
+  </div>
+</div>
+
+<script>
+(() => {
+  const initialNames = ['Anna M.','Ben K.','Claudia R.','Daniel W.','Eva S.','Frank H.','Gina B.','Heiko L.','Iris P.','Jan T.','Kai N.','Lena F.','Marco D.','Nina G.','Oliver C.','Petra V.','Ralf J.','Sara E.','Tom A.','Ute K.','Vera M.','Wolfgang B.','Yvonne S.','Alex P.','Bianca H.','Chris D.','Diana R.','Enrico T.','Fabian L.','Greta N.','Hannah V.','Ingo M.','Julia K.','Kevin S.','Laura B.','Michael F.','Nadine W.','Oskar H.','Patrick R.','Rebecca J.','Stefan K.','Tanja M.','Uwe B.','Vanessa P.','Walter D.','Xenia R.','Yannick T.','Zoe L.','Andreas N.','Britta V.','Cem M.','Denise S.','Erik B.','Fiona P.','Gerd H.','Helena J.','Isabel K.','Jonas R.','Katrin T.','Lukas W.'];
+  const stage = document.getElementById('stage');
+  const ring = document.getElementById('ring');
+  const ball = document.getElementById('ball');
+  const winnerPanel = document.getElementById('winnerPanel');
+  const winnerNameEl = document.getElementById('winnerName');
+  const participantCountEl = document.getElementById('participantCount');
+  const prizeValueEl = document.getElementById('prizeValue');
+  const timeValueEl = document.getElementById('timeValue');
+  const drawStatusEl = document.getElementById('drawStatus');
+  const namesInput = document.getElementById('namesInput');
+  const durationInput = document.getElementById('durationInput');
+  const applyBtn = document.getElementById('applyBtn');
+  const startBtn = document.getElementById('startBtn');
+
+  let names = [];
+  let chips = [];
+  let activeIndex = -1;
+  let running = false;
+  let endAt = 0;
+  let tickTimer = null;
+  let hopTimer = null;
+
+  const cleanNames = (raw) => {
+    const seen = new Set();
+    return raw
+      .split(/\r?\n/)
+      .map(v => v.trim())
+      .filter(Boolean)
+      .filter(v => {
+        const key = v.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .slice(0, 200);
+  };
+
+  const randomIndex = (max) => {
+    if (max <= 1) return 0;
+    if (window.crypto && window.crypto.getRandomValues) {
+      const arr = new Uint32Array(1);
+      window.crypto.getRandomValues(arr);
+      return arr[0] % max;
+    }
+    return Math.floor(Math.random() * max);
+  };
+
+  const calcPrize = (count) => Math.floor(count / 10) * 10;
+
+  function formatTime(ms) {
+    const total = Math.max(0, Math.ceil(ms / 1000));
+    const m = String(Math.floor(total / 60)).padStart(2,'0');
+    const s = String(total % 60).padStart(2,'0');
+    return `${m}:${s}`;
+  }
+
+  function layoutChips() {
+    const n = chips.length;
+    if (!n) return;
+
+    const twoRings = n > 70;
+    const outer = [];
+    const inner = [];
+    chips.forEach((chip, i) => {
+      (twoRings && i % 2 ? inner : outer).push(chip);
+    });
+
+    const placeRing = (arr, rx, ry, yCenter, startAngle) => {
+      const len = arr.length || 1;
+      arr.forEach((chip, i) => {
+        const a = startAngle + (Math.PI * 2 * i / len);
+        const x = 50 + rx * Math.cos(a);
+        const y = yCenter + ry * Math.sin(a);
+        chip.style.left = x + '%';
+        chip.style.top = y + '%';
+      });
+    };
+
+    if (twoRings) {
+      placeRing(outer, 44.5, 39.0, 47, -Math.PI/2);
+      placeRing(inner, 37.0, 31.5, 47, -Math.PI/2 + 0.08);
+    } else {
+      placeRing(outer, 43.8, 38.0, 47, -Math.PI/2);
+    }
+  }
+
+  function renderNames() {
+    ring.innerHTML = '';
+    chips = [];
+    activeIndex = -1;
+    winnerPanel.classList.remove('show');
+    ball.style.left = '50%';
+    ball.style.top = '50%';
+
+    names.forEach((name, idx) => {
+      const el = document.createElement('div');
+      el.className = 'nameChip';
+      el.dataset.index = idx;
+      el.innerHTML = `<span class="person">◉</span>${name}`;
+      ring.appendChild(el);
+      chips.push(el);
+    });
+    layoutChips();
+
+    participantCountEl.textContent = names.length;
+    const prize = calcPrize(names.length);
+    prizeValueEl.textContent = prize > 0 ? `${prize} Units` : '–';
+  }
+
+  function spawnTrail(x, y) {
+    const dot = document.createElement('span');
+    dot.className = 'trailDot';
+    dot.style.left = (x - 4) + 'px';
+    dot.style.top = (y - 4) + 'px';
+    stage.appendChild(dot);
+    setTimeout(() => dot.remove(), 800);
+  }
+
+  function activate(index) {
+    if (!chips.length) return;
+    if (activeIndex >= 0 && chips[activeIndex]) {
+      chips[activeIndex].classList.remove('active');
+    }
+    activeIndex = index;
+    const chip = chips[index];
+    chip.classList.add('active');
+
+    const s = stage.getBoundingClientRect();
+    const r = chip.getBoundingClientRect();
+    const x = r.left - s.left + r.width / 2;
+    const y = r.top - s.top + r.height / 2;
+
+    spawnTrail(parseFloat(ball.style.left) / 100 * stage.clientWidth || stage.clientWidth/2,
+               parseFloat(ball.style.top) / 100 * stage.clientHeight || stage.clientHeight/2);
+
+    ball.classList.add('bounce');
+    ball.style.left = (x / stage.clientWidth * 100) + '%';
+    ball.style.top  = (y / stage.clientHeight * 100) + '%';
+    setTimeout(() => ball.classList.remove('bounce'), 130);
+  }
+
+  function nextHop() {
+    if (!running || !chips.length) return;
+
+    let next = randomIndex(chips.length);
+    if (chips.length > 1 && next === activeIndex) {
+      next = (next + 1 + randomIndex(chips.length - 1)) % chips.length;
+    }
+    activate(next);
+
+    const remaining = Math.max(0, endAt - performance.now());
+    let delay = 190;
+    if (remaining < 5000) delay = 260;
+    if (remaining < 3000) delay = 360;
+    if (remaining < 1800) delay = 520;
+    if (remaining < 900) delay = 650;
+
+    hopTimer = setTimeout(nextHop, delay);
+  }
+
+  function finishDraw() {
+    if (!running) return;
+    running = false;
+    clearInterval(tickTimer);
+    clearTimeout(hopTimer);
+
+    timeValueEl.textContent = '00:00';
+    drawStatusEl.textContent = 'GEWINNER ERMITTELT';
+    startBtn.disabled = false;
+    applyBtn.disabled = false;
+    durationInput.disabled = false;
+    namesInput.disabled = false;
+
+    if (activeIndex < 0 && chips.length) activate(randomIndex(chips.length));
+    const winner = names[activeIndex] || '–';
+    chips.forEach(c => c.classList.remove('winner'));
+    if (chips[activeIndex]) chips[activeIndex].classList.add('winner');
+
+    winnerNameEl.textContent = winner;
+    winnerPanel.classList.add('show');
+  }
+
+  function startDraw() {
+    if (running) return;
+    if (names.length < 2) {
+      alert('Bitte mindestens zwei Teilnehmer eintragen.');
+      return;
+    }
+    const duration = Math.max(5, Math.min(90, Number(durationInput.value) || 15));
+
+    winnerPanel.classList.remove('show');
+    chips.forEach(c => c.classList.remove('winner','active'));
+    activeIndex = -1;
+    running = true;
+    startBtn.disabled = true;
+    applyBtn.disabled = true;
+    durationInput.disabled = true;
+    namesInput.disabled = true;
+    drawStatusEl.textContent = 'ZIEHUNG LÄUFT';
+
+    endAt = performance.now() + duration * 1000;
+    timeValueEl.textContent = formatTime(endAt - performance.now());
+
+    tickTimer = setInterval(() => {
+      const remaining = endAt - performance.now();
+      timeValueEl.textContent = formatTime(remaining);
+      if (remaining <= 0) finishDraw();
+    }, 100);
+
+    activate(randomIndex(chips.length));
+    nextHop();
+  }
+
+  function applyNames() {
+    if (running) return;
+    const parsed = cleanNames(namesInput.value);
+    if (!parsed.length) {
+      alert('Bitte mindestens einen Namen eintragen.');
+      return;
+    }
+    names = parsed;
+    renderNames();
+    drawStatusEl.textContent = 'BEREIT';
+    const duration = Math.max(5, Math.min(90, Number(durationInput.value) || 15));
+    timeValueEl.textContent = formatTime(duration * 1000);
+  }
+
+  namesInput.value = initialNames.join('\n');
+  names = initialNames.slice();
+  renderNames();
+  timeValueEl.textContent = formatTime((Number(durationInput.value)||15) * 1000);
+
+  applyBtn.addEventListener('click', applyNames);
+  startBtn.addEventListener('click', startDraw);
+  durationInput.addEventListener('change', () => {
+    if (!running) timeValueEl.textContent = formatTime((Number(durationInput.value)||15) * 1000);
+  });
+  window.addEventListener('resize', () => {
+    layoutChips();
+    if (activeIndex >= 0 && chips[activeIndex]) {
+      const s = stage.getBoundingClientRect();
+      const r = chips[activeIndex].getBoundingClientRect();
+      ball.style.left = ((r.left - s.left + r.width/2) / stage.clientWidth * 100) + '%';
+      ball.style.top  = ((r.top - s.top + r.height/2) / stage.clientHeight * 100) + '%';
+    }
+  });
+})();
+</script>
+</body>
+</html>
