@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BetInsight.club · Live-Tombola teilnehmen</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root{--cyan:#54d7ff;--green:#79ef58;--gold:#ffc24a;--panel:#061923ee;--text:#f7fbff;--muted:#9eb1be}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:#020a10;color:var(--text);font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:20px}
+    .page{width:min(720px,100%)}
+    .card{position:relative;overflow:hidden;border:1px solid #2e718b;border-radius:24px;background:linear-gradient(#00111b55,#00111bcc),url('/assets/tombola/stadion-hintergrund.webp?v=20260829-3') center/cover no-repeat,radial-gradient(circle,#123b4c,#04131c 60%,#00090e);box-shadow:0 24px 80px #0009;padding:clamp(24px,6vw,52px)}
+    .card:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 36%,transparent 0 18%,#0003 70%,#0008 100%);pointer-events:none}
+    .content{position:relative;z-index:2;text-align:center}
+    .logo{width:min(330px,75%);display:block;margin:0 auto 18px;filter:drop-shadow(0 0 18px #29bfff55)}
+    .live{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:900;letter-spacing:.11em;font-size:13px;margin-bottom:16px}
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 13px var(--green)}
+    h1{font-size:clamp(30px,7vw,54px);line-height:1.02;margin:0;background:linear-gradient(#fff5c8,#ffc64d 58%,#bd7500);-webkit-background-clip:text;color:transparent}
+    .lead{max-width:520px;margin:14px auto 24px;color:#d7e6ee;line-height:1.55}
+    .magic{display:none;margin:0 auto 22px;width:max-content;max-width:100%;padding:9px 15px;border:1px solid #ffc24a88;border-radius:999px;background:#3a2c0bd9;color:#ffe29b;font-size:13px}
+    .magic strong{color:#fff;letter-spacing:.08em}
+    form{max-width:480px;margin:auto;text-align:left}
+    label{display:block;font-size:13px;font-weight:800;color:#cbe7f3;margin:0 0 7px}
+    input{width:100%;min-height:52px;border:1px solid #2a7694;border-radius:12px;background:#03131ddd;color:#fff;padding:0 15px;font-size:17px;outline:none}
+    input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #54d7ff22}
+    .hint{font-size:12px;color:var(--muted);line-height:1.4;margin:7px 2px 14px}
+    button{width:100%;min-height:52px;border:0;border-radius:12px;background:linear-gradient(#57dcff,#168fc6);color:#001019;font-size:16px;font-weight:900;cursor:pointer}
+    button:disabled{cursor:not-allowed;opacity:.5}
+    .state{display:none;max-width:500px;margin:12px auto 0;border-radius:15px;padding:18px 20px;line-height:1.45}
+    .state.show{display:block}
+    .state.ok{border:1px solid #79ef5899;background:#0d4d24e8}
+    .state.bad{border:1px solid #ff7c6b99;background:#551a17e8}
+    .state.wait{border:1px solid #54d7ff66;background:#082939e8}
+    .state strong{display:block;font-size:20px;margin-bottom:4px}
+    .privacy{margin:18px auto 0;color:#8499a5;font-size:11px;line-height:1.5;max-width:520px}
+    @media(max-width:520px){body{padding:10px}.card{padding:24px 18px;border-radius:18px}.logo{width:78%}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <div class="content">
+        <img class="logo" src="/assets/betinsight-logo.png" alt="BetInsight.club">
+        <div class="live"><span class="dot"></span> LIVE-TOMBOLA</div>
+        <h1>Dein Platz in der Ziehung</h1>
+        <p class="lead">Trage den Namen ein, mit dem du gerade im Webinar angezeigt wirst. Danach bist du für die heutige Live-Tombola registriert.</p>
+        <div class="magic" id="magic">Zauberwort: <strong id="magicWord">–</strong></div>
+
+        <form id="joinForm" hidden>
+          <label for="name">Dein Name im Webinar</label>
+          <input id="name" name="name" maxlength="50" autocomplete="name" placeholder="z. B. Anna M." required>
+          <div class="hint">Bitte denselben Namen verwenden, mit dem du im Webinar zu sehen bist.</div>
+          <button id="joinBtn" type="submit">✅ Jetzt teilnehmen</button>
+        </form>
+
+        <div class="state wait show" id="state"><strong>Teilnahmelink wird geprüft …</strong> Einen kurzen Moment bitte.</div>
+        <p class="privacy">Für die Tombola wird nur dein eingegebener Anzeigename gespeichert. Alte Teilnahme-Links werden bei einer neuen Runde automatisch ungültig.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (()=>{
+    const WEBHOOK='https://hook.eu1.make.com/avimc6q8t6qxb79cuiako2xya1ow3oyx';
+    const slug=new URLSearchParams(location.search).get('r')||'';
+    const form=document.getElementById('joinForm'),name=document.getElementById('name'),btn=document.getElementById('joinBtn'),state=document.getElementById('state'),magic=document.getElementById('magic'),magicWord=document.getElementById('magicWord');
+    const joinedKey='betinsightTombolaJoined:'+slug;
+
+    function message(kind,title,text){state.className='state '+kind+' show';state.innerHTML='<strong>'+title+'</strong>'+text}
+    function setMagic(word){if(!word)return;magicWord.textContent=word;magic.style.display='block'}
+    async function api(data,timeout=6000){
+      const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),timeout);
+      try{
+        const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:new URLSearchParams(data),cache:'no-store',signal:ctl.signal});
+        const txt=await res.text();
+        if(!res.ok)throw new Error('HTTP '+res.status);
+        try{return JSON.parse(txt)}catch(e){throw new Error('Keine gültige Antwort')}
+      }finally{clearTimeout(timer)}
+    }
+    async function init(){
+      if(!slug){message('bad','Teilnahmelink ungültig','Dieser Link gehört zu keiner aktiven Tombola-Runde.');return}
+      let prior='';try{prior=localStorage.getItem(joinedKey)||''}catch(e){}
+      try{
+        const r=await api({action:'check',slug});
+        if(!r||r.ok!==true||r.active!==true)throw new Error('inactive');
+        setMagic(r.zauberwort||'');
+        if(prior){message('ok','✅ Du bist bereits dabei!','Dein Name <b>'+escapeHtml(prior)+'</b> ist für diese Runde bereits vorgemerkt.');return}
+        state.classList.remove('show');form.hidden=false;name.focus();
+      }catch(e){message('bad','Diese Runde ist geschlossen','Der Teilnahme-Link ist nicht mehr aktiv. Bitte nutze nur den Link aus dem aktuellen Webinar-Chat.')}
+    }
+    function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const n=name.value.trim().replace(/\s+/g,' ');
+      if(n.length<2){message('bad','Name zu kurz','Bitte gib deinen Namen so ein, wie er im Webinar angezeigt wird.');return}
+      btn.disabled=true;btn.textContent='Wird eingetragen …';
+      try{
+        const r=await api({action:'join',slug,name:n});
+        if(!r||r.ok!==true||r.accepted!==true)throw new Error('not accepted');
+        try{localStorage.setItem(joinedKey,n)}catch(e){}
+        setMagic(r.zauberwort||'');form.hidden=true;message('ok','✅ Du bist dabei!','<b>'+escapeHtml(n)+'</b> wurde für die heutige Live-Tombola eingetragen. Viel Glück!');
+      }catch(e){message('bad','Anmeldung nicht möglich','Die Runde wurde möglicherweise gerade geschlossen. Bitte frage im Webinar nach dem aktuellen Teilnahme-Link.');btn.disabled=false;btn.textContent='✅ Jetzt teilnehmen'}
+    });
+    init();
+  })();
+  </script>
+</body>
+</html>
