@@ -22,9 +22,16 @@
     .magic strong{color:#fff;letter-spacing:.08em}
     form{max-width:480px;margin:auto;text-align:left}
     label{display:block;font-size:13px;font-weight:800;color:#cbe7f3;margin:0 0 7px}
-    input{width:100%;min-height:52px;border:1px solid #2a7694;border-radius:12px;background:#03131ddd;color:#fff;padding:0 15px;font-size:17px;outline:none}
-    input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #54d7ff22}
-    .hint{font-size:12px;color:var(--muted);line-height:1.4;margin:7px 2px 14px}
+    input[type="text"]{width:100%;min-height:52px;border:1px solid #2a7694;border-radius:12px;background:#03131ddd;color:#fff;padding:0 15px;font-size:17px;outline:none}
+    input[type="text"]:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #54d7ff22}
+    .hint{font-size:12px;color:var(--muted);line-height:1.4;margin:7px 2px 18px}
+    .radioGroup{border:0;padding:0;margin:0 0 18px}
+    .radioGroup legend{font-size:13px;font-weight:800;color:#cbe7f3;margin:0 0 10px;padding:0}
+    .radioOptions{display:flex;gap:12px}
+    .radioOption{flex:1;display:flex;align-items:center;gap:9px;min-height:48px;margin:0;padding:0 14px;border:1px solid #2a7694;border-radius:12px;background:#03131ddd;color:#fff;font-size:15px;cursor:pointer}
+    .radioOption:has(input:checked){border-color:var(--green);box-shadow:0 0 0 3px #79ef5818;background:#0b2818dd}
+    .radioOption input{width:18px;height:18px;accent-color:var(--green);margin:0}
+    .presence{margin:0 2px 18px;padding:12px 14px;border-left:3px solid var(--gold);border-radius:8px;background:#2e2309aa;color:#e8eef2;font-size:12px;line-height:1.5}
     button{width:100%;min-height:52px;border:0;border-radius:12px;background:linear-gradient(#57dcff,#168fc6);color:#001019;font-size:16px;font-weight:900;cursor:pointer}
     button:disabled{cursor:not-allowed;opacity:.5}
     .state{display:none;max-width:500px;margin:12px auto 0;border-radius:15px;padding:18px 20px;line-height:1.45}
@@ -34,7 +41,7 @@
     .state.wait{border:1px solid #54d7ff66;background:#082939e8}
     .state strong{display:block;font-size:20px;margin-bottom:4px}
     .privacy{margin:18px auto 0;color:#8499a5;font-size:11px;line-height:1.5;max-width:520px}
-    @media(max-width:520px){body{padding:10px}.card{padding:24px 18px;border-radius:18px}.logo{width:78%}}
+    @media(max-width:520px){body{padding:10px}.card{padding:24px 18px;border-radius:18px}.logo{width:78%}.radioOptions{flex-direction:column;gap:8px}}
   </style>
 </head>
 <body>
@@ -49,13 +56,23 @@
 
         <form id="joinForm" hidden>
           <label for="name">Dein Name im Webinar</label>
-          <input id="name" name="name" maxlength="50" autocomplete="name" placeholder="z. B. Anna M." required>
+          <input type="text" id="name" name="name" maxlength="50" autocomplete="name" placeholder="z. B. Anna M." required>
           <div class="hint">Bitte denselben Namen verwenden, mit dem du im Webinar zu sehen bist.</div>
-          <button id="joinBtn" type="submit">✅ Jetzt teilnehmen</button>
+
+          <fieldset class="radioGroup">
+            <legend>Bist du bereits bei BetInsight registriert?</legend>
+            <div class="radioOptions">
+              <label class="radioOption"><input type="radio" name="registriert" value="ja" required> Ja</label>
+              <label class="radioOption"><input type="radio" name="registriert" value="nein" required> Nein</label>
+            </div>
+          </fieldset>
+
+          <div class="presence">Teilnahme nur bei persönlicher Anwesenheit im Webinar. Der Gewinner muss sich bei der Ziehung live per Chat, Mikrofon oder Kamera melden.</div>
+          <button id="joinBtn" type="submit">🍀 An der Tombola teilnehmen</button>
         </form>
 
         <div class="state wait show" id="state"><strong>Teilnahmelink wird geprüft …</strong> Einen kurzen Moment bitte.</div>
-        <p class="privacy">Für die Tombola wird nur dein eingegebener Anzeigename gespeichert. Alte Teilnahme-Links werden bei einer neuen Runde automatisch ungültig.</p>
+        <p class="privacy">Für die Tombola werden dein eingegebener Anzeigename und deine Angabe zur BetInsight-Registrierung gespeichert. Alte Teilnahme-Links werden bei einer neuen Runde automatisch ungültig.</p>
       </div>
     </section>
   </main>
@@ -89,18 +106,20 @@
         state.classList.remove('show');form.hidden=false;name.focus();
       }catch(e){message('bad','Diese Runde ist geschlossen','Der Teilnahme-Link ist nicht mehr aktiv. Bitte nutze nur den Link aus dem aktuellen Webinar-Chat.')}
     }
-    function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+    function escapeHtml(s){return String(s).replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
     form.addEventListener('submit',async e=>{
       e.preventDefault();
       const n=name.value.trim().replace(/\s+/g,' ');
+      const reg=form.querySelector('input[name="registriert"]:checked');
       if(n.length<2){message('bad','Name zu kurz','Bitte gib deinen Namen so ein, wie er im Webinar angezeigt wird.');return}
+      if(!reg){message('bad','Angabe fehlt','Bitte wähle aus, ob du bereits bei BetInsight registriert bist.');return}
       btn.disabled=true;btn.textContent='Wird eingetragen …';
       try{
-        const r=await api({action:'join',slug,name:n});
+        const r=await api({action:'join',slug,name:n,registriert:reg.value});
         if(!r||r.ok!==true||r.accepted!==true)throw new Error('not accepted');
         try{localStorage.setItem(joinedKey,n)}catch(e){}
         setMagic(r.zauberwort||'');form.hidden=true;message('ok','✅ Du bist dabei!','<b>'+escapeHtml(n)+'</b> wurde für die heutige Live-Tombola eingetragen. Viel Glück!');
-      }catch(e){message('bad','Anmeldung nicht möglich','Die Runde wurde möglicherweise gerade geschlossen. Bitte frage im Webinar nach dem aktuellen Teilnahme-Link.');btn.disabled=false;btn.textContent='✅ Jetzt teilnehmen'}
+      }catch(e){message('bad','Anmeldung nicht möglich','Die Runde wurde möglicherweise gerade geschlossen. Bitte frage im Webinar nach dem aktuellen Teilnahme-Link.');btn.disabled=false;btn.textContent='🍀 An der Tombola teilnehmen'}
     });
     init();
   })();
