@@ -2,7 +2,7 @@
   const WEBHOOK='https://hook.eu1.make.com/avimc6q8t6qxb79cuiako2xya1ow3oyx';
   const ADMIN='OtWHJme9x0b0xw4xvO6Bn_4noDHF7os2';
   const STORE='betinsightTombolaRound';
-  const WORDS=['gluecksstern','hufeisen','kleeblatt','fortuna','goldregen','volltreffer','jackpot','sonnenschein','glueckspilz','sternstunde','goldmoment','treffer'];
+  const LINK_PREFIX='betinsight-gluecksbringer-';
   const MAGIC=['GLÜCKSSTERN','FORTUNA','VOLLTREFFER','GOLDMOMENT','GLÜCKSKLEE','STERNSTUNDE','SONNENKIND','JACKPOT'];
   const CHARS='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
@@ -18,8 +18,7 @@
     return Math.floor(Math.random()*max);
   }
   function code(n=6){let s='';for(let i=0;i<n;i++)s+=CHARS[rand(CHARS.length)];return s}
-  function pickWords(){let a=rand(WORDS.length),b=rand(WORDS.length-1);if(b>=a)b++;return [WORDS[a],WORDS[b]]}
-  function newRoundData(){const w=pickWords(),slug=w[0]+'-'+w[1]+'-'+code();return{slug,url:'https://betinsight.club/tombula/teilnehmen/?r='+encodeURIComponent(slug),magic:MAGIC[rand(MAGIC.length)],status:'open'}}
+  function newRoundData(){const slug=LINK_PREFIX+code();return{slug,url:'https://betinsight.club/tombula/teilnehmen/?r='+encodeURIComponent(slug),magic:MAGIC[rand(MAGIC.length)],status:'open'}}
   function save(){try{round?localStorage.setItem(STORE,JSON.stringify(round)):localStorage.removeItem(STORE)}catch(e){}}
   function restore(){try{const x=JSON.parse(localStorage.getItem(STORE)||'null');if(x&&x.slug&&x.url)round=x}catch(e){}}
   function setBusy(v){busy=v;generate.disabled=v;copy.disabled=v||!round;load.disabled=v||!round;close.disabled=v||!round||round.status!=='open'}
