@@ -4,6 +4,8 @@
   const overlayText=document.getElementById('os');
   const winner=document.getElementById('winner');
   const winnerName=document.getElementById('wn');
+  const winnerPrize=document.getElementById('wp');
+  const prize=document.getElementById('prize');
   const legendText=document.querySelector('.bar .info:last-child .m');
   if(!overlay||!overlayTitle||!overlayText||!winner||!winnerName)return;
 
@@ -29,6 +31,7 @@
 
     const name=(winnerName.textContent||'').trim();
     if(!name||name==='–')return;
+    const prizeText=(prize?.textContent||'').trim();
 
     clearTimeout(sequenceTimer);
 
@@ -38,10 +41,13 @@
     overlayTitle.textContent=name;
     overlayText.textContent='wurde ausgelost.';
 
-    /* Stufe 2: nach 1,5 Sekunden erste Meldung weg, dann finales Gewinnerfeld. */
+    /* Stufe 2: nach 1,5 Sekunden finale Gewinnerkarte mit Units-Gewinn. */
     sequenceTimer=setTimeout(()=>{
       overlay.classList.remove('show','green');
       saveWinner(name);
+      if(winnerPrize){
+        winnerPrize.textContent=prizeText&&prizeText!=='–'?'hat '+prizeText+' gewonnen.':'hat den heutigen Preis gewonnen.';
+      }
       releasing=true;
       winner.classList.add('show');
       setTimeout(()=>{releasing=false},0);
