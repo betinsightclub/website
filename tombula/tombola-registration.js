@@ -58,18 +58,17 @@
   }
 
   async function refresh(applyToTombola=false){
-    if(!round||busy)return [];
+    if(!round)return [];
     try{
       const data=await api({action:'list',admin:ADMIN,slug:round.slug});
       lastNames=normalizeRows(data);count.textContent=String(lastNames.length);
-      /* Die Eingabeliste füllt sich sichtbar mit, der Kreis wird erst bewusst übernommen. */
       if(lastNames.length)names.value=lastNames.join('\n');
       if(applyToTombola&&lastNames.length>=2){names.value=lastNames.join('\n');apply.click()}
       return lastNames;
     }catch(e){showState(round.status==='open'?'🟠 Verbindung wird erneut geprüft':'🔒 Anmeldung geschlossen',round.status==='open'?'warn':'closed');return lastNames}
   }
 
-  function startPolling(){clearInterval(pollTimer);if(round?.status==='open'){pollTimer=setInterval(()=>refresh(false),15000);refresh(false)}}
+  function startPolling(){clearInterval(pollTimer);if(round?.status==='open'){pollTimer=setInterval(()=>{if(!busy)refresh(false)},15000);refresh(false)}}
 
   generate.addEventListener('click',async()=>{
     if(busy)return;
@@ -90,9 +89,13 @@
   });
 
   load.addEventListener('click',async()=>{
+    if(!round||busy)return;
     setBusy(true);load.textContent='↻ Wird geladen …';
-    try{const list=await refresh(false);if(list.length<2){alert('Es sind noch nicht mindestens zwei Teilnehmer angemeldet.');return}names.value=list.join('\n');apply.click();load.textContent='✅ Namen übernommen';setTimeout(()=>load.textContent='↻ Namen übernehmen',1700)}
-    finally{setBusy(false);render()}
+    try{
+      const list=await refresh(false);
+      if(list.length<2){alert('Es sind noch nicht mindestens zwei Teilnehmer angemeldet.');return}
+      names.value=list.join('\n');apply.click();load.textContent='✅ Namen übernommen';setTimeout(()=>load.textContent='↻ Namen übernehmen',1700)
+    }finally{setBusy(false);render()}
   });
 
   close.addEventListener('click',async()=>{
