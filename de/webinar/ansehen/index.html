@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#031720">
+  <meta name="description" content="BetInsight Webinar-Aufzeichnung ansehen.">
+  <title>BetInsight Webinar ansehen</title>
+  <style>
+    :root{--bg:#031720;--bg2:#020f16;--panel:#072432;--text:#f5fbff;--muted:#aac0cc;--line:rgba(126,211,255,.18);--blue:#1687ff;--green:#00d99b;--shadow:0 24px 70px rgba(0,0,0,.36)}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 82% 8%,rgba(22,135,255,.16),transparent 30rem),radial-gradient(circle at 12% 84%,rgba(0,217,155,.08),transparent 28rem),linear-gradient(180deg,var(--bg2),var(--bg));line-height:1.55}.wrap{width:min(calc(100% - 32px),1080px);margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0}.logo{width:190px}.back{padding:10px 15px;border:1px solid var(--line);border-radius:12px;color:#d8e9f1;text-decoration:none;background:rgba(255,255,255,.04);font-size:14px;font-weight:800}.main{padding:24px 0 70px}.card{padding:clamp(24px,4vw,42px);border:1px solid rgba(22,135,255,.3);border-radius:26px;background:linear-gradient(160deg,rgba(10,43,59,.98),rgba(5,28,39,.98));box-shadow:var(--shadow)}h1{margin:0 0 10px;font-size:clamp(34px,5vw,54px);line-height:1.05}.lead{margin:0 0 26px;color:var(--muted);font-size:18px}.video{position:relative;overflow:hidden;width:100%;aspect-ratio:16/9;border:1px solid var(--line);border-radius:18px;background:#020b10}.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.notice{padding:20px;border:1px solid rgba(0,217,155,.28);border-radius:16px;background:rgba(0,217,155,.07);color:#d9fff2}.notice a{color:#fff}.cta{display:inline-flex;margin-top:20px;padding:13px 18px;border-radius:13px;background:linear-gradient(135deg,#1687ff,#0a69d8);color:#fff;text-decoration:none;font-weight:900}footer{padding:24px 0 34px;color:#78909c;font-size:13px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap"><header class="topbar"><a href="../" data-preserve-ref><img class="logo" src="../../../assets/betinsight-logo.png" alt="BetInsight.club"></a><a class="back" href="../" data-preserve-ref>← Webinar-Auswahl</a></header></div>
+  <main class="main"><div class="wrap"><section class="card">
+    <h1>BetInsight Webinar-Aufzeichnung</h1>
+    <p class="lead">Sieh dir das Webinar in deinem eigenen Tempo an.</p>
+    <div id="content"><div class="notice">Aufzeichnung wird geprüft …</div></div>
+  </section></div></main>
+  <footer>© 2026 BetInsight Club · Webinar</footer>
+  <script>
+  (async function(){
+    const KEY='betinsight_ref_code',DEFAULT='POOL',ACCESS='betinsight_replay_access';
+    const clean=v=>{if(!v)return'';v=String(v).trim();return /^[A-Za-z0-9_-]{2,50}$/.test(v)?v:''};
+    const params=new URLSearchParams(location.search),fromUrl=clean(params.get('ref')||params.get('ref_code'));
+    if(fromUrl&&fromUrl!==DEFAULT){try{localStorage.setItem(KEY,fromUrl)}catch(e){};document.cookie='betinsight_ref_code='+encodeURIComponent(fromUrl)+';path=/;max-age=7776000;SameSite=Lax'}
+    let stored='';try{stored=clean(localStorage.getItem(KEY))}catch(e){};let cookie='';document.cookie.split(';').forEach(p=>{const [k,...r]=p.trim().split('=');if(k==='betinsight_ref_code')cookie=clean(decodeURIComponent(r.join('='))) });
+    const activeRef=fromUrl||stored||cookie||DEFAULT;
+    document.querySelectorAll('[data-preserve-ref]').forEach(a=>{try{const u=new URL(a.href,location.href);if(activeRef!==DEFAULT)u.searchParams.set('ref',activeRef);a.href=u.toString()}catch(e){}});
+    let allowed=false;try{allowed=sessionStorage.getItem(ACCESS)==='1'}catch(e){}
+    if(!allowed){const u=new URL('../aufzeichnung/',location.href);if(activeRef!==DEFAULT)u.searchParams.set('ref',activeRef);location.replace(u.toString());return}
+    const content=document.getElementById('content');
+    try{
+      const res=await fetch('../replay-config.json?ts='+Date.now(),{cache:'no-store'});if(!res.ok)throw new Error('config');const cfg=await res.json();
+      if(!cfg.available||!cfg.video_embed_url){content.innerHTML='<div class="notice"><strong>Die Aufzeichnung ist noch nicht freigegeben.</strong><br>Du wirst informiert, sobald sie verfügbar ist.</div>';return}
+      const url=String(cfg.video_embed_url||'');
+      if(!/^https:\/\//i.test(url))throw new Error('url');
+      content.innerHTML='<div class="video"><iframe src="'+url.replace(/"/g,'&quot;')+'" title="BetInsight Webinar-Aufzeichnung" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
+    }catch(e){content.innerHTML='<div class="notice">Die Aufzeichnung konnte gerade nicht geladen werden. Bitte versuche es später erneut.</div>'}
+  })();
+  </script>
+</body>
+</html>
