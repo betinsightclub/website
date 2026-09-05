@@ -1,6 +1,8 @@
 (() => {
   "use strict";
 
+  const SCRIPT_URL = document.currentScript?.src || new URL("assets/language-switch.js", location.href).toString();
+  const ASSET_BASE = new URL("./", SCRIPT_URL);
   const LANGUAGE_KEY = "betinsight_language";
   const REF_STORAGE_KEY = "betinsight_ref_code";
   const DEFAULT_REF_CODE = "POOL";
@@ -439,11 +441,23 @@
     footerLinks.appendChild(link);
   }
 
+  function loadFunnelCta() {
+    if (currentLanguage() !== "de" || document.querySelector('script[data-bi-funnel-cta-loader]')) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = new URL("funnel-cta.js?v=20260905-1", ASSET_BASE).toString();
+    script.dataset.biFunnelCtaLoader = "1";
+    document.head.appendChild(script);
+  }
+
   function init() {
     addStyles();
     buildSwitch();
     buildFooterSocial();
     buildFooterAcademyLink();
+    loadFunnelCta();
   }
 
   if (document.readyState === "loading") {
