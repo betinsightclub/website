@@ -66,7 +66,7 @@
       if(!form.checkValidity()){form.reportValidity();return}
       button.disabled=true;button.textContent='Wird gespeichert …';
       const marketing=document.getElementById('marketingConsent').checked?'true':'false';
-      const body=new URLSearchParams({webinar_type:'replay',name:document.getElementById('name').value.trim(),email:document.getElementById('email').value.trim(),ref_code:activeRef,source_url:location.href,live_event_id:'',consent_webinar_email:'true',consent_marketing_email:marketing,replay_available:replayAvailable?'true':'false',notes:'website_replay_v2'});
+      const body=new URLSearchParams({webinar_type:'replay',name:document.getElementById('name').value.trim(),email:document.getElementById('email').value.trim(),ref_code:activeRef,source_url:location.href,live_event_id:replayAvailable?'replay-ready':'',consent_webinar_email:'true',notes:'website_replay_v2|marketing_optin='+marketing});
       try{
         const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body});
         if(!res.ok)throw new Error('HTTP '+res.status);
