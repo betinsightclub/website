@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>BetInsight Live-Webinar · Countdown</title>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#03131c;color:#fff}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;padding:20px;background:linear-gradient(rgba(2,14,22,.50),rgba(2,14,22,.80)),url('/assets/stadion-community.webp') center/cover no-repeat}
+    body:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(0,200,255,.13),transparent 42%);pointer-events:none}
+    .wrap{position:relative;z-index:1;width:min(1180px,94vw);text-align:center}.logo{width:min(330px,58vw);height:auto;filter:drop-shadow(0 10px 28px rgba(0,0,0,.55));margin-bottom:12px}
+    .panel{background:rgba(3,25,37,.60);border:1px solid rgba(70,211,255,.42);border-radius:30px;padding:clamp(24px,4vw,48px);backdrop-filter:blur(7px);box-shadow:0 28px 80px rgba(0,0,0,.5)}
+    .live{display:inline-block;padding:8px 15px;border-radius:999px;background:rgba(255,65,76,.16);border:1px solid rgba(255,91,102,.5);font-weight:900;letter-spacing:.06em}
+    h1{font-size:clamp(34px,5.5vw,72px);margin:17px 0 8px;line-height:1.02;text-shadow:0 5px 22px rgba(0,0,0,.55)}.start{font-size:clamp(18px,2.2vw,27px);color:#d0ebf6;margin:0 0 24px}
+    .count{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:940px;margin:0 auto}.box{padding:clamp(15px,2.6vw,28px) 8px;border-radius:20px;background:linear-gradient(180deg,rgba(10,84,108,.92),rgba(4,43,59,.92));border:1px solid rgba(73,213,255,.48);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 12px 28px rgba(0,0,0,.22)}
+    .num{display:block;font-size:clamp(38px,7vw,88px);font-weight:900;line-height:1}.lbl{display:block;margin-top:8px;color:#bfe5f2;font-weight:800;font-size:clamp(11px,1.4vw,16px);text-transform:uppercase;letter-spacing:.08em}
+    #status{margin:24px 0 16px;font-size:clamp(20px,2.5vw,31px);font-weight:900;color:#5bf0ae}.music{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
+    button{border:0;border-radius:14px;padding:13px 22px;font-size:16px;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(90deg,#159fee,#00c9ff);box-shadow:0 10px 24px rgba(0,177,255,.24)}.hint{font-size:12px;color:#a8cbd9;margin-top:9px}
+    @media(max-width:700px){body{overflow:auto;padding:14px 0}.count{grid-template-columns:repeat(2,1fr)}.panel{border-radius:22px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <img class="logo" src="/assets/betinsight-logo.png" alt="BetInsight Club">
+    <section class="panel">
+      <div class="live">🔴 LIVE-WEBINAR</div>
+      <h1>Wir starten gleich</h1>
+      <p class="start">Beginn heute um <strong>20:00 Uhr</strong></p>
+      <div class="count">
+        <div class="box"><span class="num" id="days">00</span><span class="lbl">Tage</span></div>
+        <div class="box"><span class="num" id="hours">00</span><span class="lbl">Stunden</span></div>
+        <div class="box"><span class="num" id="minutes">00</span><span class="lbl">Minuten</span></div>
+        <div class="box"><span class="num" id="seconds">00</span><span class="lbl">Sekunden</span></div>
+      </div>
+      <div id="status">Wir freuen uns auf dich</div>
+      <div class="music"><button id="musicBtn" type="button">▶ Musik starten</button></div>
+      <div class="hint">Nach dem Start läuft die Musik automatisch in Dauerschleife.</div>
+      <audio id="bgMusic" loop preload="auto" src="betinsight-webinar.mp3"></audio>
+    </section>
+  </main>
+<script>
+const webinarStart=new Date('2026-09-10T20:00:00+02:00').getTime();
+const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds'),status=document.getElementById('status');
+const pad=n=>String(n).padStart(2,'0');
+function tick(){let x=webinarStart-Date.now();if(x<=0){d.textContent=h.textContent=m.textContent=s.textContent='00';status.textContent='🔴 Das Webinar läuft jetzt';return;}const dd=Math.floor(x/86400000);x%=86400000;const hh=Math.floor(x/3600000);x%=3600000;const mm=Math.floor(x/60000);x%=60000;const ss=Math.floor(x/1000);d.textContent=pad(dd);h.textContent=pad(hh);m.textContent=pad(mm);s.textContent=pad(ss);status.textContent=(dd===0&&hh===0&&mm<10)?'🔴 Gleich geht es los':'Wir freuen uns auf dich';}
+tick();setInterval(tick,1000);
+const audio=document.getElementById('bgMusic'),btn=document.getElementById('musicBtn');audio.volume=.38;
+btn.addEventListener('click',async()=>{if(audio.paused){try{await audio.play();btn.textContent='⏸ Musik pausieren'}catch(e){btn.textContent='▶ Musik starten'}}else{audio.pause();btn.textContent='▶ Musik starten'}});
+</script>
+</body>
+</html>
