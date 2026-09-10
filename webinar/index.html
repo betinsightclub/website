@@ -53,29 +53,43 @@ const d=document.getElementById('days'),h=document.getElementById('hours'),m=doc
 const countdownStage=document.getElementById('countdownStage'),videoStage=document.getElementById('videoStage'),video=document.getElementById('trailer'),soundBtn=document.getElementById('soundBtn');
 const audio=document.getElementById('bgMusic'),btn=document.getElementById('musicBtn');
 let switched=false;
+let soundAttempted=false;
 const pad=n=>String(n).padStart(2,'0');
 audio.volume=.38;
 
-async function startTrailer(){
-  if(switched)return;
-  switched=true;
-  audio.pause();
-  countdownStage.style.display='none';
-  videoStage.style.display='block';
-  video.currentTime=0;
-  video.muted=false;
+async function ensureTrailerPlaying(){
+  if(video.ended || !video.paused)return;
+  if(!soundAttempted){
+    soundAttempted=true;
+    video.muted=false;
+    try{await video.play();return;}catch(e){}
+  }
+  video.muted=true;
   try{
     await video.play();
-  }catch(e){
-    video.muted=true;
-    try{await video.play();}catch(e2){}
     soundBtn.style.display='block';
+  }catch(e){}
+}
+
+async function startTrailer(){
+  if(!switched){
+    switched=true;
+    audio.pause();
+    countdownStage.style.display='none';
+    videoStage.style.display='block';
+    video.currentTime=0;
   }
+  await ensureTrailerPlaying();
 }
 
 function tick(){
   let x=webinarStart-Date.now();
-  if(x<=0){d.textContent=h.textContent=m.textContent=s.textContent='00';status.textContent='🔴 Das Webinar läuft jetzt';startTrailer();return;}
+  if(x<=0){
+    d.textContent=h.textContent=m.textContent=s.textContent='00';
+    status.textContent='🔴 Das Webinar läuft jetzt';
+    startTrailer();
+    return;
+  }
   const dd=Math.floor(x/86400000);x%=86400000;const hh=Math.floor(x/3600000);x%=3600000;const mm=Math.floor(x/60000);x%=60000;const ss=Math.floor(x/1000);
   d.textContent=pad(dd);h.textContent=pad(hh);m.textContent=pad(mm);s.textContent=pad(ss);status.textContent=(dd===0&&hh===0&&mm<10)?'🔴 Gleich geht es los':'Wir freuen uns auf dich';
 }
