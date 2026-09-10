@@ -17,11 +17,12 @@
     .num{display:block;font-size:clamp(38px,7vw,88px);font-weight:900;line-height:1}.lbl{display:block;margin-top:8px;color:#bfe5f2;font-weight:800;font-size:clamp(11px,1.4vw,16px);text-transform:uppercase;letter-spacing:.08em}
     #status{margin:24px 0 16px;font-size:clamp(20px,2.5vw,31px);font-weight:900;color:#5bf0ae}.music{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
     button{border:0;border-radius:14px;padding:13px 22px;font-size:16px;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(90deg,#159fee,#00c9ff);box-shadow:0 10px 24px rgba(0,177,255,.24)}.hint{font-size:12px;color:#a8cbd9;margin-top:9px}
-    @media(max-width:700px){body{overflow:auto;padding:14px 0}.count{grid-template-columns:repeat(2,1fr)}.panel{border-radius:22px}}
+    #videoStage{display:none;position:relative;z-index:2;width:min(1280px,96vw);text-align:center}#trailer{display:block;width:100%;max-height:88vh;border-radius:24px;background:#000;box-shadow:0 28px 80px rgba(0,0,0,.65)}#videoMessage{margin:12px 0 0;font-weight:800}.soundBtn{display:none;margin:12px auto 0}
+    @media(max-width:700px){body{overflow:auto;padding:14px 0}.count{grid-template-columns:repeat(2,1fr)}.panel{border-radius:22px}#trailer{border-radius:14px}}
   </style>
 </head>
 <body>
-  <main class="wrap">
+  <main class="wrap" id="countdownStage">
     <img class="logo" src="/assets/betinsight-logo.png" alt="BetInsight Club">
     <section class="panel">
       <div class="live">🔴 LIVE-WEBINAR</div>
@@ -36,17 +37,61 @@
       <div id="status">Wir freuen uns auf dich</div>
       <div class="music"><button id="musicBtn" type="button">▶ Musik starten</button></div>
       <div class="hint">Nach dem Start läuft die Musik automatisch in Dauerschleife.</div>
-      <audio id="bgMusic" loop preload="auto" src="betinsight-webinar.mp3"></audio>
+      <audio id="bgMusic" loop preload="auto" src="/BetInsight%20(7).mp3"></audio>
     </section>
   </main>
+
+  <section id="videoStage">
+    <video id="trailer" playsinline preload="auto" src="/Trailer%20ohne%20f%C3%BCr%20Webinar%20.mp4"></video>
+    <div id="videoMessage">🔴 Das Webinar startet jetzt</div>
+    <button class="soundBtn" id="soundBtn" type="button">🔊 Video mit Ton starten</button>
+  </section>
+
 <script>
 const webinarStart=new Date('2026-09-10T20:00:00+02:00').getTime();
 const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds'),status=document.getElementById('status');
+const countdownStage=document.getElementById('countdownStage'),videoStage=document.getElementById('videoStage'),video=document.getElementById('trailer'),soundBtn=document.getElementById('soundBtn');
+const audio=document.getElementById('bgMusic'),btn=document.getElementById('musicBtn');
+let switched=false;
 const pad=n=>String(n).padStart(2,'0');
-function tick(){let x=webinarStart-Date.now();if(x<=0){d.textContent=h.textContent=m.textContent=s.textContent='00';status.textContent='🔴 Das Webinar läuft jetzt';return;}const dd=Math.floor(x/86400000);x%=86400000;const hh=Math.floor(x/3600000);x%=3600000;const mm=Math.floor(x/60000);x%=60000;const ss=Math.floor(x/1000);d.textContent=pad(dd);h.textContent=pad(hh);m.textContent=pad(mm);s.textContent=pad(ss);status.textContent=(dd===0&&hh===0&&mm<10)?'🔴 Gleich geht es los':'Wir freuen uns auf dich';}
+audio.volume=.38;
+
+async function startTrailer(){
+  if(switched)return;
+  switched=true;
+  audio.pause();
+  countdownStage.style.display='none';
+  videoStage.style.display='block';
+  video.currentTime=0;
+  video.muted=false;
+  try{
+    await video.play();
+  }catch(e){
+    video.muted=true;
+    try{await video.play();}catch(e2){}
+    soundBtn.style.display='block';
+  }
+}
+
+function tick(){
+  let x=webinarStart-Date.now();
+  if(x<=0){d.textContent=h.textContent=m.textContent=s.textContent='00';status.textContent='🔴 Das Webinar läuft jetzt';startTrailer();return;}
+  const dd=Math.floor(x/86400000);x%=86400000;const hh=Math.floor(x/3600000);x%=3600000;const mm=Math.floor(x/60000);x%=60000;const ss=Math.floor(x/1000);
+  d.textContent=pad(dd);h.textContent=pad(hh);m.textContent=pad(mm);s.textContent=pad(ss);status.textContent=(dd===0&&hh===0&&mm<10)?'🔴 Gleich geht es los':'Wir freuen uns auf dich';
+}
+
 tick();setInterval(tick,1000);
-const audio=document.getElementById('bgMusic'),btn=document.getElementById('musicBtn');audio.volume=.38;
-btn.addEventListener('click',async()=>{if(audio.paused){try{await audio.play();btn.textContent='⏸ Musik pausieren'}catch(e){btn.textContent='▶ Musik starten'}}else{audio.pause();btn.textContent='▶ Musik starten'}});
+
+btn.addEventListener('click',async()=>{
+  if(audio.paused){
+    try{await audio.play();btn.textContent='⏸ Musik pausieren'}catch(e){btn.textContent='▶ Musik starten'}
+  }else{audio.pause();btn.textContent='▶ Musik starten'}
+});
+
+soundBtn.addEventListener('click',async()=>{
+  video.muted=false;
+  try{await video.play();soundBtn.style.display='none'}catch(e){}
+});
 </script>
 </body>
 </html>
