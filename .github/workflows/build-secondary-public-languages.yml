@@ -1,0 +1,64 @@
+name: BetInsight Secondary Public Languages
+
+on:
+  push:
+    paths:
+      - '.github/build-secondary-public-languages-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  build-secondary-public:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Website laden
+        uses: actions/checkout@v6
+
+      - name: Öffentliche Unterseiten übersetzen
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/build_secondary_public_languages.py
+
+      - name: Änderungen prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          langs=['de','en','es','pt','it','fr']
+          for lang in langs:
+              for page in ['academy','webinar','termin']:
+                  p=Path(lang)/page/'index.html'
+                  assert p.exists(), p
+                  s=p.read_text(encoding='utf-8')
+                  assert f'<html lang="{lang}">' in s
+                  assert 'index,follow' in s
+                  assert 'subpage-language-switch.js' in s
+              for rel in ['webinar/live','webinar/aufzeichnung','webinar/ansehen','termin/bestaetigt']:
+                  p=Path(lang)/rel/'index.html'
+                  assert p.exists(), p
+                  s=p.read_text(encoding='utf-8')
+                  assert 'noindex' in s
+          ET.parse('sitemap.xml')
+          print('OK: mehrsprachige öffentliche Unterseiten geprüft.')
+          PY
+          git status --short
+
+      - name: Änderungen speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/build-secondary-public-languages-trigger.txt
+          git config user.name 'BetInsight Language Builder'
+          git config user.email 'actions@github.com'
+          git add de/academy de/webinar de/termin en/academy en/webinar en/termin es/academy es/webinar es/termin pt/academy pt/webinar pt/termin it/academy it/webinar it/termin fr/academy fr/webinar fr/termin sitemap.xml .github/build-secondary-public-languages-trigger.txt
+          if git diff --cached --quiet; then
+            echo 'Keine Änderung notwendig.'
+          else
+            git commit -m 'i18n: öffentliche Unterseiten in sechs Sprachen'
+            git push
+          fi
