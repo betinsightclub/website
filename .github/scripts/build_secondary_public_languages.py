@@ -174,7 +174,7 @@ def build_utility(source_rel, page_key):
         text = replace_many(text, COPY[lang][page_key])
         text = legal_links(text, lang)
         # Keep one central replay configuration so availability cannot drift between languages.
-        if "webinar/" in source_rel:
+        if "webinar/" in str(source_rel):
             text = text.replace("fetch('../replay-config.json?ts='+Date.now()", "fetch('/de/webinar/replay-config.json?ts='+Date.now()")
         if page_key == "watch":
             text = text.replace("https://betinsight.club/de/termin/", f"https://betinsight.club/{lang}/termin/")

@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#031720">
-  <meta name="description" content="BetInsight Webinar-Aufzeichnung – kurz eintragen und Zugang erhalten.">
-  <title>BetInsight Webinar-Aufzeichnung</title>
+  <meta name="description" content="BetInsight webinar replay – enter your details briefly to get access.">
+  <title>BetInsight Webinar Replay</title>
 <!-- BETINSIGHT UTILITY NOINDEX START -->
 <meta name="robots" content="noindex,follow,noarchive">
 <!-- BETINSIGHT UTILITY NOINDEX END -->
@@ -16,25 +16,25 @@
   </style>
 </head>
 <body>
-  <div class="wrap"><header class="topbar"><a href="../" data-preserve-ref aria-label="Zur Webinar-Auswahl"><img class="logo" src="../../../assets/betinsight-logo.png" alt="BetInsight.club"></a><a class="back" href="../" data-preserve-ref>← Webinar-Auswahl</a></header></div>
+  <div class="wrap"><header class="topbar"><a href="../" data-preserve-ref aria-label="Back to webinar selection"><img class="logo" src="../../../assets/betinsight-logo.png" alt="BetInsight.club"></a><a class="back" href="../" data-preserve-ref>← Webinar selection</a></header></div>
   <main class="main"><div class="wrap"><section class="card">
-    <div class="head"><div class="badge">▶️ Webinar-Aufzeichnung</div><h1 id="pageTitle">Für die Aufzeichnung vormerken</h1><p class="lead" id="pageLead">Das BetInsight Webinar wird derzeit vorbereitet. Trag dich ein – sobald die Aufzeichnung freigegeben ist, erhältst du den Zugangslink per E-Mail.</p></div>
-    <div class="status"><strong id="statusTitle">Aufzeichnung noch nicht veröffentlicht</strong><span id="statusText">Nach der Freigabe kannst du das Webinar flexibel und in deinem eigenen Tempo ansehen.</span></div>
+    <div class="head"><div class="badge">▶️ Webinar replay</div><h1 id="pageTitle">Register for the replay</h1><p class="lead" id="pageLead">The BetInsight webinar is currently being prepared. Register and you will receive the access link by email as soon as the replay is released.</p></div>
+    <div class="status"><strong id="statusTitle">Replay not yet published</strong><span id="statusText">Once released, you can watch the webinar flexibly and at your own pace.</span></div>
     <div class="form-wrap">
-      <h2 class="form-title" id="formTitle">Kostenlos vormerken</h2><p class="form-copy" id="formCopy">Wir benötigen nur deinen Namen und deine E-Mail-Adresse.</p>
+      <h2 class="form-title" id="formTitle">Register for free</h2><p class="form-copy" id="formCopy">We only need your name and email address.</p>
       <form id="webinarForm" novalidate>
-        <div class="field"><label for="name">Vorname oder Name</label><input id="name" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Dein Name"></div>
-        <div class="field"><label for="email">E-Mail-Adresse</label><input id="email" name="email" type="email" autocomplete="email" maxlength="160" required placeholder="name@beispiel.de"></div>
-        <label class="consent"><input id="consent" type="checkbox" required><span>Ich möchte den Zugang zur BetInsight Webinar-Aufzeichnung und die dafür notwendigen Informationen per E-Mail erhalten.</span></label>
-        <label class="consent optional"><input id="marketingConsent" type="checkbox"><span>Zusätzlich möchte ich gelegentliche Informationen zu BetInsight, weiteren Webinaren und Neuigkeiten per E-Mail erhalten.</span></label>
-        <p class="optional-note">Optional · Diese Einwilligung kann jederzeit widerrufen werden.</p>
-        <p class="privacy">Deine Angaben werden für den Webinar-Zugang verarbeitet. Mehr dazu in unserer <a href="../../datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a>.</p>
-        <button class="submit" id="submitButton" type="submit">▶️ Aufzeichnung vormerken</button>
+        <div class="field"><label for="name">First name or name</label><input id="name" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Your name"></div>
+        <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" maxlength="160" required placeholder="name@example.com"></div>
+        <label class="consent"><input id="consent" type="checkbox" required><span>I would like to receive access to the BetInsight webinar replay and the necessary information by email.</span></label>
+        <label class="consent optional"><input id="marketingConsent" type="checkbox"><span>I would also like to receive occasional information about BetInsight, further webinars and news by email.</span></label>
+        <p class="optional-note">Optional · You can withdraw this consent at any time.</p>
+        <p class="privacy">Your details are processed for webinar access. Learn more in our <a href="../../privacy/" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+        <button class="submit" id="submitButton" type="submit">▶️ Register for replay</button>
         <div class="message" id="formMessage" role="status" aria-live="polite"></div>
       </form>
     </div>
-    <div class="units"><strong>5 Start-Units:</strong> Diese erhältst du bei einer kostenlosen BetInsight-Neuregistrierung. Die Webinar-Anmeldung ist davon getrennt.</div>
-    <p class="bottom-note">Dein persönlicher BetInsight-Empfehlungscode wird bei der Webinar-Anmeldung automatisch mitgeführt.</p>
+    <div class="units"><strong>5 starter units:</strong> You receive these with a free new BetInsight registration. Webinar registration is separate.</div>
+    <p class="bottom-note">Your personal BetInsight referral code is carried over automatically with the webinar registration.</p>
   </section></div></main>
   <footer><div class="wrap">© 2026 BetInsight Club · Webinar-Aufzeichnung</div></footer>
   <script>
@@ -49,25 +49,25 @@
 
     let replayAvailable=false;
     try{
-      const cfgRes=await fetch('../replay-config.json?ts='+Date.now(),{cache:'no-store'});
+      const cfgRes=await fetch('/de/webinar/replay-config.json?ts='+Date.now(),{cache:'no-store'});
       if(cfgRes.ok){const cfg=await cfgRes.json();replayAvailable=!!cfg.available&&!!cfg.video_embed_url}
     }catch(e){}
 
     if(replayAvailable){
-      document.getElementById('pageTitle').textContent='Webinar-Aufzeichnung ansehen';
-      document.getElementById('pageLead').textContent='Trag dich kurz ein. Direkt danach kannst du die BetInsight Webinar-Aufzeichnung ansehen.';
-      document.getElementById('statusTitle').textContent='Aufzeichnung verfügbar';
-      document.getElementById('statusText').textContent='Nach deiner kurzen Anmeldung wird die Aufzeichnung direkt freigeschaltet.';
-      document.getElementById('formTitle').textContent='Kostenlos freischalten';
-      document.getElementById('formCopy').textContent='Name und E-Mail genügen. Dein Partnercode bleibt automatisch erhalten.';
-      document.getElementById('submitButton').textContent='▶️ Aufzeichnung freischalten';
+      document.getElementById('pageTitle').textContent='Watch webinar replay';
+      document.getElementById('pageLead').textContent='Enter your details briefly. You can watch the BetInsight webinar replay immediately afterwards.';
+      document.getElementById('statusTitle').textContent='Replay available';
+      document.getElementById('statusText').textContent='After your short registration, the replay is unlocked immediately.';
+      document.getElementById('formTitle').textContent='Unlock for free';
+      document.getElementById('formCopy').textContent='Name and email are enough. Your partner code is preserved automatically.';
+      document.getElementById('submitButton').textContent='▶️ Unlock replay';
     }
 
     const form=document.getElementById('webinarForm'),button=document.getElementById('submitButton'),message=document.getElementById('formMessage');
     form.addEventListener('submit',async e=>{
       e.preventDefault();message.className='message';message.textContent='';
       if(!form.checkValidity()){form.reportValidity();return}
-      button.disabled=true;button.textContent='Wird gespeichert …';
+      button.disabled=true;button.textContent='Saving …';
       const marketing=document.getElementById('marketingConsent').checked?'true':'false';
       const body=new URLSearchParams({webinar_type:'replay',name:document.getElementById('name').value.trim(),email:document.getElementById('email').value.trim(),ref_code:activeRef,source_url:location.href,live_event_id:replayAvailable?'replay-ready':'',consent_webinar_email:'true',notes:'website_replay_v2|marketing_optin='+marketing});
       try{
@@ -75,13 +75,13 @@
         if(!res.ok)throw new Error('HTTP '+res.status);
         if(replayAvailable){
           try{sessionStorage.setItem(ACCESS,'1')}catch(e){}
-          message.className='message ok';message.textContent='✓ Gespeichert. Die Aufzeichnung wird geöffnet …';
-          button.textContent='Freigeschaltet ✓';
+          message.className='message ok';message.textContent='✓ Saved. The replay is opening …';
+          button.textContent='Unlocked ✓';
           const u=new URL('../ansehen/',location.href);if(activeRef!==DEFAULT)u.searchParams.set('ref',activeRef);setTimeout(()=>location.href=u.toString(),450);return;
         }
-        message.className='message ok';message.textContent='✓ Deine Vormerkung wurde gespeichert. Wir informieren dich per E-Mail, sobald die Webinar-Aufzeichnung verfügbar ist.';
-        form.querySelectorAll('input').forEach(i=>i.disabled=true);button.textContent='Vorgemerkt ✓';
-      }catch(err){console.error(err);message.className='message error';message.textContent='Die Anmeldung konnte gerade nicht gespeichert werden. Bitte versuche es in einem Moment erneut.';button.disabled=false;button.textContent=replayAvailable?'▶️ Aufzeichnung freischalten':'▶️ Aufzeichnung vormerken'}
+        message.className='message ok';message.textContent='✓ Your registration has been saved. We will inform you by email as soon as the webinar replay is available.';
+        form.querySelectorAll('input').forEach(i=>i.disabled=true);button.textContent='Registered ✓';
+      }catch(err){console.error(err);message.className='message error';message.textContent='The registration could not be saved right now. Please try again in a moment.';button.disabled=false;button.textContent=replayAvailable?'▶️ Unlock replay':'▶️ Register for replay'}
     });
   })();
   </script>

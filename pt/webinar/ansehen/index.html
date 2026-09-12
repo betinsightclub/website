@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="de">
+<html lang="pt">
 <head>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#031720">
-  <meta name="description" content="BetInsight Webinar-Aufzeichnung ansehen.">
-  <title>BetInsight Webinar ansehen</title>
+  <meta name="description" content="Assista à gravação do webinar da BetInsight.">
+  <title>Assistir ao webinar da BetInsight</title>
 <!-- BETINSIGHT UTILITY NOINDEX START -->
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
 <!-- BETINSIGHT UTILITY NOINDEX END -->
@@ -16,11 +16,11 @@
   </style>
 </head>
 <body>
-  <div class="wrap"><header class="topbar"><a href="../" data-preserve-ref><img class="logo" src="../../../assets/betinsight-logo.png" alt="BetInsight.club"></a><a class="back" href="../" data-preserve-ref>← Webinar-Auswahl</a></header></div>
+  <div class="wrap"><header class="topbar"><a href="../" data-preserve-ref><img class="logo" src="../../../assets/betinsight-logo.png" alt="BetInsight.club"></a><a class="back" href="../" data-preserve-ref>← Seleção do webinar</a></header></div>
   <main class="main"><div class="wrap"><section class="card">
-    <h1>BetInsight Webinar-Aufzeichnung</h1>
-    <p class="lead">Sieh dir das Webinar in deinem eigenen Tempo an.</p>
-    <div id="content"><div class="notice">Aufzeichnung wird geprüft …</div></div>
+    <h1>Gravação do webinar da BetInsight</h1>
+    <p class="lead">Assista ao webinar no seu ritmo.</p>
+    <div id="content"><div class="notice">Verificando a gravação …</div></div>
   </section></div></main>
   <footer>© 2026 BetInsight Club · Webinar</footer>
   <script>
@@ -37,14 +37,14 @@
     if(!allowed){const u=new URL('../aufzeichnung/',location.href);if(activeRef!==DEFAULT)u.searchParams.set('ref',activeRef);location.replace(u.toString());return}
     const content=document.getElementById('content');
     try{
-      const res=await fetch('../replay-config.json?ts='+Date.now(),{cache:'no-store'});if(!res.ok)throw new Error('config');const cfg=await res.json();
-      if(!cfg.available||!cfg.video_embed_url){content.innerHTML='<div class="notice"><strong>Die Aufzeichnung ist noch nicht freigegeben.</strong><br>Du wirst informiert, sobald sie verfügbar ist.</div>';return}
+      const res=await fetch('/de/webinar/replay-config.json?ts='+Date.now(),{cache:'no-store'});if(!res.ok)throw new Error('config');const cfg=await res.json();
+      if(!cfg.available||!cfg.video_embed_url){content.innerHTML='<div class="notice"><strong>A gravação ainda não foi liberada.</strong><br>Você será avisado assim que estiver disponível.</div>';return}
       const url=String(cfg.video_embed_url||'');
       if(!/^https:\/\//i.test(url))throw new Error('url');
-      content.innerHTML='<div class="video"><iframe src="'+url.replace(/"/g,'&quot;')+'" title="BetInsight Webinar-Aufzeichnung" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><section class="after-video" aria-labelledby="afterVideoTitle"><span class="kicker">Dein nächster Schritt</span><h2 id="afterVideoTitle">Möchtest du BetInsight jetzt selbst testen?</h2><p>Erstelle deinen kostenlosen BetInsight-Zugang und erhalte 5 Start-Units. Dein persönlicher Empfehlungs-Code bleibt dabei automatisch erhalten.</p><div class="after-video-actions"><a id="registerAfterReplay" class="register" href="#">Kostenlosen Zugang erstellen</a><a id="founderAfterReplay" class="founder" href="#">Noch Fragen? Founder-Call</a></div><p class="after-video-note">Die Webinar-Anmeldung und die kostenlose BetInsight-Neuregistrierung bleiben getrennt.</p></section>';
+      content.innerHTML='<div class="video"><iframe src="'+url.replace(/"/g,'&quot;')+'" title="Gravação do webinar da BetInsight" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><section class="after-video" aria-labelledby="afterVideoTitle"><span class="kicker">Seu próximo passo</span><h2 id="afterVideoTitle">Quer testar a BetInsight agora?</h2><p>Crie seu acesso gratuito à BetInsight e receba 5 unidades iniciais. Seu código pessoal de indicação é mantido automaticamente.</p><div class="after-video-actions"><a id="registerAfterReplay" class="register" href="#">Criar acesso gratuito</a><a id="founderAfterReplay" class="founder" href="#">Ainda tem dúvidas? Founder Call</a></div><p class="after-video-note">A inscrição no webinar e o cadastro gratuito na BetInsight permanecem separados.</p></section>';
       document.getElementById('registerAfterReplay').href=withRef('https://betinsight.club/ref/');
-      document.getElementById('founderAfterReplay').href=withRef('https://betinsight.club/de/termin/');
-    }catch(e){content.innerHTML='<div class="notice">Die Aufzeichnung konnte gerade nicht geladen werden. Bitte versuche es später erneut.</div>'}
+      document.getElementById('founderAfterReplay').href=withRef('https://betinsight.club/pt/termin/');
+    }catch(e){content.innerHTML='<div class="notice">Não foi possível carregar a gravação agora. Tente novamente mais tarde.</div>'}
   })();
   </script>
   <script src="../../../assets/subpage-language-switch.js" defer></script>
