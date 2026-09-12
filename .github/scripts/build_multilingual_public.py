@@ -93,10 +93,10 @@ def page_seo(lang,title,desc,path_suffix=""):
     return "\n".join(lines)
 
 def replace_all(text,mapping):
-    # longest phrases first so smaller phrases do not damage larger matches
-    for src,dst in sorted(mapping.items(),key=lambda kv:len(kv[0]),reverse=True):
-        text=text.replace(src,dst)
-    return text
+    # One-pass replacement: translated output is never processed again.
+    keys=sorted(mapping,key=len,reverse=True)
+    pattern=re.compile("|".join(re.escape(k) for k in keys))
+    return pattern.sub(lambda m:mapping[m.group(0)],text)
 
 # Generate new landing pages from the current English production page.
 base=(ROOT/"en/index.html").read_text(encoding="utf-8")

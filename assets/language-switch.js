@@ -216,6 +216,22 @@
       }
       .language-switch select option { color:#071923; background:#fff; }
 
+
+      .language-switch select {
+        min-height:34px;
+        max-width:132px;
+        padding:6px 28px 6px 10px;
+        border:0;
+        border-radius:999px;
+        color:#fff;
+        background:#0a69d8;
+        font-size:12px;
+        font-weight:900;
+        cursor:pointer;
+        outline:none;
+      }
+      .language-switch select option { color:#071923; background:#fff; }
+
       .language-switch a {
         display: inline-flex;
         align-items: center;
