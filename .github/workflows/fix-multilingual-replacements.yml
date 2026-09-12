@@ -1,0 +1,47 @@
+name: BetInsight Multilingual Replacement Fix
+
+on:
+  push:
+    paths:
+      - '.github/multilingual-fix-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Website laden
+        uses: actions/checkout@v6
+      - name: Übersetzungsroutine korrigieren und Seiten neu bauen
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/fix_multilingual_replacements.py
+      - name: Prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          ! grep -q 'Controlee total' pt/index.html
+          grep -q 'Controle total' pt/index.html
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse('sitemap.xml')
+          print('OK')
+          PY
+      - name: Speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/multilingual-fix-trigger.txt
+          git config user.name 'BetInsight Language Builder'
+          git config user.email 'actions@github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'Keine Änderung notwendig.'
+          else
+            git commit -m 'i18n: Übersetzungsroutine robust machen'
+            git push
+          fi
