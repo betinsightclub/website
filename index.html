@@ -12,27 +12,30 @@
 <link rel="canonical" href="https://betinsight.club/">
 <link rel="alternate" hreflang="de" href="https://betinsight.club/de/">
 <link rel="alternate" hreflang="en" href="https://betinsight.club/en/">
+<link rel="alternate" hreflang="es" href="https://betinsight.club/es/">
+<link rel="alternate" hreflang="pt" href="https://betinsight.club/pt/">
+<link rel="alternate" hreflang="it" href="https://betinsight.club/it/">
+<link rel="alternate" hreflang="fr" href="https://betinsight.club/fr/">
 <link rel="alternate" hreflang="x-default" href="https://betinsight.club/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BetInsight Club">
 <meta property="og:locale" content="de_DE">
-<meta property="og:locale:alternate" content="en_US">
 <meta property="og:title" content="BetInsight Club – Sportanalysen mit System">
 <meta property="og:description" content="BetInsight Club bietet strukturierte Sportanalysen, klare Unit-Gewichtungen und Werkzeuge für kontrolliertes Bankroll-Management.">
 <meta property="og:url" content="https://betinsight.club/">
 <meta property="og:image" content="https://betinsight.club/assets/hero-fussball-dunkel.png">
-<meta property="og:image:alt" content="BetInsight Club – Sportanalysen mit System">
+<meta property="og:image:alt" content="BetInsight Club">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BetInsight Club – Sportanalysen mit System">
 <meta name="twitter:description" content="BetInsight Club bietet strukturierte Sportanalysen, klare Unit-Gewichtungen und Werkzeuge für kontrolliertes Bankroll-Management.">
 <meta name="twitter:image" content="https://betinsight.club/assets/hero-fussball-dunkel.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://betinsight.club/#organization","name":"BetInsight Club","alternateName":"BetInsight","url":"https://betinsight.club/","logo":{"@type":"ImageObject","url":"https://betinsight.club/assets/betinsight-logo.png"},"sameAs":["https://www.youtube.com/@betinsightclub","https://t.me/betinsightclub_official"]},{"@type":"WebSite","@id":"https://betinsight.club/#website","url":"https://betinsight.club/","name":"BetInsight Club","publisher":{"@id":"https://betinsight.club/#organization"},"inLanguage":["de","en"]},{"@type":"WebPage","@id":"https://betinsight.club/#webpage","url":"https://betinsight.club/","name":"BetInsight Club – Sportanalysen mit System","description":"BetInsight Club bietet strukturierte Sportanalysen, klare Unit-Gewichtungen und Werkzeuge für kontrolliertes Bankroll-Management.","inLanguage":"de","isPartOf":{"@id":"https://betinsight.club/#website"},"about":{"@id":"https://betinsight.club/#organization"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://betinsight.club/#organization","name":"BetInsight Club","alternateName":"BetInsight","url":"https://betinsight.club/","logo":{"@type":"ImageObject","url":"https://betinsight.club/assets/betinsight-logo.png"},"sameAs":["https://www.youtube.com/@betinsightclub","https://t.me/betinsightclub_official"]},{"@type":"WebSite","@id":"https://betinsight.club/#website","url":"https://betinsight.club/","name":"BetInsight Club","publisher":{"@id":"https://betinsight.club/#organization"},"inLanguage":["de","en","es","pt","it","fr"]},{"@type":"WebPage","@id":"https://betinsight.club/#webpage","url":"https://betinsight.club/","name":"BetInsight Club – Sportanalysen mit System","description":"BetInsight Club bietet strukturierte Sportanalysen, klare Unit-Gewichtungen und Werkzeuge für kontrolliertes Bankroll-Management.","inLanguage":"de","isPartOf":{"@id":"https://betinsight.club/#website"},"about":{"@id":"https://betinsight.club/#organization"}}]}</script>
 <!-- BETINSIGHT SEO END -->
 
   <script>
     (function () {
       const LANGUAGE_KEY = "betinsight_language";
-      const SUPPORTED = ["de", "en"];
+      const SUPPORTED = ["de", "en", "es", "pt", "it", "fr"];
 
       function cleanLanguage(value) {
         const language = String(value || "")
@@ -113,7 +116,11 @@
     Weiterleitung zu BetInsight …
     <a id="fallbackDe" href="./de/">Deutsch</a>
     ·
-    <a id="fallbackEn" href="./en/">English</a>
+    <a id="fallbackEn" href="./en/">English</a> ·
+    <a id="fallbackEs" href="./es/">Español</a> ·
+    <a id="fallbackPt" href="./pt/">Português</a> ·
+    <a id="fallbackIt" href="./it/">Italiano</a> ·
+    <a id="fallbackFr" href="./fr/">Français</a>
   </p>
 
   <script>
@@ -129,11 +136,10 @@
         (query ? "?" + query : "") +
         window.location.hash;
 
-      document.getElementById("fallbackDe").href =
-        "./de/" + suffix;
-
-      document.getElementById("fallbackEn").href =
-        "./en/" + suffix;
+      [["fallbackDe","de"],["fallbackEn","en"],["fallbackEs","es"],["fallbackPt","pt"],["fallbackIt","it"],["fallbackFr","fr"]].forEach(([id,lang]) => {
+        const el = document.getElementById(id);
+        if (el) el.href = "./" + lang + "/" + suffix;
+      });
     })();
   </script>
 </body>

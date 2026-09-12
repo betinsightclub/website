@@ -5,17 +5,17 @@ Datei: rechner/index.html
 Version: 2026.08.20-EN-01
 Description: Betting calculator for bankroll development and unit usage
 -->
-<html lang="en">
+<html lang="fr">
 <head>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="BetInsight calculator for a non-binding simulation of betting bankroll development and unit usage.">
-  <title>BetInsight Betting Calculator</title>
+  <meta name="description" content="Calculateur BetInsight pour une simulation non contraignante de l&#x27;évolution de la bankroll et de l&#x27;utilisation des unités.">
+  <title>Calculateur de paris BetInsight</title>
 
 <!-- BETINSIGHT SEO START -->
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-<link rel="canonical" href="https://betinsight.club/en/rechner/">
+<link rel="canonical" href="https://betinsight.club/fr/rechner/">
 <link rel="alternate" hreflang="de" href="https://betinsight.club/de/rechner/">
 <link rel="alternate" hreflang="en" href="https://betinsight.club/en/rechner/">
 <link rel="alternate" hreflang="es" href="https://betinsight.club/es/rechner/">
@@ -25,17 +25,17 @@ Description: Betting calculator for bankroll development and unit usage
 <link rel="alternate" hreflang="x-default" href="https://betinsight.club/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BetInsight Club">
-<meta property="og:locale" content="en_US">
-<meta property="og:title" content="BetInsight Betting Calculator">
-<meta property="og:description" content="BetInsight calculator for a non-binding simulation of betting bankroll development and unit usage.">
-<meta property="og:url" content="https://betinsight.club/en/rechner/">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Calculateur de paris BetInsight">
+<meta property="og:description" content="Calculateur BetInsight pour une simulation non contraignante de l&#x27;évolution de la bankroll et de l&#x27;utilisation des unités.">
+<meta property="og:url" content="https://betinsight.club/fr/rechner/">
 <meta property="og:image" content="https://betinsight.club/assets/hero-fussball-dunkel.png">
 <meta property="og:image:alt" content="BetInsight Club">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="BetInsight Betting Calculator">
-<meta name="twitter:description" content="BetInsight calculator for a non-binding simulation of betting bankroll development and unit usage.">
+<meta name="twitter:title" content="Calculateur de paris BetInsight">
+<meta name="twitter:description" content="Calculateur BetInsight pour une simulation non contraignante de l&#x27;évolution de la bankroll et de l&#x27;utilisation des unités.">
 <meta name="twitter:image" content="https://betinsight.club/assets/hero-fussball-dunkel.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://betinsight.club/en/rechner/#webpage","url":"https://betinsight.club/en/rechner/","name":"BetInsight Betting Calculator","description":"BetInsight calculator for a non-binding simulation of betting bankroll development and unit usage.","inLanguage":"en","isPartOf":{"@id":"https://betinsight.club/#website"},"about":{"@id":"https://betinsight.club/#organization"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://betinsight.club/fr/rechner/#webpage","url":"https://betinsight.club/fr/rechner/","name":"Calculateur de paris BetInsight","description":"Calculateur BetInsight pour une simulation non contraignante de l'évolution de la bankroll et de l'utilisation des unités.","inLanguage":"fr","isPartOf":{"@id":"https://betinsight.club/#website"},"about":{"@id":"https://betinsight.club/#organization"}}]}</script>
 <!-- BETINSIGHT SEO END -->
 
   <style>
@@ -398,24 +398,24 @@ Description: Betting calculator for bankroll development and unit usage
         height="118"
       >
       <div>
-        <h1>BetInsight Betting Calculator</h1>
-        <p class="subtitle">Simulate your betting bankroll development and see separately how many packages and units are required.</p>
+        <h1>Calculateur de paris BetInsight</h1>
+        <p class="subtitle">Simulez l'évolution de votre bankroll et voyez séparément combien de packs et d'unités sont nécessaires.</p>
       </div>
     </header>
 
     <section class="panel" aria-labelledby="settings-title">
-      <h2 id="settings-title">Your settings</h2>
-      <p class="panel-note">Only these fields can be changed. All results below are calculated automatically.</p>
+      <h2 id="settings-title">Vos paramètres</h2>
+      <p class="panel-note">Seuls ces champs peuvent être modifiés. Tous les résultats ci-dessous sont calculés automatiquement.</p>
 
       <div class="controls">
         <div class="field">
-          <label for="startCapital">Starting bankroll (minimum €100)</label>
+          <label for="startCapital">Bankroll de départ (minimum 100 €)</label>
           <input id="startCapital" type="number" min="100" step="10" value="1000" inputmode="decimal">
           <div id="capitalError" class="input-error" aria-live="polite"></div>
         </div>
 
         <div class="field">
-          <label for="tipUnits">Tip cost / stake</label>
+          <label for="tipUnits">Coût du pronostic / mise</label>
           <select id="tipUnits">
             <option value="3">3 Units = 3 %</option>
             <option value="5">5 Units = 5 %</option>
@@ -424,7 +424,7 @@ Description: Betting calculator for bankroll development and unit usage
         </div>
 
         <div class="field">
-          <label for="odds">Average odds</label>
+          <label for="odds">Cote moyenne</label>
           <select id="odds">
             <option value="1.7">1.70</option>
             <option value="1.8" selected>1.80</option>
@@ -434,7 +434,7 @@ Description: Betting calculator for bankroll development and unit usage
         </div>
 
         <div class="field">
-          <label for="hitRate">Hit rate</label>
+          <label for="hitRate">Taux de réussite</label>
           <select id="hitRate">
             <option value="7" selected>7 of 10</option>
             <option value="8">8 of 10</option>
@@ -442,7 +442,7 @@ Description: Betting calculator for bankroll development and unit usage
         </div>
 
         <div class="field">
-          <label for="packageKey">Unit package</label>
+          <label for="packageKey">Pack d'unités</label>
           <select id="packageKey">
             <option value="starter">Starter – 50 Units / 49 €</option>
             <option value="basic">Basic – 110 Units / 99 €</option>
@@ -452,38 +452,38 @@ Description: Betting calculator for bankroll development and unit usage
         </div>
 
         <div class="field">
-          <label for="betCount">Number of bets</label>
+          <label for="betCount">Nombre de paris</label>
           <select id="betCount"></select>
         </div>
 
         <div class="field mode-wrap">
-          <label>Profit handling</label>
-          <div class="mode-switch" role="group" aria-label="Profit handling">
-            <button class="mode-button active" type="button" data-mode="reinvest" aria-pressed="true">Keep profits in bankroll</button>
-            <button class="mode-button" type="button" data-mode="payout" aria-pressed="false">Withdraw profits</button>
+          <label>Gestion des gains</label>
+          <div class="mode-switch" role="group" aria-label="Gestion des gains">
+            <button class="mode-button active" type="button" data-mode="reinvest" aria-pressed="true">Conserver les gains dans la bankroll</button>
+            <button class="mode-button" type="button" data-mode="payout" aria-pressed="false">Retirer les gains</button>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="summary-grid" aria-label="Overall result">
+    <section class="summary-grid" aria-label="Résultat global">
       <article class="summary-card primary">
-        <span class="summary-label">Total wealth</span>
+        <span class="summary-label">Patrimoine total</span>
         <strong id="totalWealth" class="summary-value green">–</strong>
-        <span class="summary-detail">Betting bankroll plus profit account</span>
+        <span class="summary-detail">Bankroll de paris plus compte de gains</span>
       </article>
       <article class="summary-card">
-        <span class="summary-label">Current betting bankroll</span>
+        <span class="summary-label">Bankroll actuelle</span>
         <strong id="currentCapital" class="summary-value cyan">–</strong>
-        <span class="summary-detail">Bankroll after all selected bets</span>
+        <span class="summary-detail">Bankroll après tous les paris sélectionnés</span>
       </article>
       <article class="summary-card">
-        <span class="summary-label">Profit account</span>
+        <span class="summary-label">Compte de gains</span>
         <strong id="payoutAccount" class="summary-value yellow">–</strong>
-        <span id="payoutStatus" class="summary-detail">Inactive in current mode</span>
+        <span id="payoutStatus" class="summary-detail">Inactif dans le mode actuel</span>
       </article>
       <article class="summary-card expense">
-        <span class="summary-label">Total package spending</span>
+        <span class="summary-label">Dépenses totales en packs</span>
         <strong id="packageExpenses" class="summary-value orange">–</strong>
         <span id="packageSummary" class="summary-detail">–</span>
       </article>
@@ -491,18 +491,18 @@ Description: Betting calculator for bankroll development and unit usage
 
     <section class="tables">
       <article class="panel">
-        <h2>Betting bankroll development</h2>
-        <p class="panel-note">One stake applies to each individual bet within each block of 10.</p>
+        <h2>Évolution de la bankroll</h2>
+        <p class="panel-note">Une mise s'applique à chaque pari individuel dans chaque bloc de 10.</p>
         <div class="table-scroll">
           <table>
             <thead>
               <tr>
-                <th>Bets</th>
-                <th>Bankroll before</th>
-                <th>Stake per bet</th>
-                <th>Block profit</th>
-                <th>Bankroll after</th>
-                <th>Profit account</th>
+                <th>Paris</th>
+                <th>Bankroll avant</th>
+                <th>Mise par pari</th>
+                <th>Gain du bloc</th>
+                <th>Bankroll après</th>
+                <th>Compte de gains</th>
               </tr>
             </thead>
             <tbody id="betTableBody"></tbody>
@@ -510,36 +510,36 @@ Description: Betting calculator for bankroll development and unit usage
         </div>
         <div class="totals">
           <div class="total-box">
-            <span>Total bankroll deposits</span>
+            <span>Dépôts totaux dans la bankroll</span>
             <strong id="capitalDeposits">–</strong>
           </div>
           <div class="total-box">
-            <span>Total betting profit</span>
+            <span>Gain total des paris</span>
             <strong id="totalBetProfit" class="green">–</strong>
           </div>
           <div class="total-box">
-            <span>Bankroll + profits</span>
+            <span>Bankroll + gains</span>
             <strong id="leftGrandTotal" class="cyan">–</strong>
           </div>
           <div class="total-box">
-            <span>Profit versus deposits</span>
+            <span>Gain par rapport aux dépôts</span>
             <strong id="profitPercent">–</strong>
           </div>
         </div>
       </article>
 
       <article class="panel">
-        <h2>Unit and package costs</h2>
-        <p class="panel-note">A new full package is automatically included as soon as the available units are insufficient.</p>
+        <h2>Coûts des unités et des packs</h2>
+        <p class="panel-note">Un nouveau pack complet est automatiquement inclus dès que les unités disponibles sont insuffisantes.</p>
         <div class="table-scroll">
           <table>
             <thead>
               <tr>
-                <th>Bets</th>
-                <th>Units used</th>
-                <th>Packages purchased</th>
-                <th>Units remaining</th>
-                <th>Total spending</th>
+                <th>Paris</th>
+                <th>Unités utilisées</th>
+                <th>Packs achetés</th>
+                <th>Unités restantes</th>
+                <th>Dépenses totales</th>
               </tr>
             </thead>
             <tbody id="costTableBody"></tbody>
@@ -547,27 +547,27 @@ Description: Betting calculator for bankroll development and unit usage
         </div>
         <div class="totals">
           <div class="total-box">
-            <span>Price per package</span>
+            <span>Prix par pack</span>
             <strong id="packagePrice">–</strong>
           </div>
           <div class="total-box">
-            <span>Price per unit</span>
+            <span>Prix par unité</span>
             <strong id="unitPrice">–</strong>
           </div>
           <div class="total-box">
-            <span>Total packages</span>
+            <span>Nombre total de packs</span>
             <strong id="totalPackages">–</strong>
           </div>
           <div class="total-box">
-            <span>Total spending</span>
+            <span>Dépenses totales</span>
             <strong id="rightGrandTotal" class="orange">–</strong>
           </div>
           <div class="total-box">
-            <span>Total units purchased</span>
+            <span>Total d'unités achetées</span>
             <strong id="unitsPurchased">–</strong>
           </div>
           <div class="total-box">
-            <span>Units remaining after simulation</span>
+            <span>Unités restantes après simulation</span>
             <strong id="unitsRemaining" class="green">–</strong>
           </div>
         </div>
@@ -575,29 +575,29 @@ Description: Betting calculator for bankroll development and unit usage
     </section>
 
     <div class="footer-actions">
-      <button id="resetButton" class="reset-button" type="button">Reset calculation</button>
+      <button id="resetButton" class="reset-button" type="button">Réinitialiser le calcul</button>
     </div>
 
     <section class="calculator-cta" aria-labelledby="calculator-cta-title">
-      <h2 id="calculator-cta-title">Would you like to try BetInsight yourself?</h2>
-      <p>Create your free BetInsight account and start with 5 free starter units.</p>
+      <h2 id="calculator-cta-title">Vous souhaitez essayer BetInsight ?</h2>
+      <p>Créez votre compte BetInsight gratuit et commencez avec 5 unités de départ gratuites.</p>
       <div class="calculator-cta-actions">
-        <a id="calculatorBackButton" class="calculator-action calculator-back" href="../">← Back to BetInsight</a>
-        <a id="calculatorRegisterButton" class="calculator-action calculator-register" href="https://betinsight.systeme.io/registrierung?ref=POOL">Start free with 5 starter units</a>
+        <a id="calculatorBackButton" class="calculator-action calculator-back" href="../">← Retour à BetInsight</a>
+        <a id="calculatorRegisterButton" class="calculator-action calculator-register" href="https://betinsight.systeme.io/registrierung?ref=POOL">Commencer gratuitement avec 5 unités</a>
       </div>
     </section>
 
     <p class="disclaimer">
-      Note: This is a mathematical simulation and not a guarantee of profit or betting advice.
-      The calculation assumes exactly the selected number of winning bets and constant odds in every block of 10.
-      Actual results, odds, betting limits and risks can differ significantly. Gambling can be addictive.
+      Remarque : il s'agit d'une simulation mathématique et non d'une garantie de gain ni d'un conseil de pari.
+      Le calcul suppose exactement le nombre sélectionné de paris gagnants et des cotes constantes dans chaque bloc de 10.
+      Les résultats réels, les cotes, les limites de paris et les risques peuvent varier considérablement. Les jeux d'argent peuvent créer une dépendance.
     </p>
   </main>
 
   <script>
     "use strict";
 
-    const packages = Object.freeze({
+    const packs = Object.freeze({
       starter: { name: "Starter", units: 50, price: 49 },
       basic:   { name: "Basic", units: 110, price: 99 },
       pro:     { name: "Pro", units: 240, price: 199 },
@@ -609,7 +609,7 @@ Description: Betting calculator for bankroll development and unit usage
       tipUnits: "3",
       odds: "1.8",
       hitRate: "7",
-      packageKey: "starter",
+      packKey: "starter",
       betCount: "100",
       mode: "reinvest"
     });
@@ -619,7 +619,7 @@ Description: Betting calculator for bankroll development and unit usage
       tipUnits: document.getElementById("tipUnits"),
       odds: document.getElementById("odds"),
       hitRate: document.getElementById("hitRate"),
-      packageKey: document.getElementById("packageKey"),
+      packKey: document.getElementById("packageKey"),
       betCount: document.getElementById("betCount"),
       capitalError: document.getElementById("capitalError"),
       betTableBody: document.getElementById("betTableBody"),
@@ -628,14 +628,14 @@ Description: Betting calculator for bankroll development and unit usage
 
     let mode = defaults.mode;
 
-    const euro = new Intl.NumberFormat("en-GB", {
+    const euro = new Intl.NumberFormat("fr-FR", {
       style: "currency",
       currency: "EUR",
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     });
 
-    const number = new Intl.NumberFormat("en-GB", {
+    const number = new Intl.NumberFormat("fr-FR", {
       minimumFractionDigits: 0,
       maximumFractionDigits: 2
     });
@@ -645,7 +645,7 @@ Description: Betting calculator for bankroll development and unit usage
       for (let count = 10; count <= 1000; count += 10) {
         const option = document.createElement("option");
         option.value = String(count);
-        option.textContent = count + " bets";
+        option.textContent = count + " paris";
         if (count === 100) option.selected = true;
         fragment.appendChild(option);
       }
@@ -655,7 +655,7 @@ Description: Betting calculator for bankroll development and unit usage
     function readStartCapital() {
       const value = Number.parseFloat(elements.startCapital.value);
       if (!Number.isFinite(value) || value < 100) {
-        elements.capitalError.textContent = "Please enter at least €100.";
+        elements.capitalError.textContent = "Saisissez au moins 100 €.";
         return 100;
       }
       elements.capitalError.textContent = "";
@@ -680,9 +680,9 @@ Description: Betting calculator for bankroll development and unit usage
       const odds = Number(elements.odds.value);
       const wins = Number(elements.hitRate.value);
       const losses = 10 - wins;
-      const totalBets = Number(elements.betCount.value);
-      const selectedPackage = packages[elements.packageKey.value];
-      const blocks = totalBets / 10;
+      const totalParis = Number(elements.betCount.value);
+      const selectedPackage = packs[elements.packageKey.value];
+      const blocks = totalParis / 10;
 
       let capital = startCapital;
       let payoutAccount = 0;
@@ -693,7 +693,7 @@ Description: Betting calculator for bankroll development and unit usage
       const costFragment = document.createDocumentFragment();
 
       for (let block = 1; block <= blocks; block += 1) {
-        const cumulativeBets = block * 10;
+        const cumulativeParis = block * 10;
         const capitalBefore = capital;
         const stakePerBet = capitalBefore * stakeRate;
         const blockProfit = (wins * stakePerBet * (odds - 1)) - (losses * stakePerBet);
@@ -709,7 +709,7 @@ Description: Betting calculator for bankroll development and unit usage
 
         const betRow = document.createElement("tr");
         betRow.append(
-          createCell(number.format(cumulativeBets)),
+          createCell(number.format(cumulativeParis)),
           createCell(euro.format(capitalBefore)),
           createCell(euro.format(stakePerBet)),
           createCell(euro.format(blockProfit), blockProfit >= 0 ? "green" : "red"),
@@ -718,15 +718,15 @@ Description: Betting calculator for bankroll development and unit usage
         );
         betFragment.appendChild(betRow);
 
-        const unitsUsed = cumulativeBets * unitCostPerTip;
-        const packageCount = Math.ceil(unitsUsed / selectedPackage.units);
-        const purchasedUnits = packageCount * selectedPackage.units;
+        const unitsUsed = cumulativeParis * unitCostPerTip;
+        const packCount = Math.ceil(unitsUsed / selectedPackage.units);
+        const purchasedUnits = packCount * selectedPackage.units;
         const remainingUnits = purchasedUnits - unitsUsed;
-        const expenses = packageCount * selectedPackage.price;
+        const expenses = packCount * selectedPackage.price;
 
         const costRow = document.createElement("tr");
         costRow.append(
-          createCell(number.format(cumulativeBets)),
+          createCell(number.format(cumulativeParis)),
           createCell(number.format(unitsUsed)),
           createCell(number.format(packageCount)),
           createCell(number.format(remainingUnits), "green"),
@@ -738,7 +738,7 @@ Description: Betting calculator for bankroll development and unit usage
       elements.betTableBody.replaceChildren(betFragment);
       elements.costTableBody.replaceChildren(costFragment);
 
-      const totalUnitsUsed = totalBets * unitCostPerTip;
+      const totalUnitsUsed = totalParis * unitCostPerTip;
       const totalPackageCount = Math.ceil(totalUnitsUsed / selectedPackage.units);
       const totalUnitsPurchased = totalPackageCount * selectedPackage.units;
       const totalUnitsRemaining = totalUnitsPurchased - totalUnitsUsed;
@@ -749,9 +749,9 @@ Description: Betting calculator for bankroll development and unit usage
       setText("totalWealth", euro.format(totalWealth));
       setText("currentCapital", euro.format(capital));
       setText("payoutAccount", euro.format(payoutAccount));
-      setText("payoutStatus", mode === "payout" ? "Accumulated amount available for possible withdrawal" : "Inactive in current mode");
+      setText("payoutStatus", mode === "payout" ? "Montant accumulé disponible pour un éventuel retrait" : "Inactif dans le mode actuel");
       setText("packageExpenses", euro.format(totalPackageExpenses));
-      setText("packageSummary", totalPackageCount + " × " + selectedPackage.name + " package");
+      setText("packageSummary", totalPackageCount + " × " + selectedPackage.name + " pack");
 
       setText("capitalDeposits", euro.format(capitalDeposits));
       setText("totalBetProfit", euro.format(totalProfit));
