@@ -1,4 +1,4 @@
-# BetInsight multilingual secondary pages v1
+# BetInsight multilingual secondary pages v2
 name: BetInsight Secondary Public Languages
 
 on:
@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/build-secondary-public-languages.yml'
       - '.github/scripts/build_secondary_public_languages.py'
+      - '.github/scripts/localize_public_utilities.py'
 
 permissions:
   contents: write
@@ -21,7 +22,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # PosixPath im Generator vor der String-Prüfung explizit umwandeln.
+          sed -i 's/if "webinar\/" in source_rel:/if "webinar\/" in str(source_rel):/' .github/scripts/build_secondary_public_languages.py
           python3 .github/scripts/build_secondary_public_languages.py
+          python3 .github/scripts/localize_public_utilities.py
 
       - name: Änderungen prüfen
         shell: bash
@@ -44,7 +48,15 @@ jobs:
                   p=Path(lang)/rel/'index.html'
                   assert p.exists(), p
                   s=p.read_text(encoding='utf-8')
+                  assert f'<html lang="{lang}">' in s
                   assert 'noindex' in s
+                  assert 'subpage-language-switch.js' in s
+          # Fallback-Englisch darf auf den ES/PT/IT/FR Hilfsseiten nicht stehen bleiben.
+          forbidden=['Register for the next live webinar','Watch the webinar at your own pace.','Your appointment is booked.']
+          for lang in ['es','pt','it','fr']:
+              combined='\n'.join((Path(lang)/rel/'index.html').read_text(encoding='utf-8') for rel in ['webinar/live','webinar/ansehen','termin/bestaetigt'])
+              for phrase in forbidden:
+                  assert phrase not in combined, (lang, phrase)
           ET.parse('sitemap.xml')
           print('OK: mehrsprachige öffentliche Unterseiten geprüft.')
           PY
