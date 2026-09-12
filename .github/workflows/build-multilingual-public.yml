@@ -1,0 +1,61 @@
+name: BetInsight Public Multilingual Build
+
+on:
+  push:
+    paths:
+      - '.github/multilingual-public-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Website laden
+        uses: actions/checkout@v6
+
+      - name: Sprachseiten erzeugen
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/build_multilingual_public.py
+
+      - name: Änderungen prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse('sitemap.xml')
+          print('OK: sitemap.xml gültig')
+          PY
+          for lang in de en es pt it fr; do
+            test -f "$lang/index.html"
+            test -f "$lang/rechner/index.html"
+            grep -q "hreflang=\"$lang\"" "$lang/index.html"
+          done
+          grep -q 'const SUPPORTED = \["de", "en", "es", "pt", "it", "fr"\];' assets/language-switch.js
+          grep -q 'https://betinsight.club/pt/' sitemap.xml
+          if test -e pt-br/.gitkeep; then
+            echo 'FEHLER: alter pt-br-Platzhalter ist noch vorhanden.'
+            exit 1
+          fi
+          echo 'Geänderte Dateien:'
+          git status --short
+
+      - name: Änderungen speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/multilingual-public-trigger.txt
+          git config user.name 'BetInsight Language Builder'
+          git config user.email 'actions@github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'Keine Änderung notwendig.'
+          else
+            git commit -m 'i18n: DE EN ES PT IT FR veröffentlichen'
+            git push
+          fi
