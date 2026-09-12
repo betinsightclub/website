@@ -1,4 +1,4 @@
-# BetInsight multilingual secondary pages v2
+# BetInsight multilingual secondary pages v3
 name: BetInsight Secondary Public Languages
 
 on:
@@ -18,12 +18,32 @@ jobs:
       - name: Website laden
         uses: actions/checkout@v6
 
+      - name: Generatorquellen absichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          builder = Path('.github/scripts/build_secondary_public_languages.py')
+          text = builder.read_text(encoding='utf-8')
+          text = text.replace('if "webinar/" in source_rel:', 'if "webinar/" in str(source_rel):')
+          builder.write_text(text, encoding='utf-8')
+
+          util = Path('.github/scripts/localize_public_utilities.py')
+          text = util.read_text(encoding='utf-8')
+          bad = '\n}\n}\n}\n\n\ndef replace_many'
+          good = '\n}\n}\n\n\ndef replace_many'
+          if bad in text:
+              text = text.replace(bad, good, 1)
+          util.write_text(text, encoding='utf-8')
+          PY
+          python3 -m py_compile .github/scripts/build_secondary_public_languages.py .github/scripts/localize_public_utilities.py
+
       - name: Öffentliche Unterseiten übersetzen
         shell: bash
         run: |
           set -euo pipefail
-          # PosixPath im Generator vor der String-Prüfung explizit umwandeln.
-          sed -i 's/if "webinar\/" in source_rel:/if "webinar\/" in str(source_rel):/' .github/scripts/build_secondary_public_languages.py
           python3 .github/scripts/build_secondary_public_languages.py
           python3 .github/scripts/localize_public_utilities.py
 
@@ -51,7 +71,6 @@ jobs:
                   assert f'<html lang="{lang}">' in s
                   assert 'noindex' in s
                   assert 'subpage-language-switch.js' in s
-          # Fallback-Englisch darf auf den ES/PT/IT/FR Hilfsseiten nicht stehen bleiben.
           forbidden=['Register for the next live webinar','Watch the webinar at your own pace.','Your appointment is booked.']
           for lang in ['es','pt','it','fr']:
               combined='\n'.join((Path(lang)/rel/'index.html').read_text(encoding='utf-8') for rel in ['webinar/live','webinar/ansehen','termin/bestaetigt'])
@@ -68,7 +87,7 @@ jobs:
           set -euo pipefail
           git config user.name 'BetInsight Language Builder'
           git config user.email 'actions@github.com'
-          git add de/academy de/webinar de/termin en/academy en/webinar en/termin es/academy es/webinar es/termin pt/academy pt/webinar pt/termin it/academy it/webinar it/termin fr/academy fr/webinar fr/termin sitemap.xml
+          git add .github/scripts/build_secondary_public_languages.py .github/scripts/localize_public_utilities.py de/academy de/webinar de/termin en/academy en/webinar en/termin es/academy es/webinar es/termin pt/academy pt/webinar pt/termin it/academy it/webinar it/termin fr/academy fr/webinar fr/termin sitemap.xml
           if git diff --cached --quiet; then
             echo 'Keine Änderung notwendig.'
           else
