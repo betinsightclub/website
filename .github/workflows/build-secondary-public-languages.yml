@@ -3,7 +3,8 @@ name: BetInsight Secondary Public Languages
 on:
   push:
     paths:
-      - '.github/build-secondary-public-languages-trigger.txt'
+      - '.github/workflows/build-secondary-public-languages.yml'
+      - '.github/scripts/build_secondary_public_languages.py'
 
 permissions:
   contents: write
@@ -52,10 +53,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -f .github/build-secondary-public-languages-trigger.txt
           git config user.name 'BetInsight Language Builder'
           git config user.email 'actions@github.com'
-          git add de/academy de/webinar de/termin en/academy en/webinar en/termin es/academy es/webinar es/termin pt/academy pt/webinar pt/termin it/academy it/webinar it/termin fr/academy fr/webinar fr/termin sitemap.xml .github/build-secondary-public-languages-trigger.txt
+          git add de/academy de/webinar de/termin en/academy en/webinar en/termin es/academy es/webinar es/termin pt/academy pt/webinar pt/termin it/academy it/webinar it/termin fr/academy fr/webinar fr/termin sitemap.xml
           if git diff --cached --quiet; then
             echo 'Keine Änderung notwendig.'
           else
