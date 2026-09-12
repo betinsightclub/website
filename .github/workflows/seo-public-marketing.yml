@@ -1,0 +1,67 @@
+name: BetInsight Public Marketing SEO
+
+on:
+  push:
+    paths:
+      - '.github/seo-public-marketing-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  seo-public:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Website laden
+        uses: actions/checkout@v6
+
+      - name: Webinar und Termin SEO anwenden
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/seo_public_marketing.py
+
+      - name: Änderungen prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          grep -q '<link rel="canonical" href="https://betinsight.club/de/webinar/">' de/webinar/index.html
+          grep -q '<link rel="canonical" href="https://betinsight.club/de/termin/">' de/termin/index.html
+          grep -q '<loc>https://betinsight.club/de/webinar/</loc>' sitemap.xml
+          grep -q '<loc>https://betinsight.club/de/termin/</loc>' sitemap.xml
+          grep -q 'noindex,follow,noarchive' de/webinar/live/index.html
+          grep -q 'noindex,nofollow,noarchive,nosnippet' de/termin/bestaetigt/index.html
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse('sitemap.xml')
+          print('OK: sitemap.xml gültig.')
+          PY
+
+      - name: Änderungen speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/seo-public-marketing-trigger.txt
+          git config user.name 'BetInsight SEO Builder'
+          git config user.email 'actions@github.com'
+          git add \
+            de/webinar/index.html \
+            de/termin/index.html \
+            de/webinar/live/index.html \
+            de/webinar/aufzeichnung/index.html \
+            de/webinar/ansehen/index.html \
+            de/termin/bestaetigt/index.html \
+            webinar/index.html \
+            ref/index.html \
+            tombula/index.html \
+            tombula/teilnehmen/index.html \
+            sitemap.xml \
+            .github/seo-public-marketing-trigger.txt
+          if git diff --cached --quiet; then
+            echo 'Keine Änderung notwendig.'
+          else
+            git commit -m 'SEO: Webinar Termin und Utility-Seiten ordnen'
+            git push
+          fi
