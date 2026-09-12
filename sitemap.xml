@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://betinsight.club/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://betinsight.club/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://betinsight.club/" />
+  </url>
+  <url>
+    <loc>https://betinsight.club/de/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://betinsight.club/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://betinsight.club/" />
+  </url>
+  <url>
+    <loc>https://betinsight.club/en/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://betinsight.club/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://betinsight.club/" />
+  </url>
+  <url>
+    <loc>https://betinsight.club/de/rechner/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/rechner/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://betinsight.club/en/rechner/" />
+  </url>
+  <url>
+    <loc>https://betinsight.club/en/rechner/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/rechner/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://betinsight.club/en/rechner/" />
+  </url>
+  <url>
+    <loc>https://betinsight.club/de/academy/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/academy/" />
+  </url>
+</urlset>
