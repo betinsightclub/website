@@ -38,4 +38,14 @@
     <lastmod>2026-09-12</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/academy/" />
   </url>
+  <url>
+    <loc>https://betinsight.club/de/webinar/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/webinar/" />
+  </url>
+  <url>
+    <loc>https://betinsight.club/de/termin/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/termin/" />
+  </url>
 </urlset>
