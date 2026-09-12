@@ -1,0 +1,62 @@
+name: BetInsight SEO Bootstrap
+
+on:
+  push:
+    paths:
+      - '.github/seo-bootstrap-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Website laden
+        uses: actions/checkout@v6
+
+      - name: SEO-Basis anwenden
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/seo_bootstrap.py
+
+      - name: Änderungen prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          test -f robots.txt
+          test -f sitemap.xml
+          grep -q 'Sitemap: https://betinsight.club/sitemap.xml' robots.txt
+          grep -q '<link rel="canonical" href="https://betinsight.club/de/">' de/index.html
+          grep -q 'hreflang="en"' de/index.html
+          grep -q 'https://www.youtube.com/@betinsightclub' de/index.html
+          grep -q 'https://t.me/betinsightclub_official' de/index.html
+          if grep -q '<meta name="robots" content="noindex"' index.html; then
+            echo 'FEHLER: Root enthält noch noindex.'
+            exit 1
+          fi
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse('sitemap.xml')
+          print('OK: sitemap.xml ist gültiges XML.')
+          PY
+          echo 'Geänderte Dateien:'
+          git status --short
+
+      - name: SEO-Basis speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/seo-bootstrap-trigger.txt
+          git config user.name 'BetInsight SEO Builder'
+          git config user.email 'actions@github.com'
+          git add index.html de/index.html en/index.html de/rechner/index.html en/rechner/index.html de/academy/index.html de/agb/index.html en/terms/index.html de/datenschutz/index.html en/privacy/index.html de/impressum/index.html en/legal-notice/index.html robots.txt sitemap.xml SEARCH-CONSOLE-READY.md .github/seo-bootstrap-trigger.txt
+          if git diff --cached --quiet; then
+            echo 'Keine Änderung notwendig.'
+          else
+            git commit -m 'SEO: technische Grundlage aktivieren'
+            git push
+          fi
