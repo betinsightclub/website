@@ -19,7 +19,7 @@
     .count{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:940px;margin:0 auto}.box{padding:clamp(15px,2.6vw,28px) 8px;border-radius:20px;background:linear-gradient(180deg,rgba(10,84,108,.92),rgba(4,43,59,.92));border:1px solid rgba(73,213,255,.48);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 12px 28px rgba(0,0,0,.22)}
     .num{display:block;font-size:clamp(38px,7vw,88px);font-weight:900;line-height:1}.lbl{display:block;margin-top:8px;color:#bfe5f2;font-weight:800;font-size:clamp(11px,1.4vw,16px);text-transform:uppercase;letter-spacing:.08em}
     #status{margin:24px 0 16px;font-size:clamp(20px,2.5vw,31px);font-weight:900;color:#5bf0ae}.music{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
-    button{border:0;border-radius:14px;padding:13px 22px;font-size:16px;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(90deg,#159fee,#00c9ff);box-shadow:0 10px 24px rgba(0,177,255,.24)}.hint{font-size:12px;color:#a8cbd9;margin-top:9px}
+    button{border:0;border-radius:14px;padding:13px 22px;font-size:16px;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(90deg,#159fee,#00c9ff);box-shadow:0 10px 24px rgba(0,177,255,.24)}button:disabled{opacity:.7;cursor:wait}.hint{font-size:12px;color:#a8cbd9;margin-top:9px}
     #videoStage{display:none;position:relative;z-index:2;width:min(1280px,96vw);text-align:center}#trailer{display:block;width:100%;max-height:88vh;border-radius:24px;background:#000;box-shadow:0 28px 80px rgba(0,0,0,.65)}#videoMessage{margin:12px 0 0;font-weight:800}.soundBtn{display:none;margin:12px auto 0}
     @media(max-width:700px){body{overflow:auto;padding:14px 0}.count{grid-template-columns:repeat(2,1fr)}.panel{border-radius:22px}#trailer{border-radius:14px}}
   </style>
@@ -30,7 +30,7 @@
     <section class="panel">
       <div class="live">🔴 LIVE-WEBINAR</div>
       <h1>Wir starten gleich</h1>
-      <p class="start">Beginn heute um <strong>20:00 Uhr</strong></p>
+      <p class="start" id="startText">Nächster Termin wird geladen …</p>
       <div class="count">
         <div class="box"><span class="num" id="days">00</span><span class="lbl">Tage</span></div>
         <div class="box"><span class="num" id="hours">00</span><span class="lbl">Stunden</span></div>
@@ -39,8 +39,8 @@
       </div>
       <div id="status">Wir freuen uns auf dich</div>
       <div class="music"><button id="musicBtn" type="button">▶ Musik starten</button></div>
-      <div class="hint">Nach dem Start läuft die Musik automatisch in Dauerschleife.</div>
-      <audio id="bgMusic" loop preload="auto" src="/BetInsight%20(7).mp3"></audio>
+      <div class="hint">Die Musik wird beim Start automatisch so synchronisiert, dass sie genau zum Webinarbeginn endet – auch wenn sie vorher mehrfach läuft.</div>
+      <audio id="bgMusic" loop preload="metadata" src="/BetInsight%20(7).mp3"></audio>
     </section>
   </main>
 
@@ -51,14 +51,106 @@
   </section>
 
 <script>
-const webinarStart=new Date('2026-09-10T20:00:00+02:00').getTime();
+const WEBINAR_TIMEZONE='Europe/Berlin';
+const WEBINAR_HOUR=20;
+
 const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds'),status=document.getElementById('status');
+const startText=document.getElementById('startText');
 const countdownStage=document.getElementById('countdownStage'),videoStage=document.getElementById('videoStage'),video=document.getElementById('trailer'),soundBtn=document.getElementById('soundBtn');
 const audio=document.getElementById('bgMusic'),btn=document.getElementById('musicBtn');
 let switched=false;
 let soundAttempted=false;
+let webinarStart=0;
+let exactStartTimer=null;
 const pad=n=>String(n).padStart(2,'0');
 audio.volume=.38;
+
+function zonedParts(date,timeZone){
+  const parts=new Intl.DateTimeFormat('en-GB',{
+    timeZone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'
+  }).formatToParts(date);
+  const out={};
+  for(const p of parts){if(p.type!=='literal')out[p.type]=Number(p.value)}
+  return out;
+}
+
+function epochForZonedTime(year,month,day,hour,minute,second,timeZone){
+  const wanted=Date.UTC(year,month-1,day,hour,minute,second);
+  let ts=wanted;
+  for(let i=0;i<3;i++){
+    const p=zonedParts(new Date(ts),timeZone);
+    const seen=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second);
+    ts+=wanted-seen;
+  }
+  return ts;
+}
+
+function getWebinarTarget(){
+  const now=new Date();
+  const p=zonedParts(now,WEBINAR_TIMEZONE);
+  const calendarDate=new Date(Date.UTC(p.year,p.month-1,p.day));
+  const weekday=calendarDate.getUTCDay(); // Sonntag=0 ... Donnerstag=4
+  let daysAhead=(4-weekday+7)%7;
+
+  // Donnerstags bleibt der aktuelle Termin bis Mitternacht aktiv. So startet
+  // das Video auch nach einem Reload direkt nach 20:00 Uhr weiterhin korrekt.
+  if(weekday===4)daysAhead=0;
+
+  const targetDate=new Date(Date.UTC(p.year,p.month-1,p.day+daysAhead));
+  const year=targetDate.getUTCFullYear();
+  const month=targetDate.getUTCMonth()+1;
+  const day=targetDate.getUTCDate();
+  return epochForZonedTime(year,month,day,WEBINAR_HOUR,0,0,WEBINAR_TIMEZONE);
+}
+
+function updateStartLabel(){
+  const dateText=new Intl.DateTimeFormat('de-DE',{
+    timeZone:WEBINAR_TIMEZONE,weekday:'long',day:'2-digit',month:'2-digit',year:'numeric'
+  }).format(new Date(webinarStart));
+  startText.innerHTML=`Nächster Termin: <strong>${dateText}</strong> · <strong>20:00 Uhr</strong>`;
+}
+
+function waitForAudioMetadata(){
+  if(Number.isFinite(audio.duration)&&audio.duration>0)return Promise.resolve(audio.duration);
+  return new Promise((resolve,reject)=>{
+    const ok=()=>cleanup(Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:null);
+    const fail=()=>cleanup(null);
+    const cleanup=value=>{
+      audio.removeEventListener('loadedmetadata',ok);
+      audio.removeEventListener('durationchange',ok);
+      audio.removeEventListener('error',fail);
+      clearTimeout(timeout);
+      value?resolve(value):reject(new Error('Audiodauer nicht verfügbar'));
+    };
+    const timeout=setTimeout(fail,6000);
+    audio.addEventListener('loadedmetadata',ok,{once:true});
+    audio.addEventListener('durationchange',ok,{once:true});
+    audio.addEventListener('error',fail,{once:true});
+    audio.load();
+  });
+}
+
+async function syncAndPlayMusic(){
+  const remaining=(webinarStart-Date.now())/1000;
+  if(remaining<=0){await startTrailer();return}
+
+  btn.disabled=true;
+  btn.textContent='⏳ Musik wird synchronisiert …';
+  try{
+    const duration=await waitForAudioMetadata();
+    const left=Math.max(0,(webinarStart-Date.now())/1000);
+    const remainder=((left%duration)+duration)%duration;
+    let startAt=remainder<0.04?0:duration-remainder;
+    if(startAt>=duration)startAt=0;
+    audio.currentTime=Math.max(0,Math.min(startAt,duration-0.02));
+    await audio.play();
+    btn.textContent='⏸ Musik pausieren';
+  }catch(e){
+    btn.textContent='▶ Musik starten';
+  }finally{
+    btn.disabled=false;
+  }
+}
 
 async function ensureTrailerPlaying(){
   if(video.ended || !video.paused)return;
@@ -78,11 +170,19 @@ async function startTrailer(){
   if(!switched){
     switched=true;
     audio.pause();
+    try{audio.currentTime=0}catch(e){}
     countdownStage.style.display='none';
     videoStage.style.display='block';
     video.currentTime=0;
   }
   await ensureTrailerPlaying();
+}
+
+function scheduleExactStart(){
+  if(exactStartTimer)clearTimeout(exactStartTimer);
+  const delay=webinarStart-Date.now();
+  if(delay<=0){startTrailer();return}
+  exactStartTimer=setTimeout(startTrailer,delay);
 }
 
 function tick(){
@@ -97,12 +197,19 @@ function tick(){
   d.textContent=pad(dd);h.textContent=pad(hh);m.textContent=pad(mm);s.textContent=pad(ss);status.textContent=(dd===0&&hh===0&&mm<10)?'🔴 Gleich geht es los':'Wir freuen uns auf dich';
 }
 
-tick();setInterval(tick,1000);
+webinarStart=getWebinarTarget();
+updateStartLabel();
+scheduleExactStart();
+tick();
+setInterval(tick,250);
 
 btn.addEventListener('click',async()=>{
   if(audio.paused){
-    try{await audio.play();btn.textContent='⏸ Musik pausieren'}catch(e){btn.textContent='▶ Musik starten'}
-  }else{audio.pause();btn.textContent='▶ Musik starten'}
+    await syncAndPlayMusic();
+  }else{
+    audio.pause();
+    btn.textContent='▶ Musik starten';
+  }
 });
 
 soundBtn.addEventListener('click',async()=>{
