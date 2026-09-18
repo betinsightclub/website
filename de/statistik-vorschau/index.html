@@ -63,9 +63,19 @@
     td{color:#d9e7ed}.win{color:#73f1ad;font-weight:850}.loss{color:#ff7f86;font-weight:850}
     .status{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:850}
     .status.win{background:rgba(31,226,143,.09)}.status.loss{background:rgba(255,100,109,.09)}
+    .detail-btn{appearance:none;border:1px solid rgba(22,135,255,.35);background:rgba(22,135,255,.10);color:#bfe0ff;border-radius:10px;padding:7px 10px;font-weight:850;font-size:11px;cursor:pointer;white-space:nowrap}
+    .detail-btn:hover{background:rgba(22,135,255,.18);color:#fff}
+    .detail-row{display:none;background:rgba(3,16,24,.72)}
+    .detail-row.open{display:table-row}
+    .detail-box{padding:18px 18px 20px}
+    .detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .detail-item{padding:13px 14px;border:1px solid rgba(255,255,255,.07);border-radius:13px;background:rgba(255,255,255,.025)}
+    .detail-item span{display:block;color:#7f97a2;font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+    .detail-item strong{font-size:13px;line-height:1.45;color:#e7f2f7}
+    .detail-copy{margin-top:12px;padding:14px 15px;border-left:3px solid var(--blue);border-radius:10px;background:rgba(22,135,255,.055);color:#b9ccd5;font-size:13px;line-height:1.6}
     .disclaimer{padding:18px 0 42px;color:#6f8792;font-size:12px;line-height:1.6}
     @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}.chart-head{flex-direction:column}.chart-wrap,svg{min-height:390px;height:390px}}
-    @media(max-width:620px){.topbar{height:70px}.logo{width:155px}.hero{padding-top:52px}.chart-card{padding:18px 10px 14px}.kpis{grid-template-columns:1fr 1fr}.kpi{padding:16px}.kpi strong{font-size:21px}.history{overflow-x:auto}table{min-width:790px}.chart-caption{padding:0 8px}}
+    @media(max-width:620px){.topbar{height:70px}.logo{width:155px}.hero{padding-top:52px}.chart-card{padding:18px 10px 14px}.kpis{grid-template-columns:1fr 1fr}.kpi{padding:16px}.kpi strong{font-size:21px}.history{overflow-x:auto}table{min-width:940px}.chart-caption{padding:0 8px}.detail-grid{grid-template-columns:1fr 1fr}}
   </style>
 </head>
 <body>
@@ -125,17 +135,34 @@
   <div class="history">
     <div class="history-head"><h2>Gewertete Tipps in dieser Vorschau</h2><span>nur bestätigte Ergebnisse</span></div>
     <table>
-      <thead><tr><th>#</th><th>Datum</th><th>Spiel</th><th>Quote</th><th>Units</th><th>Veränderung</th><th>Status</th></tr></thead>
+      <thead><tr><th>#</th><th>Datum</th><th>Spiel</th><th>Quote</th><th>Units</th><th>Veränderung</th><th>Status</th><th>Details</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td>28.08.2026</td><td>Crystal Palace – Man City</td><td>1,60</td><td>3</td><td class="win change-cell" data-fixed="+18,00 €" data-compound="+18,00 €">+18,00 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>2</td><td>05.09.2026</td><td>Hoffenheim – Dortmund</td><td>1,46</td><td>2</td><td class="win change-cell" data-fixed="+9,20 €" data-compound="+9,37 €">+9,20 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>3</td><td>08.09.2026</td><td>Dortmund – Villarreal</td><td>1,78</td><td>2</td><td class="win change-cell" data-fixed="+15,60 €" data-compound="+16,03 €">+15,60 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>4</td><td>11.09.2026</td><td>Darmstadt – Bielefeld</td><td>2,87</td><td>2</td><td class="win change-cell" data-fixed="+37,40 €" data-compound="+39,02 €">+37,40 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>5</td><td>12.09.2026</td><td>Bochum – Greuther Fürth</td><td>1,88</td><td>2</td><td class="loss change-cell" data-fixed="−20,00 €" data-compound="−21,65 €">−20,00 €</td><td><span class="status loss">Verloren</span></td></tr>
-        <tr><td>6</td><td>12.09.2026</td><td>Real Sociedad / Chelsea · Kombi</td><td>1,67</td><td>4</td><td class="loss change-cell" data-fixed="−40,00 €" data-compound="−42,43 €">−40,00 €</td><td><span class="status loss">Verloren</span></td></tr>
-        <tr><td>7</td><td>14.09.2026</td><td>Villarreal / Newcastle · Kombi</td><td>2,15</td><td>3</td><td class="loss change-cell" data-fixed="−30,00 €" data-compound="−30,55 €">−30,00 €</td><td><span class="status loss">Verloren</span></td></tr>
-        <tr><td>8</td><td>17.09.2026</td><td>Real Betis – Getafe</td><td>1,72</td><td>4</td><td class="win change-cell" data-fixed="+28,80 €" data-compound="+28,45 €">+28,80 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>9</td><td>17.09.2026</td><td>Málaga – Villarreal</td><td>2,04</td><td>4</td><td class="win change-cell" data-fixed="+41,60 €" data-compound="+42,28 €">+41,60 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>1</td><td>28.08.2026</td><td>Crystal Palace – Man City</td><td>1,60</td><td>3</td><td class="win change-cell" data-fixed="+18,00 €" data-compound="+18,00 €">+18,00 €</td><td><span class="status win">Gewonnen</span></td><td><button class="detail-btn" data-target="d1">Was wurde gespielt?</button></td></tr>
+        <tr id="d1" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>Premier League</strong></div><div class="detail-item"><span>Markt</span><strong>1X2</strong></div><div class="detail-item"><span>Tipp</span><strong>Manchester City gewinnt</strong></div><div class="detail-item"><span>Einsatz</span><strong>3 Units</strong></div></div><div class="detail-copy">Gespielt wurde ein 1X2-Tipp auf einen Sieg von Manchester City bei einer im System hinterlegten Quote von 1,60.</div></div></td></tr>
+
+        <tr><td>2</td><td>05.09.2026</td><td>Hoffenheim – Dortmund</td><td>1,46</td><td>2</td><td class="win change-cell" data-fixed="+9,20 €" data-compound="+9,37 €">+9,20 €</td><td><span class="status win">Gewonnen</span></td><td><button class="detail-btn" data-target="d2">Was wurde gespielt?</button></td></tr>
+        <tr id="d2" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>1. Bundesliga</strong></div><div class="detail-item"><span>Markt</span><strong>Eigener Markt</strong></div><div class="detail-item"><span>Tipp</span><strong>Tore über 2,5</strong></div><div class="detail-item"><span>Einsatz</span><strong>2 Units</strong></div></div><div class="detail-copy">Gespielt wurde „über 2,5 Tore“ bei einer im System hinterlegten Quote von 1,46.</div></div></td></tr>
+
+        <tr><td>3</td><td>08.09.2026</td><td>Dortmund – Villarreal</td><td>1,78</td><td>2</td><td class="win change-cell" data-fixed="+15,60 €" data-compound="+16,03 €">+15,60 €</td><td><span class="status win">Gewonnen</span></td><td><button class="detail-btn" data-target="d3">Was wurde gespielt?</button></td></tr>
+        <tr id="d3" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>Champions League</strong></div><div class="detail-item"><span>Markt</span><strong>Eigener Markt</strong></div><div class="detail-item"><span>Tipp</span><strong>Dortmund gewinnt</strong></div><div class="detail-item"><span>Einsatz</span><strong>2 Units</strong></div></div><div class="detail-copy">Gespielt wurde ein Sieg von Dortmund bei einer im System hinterlegten Quote von 1,78.</div></div></td></tr>
+
+        <tr><td>4</td><td>11.09.2026</td><td>Darmstadt – Bielefeld</td><td>2,87</td><td>2</td><td class="win change-cell" data-fixed="+37,40 €" data-compound="+39,02 €">+37,40 €</td><td><span class="status win">Gewonnen</span></td><td><button class="detail-btn" data-target="d4">Was wurde gespielt?</button></td></tr>
+        <tr id="d4" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>2. Bundesliga</strong></div><div class="detail-item"><span>Markt</span><strong>Eigener Markt</strong></div><div class="detail-item"><span>Tipp</span><strong>Darmstadt siegt</strong></div><div class="detail-item"><span>Einsatz</span><strong>2 Units</strong></div></div><div class="detail-copy">Gespielt wurde ein Sieg von Darmstadt bei einer im System hinterlegten Quote von 2,87.</div></div></td></tr>
+
+        <tr><td>5</td><td>12.09.2026</td><td>Bochum – Greuther Fürth</td><td>1,88</td><td>2</td><td class="loss change-cell" data-fixed="−20,00 €" data-compound="−21,65 €">−20,00 €</td><td><span class="status loss">Verloren</span></td><td><button class="detail-btn" data-target="d5">Was wurde gespielt?</button></td></tr>
+        <tr id="d5" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>2. Bundesliga</strong></div><div class="detail-item"><span>Markt</span><strong>Eigener Markt</strong></div><div class="detail-item"><span>Tipp</span><strong>Sieg Bochum</strong></div><div class="detail-item"><span>Einsatz</span><strong>2 Units</strong></div></div><div class="detail-copy">Gespielt wurde ein Sieg von Bochum bei einer im System hinterlegten Quote von 1,88.</div></div></td></tr>
+
+        <tr><td>6</td><td>12.09.2026</td><td>Real Sociedad / Chelsea · Kombi</td><td>1,67</td><td>4</td><td class="loss change-cell" data-fixed="−40,00 €" data-compound="−42,43 €">−40,00 €</td><td><span class="status loss">Verloren</span></td><td><button class="detail-btn" data-target="d6">Was wurde gespielt?</button></td></tr>
+        <tr id="d6" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>La Liga / Premier League</strong></div><div class="detail-item"><span>Markt</span><strong>Kombi-Wette</strong></div><div class="detail-item"><span>Quote</span><strong>1,67</strong></div><div class="detail-item"><span>Einsatz</span><strong>4 Units</strong></div></div><div class="detail-copy">Kombiniert wurden: Real Sociedad – Atlético Madrid, Doppelte Chance X2 @ 1,37 und Chelsea – Hull City, Sieg Chelsea @ 1,22.</div></div></td></tr>
+
+        <tr><td>7</td><td>14.09.2026</td><td>Villarreal / Newcastle · Kombi</td><td>2,15</td><td>3</td><td class="loss change-cell" data-fixed="−30,00 €" data-compound="−30,55 €">−30,00 €</td><td><span class="status loss">Verloren</span></td><td><button class="detail-btn" data-target="d7">Was wurde gespielt?</button></td></tr>
+        <tr id="d7" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>La Liga / Premier League</strong></div><div class="detail-item"><span>Markt</span><strong>Kombi-Wette</strong></div><div class="detail-item"><span>Quote</span><strong>2,15</strong></div><div class="detail-item"><span>Einsatz</span><strong>3 Units</strong></div></div><div class="detail-copy">Kombiniert wurden: Villarreal – Real Betis, Doppelte Chance 1X @ 1,35 und Leeds United – Newcastle United, Doppelte Chance X2 @ 1,59.</div></div></td></tr>
+
+        <tr><td>8</td><td>17.09.2026</td><td>Real Betis – Getafe</td><td>1,72</td><td>4</td><td class="win change-cell" data-fixed="+28,80 €" data-compound="+28,45 €">+28,80 €</td><td><span class="status win">Gewonnen</span></td><td><button class="detail-btn" data-target="d8">Was wurde gespielt?</button></td></tr>
+        <tr id="d8" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>La Liga</strong></div><div class="detail-item"><span>Markt</span><strong>1X2</strong></div><div class="detail-item"><span>Tipp</span><strong>Real Betis gewinnt</strong></div><div class="detail-item"><span>Einsatz</span><strong>4 Units</strong></div></div><div class="detail-copy">Gespielt wurde ein Sieg von Real Betis bei einer im System hinterlegten Quote von 1,72.</div></div></td></tr>
+
+        <tr><td>9</td><td>17.09.2026</td><td>Málaga – Villarreal</td><td>2,04</td><td>4</td><td class="win change-cell" data-fixed="+41,60 €" data-compound="+42,28 €">+41,60 €</td><td><span class="status win">Gewonnen</span></td><td><button class="detail-btn" data-target="d9">Was wurde gespielt?</button></td></tr>
+        <tr id="d9" class="detail-row"><td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>Liga</span><strong>La Liga</strong></div><div class="detail-item"><span>Markt</span><strong>1X2</strong></div><div class="detail-item"><span>Tipp</span><strong>Villarreal gewinnt</strong></div><div class="detail-item"><span>Einsatz</span><strong>4 Units</strong></div></div><div class="detail-copy">Gespielt wurde ein Sieg von Villarreal bei einer im System hinterlegten Quote von 2,04.</div></div></td></tr>
       </tbody>
     </table>
   </div>
@@ -217,6 +244,11 @@
   }
 
   document.querySelectorAll('.mode-btn').forEach(btn=>btn.addEventListener('click',()=>render(btn.dataset.mode)));
+  document.querySelectorAll('.detail-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    const row=document.getElementById(btn.dataset.target);
+    const open=row.classList.toggle('open');
+    btn.textContent=open?'Details schließen':'Was wurde gespielt?';
+  }));
   render('fixed');
 })();
 </script>
