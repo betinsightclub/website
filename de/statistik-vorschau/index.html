@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#031720">
+  <title>BetInsight Statistik – Vorschau</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <style>
+    :root{
+      --bg:#020b11;--panel:#071722;--panel2:#0a1d2a;--line:rgba(123,211,255,.14);
+      --text:#f5fbff;--muted:#91a8b5;--blue:#1687ff;--green:#1fe28f;--neon:#cfff22;
+      --danger:#ff646d;--shadow:0 24px 70px rgba(0,0,0,.38);--max:1180px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+      radial-gradient(circle at 18% 12%,rgba(22,135,255,.12),transparent 30rem),
+      radial-gradient(circle at 82% 18%,rgba(207,255,34,.06),transparent 26rem),
+      var(--bg);min-height:100vh}
+    a{color:inherit}.wrap{width:min(calc(100% - 34px),var(--max));margin:0 auto}
+    header{border-bottom:1px solid rgba(255,255,255,.06);background:rgba(2,11,17,.86);backdrop-filter:blur(16px);position:sticky;top:0;z-index:10}
+    .topbar{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .logo{width:178px;display:block}
+    .preview-badge{font-size:12px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;color:#d9e5ea;
+      padding:9px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.035)}
+    .hero{padding:74px 0 34px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#cfff22;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 18px rgba(207,255,34,.85)}
+    h1{margin:14px 0 12px;font-size:clamp(38px,6vw,66px);line-height:1.02;letter-spacing:-.045em}
+    .lead{max-width:850px;margin:0;color:#c3d4dc;font-size:clamp(17px,2vw,21px);line-height:1.6}
+    .facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+    .fact{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03);color:#abc0ca;font-size:12px;font-weight:800}
+    .chart-card{margin:20px 0 22px;padding:24px 24px 18px;border:1px solid var(--line);border-radius:24px;
+      background:linear-gradient(180deg,rgba(9,29,41,.97),rgba(5,20,29,.98));box-shadow:var(--shadow);overflow:hidden}
+    .chart-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:10px}
+    .chart-title h2{margin:0 0 6px;font-size:25px;letter-spacing:-.02em}.chart-title p{margin:0;color:var(--muted);font-size:14px}
+    .start-pill{white-space:nowrap;padding:9px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);font-size:13px;font-weight:850}
+    .chart-wrap{position:relative;min-height:430px}
+    svg{width:100%;height:430px;display:block;overflow:visible}
+    .grid{stroke:rgba(255,255,255,.07);stroke-width:1}.axis-text{fill:#78909c;font-size:11px}
+    .start-line{stroke:rgba(255,255,255,.18);stroke-width:1.3;stroke-dasharray:5 6}
+    .series{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:url(#glow)}
+    .dot{stroke:#06131c;stroke-width:3}.last{stroke:#fff;stroke-width:3}
+    .end-label{font-size:13px;font-weight:900}
+    .chart-caption{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;margin-top:2px;color:#8199a5;font-size:12px}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 24px}
+    .kpi{padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(8,27,39,.9)}
+    .kpi span{display:block;color:var(--muted);font-size:12px;font-weight:750}.kpi strong{display:block;margin-top:7px;font-size:26px;letter-spacing:-.03em}
+    .kpi .positive{color:var(--neon)}
+    .history{margin-bottom:72px;border:1px solid var(--line);border-radius:22px;background:rgba(6,22,32,.93);overflow:hidden}
+    .history-head{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line)}
+    .history-head h2{margin:0;font-size:20px}.history-head span{font-size:12px;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:13px 16px;text-align:left;border-bottom:1px solid rgba(255,255,255,.055)}
+    th{color:#9db2bc;font-size:11px;text-transform:uppercase;letter-spacing:.06em;background:rgba(255,255,255,.018)}
+    td{color:#d9e7ed}.win{color:#73f1ad;font-weight:850}.loss{color:#ff7f86;font-weight:850}
+    .status{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:850}
+    .status.win{background:rgba(31,226,143,.09)}.status.loss{background:rgba(255,100,109,.09)}
+    .disclaimer{padding:18px 0 42px;color:#6f8792;font-size:12px;line-height:1.6}
+    @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}.chart-head{flex-direction:column}.chart-wrap,svg{min-height:390px;height:390px}}
+    @media(max-width:620px){.topbar{height:70px}.logo{width:155px}.hero{padding-top:52px}.chart-card{padding:18px 10px 14px}.kpis{grid-template-columns:1fr 1fr}.kpi{padding:16px}.kpi strong{font-size:21px}.history{overflow-x:auto}table{min-width:790px}.chart-caption{padding:0 8px}}
+  </style>
+</head>
+<body>
+<header><div class="wrap topbar"><a href="../" aria-label="BetInsight Startseite"><img class="logo" src="../../assets/betinsight-logo.png" alt="BetInsight.club"></a><span class="preview-badge">Vorschau · nicht veröffentlicht</span></div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Transparenter Performance-Verlauf</div>
+  <h1>Unsere Tipp-Statistik</h1>
+  <p class="lead">Die Entwicklung basiert ausschließlich auf abgeschlossenen und bestätigten Tipps, die im System als qualitätsrelevant gewertet wurden. Testtipps, historische Altimporte, offene, archivierte oder abgesagte Tipps werden nicht mitgerechnet.</p>
+  <div class="facts">
+    <span class="fact">Startkapital 1.000 €</span>
+    <span class="fact">1 Unit = 1 % des Startkapitals = 10 €</span>
+    <span class="fact">ohne Zinseszins</span>
+    <span class="fact">Stand 18.09.2026</span>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title"><h2>Entwicklung seit dem Start</h2><p>Drei getrennte Verläufe · zwei Einzelreihen und die gemeinsame Gesamtentwicklung.</p></div>
+      <div class="start-pill">Start 1.000 €</div>
+    </div>
+    <div class="chart-wrap">
+      <svg id="chart" viewBox="0 0 1120 430" role="img" aria-label="Performance-Verlauf der gewerteten Tipps">
+        <defs>
+          <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <linearGradient id="areaNeon" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#cfff22" stop-opacity=".14"/><stop offset="100%" stop-color="#cfff22" stop-opacity="0"/></linearGradient>
+        </defs>
+        <g id="grid"></g>
+        <path id="areaTotal" fill="url(#areaNeon)"></path>
+        <path id="lineBlue" class="series" stroke="#1687ff"></path>
+        <path id="lineGreen" class="series" stroke="#1fe28f"></path>
+        <path id="lineTotal" class="series" stroke="#cfff22"></path>
+        <g id="pointsBlue"></g><g id="pointsGreen"></g><g id="pointsTotal"></g>
+        <g id="labels"></g>
+      </svg>
+    </div>
+    <div class="chart-caption"><span>Horizontale Referenz: 1.000 € Startkapital</span><span>Jeder Schritt = ein tatsächlich gewerteter, abgeschlossener Tipp</span></div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><span>Startkapital</span><strong>1.000,00 €</strong></div>
+    <div class="kpi"><span>Aktueller Gesamtwert</span><strong class="positive">1.060,60 €</strong></div>
+    <div class="kpi"><span>Gesamtgewinn</span><strong class="positive">+60,60 €</strong></div>
+    <div class="kpi"><span>Gewertete Tipps</span><strong>9</strong></div>
+  </div>
+
+  <div class="history">
+    <div class="history-head"><h2>Gewertete Tipps in dieser Vorschau</h2><span>nur bestätigte Ergebnisse</span></div>
+    <table>
+      <thead><tr><th>#</th><th>Datum</th><th>Spiel</th><th>Quote</th><th>Units</th><th>Veränderung</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>28.08.2026</td><td>Crystal Palace – Man City</td><td>1,60</td><td>3</td><td class="win">+18,00 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>2</td><td>05.09.2026</td><td>Hoffenheim – Dortmund</td><td>1,46</td><td>2</td><td class="win">+9,20 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>3</td><td>08.09.2026</td><td>Dortmund – Villarreal</td><td>1,78</td><td>2</td><td class="win">+15,60 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>4</td><td>11.09.2026</td><td>Darmstadt – Bielefeld</td><td>2,87</td><td>2</td><td class="win">+37,40 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>5</td><td>12.09.2026</td><td>Bochum – Greuther Fürth</td><td>1,88</td><td>2</td><td class="loss">−20,00 €</td><td><span class="status loss">Verloren</span></td></tr>
+        <tr><td>6</td><td>12.09.2026</td><td>Real Sociedad / Chelsea · Kombi</td><td>1,67</td><td>4</td><td class="loss">−40,00 €</td><td><span class="status loss">Verloren</span></td></tr>
+        <tr><td>7</td><td>14.09.2026</td><td>Villarreal / Newcastle · Kombi</td><td>2,15</td><td>3</td><td class="loss">−30,00 €</td><td><span class="status loss">Verloren</span></td></tr>
+        <tr><td>8</td><td>17.09.2026</td><td>Real Betis – Getafe</td><td>1,72</td><td>4</td><td class="win">+28,80 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>9</td><td>17.09.2026</td><td>Málaga – Villarreal</td><td>2,04</td><td>4</td><td class="win">+41,60 €</td><td><span class="status win">Gewonnen</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="disclaimer">Darstellung als Modellrechnung mit festem Startkapital: 1 Unit entspricht 1 % von 1.000 € und damit 10 €. Gewinne werden mit der im System hinterlegten Quote berechnet; bei verlorenen Tipps wird der Unit-Einsatz abgezogen. Abgesagte Tipps und nicht qualitätsrelevante Datensätze verändern die Kurve nicht.</div>
+</div></section>
+</main>
+
+<script>
+(() => {
+  const blue=[1000,1018,1018,1018,1018,1018,978,948,976.8,1018.4];
+  const green=[1000,1000,1009.2,1024.8,1062.2,1042.2,1042.2,1042.2,1042.2,1042.2];
+  const total=[1000,1018,1027.2,1042.8,1080.2,1060.2,1020.2,990.2,1019,1060.6];
+  const svg=document.getElementById('chart'), grid=document.getElementById('grid'), labels=document.getElementById('labels');
+  const W=1120,H=430,L=64,R=130,T=38,B=56,min=930,max=1090;
+  const x=i=>L+i*((W-L-R)/(total.length-1));
+  const y=v=>T+(max-v)*((H-T-B)/(max-min));
+  const ns='http://www.w3.org/2000/svg';
+  const make=(tag,a={})=>{const e=document.createElementNS(ns,tag);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));return e};
+  [940,980,1000,1020,1060,1090].forEach(v=>{
+    const line=make('line',{x1:L,y1:y(v),x2:W-R+20,y2:y(v),class:v===1000?'start-line':'grid'});grid.appendChild(line);
+    const t=make('text',{x:8,y:y(v)+4,class:'axis-text'});t.textContent=v===1000?'1.000 €':v.toLocaleString('de-DE')+' €';grid.appendChild(t);
+  });
+  for(let i=0;i<total.length;i++){const l=make('line',{x1:x(i),y1:T,x2:x(i),y2:H-B,class:'grid'});grid.appendChild(l);const t=make('text',{x:x(i),y:H-24,'text-anchor':'middle',class:'axis-text'});t.textContent=i===0?'Start':i;grid.appendChild(t)}
+  const path=a=>a.map((v,i)=>(i?'L':'M')+x(i)+' '+y(v)).join(' ');
+  document.getElementById('lineBlue').setAttribute('d',path(blue));document.getElementById('lineGreen').setAttribute('d',path(green));document.getElementById('lineTotal').setAttribute('d',path(total));
+  document.getElementById('areaTotal').setAttribute('d',path(total)+' L '+x(total.length-1)+' '+(H-B)+' L '+x(0)+' '+(H-B)+' Z');
+  const draw=(arr,id,color)=>{const g=document.getElementById(id);arr.forEach((v,i)=>{g.appendChild(make('circle',{cx:x(i),cy:y(v),r:i===arr.length-1?6:4,fill:color,class:'dot '+(i===arr.length-1?'last':'')}))})};
+  draw(blue,'pointsBlue','#1687ff');draw(green,'pointsGreen','#1fe28f');draw(total,'pointsTotal','#cfff22');
+  const end=[
+    {v:blue.at(-1),gain:18.4,c:'#1687ff',dy:15},
+    {v:green.at(-1),gain:42.2,c:'#1fe28f',dy:3},
+    {v:total.at(-1),gain:60.6,c:'#cfff22',dy:-18}
+  ];
+  end.forEach(o=>{const xx=x(total.length-1)+16,yy=y(o.v)+o.dy;const box=make('rect',{x:xx-6,y:yy-17,width:91,height:27,rx:9,fill:o.c,opacity:.95});labels.appendChild(box);const t=make('text',{x:xx+39,y:yy+2,'text-anchor':'middle',class:'end-label',fill:'#031018'});t.textContent=(o.gain>=0?'+':'')+o.gain.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';labels.appendChild(t)});
+})();
+</script>
+</body>
+</html>
