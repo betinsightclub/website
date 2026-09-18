@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wett-Rechner | BetInsight Club</title>
+  <meta name="description" content="Kostenloser BetInsight Wett-Rechner für Einzel- und Kombiwetten. Gesamtquote, Auszahlung, Nettogewinn und implizite Wahrscheinlichkeit berechnen.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="https://betinsight.club/de/wett-rechner/">
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --bg:#061923;--bg2:#071d2b;--panel:#0b2535;--panel2:#0f2d3f;--deep:#071d2a;
+      --border:rgba(80,168,214,.24);--text:#fff;--soft:#c9e6f4;--muted:#84a9bc;
+      --blue:#1d9bf0;--cyan:#16c7f3;--green:#11d6a0;--green2:#08aa7e;
+      --orange:#f1a313;--yellow:#ffcf33;--red:#e96868;
+    }
+    html{min-height:100%}
+    body{
+      margin:0;min-height:100vh;color:var(--text);font-family:Arial,Helvetica,sans-serif;
+      background:radial-gradient(circle at top,rgba(0,200,255,.10),transparent 34%),
+      linear-gradient(180deg,var(--bg) 0%,var(--bg2) 48%,#04131c 100%);
+    }
+    a{color:inherit}
+    button,input{font:inherit}
+    .page{width:min(1240px,100%);margin:0 auto;padding:22px 22px 70px}
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+      padding:14px 16px;margin-bottom:18px;background:rgba(8,31,45,.94);
+      border:1px solid var(--border);border-radius:18px;box-shadow:0 16px 36px rgba(0,0,0,.28)
+    }
+    .brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+    .brand img{width:128px;height:auto;display:block}
+    .navlinks{display:flex;gap:8px;flex-wrap:wrap}
+    .navlink{
+      text-decoration:none;padding:10px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.12);
+      color:var(--soft);background:rgba(0,0,0,.15);font-size:13px;font-weight:800
+    }
+    .navlink.active{color:#05251c;background:linear-gradient(90deg,var(--green2),var(--green));border-color:transparent}
+    .navlink.soon{opacity:.55;cursor:default}
+    .hero{
+      padding:24px 24px 22px;margin-bottom:18px;border:1px solid var(--border);border-radius:18px;
+      background:linear-gradient(100deg,rgba(15,45,63,.95),rgba(8,31,45,.92));
+      box-shadow:0 15px 34px rgba(0,0,0,.22)
+    }
+    .hero-top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+    .tag{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(17,214,160,.12);border:1px solid rgba(17,214,160,.32);color:#7ff0cb;font-weight:800;font-size:12px}
+    h1{font-size:clamp(28px,4vw,42px);margin:10px 0 8px}
+    .subtitle{margin:0;max-width:760px;color:var(--muted);line-height:1.6}
+    .modehint{padding:9px 12px;border:1px solid rgba(255,207,51,.24);background:rgba(255,207,51,.08);border-radius:10px;color:#ffe694;font-size:12px}
+    .layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);gap:18px}
+    .panel{
+      background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--border);
+      border-radius:18px;padding:20px;box-shadow:0 15px 34px rgba(0,0,0,.22)
+    }
+    .panel h2{margin:0 0 5px;font-size:21px}
+    .muted{color:var(--muted);font-size:13px}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}
+    .tab,.format-btn,.btn{
+      border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.24);color:var(--soft);
+      border-radius:11px;padding:11px 12px;font-weight:800;cursor:pointer
+    }
+    .tab.active{background:linear-gradient(90deg,var(--green2),var(--green));color:#04231b;border-color:transparent}
+    .formats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 16px}
+    .format-btn{font-size:12px;padding:10px 6px}
+    .format-btn.active{color:#ffe49e;border-color:rgba(241,163,19,.55);background:rgba(241,163,19,.12)}
+    label.field-label{display:block;margin:15px 0 7px;color:var(--soft);font-size:13px;font-weight:800}
+    input[type="text"],input[type="number"]{
+      width:100%;min-height:46px;padding:10px 12px;color:#fff;background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.15);border-radius:11px;outline:none
+    }
+    input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(22,199,243,.12)}
+    .odd-row{display:grid;grid-template-columns:32px 1fr 44px;gap:8px;align-items:center;margin:9px 0}
+    .nr{text-align:center;color:var(--muted);font-weight:800}
+    .remove{height:44px;border-radius:10px;border:1px solid rgba(233,104,104,.25);background:rgba(233,104,104,.08);color:#ffb4b4;cursor:pointer}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .btn.primary{background:linear-gradient(90deg,var(--green2),var(--green));color:#05251c;border:0}
+    .switchline{
+      margin-top:18px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:14px;
+      border:1px solid var(--border);border-radius:12px;background:rgba(0,0,0,.16)
+    }
+    .switchline strong{display:block}
+    .switchline small{display:block;color:var(--muted);margin-top:4px}
+    .switch{position:relative;width:50px;height:28px;flex:0 0 auto}
+    .switch input{display:none}.slider{position:absolute;inset:0;background:#173847;border-radius:999px;cursor:pointer}
+    .slider:after{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+    .switch input:checked+.slider{background:var(--green)}
+    .switch input:checked+.slider:after{transform:translateX(22px)}
+    .results{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+    .metric{min-height:108px;padding:16px;border:1px solid var(--border);border-radius:14px;background:rgba(7,29,42,.95)}
+    .metric span{display:block;color:var(--muted);font-size:12px;font-weight:700}
+    .metric strong{display:block;margin-top:8px;font-size:clamp(23px,3vw,31px)}
+    .metric.green strong{color:var(--green)} .metric.orange strong{color:var(--orange)}
+    .explain{margin-top:14px;padding:15px;border:1px solid var(--border);border-radius:13px;background:rgba(0,0,0,.16);color:var(--soft);line-height:1.55;font-size:13px}
+    .formula{color:#9de3ff;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .section-title{margin:28px 0 12px}
+    .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .toolcard{padding:18px;border:1px solid var(--border);border-radius:16px;background:rgba(10,36,51,.88)}
+    .toolcard h3{margin:5px 0 7px}.toolcard p{color:var(--muted);font-size:13px;line-height:1.55;min-height:60px}
+    .toolcard .mini{font-size:11px;color:#80edd0;font-weight:800}
+    .toolcard a{display:inline-block;text-decoration:none;margin-top:9px;padding:9px 11px;border-radius:9px;background:rgba(29,155,240,.14);border:1px solid rgba(29,155,240,.28);color:#9edbff;font-weight:800;font-size:12px}
+    .method{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .method div{padding:15px;border-radius:13px;background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.08)}
+    .method b{display:block;color:#fff;margin-bottom:5px}.method span{color:var(--muted);font-size:12px;line-height:1.5}
+    .note{margin-top:22px;padding:15px 17px;border-left:4px solid var(--orange);background:rgba(241,163,19,.07);border-radius:8px;color:#d8e7ee;font-size:12px;line-height:1.6}
+    .review{margin-top:14px;text-align:center;color:#789daf;font-size:11px}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}.tools,.method{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.page{padding:14px 12px 50px}.formats{grid-template-columns:1fr 1fr}.results,.tools,.method{grid-template-columns:1fr}.brand img{width:112px}.nav{align-items:flex-start}.hero{padding:18px}.panel{padding:16px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav">
+      <a class="brand" href="/de/"><img src="/assets/betinsight-logo.png" alt="BetInsight Club"></a>
+      <div class="navlinks">
+        <a class="navlink" href="/de/">Startseite</a>
+        <a class="navlink" href="/de/rechner/">Bankroll & Units</a>
+        <a class="navlink active" href="/de/wett-rechner/">Wett-Rechner</a>
+        <span class="navlink soon">Strategieplaner · folgt</span>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <span class="tag">⚽ KOSTENLOSES BETINSIGHT WERKZEUG</span>
+          <h1>Wett-Rechner</h1>
+          <p class="subtitle">Berechne Einzel- und Kombiwetten verständlich und ohne Anmeldung: Gesamtquote, mögliche Auszahlung, Nettogewinn und die mathematisch aus der Quote abgeleitete implizite Wahrscheinlichkeit.</p>
+        </div>
+        <div class="modehint">Vorschau · noch nicht im Footer verlinkt</div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <h2>Wette zusammenstellen</h2>
+        <div class="muted">Wähle Wettart und Quotenformat. Die Berechnung erfolgt ausschließlich lokal im Browser.</div>
+
+        <div class="tabs">
+          <button class="tab active" data-mode="single">Einzelwette</button>
+          <button class="tab" data-mode="combo">Kombiwette</button>
+        </div>
+
+        <label class="field-label">Quotenformat</label>
+        <div class="formats">
+          <button class="format-btn active" data-format="decimal">Dezimal</button>
+          <button class="format-btn" data-format="fractional">Bruch</button>
+          <button class="format-btn" data-format="american">Amerikanisch</button>
+          <button class="format-btn" data-format="hongkong">Hongkong</button>
+        </div>
+
+        <label class="field-label" for="stake">Einsatz (€)</label>
+        <input id="stake" type="text" inputmode="decimal" value="10">
+
+        <label class="field-label">Quote / Auswahl</label>
+        <div id="oddsList"></div>
+
+        <div class="actions">
+          <button id="addOdd" class="btn">＋ Auswahl hinzufügen</button>
+          <button id="reset" class="btn">Zurücksetzen</button>
+        </div>
+
+        <div class="switchline">
+          <div>
+            <strong>Freebet / Freiwette</strong>
+            <small>Bei einer stake-not-returned-Freiwette wird der ursprüngliche Einsatz bei Gewinn nicht mit ausgezahlt.</small>
+          </div>
+          <label class="switch">
+            <input id="freebet" type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <h2>Ergebnis</h2>
+        <div class="muted">Die Werte ändern sich sofort mit deinen Eingaben.</div>
+        <div class="results">
+          <div class="metric orange"><span>Gesamtquote</span><strong id="totalOdds">2,00</strong></div>
+          <div class="metric"><span>Implizite Wahrscheinlichkeit</span><strong id="probability">50,00 %</strong></div>
+          <div class="metric green"><span>Mögliche Auszahlung</span><strong id="payout">20,00 €</strong></div>
+          <div class="metric green"><span>Nettogewinn</span><strong id="profit">10,00 €</strong></div>
+        </div>
+        <div class="explain">
+          <b>So wird gerechnet</b>
+          <p id="formulaText" class="formula">Auszahlung = Einsatz × Gesamtquote</p>
+          <p>Die implizite Wahrscheinlichkeit ist nur die mathematische Umrechnung der Quote: <span class="formula">1 ÷ Quote</span>. Sie ist ausdrücklich keine BetInsight-Prognose und keine KI-Trefferwahrscheinlichkeit.</p>
+        </div>
+      </aside>
+    </section>
+
+    <h2 class="section-title">BetInsight Werkzeuge</h2>
+    <section class="tools">
+      <article class="toolcard">
+        <span class="mini">BEREITS ONLINE</span>
+        <h3>Bankroll- & Unit-Rechner</h3>
+        <p>Simuliere Wettkapital, Einsatzhöhe, Quote, Ergebnisfolgen und den benötigten Unit-Verbrauch.</p>
+        <a href="/de/rechner/">Rechner öffnen →</a>
+      </article>
+      <article class="toolcard">
+        <span class="mini">DIESE SEITE</span>
+        <h3>Wett-Rechner</h3>
+        <p>Für schnelle Einzel- und Kombi-Berechnungen mit Auszahlung, Nettogewinn und Quotenwahrscheinlichkeit.</p>
+        <a href="#oddsList">Jetzt rechnen →</a>
+      </article>
+      <article class="toolcard">
+        <span class="mini">IN VORBEREITUNG</span>
+        <h3>Strategieplaner</h3>
+        <p>Später: Einsatzserien, Zielgewinn, Verlustschritte, Kapitalbedarf und Risiko strukturiert durchspielen.</p>
+      </article>
+    </section>
+
+    <h2 class="section-title">Warum wir Statistik und Prognose trennen</h2>
+    <section class="panel">
+      <div class="method">
+        <div><b>1. Reine Mathematik</b><span>Quote, Auszahlung, Nettogewinn und implizite Wahrscheinlichkeit sind nachprüfbare Rechenwerte.</span></div>
+        <div><b>2. Analyse</b><span>Teamform, Gegner, Markt, Aufstellungen und weitere Daten gehören in die eigentliche Spielanalyse – nicht in den Rechner.</span></div>
+        <div><b>3. Dokumentation</b><span>Eigene BetInsight-Statistiken veröffentlichen wir erst, wenn genügend abgeschlossene und sauber dokumentierte Tipps vorliegen.</span></div>
+      </div>
+    </section>
+
+    <div class="note">
+      <b>Hinweis:</b> Dieser Rechner ist ein mathematisches Hilfsmittel und keine Gewinnzusage. Wettquoten enthalten in der Praxis die Marge des Anbieters. Glücksspiel erst ab 18 Jahren und nur mit Geld, dessen Verlust verkraftbar ist.
+    </div>
+    <div class="review">BetInsight Club · interne Vorschauversion · Footer- und Sitemap-Einbindung erst nach Freigabe</div>
+  </main>
+
+<script>
+(()=>{
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  let mode='single', format='decimal', odds=['2.00'];
+  const list=$('#oddsList'), stake=$('#stake'), freebet=$('#freebet');
+
+  const parseOdd=(value,fmt)=>{
+    const v=String(value).trim().replace(',','.');
+    if(fmt==='decimal'){const n=Number(v);return n>1?n:NaN}
+    if(fmt==='hongkong'){const n=Number(v);return n>=0?n+1:NaN}
+    if(fmt==='american'){const n=Number(v);if(!Number.isFinite(n)||n===0)return NaN;return n>0?1+n/100:1+100/Math.abs(n)}
+    if(fmt==='fractional'){if(v.includes('/')){const [a,b]=v.split('/').map(Number);return b&&a>=0?1+a/b:NaN}const n=Number(v);return n>=0?1+n:NaN}
+    return NaN
+  };
+  const placeholder=()=>format==='fractional'?'z. B. 4/5':format==='american'?'z. B. +110 oder -120':format==='hongkong'?'z. B. 0.85':'z. B. 1.85';
+  const money=n=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(n);
+  const num=(n,d=2)=>new Intl.NumberFormat('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n);
+
+  function render(){
+    const shown=mode==='single'?odds.slice(0,1):odds;
+    list.innerHTML='';
+    shown.forEach((v,i)=>{
+      const row=document.createElement('div');row.className='odd-row';
+      row.innerHTML='<div class="nr">'+(i+1)+'.</div><input class="oddInput" data-i="'+i+'" value="'+v+'" placeholder="'+placeholder()+'"><button class="remove" data-i="'+i+'" '+((mode==='single'||shown.length===1)?'style="visibility:hidden"':'')+'>×</button>';
+      list.appendChild(row)
+    });
+    $$('.oddInput').forEach(el=>el.addEventListener('input',e=>{odds[+e.target.dataset.i]=e.target.value;calc()}));
+    $$('.remove').forEach(el=>el.addEventListener('click',()=>{odds.splice(+el.dataset.i,1);if(!odds.length)odds=['2.00'];render();calc()}));
+    $('#addOdd').style.display=mode==='combo'?'':'none'
+  }
+
+  function calc(){
+    const s=Number(String(stake.value).replace(',','.'));
+    const active=mode==='single'?odds.slice(0,1):odds, ds=active.map(v=>parseOdd(v,format));
+    const valid=Number.isFinite(s)&&s>=0&&ds.every(n=>Number.isFinite(n)&&n>1);
+    if(!valid){['totalOdds','probability','payout','profit'].forEach(id=>$('#'+id).textContent='—');return}
+    const total=ds.reduce((a,b)=>a*b,1), prob=100/total;
+    const payout=freebet.checked?s*(total-1):s*total;
+    const profit=freebet.checked?payout:payout-s;
+    $('#totalOdds').textContent=num(total);$('#probability').textContent=num(prob)+' %';
+    $('#payout').textContent=money(payout);$('#profit').textContent=money(profit);
+    $('#formulaText').textContent=freebet.checked?'Freebet-Auszahlung = Einsatz × (Gesamtquote − 1)':'Auszahlung = Einsatz × Gesamtquote'
+  }
+
+  $$('.tab').forEach(b=>b.addEventListener('click',()=>{
+    mode=b.dataset.mode;$$('.tab').forEach(x=>x.classList.toggle('active',x===b));
+    if(mode==='combo'&&odds.length<2)odds=['2.00','1.80'];render();calc()
+  }));
+  $$('.format-btn').forEach(b=>b.addEventListener('click',()=>{
+    format=b.dataset.format;$$('.format-btn').forEach(x=>x.classList.toggle('active',x===b));render();calc()
+  }));
+  $('#addOdd').addEventListener('click',()=>{odds.push(format==='decimal'?'1.80':format==='fractional'?'4/5':format==='american'?'+100':'0.80');render();calc()});
+  $('#reset').addEventListener('click',()=>{
+    mode='single';format='decimal';odds=['2.00'];stake.value='10';freebet.checked=false;
+    $$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.mode==='single'));
+    $$('.format-btn').forEach(x=>x.classList.toggle('active',x.dataset.format==='decimal'));render();calc()
+  });
+  stake.addEventListener('input',calc);freebet.addEventListener('change',calc);
+  render();calc()
+})();
+</script>
+</body>
+</html>
