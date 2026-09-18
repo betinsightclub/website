@@ -211,6 +211,110 @@
     }
     .empty strong{display:block;margin-bottom:4px;font-size:18px}
     .empty p{margin:0;color:var(--muted)}
+
+    .publication-card{
+      position:relative;
+      overflow:hidden;
+      padding:30px;
+      border:1px solid rgba(126,211,255,.22);
+      border-radius:24px;
+      background:
+        radial-gradient(circle at 88% 8%,rgba(22,135,255,.12),transparent 18rem),
+        radial-gradient(circle at 8% 100%,rgba(0,217,155,.08),transparent 18rem),
+        linear-gradient(180deg,rgba(10,43,59,.98),rgba(5,27,38,.98));
+      box-shadow:var(--shadow);
+    }
+    .publication-top{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:flex-start;
+      margin-bottom:18px;
+    }
+    .publication-labels{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:14px;
+    }
+    .publication-label{
+      padding:6px 9px;
+      border:1px solid rgba(0,217,155,.22);
+      border-radius:999px;
+      color:#bcebdc;
+      background:rgba(0,217,155,.075);
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .publication-card h3{
+      margin:0 0 10px;
+      font-size:clamp(25px,3vw,34px);
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .publication-card h3 a{text-decoration:none}
+    .publication-card h3 a:hover{color:#8dccff}
+    .publication-copy{
+      max-width:780px;
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+    }
+    .publication-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 14px;
+      margin-top:18px;
+      color:#91a8b4;
+      font-size:12px;
+      font-weight:750;
+    }
+    .publication-actions{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:10px;
+      margin-top:24px;
+    }
+    .action-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:11px 12px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:13px;
+      text-decoration:none;
+      text-align:center;
+      font-size:13px;
+      font-weight:850;
+      line-height:1.2;
+      background:rgba(255,255,255,.045);
+      transition:.2s ease;
+    }
+    .action-btn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(126,211,255,.45);
+      background:rgba(255,255,255,.07);
+    }
+    .action-btn.primary{
+      border-color:transparent;
+      background:linear-gradient(135deg,var(--blue),var(--blue2));
+      box-shadow:0 12px 26px rgba(22,135,255,.22);
+    }
+    .action-btn.partner{
+      border-color:rgba(0,217,155,.28);
+      color:#caffed;
+      background:rgba(0,217,155,.08);
+    }
+    .publication-affiliate{
+      margin-top:12px;
+      color:#8098a4;
+      font-size:11px;
+      line-height:1.45;
+    }
+
     .grid{
       display:grid;
       grid-template-columns:repeat(4,1fr);
@@ -282,7 +386,7 @@
     }
     .footer-links{display:flex;gap:14px;flex-wrap:wrap}
     .footer-links a{text-decoration:none;color:#a7bac3}
-    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.rules{grid-template-columns:1fr}}
+    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.rules{grid-template-columns:1fr}.publication-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.publication-actions .action-btn:last-child{grid-column:1/-1}}
     @media(max-width:620px){
       .topbar{min-height:72px}
       .logo{width:158px}
@@ -293,6 +397,9 @@
       .grid{grid-template-columns:1fr}
       .empty{grid-template-columns:1fr}
       .external-panel{padding:20px}
+      .publication-card{padding:21px}
+      .publication-actions{grid-template-columns:1fr}
+      .publication-actions .action-btn:last-child{grid-column:auto}
     }
   </style>
 </head>
@@ -333,12 +440,36 @@
         </div>
 
         <div class="external-panel">
-          <a class="card" href="qwikad-berlin-sportanalysen-transparente-ergebnisse/">
-            <span class="tag">QwikAd · 🇩🇪 Berlin</span>
-            <h3>Sportanalysen & transparente Ergebnisse</h3>
-            <p>Zweisprachiges BetInsight-Inserat zu Sport- und Fußballanalysen, Ergebnis-Historie und Unit-System.</p>
-            <span class="go">Beitrag ansehen →</span>
-          </a>
+          <article class="publication-card">
+            <div class="publication-labels">
+              <span class="publication-label">QwikAd</span>
+              <span class="publication-label">🇩🇪 Berlin</span>
+              <span class="publication-label">Deutsch & Englisch</span>
+            </div>
+
+            <h3><a href="qwikad-berlin-sportanalysen-transparente-ergebnisse/">Sportanalysen & transparente Ergebnisse</a></h3>
+            <p class="publication-copy">
+              Zweisprachiges BetInsight-Inserat zu Sport- und Fußballanalysen, transparenter Ergebnis-Historie und dem strukturierten Unit-System.
+            </p>
+
+            <div class="publication-meta">
+              <span>Plattform: QwikAd</span>
+              <span>Markt: Berlin, Deutschland</span>
+              <span>Verfügbar bis 13.11.2026</span>
+            </div>
+
+            <div class="publication-actions">
+              <a class="action-btn primary" href="https://www.qwikad.com/showad.php?cityid=1603&city=Berlin&cid=3&cat=6&postid=4000183&title=betinsight-club-sportanalysen-transparente-ergebnisse-sports-analysis-transparent-results" target="_blank" rel="noopener noreferrer">Inserat ansehen</a>
+              <a class="action-btn partner" href="https://qwikad.com/affiliate/idevaffiliate.php?id=7773" target="_blank" rel="sponsored nofollow noopener noreferrer">Selbst Werbung schalten</a>
+              <a class="action-btn" href="../webinar/live/">Webinare</a>
+              <a class="action-btn" href="../webinar/aufzeichnung/">Aufzeichnungen</a>
+              <a class="action-btn" href="../">Mehr über BetInsight</a>
+            </div>
+
+            <div class="publication-affiliate">
+              Partnerhinweis: Über den Link „Selbst Werbung schalten“ kann BetInsight bei einer kostenpflichtigen Nutzung von QwikAd eine Provision erhalten. Für dich entstehen dadurch keine zusätzlichen Kosten.
+            </div>
+          </article>
 
           <!--
             BETINSIGHT REGEL FÜR SPÄTERE EINTRÄGE:
