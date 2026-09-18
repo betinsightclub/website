@@ -136,8 +136,7 @@
           <h1>Wett-Rechner</h1>
           <p class="subtitle">Berechne Einzel- und Kombiwetten verständlich und ohne Anmeldung: Gesamtquote, mögliche Auszahlung, Nettogewinn und die mathematisch aus der Quote abgeleitete implizite Wahrscheinlichkeit.</p>
         </div>
-        <div class="modehint">Vorschau · noch nicht im Footer verlinkt</div>
-      </div>
+</div>
     </section>
 
     <section class="layout">
@@ -194,14 +193,14 @@
         <div class="muted">Die Werte ändern sich sofort mit deinen Eingaben.</div>
         <div class="results">
           <div class="metric orange"><span>Gesamtquote</span><strong id="totalOdds">2,00</strong></div>
-          <div class="metric"><span>Implizite Wahrscheinlichkeit</span><strong id="probability">50,00 %</strong></div>
+          <div id="advancedProbability" class="metric" hidden><span>Implizite Wahrscheinlichkeit</span><strong id="probability">50,00 %</strong></div>
           <div class="metric green"><span>Mögliche Auszahlung</span><strong id="payout">20,00 €</strong></div>
           <div class="metric green"><span>Nettogewinn</span><strong id="profit">10,00 €</strong></div>
         </div>
         <div class="explain">
           <b>So wird gerechnet</b>
           <p id="formulaText" class="formula">Auszahlung = Einsatz × Gesamtquote</p>
-          <p>Die implizite Wahrscheinlichkeit ist nur die mathematische Umrechnung der Quote: <span class="formula">1 ÷ Quote</span>. Sie ist ausdrücklich keine BetInsight-Prognose und keine KI-Trefferwahrscheinlichkeit.</p>
+          <p id="advancedProbabilityNote" hidden>Die implizite Wahrscheinlichkeit ist nur die mathematische Umrechnung der Quote: <span class="formula">1 ÷ Quote</span>. Sie ist ausdrücklich keine BetInsight-Prognose und keine KI-Trefferwahrscheinlichkeit.</p>
         </div>
       </aside>
     </section>
@@ -291,6 +290,8 @@
     $$('.view-tab').forEach(x=>x.classList.toggle('active',x===b));
     $('#advancedFormats').hidden=!advanced;
     $('#advancedFreebet').hidden=!advanced;
+    $('#advancedProbability').hidden=!advanced;
+    $('#advancedProbabilityNote').hidden=!advanced;
     if(!advanced){
       format='decimal';
       freebet.checked=false;
@@ -311,7 +312,7 @@
     mode='single';format='decimal';odds=['2.00'];stake.value='10';freebet.checked=false;advanced=false;
     $$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.mode==='single'));
     $$('.view-tab').forEach(x=>x.classList.toggle('active',x.dataset.view==='normal'));
-    $('#advancedFormats').hidden=true;$('#advancedFreebet').hidden=true;
+    $('#advancedFormats').hidden=true;$('#advancedFreebet').hidden=true;$('#advancedProbability').hidden=true;$('#advancedProbabilityNote').hidden=true;
     $$('.format-btn').forEach(x=>x.classList.toggle('active',x.dataset.format==='decimal'));render();calc()
   });
   stake.addEventListener('input',calc);freebet.addEventListener('change',calc);
