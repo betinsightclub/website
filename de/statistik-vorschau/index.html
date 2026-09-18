@@ -32,6 +32,12 @@
     .lead{max-width:850px;margin:0;color:#c3d4dc;font-size:clamp(17px,2vw,21px);line-height:1.6}
     .facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
     .fact{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03);color:#abc0ca;font-size:12px;font-weight:800}
+    .modebar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:20px 0 0}
+    .mode-switch{display:inline-flex;gap:6px;padding:5px;border-radius:14px;border:1px solid var(--line);background:rgba(5,20,29,.82)}
+    .mode-btn{appearance:none;border:0;cursor:pointer;padding:10px 15px;border-radius:10px;background:transparent;color:#91a8b5;font-weight:850;font-size:13px;transition:.2s ease}
+    .mode-btn:hover{color:#fff}
+    .mode-btn.active{color:#071018;background:var(--neon);box-shadow:0 0 22px rgba(207,255,34,.16)}
+    .mode-note{color:#91a8b5;font-size:12px;line-height:1.45;max-width:620px}
     .chart-card{margin:20px 0 22px;padding:24px 24px 18px;border:1px solid var(--line);border-radius:24px;
       background:linear-gradient(180deg,rgba(9,29,41,.97),rgba(5,20,29,.98));box-shadow:var(--shadow);overflow:hidden}
     .chart-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:10px}
@@ -73,8 +79,15 @@
   <div class="facts">
     <span class="fact">Startkapital 1.000 €</span>
     <span class="fact">1 Unit = 1 % des Startkapitals = 10 €</span>
-    <span class="fact">ohne Zinseszins</span>
+    <span class="fact">mit / ohne Zinseszins umschaltbar</span>
     <span class="fact">Stand 18.09.2026</span>
+  </div>
+  <div class="modebar">
+    <div class="mode-switch" role="group" aria-label="Berechnungsart">
+      <button class="mode-btn active" type="button" data-mode="fixed">Ohne Zinseszins</button>
+      <button class="mode-btn" type="button" data-mode="compound">Mit Zinseszins</button>
+    </div>
+    <div class="mode-note" id="modeNote">Fester Einsatz: 1 Unit bleibt immer 10 € (1 % des Startkapitals).</div>
   </div>
 </div></section>
 
@@ -104,8 +117,8 @@
 
   <div class="kpis">
     <div class="kpi"><span>Startkapital</span><strong>1.000,00 €</strong></div>
-    <div class="kpi"><span>Aktueller Gesamtwert</span><strong class="positive">1.060,60 €</strong></div>
-    <div class="kpi"><span>Gesamtgewinn</span><strong class="positive">+60,60 €</strong></div>
+    <div class="kpi"><span>Aktueller Gesamtwert</span><strong class="positive" id="currentValue">1.060,60 €</strong></div>
+    <div class="kpi"><span>Gesamtgewinn</span><strong class="positive" id="totalGain">+60,60 €</strong></div>
     <div class="kpi"><span>Gewertete Tipps</span><strong>9</strong></div>
   </div>
 
@@ -114,50 +127,97 @@
     <table>
       <thead><tr><th>#</th><th>Datum</th><th>Spiel</th><th>Quote</th><th>Units</th><th>Veränderung</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td>28.08.2026</td><td>Crystal Palace – Man City</td><td>1,60</td><td>3</td><td class="win">+18,00 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>2</td><td>05.09.2026</td><td>Hoffenheim – Dortmund</td><td>1,46</td><td>2</td><td class="win">+9,20 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>3</td><td>08.09.2026</td><td>Dortmund – Villarreal</td><td>1,78</td><td>2</td><td class="win">+15,60 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>4</td><td>11.09.2026</td><td>Darmstadt – Bielefeld</td><td>2,87</td><td>2</td><td class="win">+37,40 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>5</td><td>12.09.2026</td><td>Bochum – Greuther Fürth</td><td>1,88</td><td>2</td><td class="loss">−20,00 €</td><td><span class="status loss">Verloren</span></td></tr>
-        <tr><td>6</td><td>12.09.2026</td><td>Real Sociedad / Chelsea · Kombi</td><td>1,67</td><td>4</td><td class="loss">−40,00 €</td><td><span class="status loss">Verloren</span></td></tr>
-        <tr><td>7</td><td>14.09.2026</td><td>Villarreal / Newcastle · Kombi</td><td>2,15</td><td>3</td><td class="loss">−30,00 €</td><td><span class="status loss">Verloren</span></td></tr>
-        <tr><td>8</td><td>17.09.2026</td><td>Real Betis – Getafe</td><td>1,72</td><td>4</td><td class="win">+28,80 €</td><td><span class="status win">Gewonnen</span></td></tr>
-        <tr><td>9</td><td>17.09.2026</td><td>Málaga – Villarreal</td><td>2,04</td><td>4</td><td class="win">+41,60 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>1</td><td>28.08.2026</td><td>Crystal Palace – Man City</td><td>1,60</td><td>3</td><td class="win change-cell" data-fixed="+18,00 €" data-compound="+18,00 €">+18,00 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>2</td><td>05.09.2026</td><td>Hoffenheim – Dortmund</td><td>1,46</td><td>2</td><td class="win change-cell" data-fixed="+9,20 €" data-compound="+9,37 €">+9,20 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>3</td><td>08.09.2026</td><td>Dortmund – Villarreal</td><td>1,78</td><td>2</td><td class="win change-cell" data-fixed="+15,60 €" data-compound="+16,03 €">+15,60 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>4</td><td>11.09.2026</td><td>Darmstadt – Bielefeld</td><td>2,87</td><td>2</td><td class="win change-cell" data-fixed="+37,40 €" data-compound="+39,02 €">+37,40 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>5</td><td>12.09.2026</td><td>Bochum – Greuther Fürth</td><td>1,88</td><td>2</td><td class="loss change-cell" data-fixed="−20,00 €" data-compound="−21,65 €">−20,00 €</td><td><span class="status loss">Verloren</span></td></tr>
+        <tr><td>6</td><td>12.09.2026</td><td>Real Sociedad / Chelsea · Kombi</td><td>1,67</td><td>4</td><td class="loss change-cell" data-fixed="−40,00 €" data-compound="−42,43 €">−40,00 €</td><td><span class="status loss">Verloren</span></td></tr>
+        <tr><td>7</td><td>14.09.2026</td><td>Villarreal / Newcastle · Kombi</td><td>2,15</td><td>3</td><td class="loss change-cell" data-fixed="−30,00 €" data-compound="−30,55 €">−30,00 €</td><td><span class="status loss">Verloren</span></td></tr>
+        <tr><td>8</td><td>17.09.2026</td><td>Real Betis – Getafe</td><td>1,72</td><td>4</td><td class="win change-cell" data-fixed="+28,80 €" data-compound="+28,45 €">+28,80 €</td><td><span class="status win">Gewonnen</span></td></tr>
+        <tr><td>9</td><td>17.09.2026</td><td>Málaga – Villarreal</td><td>2,04</td><td>4</td><td class="win change-cell" data-fixed="+41,60 €" data-compound="+42,28 €">+41,60 €</td><td><span class="status win">Gewonnen</span></td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="disclaimer">Darstellung als Modellrechnung mit festem Startkapital: 1 Unit entspricht 1 % von 1.000 € und damit 10 €. Gewinne werden mit der im System hinterlegten Quote berechnet; bei verlorenen Tipps wird der Unit-Einsatz abgezogen. Abgesagte Tipps und nicht qualitätsrelevante Datensätze verändern die Kurve nicht.</div>
+  <div class="disclaimer" id="disclaimer">Darstellung als Modellrechnung mit festem Startkapital: 1 Unit entspricht 1 % von 1.000 € und damit 10 €. Gewinne werden mit der im System hinterlegten Quote berechnet; bei verlorenen Tipps wird der Unit-Einsatz abgezogen. Abgesagte Tipps und nicht qualitätsrelevante Datensätze verändern die Kurve nicht.</div>
 </div></section>
 </main>
 
 <script>
 (() => {
-  const blue=[1000,1018,1018,1018,1018,1018,978,948,976.8,1018.4];
-  const green=[1000,1000,1009.2,1024.8,1062.2,1042.2,1042.2,1042.2,1042.2,1042.2];
-  const total=[1000,1018,1027.2,1042.8,1080.2,1060.2,1020.2,990.2,1019,1060.6];
+  const modes={
+    fixed:{
+      blue:[1000,1018,1018,1018,1018,1018,978,948,976.8,1018.4],
+      green:[1000,1000,1009.2,1024.8,1062.2,1042.2,1042.2,1042.2,1042.2,1042.2],
+      total:[1000,1018,1027.2,1042.8,1080.2,1060.2,1020.2,990.2,1019,1060.6],
+      note:'Fester Einsatz: 1 Unit bleibt immer 10 € (1 % des Startkapitals).',
+      disclaimer:'Darstellung als Modellrechnung mit festem Startkapital: 1 Unit entspricht 1 % von 1.000 € und damit 10 €. Gewinne werden mit der im System hinterlegten Quote berechnet; bei verlorenen Tipps wird der Unit-Einsatz abgezogen. Abgesagte Tipps und nicht qualitätsrelevante Datensätze verändern die Kurve nicht.'
+    },
+    compound:{
+      blue:[1000,1018,1018,1018,1018,1018,977.28,947.9616,975.26289408,1015.8338304737281],
+      green:[1000,1000,1009.2,1024.94352,1063.276407648,1042.01087949504,1042.01087949504,1042.01087949504,1042.01087949504,1042.01087949504],
+      total:[1000,1018,1027.3656,1043.39250336,1082.415382985664,1060.7670753259508,1018.3363923129128,987.7863005435255,1016.2345459991791,1058.509903112745],
+      note:'Zinseszins: 1 Unit wird bei jedem Tipp neu als 1 % des jeweils aktuellen Kapitals berechnet.',
+      disclaimer:'Darstellung mit Zinseszins: Der Unit-Einsatz wird vor jedem Tipp aus dem jeweils aktuellen Kapital neu berechnet. Beispiel: 3 Units entsprechen 3 % des aktuellen Kapitals. Gewinne erhöhen und Verluste reduzieren dadurch die Basis für den nächsten Tipp. Abgesagte Tipps und nicht qualitätsrelevante Datensätze verändern die Kurve nicht.'
+    }
+  };
+
   const svg=document.getElementById('chart'), grid=document.getElementById('grid'), labels=document.getElementById('labels');
   const W=1120,H=430,L=64,R=130,T=38,B=56,min=930,max=1090;
-  const x=i=>L+i*((W-L-R)/(total.length-1));
-  const y=v=>T+(max-v)*((H-T-B)/(max-min));
   const ns='http://www.w3.org/2000/svg';
   const make=(tag,a={})=>{const e=document.createElementNS(ns,tag);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));return e};
+  const fmt=v=>v.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  const gainFmt=v=>(v>=0?'+':'−')+Math.abs(v).toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  const x=i=>L+i*((W-L-R)/(modes.fixed.total.length-1));
+  const y=v=>T+(max-v)*((H-T-B)/(max-min));
+  const path=a=>a.map((v,i)=>(i?'L':'M')+x(i)+' '+y(v)).join(' ');
+
   [940,980,1000,1020,1060,1090].forEach(v=>{
     const line=make('line',{x1:L,y1:y(v),x2:W-R+20,y2:y(v),class:v===1000?'start-line':'grid'});grid.appendChild(line);
     const t=make('text',{x:8,y:y(v)+4,class:'axis-text'});t.textContent=v===1000?'1.000 €':v.toLocaleString('de-DE')+' €';grid.appendChild(t);
   });
-  for(let i=0;i<total.length;i++){const l=make('line',{x1:x(i),y1:T,x2:x(i),y2:H-B,class:'grid'});grid.appendChild(l);const t=make('text',{x:x(i),y:H-24,'text-anchor':'middle',class:'axis-text'});t.textContent=i===0?'Start':i;grid.appendChild(t)}
-  const path=a=>a.map((v,i)=>(i?'L':'M')+x(i)+' '+y(v)).join(' ');
-  document.getElementById('lineBlue').setAttribute('d',path(blue));document.getElementById('lineGreen').setAttribute('d',path(green));document.getElementById('lineTotal').setAttribute('d',path(total));
-  document.getElementById('areaTotal').setAttribute('d',path(total)+' L '+x(total.length-1)+' '+(H-B)+' L '+x(0)+' '+(H-B)+' Z');
-  const draw=(arr,id,color)=>{const g=document.getElementById(id);arr.forEach((v,i)=>{g.appendChild(make('circle',{cx:x(i),cy:y(v),r:i===arr.length-1?6:4,fill:color,class:'dot '+(i===arr.length-1?'last':'')}))})};
-  draw(blue,'pointsBlue','#1687ff');draw(green,'pointsGreen','#1fe28f');draw(total,'pointsTotal','#cfff22');
-  const end=[
-    {v:blue.at(-1),gain:18.4,c:'#1687ff',dy:15},
-    {v:green.at(-1),gain:42.2,c:'#1fe28f',dy:3},
-    {v:total.at(-1),gain:60.6,c:'#cfff22',dy:-18}
-  ];
-  end.forEach(o=>{const xx=x(total.length-1)+16,yy=y(o.v)+o.dy;const box=make('rect',{x:xx-6,y:yy-17,width:91,height:27,rx:9,fill:o.c,opacity:.95});labels.appendChild(box);const t=make('text',{x:xx+39,y:yy+2,'text-anchor':'middle',class:'end-label',fill:'#031018'});t.textContent=(o.gain>=0?'+':'')+o.gain.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';labels.appendChild(t)});
+  for(let i=0;i<modes.fixed.total.length;i++){
+    grid.appendChild(make('line',{x1:x(i),y1:T,x2:x(i),y2:H-B,class:'grid'}));
+    const t=make('text',{x:x(i),y:H-24,'text-anchor':'middle',class:'axis-text'});t.textContent=i===0?'Start':i;grid.appendChild(t);
+  }
+
+  function drawPoints(arr,id,color){
+    const g=document.getElementById(id);g.innerHTML='';
+    arr.forEach((v,i)=>g.appendChild(make('circle',{cx:x(i),cy:y(v),r:i===arr.length-1?6:4,fill:color,class:'dot '+(i===arr.length-1?'last':'') })));
+  }
+
+  function render(mode){
+    const d=modes[mode];
+    document.getElementById('lineBlue').setAttribute('d',path(d.blue));
+    document.getElementById('lineGreen').setAttribute('d',path(d.green));
+    document.getElementById('lineTotal').setAttribute('d',path(d.total));
+    document.getElementById('areaTotal').setAttribute('d',path(d.total)+' L '+x(d.total.length-1)+' '+(H-B)+' L '+x(0)+' '+(H-B)+' Z');
+    drawPoints(d.blue,'pointsBlue','#1687ff');drawPoints(d.green,'pointsGreen','#1fe28f');drawPoints(d.total,'pointsTotal','#cfff22');
+
+    labels.innerHTML='';
+    const end=[
+      {v:d.blue.at(-1),gain:d.blue.at(-1)-1000,c:'#1687ff',dy:15},
+      {v:d.green.at(-1),gain:d.green.at(-1)-1000,c:'#1fe28f',dy:3},
+      {v:d.total.at(-1),gain:d.total.at(-1)-1000,c:'#cfff22',dy:-18}
+    ];
+    end.forEach(o=>{
+      const xx=x(d.total.length-1)+16,yy=y(o.v)+o.dy;
+      labels.appendChild(make('rect',{x:xx-6,y:yy-17,width:91,height:27,rx:9,fill:o.c,opacity:.95}));
+      const t=make('text',{x:xx+39,y:yy+2,'text-anchor':'middle',class:'end-label',fill:'#031018'});
+      t.textContent=gainFmt(o.gain);labels.appendChild(t);
+    });
+
+    document.getElementById('currentValue').textContent=fmt(d.total.at(-1));
+    document.getElementById('totalGain').textContent=gainFmt(d.total.at(-1)-1000);
+    document.getElementById('modeNote').textContent=d.note;
+    document.getElementById('disclaimer').textContent=d.disclaimer;
+    document.querySelectorAll('.change-cell').forEach(el=>el.textContent=el.dataset[mode]);
+    document.querySelectorAll('.mode-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.mode===mode));
+  }
+
+  document.querySelectorAll('.mode-btn').forEach(btn=>btn.addEventListener('click',()=>render(btn.dataset.mode)));
+  render('fixed');
 })();
 </script>
 </body>
