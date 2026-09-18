@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#031720">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <title>Eventos BetInsight – Webinars e workshops</title>
+  <meta name="description" content="Calendário de eventos BetInsight: workshops às quartas e webinar ao vivo às quintas, às 20:00 no horário da Alemanha. Os eventos regulares são em alemão.">
+  <link rel="canonical" href="https://betinsight.club/pt/events/">
+  <link rel="alternate" hreflang="de" href="https://betinsight.club/de/events/">
+<link rel="alternate" hreflang="en" href="https://betinsight.club/en/events/">
+<link rel="alternate" hreflang="es" href="https://betinsight.club/es/events/">
+<link rel="alternate" hreflang="pt" href="https://betinsight.club/pt/events/">
+<link rel="alternate" hreflang="it" href="https://betinsight.club/it/events/">
+<link rel="alternate" hreflang="fr" href="https://betinsight.club/fr/events/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BetInsight Club">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Eventos BetInsight – Webinars e workshops">
+  <meta property="og:description" content="Calendário de eventos BetInsight: workshops às quartas e webinar ao vivo às quintas, às 20:00 no horário da Alemanha. Os eventos regulares são em alemão.">
+  <meta property="og:url" content="https://betinsight.club/pt/events/">
+  <meta property="og:image" content="https://betinsight.club/assets/hero-fussball-dunkel.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Eventos BetInsight – Webinars e workshops">
+  <meta name="twitter:description" content="Calendário de eventos BetInsight: workshops às quartas e webinar ao vivo às quintas, às 20:00 no horário da Alemanha. Os eventos regulares são em alemão.">
+  <meta name="twitter:image" content="https://betinsight.club/assets/hero-fussball-dunkel.png">
+  <link rel="stylesheet" href="../../assets/events-page.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a href="../" aria-label="BetInsight"><img class="logo" src="../../assets/betinsight-logo.png" alt="BetInsight.club"></a>
+      <a class="back" href="../">← Voltar ao início</a>
+    </header>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow"><span class="dot"></span>Eventos BetInsight</div>
+        <h1>Webinars e workshops.<br>Todas as datas em um só lugar.</h1>
+        <p class="lead">Nosso calendário público mostra os eventos ao vivo regulares da BetInsight e, futuramente, webinars convidados selecionados.</p>
+        <div class="language-note">🇩🇪 Nossos eventos regulares da BetInsight são realizados em alemão.</div>
+
+        <div class="schedule-strip">
+          <article class="schedule-card">
+            <div class="kind"><span>🛠️</span><span>Quarta-feira · Workshop</span></div>
+            <p>Toda quarta-feira às <strong>20:00</strong>, horário da Alemanha.</p>
+          </article>
+          <article class="schedule-card">
+            <div class="kind"><span>🔴</span><span>Quinta-feira · Webinar ao vivo</span></div>
+            <p>Toda quinta-feira às <strong>20:00</strong>, horário da Alemanha.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calendar">
+      <div class="wrap">
+        <div class="section-head">
+          <div><h2>Calendário de eventos</h2><p>Navegue pelos meses e veja rapidamente quando acontecem os workshops e webinars.</p></div>
+        </div>
+
+        <div class="calendar-shell">
+          <div class="calendar-top">
+            <h3 id="monthLabel"></h3>
+            <div class="cal-nav">
+              <button id="prevMonth" type="button" aria-label="Previous month">‹</button>
+              <button id="nextMonth" type="button" aria-label="Next month">›</button>
+            </div>
+          </div>
+          <div class="calendar-weekdays" id="calendarWeekdays"></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+          <div class="legend">
+            <span class="w"><i></i>Workshop</span>
+            <span class="v"><i></i>Webinar ao vivo</span>
+            <span class="e"><i></i>Evento convidado</span>
+          </div>
+        </div>
+
+        <div class="section-head" id="upcoming" style="margin-top:34px">
+          <div><h2 id="upcomingTitle"></h2></div>
+        </div>
+        <div class="upcoming" id="upcomingEvents"></div>
+      </div>
+    </section>
+
+    <section class="host">
+      <div class="wrap">
+        <div class="host-card">
+          <div>
+            <h2 id="hostTitle"></h2>
+            <p id="hostLead"></p>
+            <div class="host-points" id="hostPoints"></div>
+          </div>
+          <div class="host-cta"><button class="btn btn-green" type="button" id="hostOpen"></button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap" id="eventsFooter"></div></footer>
+
+  <div class="modal" id="hostModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="hostModalTitle">
+      <div class="modal-head">
+        <h2 id="hostModalTitle"></h2>
+        <button class="close" type="button" id="hostClose" aria-label="Close">×</button>
+      </div>
+      <form id="hostForm">
+        <div class="form-grid">
+          <div class="field"><label id="labelName" for="hName"></label><input id="hName" name="name" required></div>
+          <div class="field"><label id="labelEmail" for="hEmail"></label><input id="hEmail" name="email" type="email" required></div>
+          <div class="field full"><label id="labelTitle" for="hTitle"></label><input id="hTitle" name="title" required></div>
+          <div class="field full"><label id="labelTopic" for="hTopic"></label><textarea id="hTopic" name="topic" required></textarea></div>
+          <div class="field"><label id="labelLanguage" for="hLanguage"></label>
+            <select id="hLanguage" name="language" required>
+              <option value="Deutsch">Deutsch</option><option value="English">English</option><option value="Español">Español</option>
+              <option value="Português">Português</option><option value="Italiano">Italiano</option><option value="Français">Français</option><option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field"><label id="labelDate" for="hDate"></label><input id="hDate" name="date" type="date"></div>
+          <div class="field full"><label id="labelLinks" for="hLinks"></label><input id="hLinks" name="links" type="url" placeholder="https://"></div>
+          <div class="field full"><label id="labelIntro" for="hIntro"></label><textarea id="hIntro" name="intro" required></textarea></div>
+        </div>
+        <p class="form-note" id="hostFormNote"></p>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" type="button" id="hostCancel"><span id="hostCancelText"></span></button>
+          <button class="btn btn-primary" type="submit"><span id="hostSubmitText"></span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../../assets/events-page.js" defer></script>
+  <script src="../../assets/subpage-language-switch.js" defer></script>
+</body>
+</html>
