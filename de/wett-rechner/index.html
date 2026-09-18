@@ -300,11 +300,11 @@
   }));
 
   $$('.tab').forEach(b=>b.addEventListener('click',()=>{
-    mode=b.dataset.mode;$('.tab').forEach(x=>x.classList.toggle('active',x===b));
+    mode=b.dataset.mode;$$('.tab').forEach(x=>x.classList.toggle('active',x===b));
     if(mode==='combo'&&odds.length<2)odds=['2.00','1.80'];render();calc()
   }));
-  $('.format-btn').forEach(b=>b.addEventListener('click',()=>{
-    format=b.dataset.format;$('.format-btn').forEach(x=>x.classList.toggle('active',x===b));render();calc()
+  $$('.format-btn').forEach(b=>b.addEventListener('click',()=>{
+    format=b.dataset.format;$$('.format-btn').forEach(x=>x.classList.toggle('active',x===b));render();calc()
   }));
   $('#addOdd').addEventListener('click',()=>{odds.push(format==='decimal'?'1.80':format==='fractional'?'4/5':format==='american'?'+100':'0.80');render();calc()});
   $('#reset').addEventListener('click',()=>{
