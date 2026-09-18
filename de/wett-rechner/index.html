@@ -286,33 +286,33 @@
     $('#formulaText').textContent=freebet.checked?'Freebet-Auszahlung = Einsatz × (Gesamtquote − 1)':'Auszahlung = Einsatz × Gesamtquote'
   }
 
-  $('.view-tab').forEach(b=>b.addEventListener('click',()=>{
+  $$('.view-tab').forEach(b=>b.addEventListener('click',()=>{
     advanced=b.dataset.view==='advanced';
-    $('.view-tab').forEach(x=>x.classList.toggle('active',x===b));
+    $$('.view-tab').forEach(x=>x.classList.toggle('active',x===b));
     $('#advancedFormats').hidden=!advanced;
     $('#advancedFreebet').hidden=!advanced;
     if(!advanced){
       format='decimal';
       freebet.checked=false;
-      $('.format-btn').forEach(x=>x.classList.toggle('active',x.dataset.format==='decimal'));
+      $$('.format-btn').forEach(x=>x.classList.toggle('active',x.dataset.format==='decimal'));
       render();calc();
     }
   }));
 
-  $('.tab').forEach(b=>b.addEventListener('click',()=>{
-    mode=b.dataset.mode;$$('.tab').forEach(x=>x.classList.toggle('active',x===b));
+  $$('.tab').forEach(b=>b.addEventListener('click',()=>{
+    mode=b.dataset.mode;$$$('.tab').forEach(x=>x.classList.toggle('active',x===b));
     if(mode==='combo'&&odds.length<2)odds=['2.00','1.80'];render();calc()
   }));
-  $$('.format-btn').forEach(b=>b.addEventListener('click',()=>{
-    format=b.dataset.format;$$('.format-btn').forEach(x=>x.classList.toggle('active',x===b));render();calc()
+  $$$('.format-btn').forEach(b=>b.addEventListener('click',()=>{
+    format=b.dataset.format;$$$('.format-btn').forEach(x=>x.classList.toggle('active',x===b));render();calc()
   }));
   $('#addOdd').addEventListener('click',()=>{odds.push(format==='decimal'?'1.80':format==='fractional'?'4/5':format==='american'?'+100':'0.80');render();calc()});
   $('#reset').addEventListener('click',()=>{
     mode='single';format='decimal';odds=['2.00'];stake.value='10';freebet.checked=false;advanced=false;
-    $('.tab').forEach(x=>x.classList.toggle('active',x.dataset.mode==='single'));
-    $('.view-tab').forEach(x=>x.classList.toggle('active',x.dataset.view==='normal'));
+    $$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.mode==='single'));
+    $$('.view-tab').forEach(x=>x.classList.toggle('active',x.dataset.view==='normal'));
     $('#advancedFormats').hidden=true;$('#advancedFreebet').hidden=true;
-    $('.format-btn').forEach(x=>x.classList.toggle('active',x.dataset.format==='decimal'));render();calc()
+    $$('.format-btn').forEach(x=>x.classList.toggle('active',x.dataset.format==='decimal'));render();calc()
   });
   stake.addEventListener('input',calc);freebet.addEventListener('change',calc);
   render();calc()
