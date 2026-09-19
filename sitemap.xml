@@ -1017,4 +1017,9 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://betinsight.club/fr/legal-notice/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://betinsight.club/en/legal-notice/" />
   </url>
+  <url>
+    <loc>https://betinsight.club/de/podcast/</loc>
+    <lastmod>2026-09-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://betinsight.club/de/podcast/" />
+  </url>
 </urlset>
