@@ -91,8 +91,8 @@
     const style = document.createElement("style");
     style.id = "betinsight-language-styles";
     style.textContent = `
-      .language-switch{display:inline-flex;align-items:center;padding:4px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.035);flex-shrink:0}
-      .language-switch select{min-height:34px;max-width:150px;padding:6px 28px 6px 10px;border:0;border-radius:999px;color:#fff;background:#0a69d8;font-size:12px;font-weight:900;cursor:pointer;outline:none}
+      .language-switch{display:inline-flex;align-items:center;padding:3px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.035);flex:0 0 auto}
+      .language-switch select{width:88px;min-width:88px;max-width:88px;min-height:34px;padding:6px 24px 6px 9px;border:0;border-radius:999px;color:#fff;background:#0a69d8;font-size:12px;font-weight:900;cursor:pointer;outline:none}
       .language-switch select option{color:#071923;background:#fff}
       .betinsight-footer-social{display:flex;align-items:center;gap:9px;margin-top:18px}
       .betinsight-footer-social-label{color:#718a96;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
