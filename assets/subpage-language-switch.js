@@ -91,7 +91,7 @@
       @media(max-width:620px){
         .topbar,.header-inner{flex-wrap:wrap}
         .bi-subpage-actions{width:100%;justify-content:flex-end;margin-left:0}
-        .bi-subpage-language select{max-width:130px}
+        .bi-subpage-language select{width:80px;min-width:80px;max-width:80px;min-height:34px;padding:5px 22px 5px 8px;font-size:11px}
         .bi-tip-tags{margin-top:18px}
         .bi-section-nav-wrap{width:min(calc(100% - 24px),1180px);margin-top:12px}
         .bi-section-nav{width:100%;overflow-x:auto}
@@ -121,7 +121,7 @@
     SUPPORTED.forEach(language => {
       const option = document.createElement("option");
       option.value = language;
-      option.textContent = language.toUpperCase() + " · " + NAMES[language];
+      option.textContent = (FLAGS[language] || "🌐") + " " + language.toUpperCase();
       option.selected = language === current;
       select.appendChild(option);
     });
