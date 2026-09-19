@@ -16,6 +16,15 @@
     fr:{label:"Thèmes",season:"Saison 2026/27",football:"Pronostics football",over:"Plus de 2,5 buts",winner:"Vainqueur du match",acca:"Combiné"}
   };
 
+  const SECTION_NAV_COPY = {
+    de:{aria:"Tipps und Statistik",tips:"Tippauswertungen",stats:"Statistik & Verlauf",preview:"Vorschau"},
+    en:{aria:"Tips and statistics",tips:"Tip reviews",stats:"Statistics & Performance",preview:"Preview"},
+    es:{aria:"Pronósticos y estadísticas",tips:"Revisiones de pronósticos",stats:"Estadísticas y evolución",preview:"Vista previa"},
+    pt:{aria:"Palpites e estatísticas",tips:"Avaliações de palpites",stats:"Estatísticas e evolução",preview:"Prévia"},
+    it:{aria:"Pronostici e statistiche",tips:"Valutazioni dei pronostici",stats:"Statistiche e andamento",preview:"Anteprima"},
+    fr:{aria:"Pronostics et statistiques",tips:"Bilans des pronostics",stats:"Statistiques et évolution",preview:"Aperçu"}
+  };
+
   function currentLanguage() {
     const first = location.pathname.split("/").filter(Boolean)[0]?.toLowerCase();
     return SUPPORTED.includes(first) ? first : "de";
@@ -71,11 +80,22 @@
       .bi-tip-tag[data-kind="result-loss"]{border-color:rgba(255,110,120,.25);background:rgba(255,110,120,.055);color:#ffb0b6}
       .bi-tip-tag[data-kind="season"]{border-color:rgba(247,201,80,.25);background:rgba(247,201,80,.05);color:#e7d494}
 
+      .bi-section-nav-wrap{width:min(calc(100% - 34px),1180px);margin:18px auto 0}
+      .bi-section-nav{display:flex;align-items:center;gap:8px;padding:5px;border:1px solid rgba(126,211,255,.15);border-radius:14px;background:rgba(255,255,255,.025);width:max-content;max-width:100%}
+      .bi-section-nav a{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:8px 12px;border-radius:10px;color:#9fb6c1;text-decoration:none;font-size:12px;font-weight:850;white-space:nowrap}
+      .bi-section-nav a:hover,.bi-section-nav a:focus-visible{color:#fff;background:rgba(22,135,255,.08);outline:none}
+      .bi-section-nav a.active{color:#071018;background:#cfff22}
+      .bi-section-nav-badge{padding:3px 6px;border-radius:999px;background:rgba(255,255,255,.12);font-size:9px;font-weight:950;letter-spacing:.04em;text-transform:uppercase}
+      .bi-section-nav a.active .bi-section-nav-badge{background:rgba(7,16,24,.14)}
+      
       @media(max-width:620px){
         .topbar,.header-inner{flex-wrap:wrap}
         .bi-subpage-actions{width:100%;justify-content:flex-end;margin-left:0}
         .bi-subpage-language select{max-width:130px}
         .bi-tip-tags{margin-top:18px}
+        .bi-section-nav-wrap{width:min(calc(100% - 24px),1180px);margin-top:12px}
+        .bi-section-nav{width:100%;overflow-x:auto}
+        .bi-section-nav a{flex:0 0 auto}
       }
     `;
     document.head.appendChild(style);
@@ -221,9 +241,66 @@
     meta.insertAdjacentElement("afterend", section);
   }
 
+  function buildSectionNav() {
+    if (document.querySelector("[data-bi-section-nav]")) return;
+
+    const parts = location.pathname.split("/").filter(Boolean);
+    const section = parts[1] || "";
+    const inTips = section === "tipps";
+    const inStats = section === "statistik-vorschau";
+    if (!inTips && !inStats) return;
+
+    const lang = currentLanguage();
+    const copy = SECTION_NAV_COPY[lang] || SECTION_NAV_COPY.de;
+    const ref = activeRef();
+
+    function sectionUrl(path) {
+      const url = new URL("/" + lang + "/" + path + "/", location.origin);
+      if (ref && ref !== DEFAULT_REF_CODE) url.searchParams.set("ref", ref);
+      return url.toString();
+    }
+
+    const wrap = document.createElement("div");
+    wrap.className = "bi-section-nav-wrap";
+    wrap.dataset.biSectionNav = "1";
+
+    const nav = document.createElement("nav");
+    nav.className = "bi-section-nav";
+    nav.setAttribute("aria-label", copy.aria);
+
+    const tips = document.createElement("a");
+    tips.href = sectionUrl("tipps");
+    tips.textContent = copy.tips;
+    if (inTips) {
+      tips.classList.add("active");
+      tips.setAttribute("aria-current", "page");
+    }
+
+    const stats = document.createElement("a");
+    stats.href = sectionUrl("statistik-vorschau");
+    stats.append(document.createTextNode(copy.stats + " "));
+
+    const badge = document.createElement("span");
+    badge.className = "bi-section-nav-badge";
+    badge.textContent = copy.preview;
+    stats.appendChild(badge);
+
+    if (inStats) {
+      stats.classList.add("active");
+      stats.setAttribute("aria-current", "page");
+    }
+
+    nav.append(tips, stats);
+    wrap.appendChild(nav);
+
+    const header = document.querySelector("header");
+    if (header) header.insertAdjacentElement("afterend", wrap);
+  }
+
   function init() {
     addStyles();
     buildSwitch();
+    buildSectionNav();
     buildTipTags();
   }
 
