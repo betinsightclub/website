@@ -9,6 +9,7 @@
   const YOUTUBE_URL = "https://www.youtube.com/@betinsightclub";
   const TELEGRAM_URL = "https://t.me/+iKZj1FvUf4RmMjdh";
   const SUPPORTED = ["de", "en", "es", "pt", "it", "fr"];
+  const LANGUAGE_FLAG = { de:"🇩🇪", en:"🇬🇧", es:"🇪🇸", pt:"🇧🇷", it:"🇮🇹", fr:"🇫🇷" };
   const LANGUAGE_COPY = {
     de:{name:"Deutsch",language:"Sprache wählen",follow:"Folge uns",youtube:"BetInsight Club auf YouTube öffnen",telegram:"BetInsight Club auf Telegram öffnen",academy:"Academy & Hilfe"},
     en:{name:"English",language:"Choose language",follow:"Follow us",youtube:"Open BetInsight Club on YouTube",telegram:"Open BetInsight Club on Telegram",academy:"Academy & Help"},
@@ -118,7 +119,7 @@
     for (const language of SUPPORTED) {
       const option = document.createElement("option");
       option.value = language;
-      option.textContent = language.toUpperCase() + " · " + (LANGUAGE_COPY[language]?.name || language.toUpperCase());
+      option.textContent = (LANGUAGE_FLAG[language] || "🌐") + " · " + (LANGUAGE_COPY[language]?.name || language.toUpperCase());
       option.selected = language === current;
       select.appendChild(option);
     }
