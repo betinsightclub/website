@@ -99,7 +99,7 @@
       .betinsight-footer-social-link{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.10);border-radius:10px;background:rgba(255,255,255,.035);text-decoration:none;transition:transform .16s ease,border-color .16s ease,background .16s ease}
       .betinsight-footer-social-link:hover,.betinsight-footer-social-link:focus-visible{transform:translateY(-1px);border-color:rgba(255,80,90,.50);background:rgba(255,0,51,.08);outline:none}
       .betinsight-footer-social-icon{display:block;width:20px;height:20px}
-      @media(max-width:720px){.language-switch{padding:3px}.language-switch select{max-width:122px;min-height:32px;font-size:11px}}
+      @media(max-width:720px){.language-switch{padding:2px}.language-switch select{width:80px;min-width:80px;max-width:80px;min-height:32px;padding:5px 22px 5px 8px;font-size:11px}}
       @media(prefers-reduced-motion:reduce){.betinsight-footer-social-link{transition:none}}
     `;
     document.head.appendChild(style);
@@ -119,7 +119,7 @@
     for (const language of SUPPORTED) {
       const option = document.createElement("option");
       option.value = language;
-      option.textContent = (LANGUAGE_FLAG[language] || "🌐") + " · " + (LANGUAGE_COPY[language]?.name || language.toUpperCase());
+      option.textContent = (LANGUAGE_FLAG[language] || "🌐") + " " + language.toUpperCase();
       option.selected = language === current;
       select.appendChild(option);
     }
