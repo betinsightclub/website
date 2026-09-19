@@ -1049,6 +1049,28 @@
       font-size:12px;
     }
 
+    /* Längere FR/ES-Navigation: mehr Platz und kompaktere Desktop-Abstände */
+    @media(min-width:1281px){
+      .site-header .container{
+        width:min(calc(100% - 28px),1420px);
+      }
+      .nav-wrap{gap:12px}
+      .brand img{width:158px}
+      .nav-links{
+        gap:1px;
+        padding:4px;
+      }
+      .nav-links a{
+        padding:9px 8px;
+        font-size:12px;
+      }
+      .nav-actions{gap:8px}
+      .nav-actions .btn{
+        padding:10px 13px;
+        font-size:13px;
+      }
+    }
+
     @media(max-width:1280px){
       .nav-links{display:none}
       .menu-button{display:inline-flex}
