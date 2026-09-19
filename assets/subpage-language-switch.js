@@ -2,7 +2,7 @@
   "use strict";
 
   const SUPPORTED = ["de","en","es","pt","it","fr"];
-  const NAMES = {de:"Deutsch",en:"English",es:"Español",pt:"Português",it:"Italiano",fr:"Français"};
+  const FLAGS = {de:"🇩🇪",en:"🇬🇧",es:"🇪🇸",pt:"🇧🇷",it:"🇮🇹",fr:"🇫🇷"};
   const LANGUAGE_KEY = "betinsight_language";
   const REF_STORAGE_KEY = "betinsight_ref_code";
   const DEFAULT_REF_CODE = "POOL";
@@ -68,8 +68,8 @@
     style.id = "bi-subpage-language-style";
     style.textContent = `
       .bi-subpage-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
-      .bi-subpage-language{display:inline-flex;align-items:center;padding:3px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.035)}
-      .bi-subpage-language select{min-height:38px;max-width:144px;padding:6px 28px 6px 10px;border:0;border-radius:999px;color:#fff;background:#0a69d8;font-size:12px;font-weight:900;outline:none;cursor:pointer}
+      .bi-subpage-language{display:inline-flex;align-items:center;padding:3px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.035);flex:0 0 auto}
+      .bi-subpage-language select{width:88px;min-width:88px;max-width:88px;min-height:38px;padding:6px 24px 6px 9px;border:0;border-radius:999px;color:#fff;background:#0a69d8;font-size:12px;font-weight:900;outline:none;cursor:pointer}
       .bi-subpage-language select option{color:#071923;background:#fff}
 
       .bi-tip-tags{margin-top:22px}
