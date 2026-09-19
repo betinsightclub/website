@@ -670,6 +670,96 @@
       font-weight:900;
     }
 
+
+    /* Podcast-Teaser auf der Startseite */
+    .podcast-home-section{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 15% 20%,rgba(22,135,255,.13),transparent 24rem),
+        radial-gradient(circle at 88% 78%,rgba(0,217,155,.10),transparent 26rem),
+        linear-gradient(180deg,#031720,#041b26);
+      border-block:1px solid rgba(255,255,255,.06);
+    }
+
+    .podcast-home-card{
+      display:grid;
+      grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
+      gap:42px;
+      align-items:center;
+      padding:34px;
+      border:1px solid rgba(22,135,255,.24);
+      border-radius:28px;
+      background:linear-gradient(145deg,rgba(5,32,45,.96),rgba(3,22,31,.96));
+      box-shadow:var(--shadow);
+    }
+
+    .podcast-home-visual{
+      position:relative;
+      min-height:330px;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:34px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:24px;
+      background:
+        linear-gradient(180deg,rgba(2,15,22,.28),rgba(2,15,22,.80)),
+        url("../assets/stadion-community.webp") center/cover no-repeat;
+    }
+
+    .podcast-home-visual-inner{text-align:center;width:100%}
+    .podcast-home-visual img{
+      width:min(88%,330px);
+      height:auto;
+      filter:drop-shadow(0 12px 24px rgba(0,0,0,.42));
+    }
+    .podcast-home-title{
+      margin-top:18px;
+      font-size:clamp(26px,3.3vw,42px);
+      font-weight:950;
+      letter-spacing:.08em;
+    }
+    .podcast-home-subtitle{
+      margin-top:2px;
+      color:#d8e7ee;
+      font-size:clamp(18px,2vw,25px);
+      font-weight:800;
+    }
+    .podcast-home-wave{color:#7ee7bf;letter-spacing:.08em}
+
+    .podcast-home-copy h2{
+      margin:10px 0 14px;
+      font-size:clamp(32px,4.4vw,52px);
+      line-height:1.08;
+      letter-spacing:-.03em;
+    }
+    .podcast-home-copy p{
+      color:var(--muted);
+      font-size:17px;
+    }
+    .podcast-home-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:20px 0 24px;
+    }
+    .podcast-home-meta span{
+      padding:7px 10px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;
+      background:rgba(255,255,255,.035);
+      color:#d7e8ef;
+      font-size:12px;
+      font-weight:800;
+    }
+    .podcast-home-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:11px;
+    }
+
     /* Partnerprogramm + Premium Network */
     .network-section{
       position:relative;
@@ -1145,6 +1235,10 @@
       }
 
       .card-grid,.feature-grid{grid-template-columns:1fr}
+      .podcast-home-card{grid-template-columns:1fr;gap:28px;padding:22px}
+      .podcast-home-visual{min-height:260px;padding:26px}
+      .podcast-home-actions{display:grid}
+      .podcast-home-actions .btn{width:100%}
       .split{grid-template-columns:minmax(0,1fr);gap:32px}
       .split .media-card{order:-1}
 
@@ -1442,6 +1536,39 @@
         <a class="calculator-preview" href="rechner/" data-preserve-ref aria-label="BetInsight Kundenrechner öffnen">
           <img src="../assets/kundenrechner-vorschau.png" alt="Vorschau des BetInsight Kundenrechners mit mathematischer Beispielrechnung" loading="lazy" width="1448" height="1086">
         </a>
+      </div>
+    </section>
+
+
+    <section class="podcast-home-section" id="podcast" aria-labelledby="podcast-home-title">
+      <div class="container">
+        <div class="podcast-home-card">
+          <div class="podcast-home-visual" aria-label="BetInsight Club Podcast Vor dem Anpfiff">
+            <div class="podcast-home-visual-inner">
+              <img src="../assets/betinsight-logo.png" alt="BetInsight Club">
+              <div class="podcast-home-title"><span class="podcast-home-wave">▮▮▮</span> PODCAST <span class="podcast-home-wave">▮▮▮</span></div>
+              <div class="podcast-home-subtitle">Vor dem Anpfiff</div>
+            </div>
+          </div>
+
+          <div class="podcast-home-copy">
+            <div class="section-label">Neu bei BetInsight</div>
+            <h2 id="podcast-home-title">BetInsight jetzt auch zum Anhören.</h2>
+            <p>In unserem deutschsprachigen Podcast „Vor dem Anpfiff“ erklären wir, was hinter BetInsight steckt: Units und Bankroll, Rechner und Werkzeuge, Statistiken, Live-Webinar und der Aufbau unseres Systems.</p>
+            <p><strong>Folge 1:</strong> Mathematik statt Bauchgefühl – Was ist BetInsight Club?</p>
+
+            <div class="podcast-home-meta">
+              <span>Deutsch</span>
+              <span>Folge 1 · ca. 11 Minuten</span>
+              <span>Weitere Folgen in Vorbereitung</span>
+            </div>
+
+            <div class="podcast-home-actions">
+              <a class="btn btn-primary" href="podcast/">Zur Podcast-Seite</a>
+              <a class="btn btn-secondary" href="https://www.youtube.com/watch?v=Hm7gUD_BOnY" target="_blank" rel="noopener">▶ Folge 1 auf YouTube</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
