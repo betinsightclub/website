@@ -12,7 +12,8 @@ const reportMap={
 "BI-20260917-003712-MAR":"real-betis-getafe-17-09-2026/",
 "BI-20260917-003813-MAR":"malaga-villarreal-17-09-2026/",
 "BI-20260918-160859-FRA":"holstein-kiel-vfl-osnabrueck-19-09-2026/",
-"BI-20260918-164427-FRA":"kaiserslautern-braunschweig-19-09-2026/"
+"BI-20260918-164427-FRA":"kaiserslautern-braunschweig-19-09-2026/",
+"BI-20260920-134759-MAR":"valencia-real-sociedad-20-09-2026/"
 };
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const n=v=>{const s=String(v??"").trim();return Number(s.includes(",")?s.replace(/\./g,"").replace(",","."):s)||0};
