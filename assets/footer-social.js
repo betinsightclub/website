@@ -4,14 +4,15 @@
   const YOUTUBE_URL = "https://www.youtube.com/@betinsightclub";
   const TELEGRAM_URL = "https://t.me/+iKZj1FvUf4RmMjdh";
   const X_URL = "https://x.com/betinsightclub";
+  const FACEBOOK_URL = "https://www.facebook.com/betinsightclub";
   const SUPPORTED = ["de","en","es","pt","it","fr"];
   const COPY = {
-    de:{follow:"Folge uns",youtube:"BetInsight Club auf YouTube öffnen",telegram:"BetInsight Club auf Telegram öffnen",x:"BetInsight Club auf X öffnen"},
-    en:{follow:"Follow us",youtube:"Open BetInsight Club on YouTube",telegram:"Open BetInsight Club on Telegram",x:"Open BetInsight Club on X"},
-    es:{follow:"Síguenos",youtube:"Abrir BetInsight Club en YouTube",telegram:"Abrir BetInsight Club en Telegram",x:"Abrir BetInsight Club en X"},
-    pt:{follow:"Siga-nos",youtube:"Abrir BetInsight Club no YouTube",telegram:"Abrir BetInsight Club no Telegram",x:"Abrir BetInsight Club no X"},
-    it:{follow:"Seguici",youtube:"Apri BetInsight Club su YouTube",telegram:"Apri BetInsight Club su Telegram",x:"Apri BetInsight Club su X"},
-    fr:{follow:"Suivez-nous",youtube:"Ouvrir BetInsight Club sur YouTube",telegram:"Ouvrir BetInsight Club sur Telegram",x:"Ouvrir BetInsight Club sur X"}
+    de:{follow:"Folge uns",youtube:"BetInsight Club auf YouTube öffnen",telegram:"BetInsight Club auf Telegram öffnen",x:"BetInsight Club auf X öffnen",facebook:"BetInsight Club auf Facebook öffnen"},
+    en:{follow:"Follow us",youtube:"Open BetInsight Club on YouTube",telegram:"Open BetInsight Club on Telegram",x:"Open BetInsight Club on X",facebook:"Open BetInsight Club on Facebook"},
+    es:{follow:"Síguenos",youtube:"Abrir BetInsight Club en YouTube",telegram:"Abrir BetInsight Club en Telegram",x:"Abrir BetInsight Club en X",facebook:"Abrir BetInsight Club en Facebook"},
+    pt:{follow:"Siga-nos",youtube:"Abrir BetInsight Club no YouTube",telegram:"Abrir BetInsight Club no Telegram",x:"Abrir BetInsight Club no X",facebook:"Abrir BetInsight Club no Facebook"},
+    it:{follow:"Seguici",youtube:"Apri BetInsight Club su YouTube",telegram:"Apri BetInsight Club su Telegram",x:"Apri BetInsight Club su X",facebook:"Apri BetInsight Club su Facebook"},
+    fr:{follow:"Suivez-nous",youtube:"Ouvrir BetInsight Club sur YouTube",telegram:"Ouvrir BetInsight Club sur Telegram",x:"Ouvrir BetInsight Club sur X",facebook:"Ouvrir BetInsight Club sur Facebook"}
   };
 
   function lang(){
@@ -79,6 +80,13 @@
 
     if (!wrapper.querySelector('[data-social="x"]') && !wrapper.querySelector('a[href*="x.com/betinsightclub"]')) {
       wrapper.appendChild(link("x", X_URL, c.x, "BetInsight Club · X", ""));
+    }
+
+    if (!wrapper.querySelector('[data-social="facebook"]') && !wrapper.querySelector('a[href*="facebook.com/betinsightclub"]')) {
+      wrapper.appendChild(link(
+        "facebook", FACEBOOK_URL, c.facebook, "BetInsight Club · Facebook",
+        '<svg class="betinsight-footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#1877F2"/><path d="M13.4 20v-7h2.35l.35-2.73h-2.7V8.53c0-.79.22-1.33 1.35-1.33h1.44V4.76c-.25-.03-1.1-.11-2.1-.11-2.08 0-3.5 1.27-3.5 3.61v2.01H8.24V13h2.35v7h2.81Z" fill="#fff"/></svg>'
+      ));
     }
   }
 
