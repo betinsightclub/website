@@ -91,7 +91,7 @@ function activeRoster(side){
  return own.filter(p=>!otherIds.has(p.id)||conflictChoices[p.id]===side)
 }
 function player(side){let r=activeRoster(side);return r.length?one(r).name:null}
-function actor(side,fallback){let p=player(side);return p||fallback}
+function actor(side,fallback){let p=player(side);return p||"nicht namentlich erfasster Spieler"}
 function assister(side,scorer){let r=activeRoster(side).filter(p=>p.name!==scorer);return r.length?one(r).name:null}
 function buildGame(idx){
  let ratingA=TA.rating,ratingB=TB.rating;
