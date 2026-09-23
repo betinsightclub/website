@@ -55,6 +55,11 @@ function conflicts(){
 }
 function select(x){pick=x;$("#pickI").classList.toggle("sel",x==="I");$("#pickS").classList.toggle("sel",x==="S")}$("#pickI").onclick=()=>select("I");$("#pickS").onclick=()=>select("S");
 function poisson(lambda){let L=Math.exp(-lambda),p=1,k=0;do{k++;p*=Math.random()}while(p>L);return k-1}
+function activeRoster(side){
+ let team=side==="A"?TA:TB, own=rosterDB[team.name]||[], other=rosterDB[(side==="A"?TB:TA).name]||[], otherIds=new Set(other.map(p=>p.id));
+ return own.filter(p=>!otherIds.has(p.id)||conflictChoices[p.id]===side)
+}
+function player(side){let r=activeRoster(side);return r.length?one(r).name:(side==="A"?TA.name:TB.name)}
 function buildGame(idx){
  let ratingA=TA.rating,ratingB=TB.rating;
  let ca=rosterDB[TA.name]||[],cb=rosterDB[TB.name]||[],idsB=new Set(cb.map(p=>p.id));
@@ -66,15 +71,15 @@ function buildGame(idx){
  let ev=[{m:1,msg:"⚽ Anpfiff! Spiel "+(idx+1)+" der TIME-CLASH-Serie läuft."}];
  let target=32+rnd(9),minutes=new Set([1,45,90]);while(minutes.size<target){minutes.add(3+rnd(86))}
  [...minutes].sort((a,b)=>a-b).forEach(m=>{if(m===1||m===45||m===90)return;let r=Math.random(),side=Math.random()<.5?"A":"B",nm=side==="A"?TA.name:TB.name;
-   if(r<.16)ev.push({m,msg:one(phrases.chance),type:"chance"});
-   else if(r<.31)ev.push({m,msg:fmt(one(side==="A"?phrases.a:phrases.b)),type:side==="A"?"shotA":"shotB"});
-   else if(r<.43)ev.push({m,msg:fmt(one(side==="A"?phrases.saveB:phrases.saveA)),type:side==="A"?"targetA":"targetB"});
-   else if(r<.55)ev.push({m,msg:one(phrases.corner),type:side==="A"?"cornerA":"cornerB"});
-   else if(r<.69)ev.push({m,msg:one(phrases.foul),type:side==="A"?"foulA":"foulB"});
-   else if(r<.76)ev.push({m,msg:"🟨 Gelbe Karte für "+nm+".",type:side==="A"?"cardA":"cardB"});
+   if(r<.16)ev.push({m,msg:"🔥 "+player(side)+" treibt den Angriff für "+nm+" bis an den Strafraum.",type:"chance"});
+   else if(r<.31)ev.push({m,msg:"⚡ "+player(side)+" schaltet für "+nm+" schnell um und sucht den Abschluss.",type:side==="A"?"shotA":"shotB"});
+   else if(r<.43)ev.push({m,msg:"🎯 "+player(side)+" kommt für "+nm+" zum Abschluss – der Torhüter pariert!",type:side==="A"?"targetA":"targetB"});
+   else if(r<.55)ev.push({m,msg:"🚩 "+player(side)+" holt eine Ecke für "+nm+" heraus.",type:side==="A"?"cornerA":"cornerB"});
+   else if(r<.69)ev.push({m,msg:"💥 Foul an "+player(side)+" ("+nm+"). Freistoß.",type:side==="A"?"foulA":"foulB"});
+   else if(r<.76)ev.push({m,msg:"🟨 Gelbe Karte für "+player(side)+" ("+nm+").",type:side==="A"?"cardA":"cardB"});
    else ev.push({m,msg:one(phrases.neutral)});
  });
- goals.forEach(x=>ev.push({m:x.m,msg:"⚽ TOR "+(x.t==="A"?TA.name.toUpperCase()+"!":TB.name.toUpperCase()+"!"),type:x.t==="A"?"goalA":"goalB"}));
+ goals.forEach(x=>{let tm=x.t==="A"?TA:TB,scorer=player(x.t);ev.push({m:x.m,msg:"⚽ TOR "+tm.name.toUpperCase()+"! "+scorer+" trifft.",type:x.t==="A"?"goalA":"goalB"})});
  ev.push({m:45,msg:"⏱ Halbzeit."},{m:90,msg:"⏱ Abpfiff."});ev.sort((x,y)=>x.m-y.m||((x.type||"").startsWith("goal")?1:-1));
  return{ga,gb,ev,venue:venues[idx%venues.length],weather:one(weatherList)}
 }
