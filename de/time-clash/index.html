@@ -10,14 +10,14 @@
 <script>
 const catalog={
 nation:{
-"Europa":["Italien 2006|🇮🇹|82","Spanien 2010|🇪🇸|84","Spanien 2026|🇪🇸|83","Deutschland 2014|🇩🇪|83","Frankreich 2018|🇫🇷|83","England 1966|🇬🇧|80","Portugal 2016|🇵🇹|81","Niederlande 1974|🇳🇱|82","Kroatien 2018|🇭🇷|80"],
-"Südamerika":["Brasilien 1970|🇧🇷|86","Brasilien 2002|🇧🇷|85","Argentinien 1986|🇦🇷|84","Argentinien 2022|🇦🇷|85","Uruguay 2010|🇺🇾|79"],
+"Europa":["Italien 1934 · Weltmeister|🇮🇹|83","Italien 1938 · Weltmeister|🇮🇹|84","Italien 1982 · Weltmeister|🇮🇹|84","Italien 2006 · Weltmeister|🇮🇹|84","Deutschland 1954 · Weltmeister|🇩🇪|83","Deutschland 1974 · Weltmeister|🇩🇪|85","Deutschland 1990 · Weltmeister|🇩🇪|85","Deutschland 2014 · Weltmeister|🇩🇪|85","England 1966 · Weltmeister|🇬🇧|83","Frankreich 1998 · Weltmeister|🇫🇷|84","Frankreich 2018 · Weltmeister|🇫🇷|85","Spanien 2010 · Weltmeister|🇪🇸|85","Portugal 2016 · Europameister|🇵🇹|83","Niederlande 1988 · Europameister|🇳🇱|84"],
+"Südamerika":["Brasilien 1958 · Weltmeister|🇧🇷|84","Brasilien 1962 · Weltmeister|🇧🇷|85","Brasilien 1970 · Weltmeister|🇧🇷|86","Brasilien 1994 · Weltmeister|🇧🇷|84","Brasilien 2002 · Weltmeister|🇧🇷|85","Argentinien 1978 · Weltmeister|🇦🇷|83","Argentinien 1986 · Weltmeister|🇦🇷|84","Argentinien 2022 · Weltmeister|🇦🇷|85","Uruguay 1930 · Weltmeister|🇺🇾|83","Uruguay 1950 · Weltmeister|🇺🇾|84"],
 "Nordamerika":["USA 2026|🇺🇸|76","Mexiko 2026|🇲🇽|77","Kanada 2026|🇨🇦|75"],
 "Naher Osten":["VAE 2026|🇦🇪|72","Saudi-Arabien 2026|🇸🇦|73","Katar 2026|🇶🇦|71"],
 "Asien/Pazifik":["Japan 2026|🇯🇵|78","Südkorea 2026|🇰🇷|77","Australien 2026|🇦🇺|75"]
 },club:{
-"Deutschland · Bundesliga":["Bayern München|🇩🇪|84","Borussia Dortmund|🇩🇪|80","Bayer Leverkusen|🇩🇪|82"],
-"England · Premier League":["Liverpool|🏴|84","Manchester City|🏴|84","Arsenal|🏴|83","Manchester United|🏴|80","Chelsea|🏴|81"],
+"Deutschland · Bundesliga-Meister":["1. FC Köln 1963/64|🇩🇪|79","Werder Bremen 1964/65|🇩🇪|79","1860 München 1965/66|🇩🇪|78","Eintracht Braunschweig 1966/67|🇩🇪|78","1. FC Nürnberg 1967/68|🇩🇪|79","Bayern München 1968/69|🇩🇪|82","Borussia Mönchengladbach 1969/70|🇩🇪|82","Hamburger SV 1978/79|🇩🇪|81","VfB Stuttgart 1983/84|🇩🇪|80","1. FC Kaiserslautern 1990/91|🇩🇪|80","Borussia Dortmund 1994/95|🇩🇪|82","VfL Wolfsburg 2008/09|🇩🇪|80","Bayer Leverkusen 2023/24|🇩🇪|84","Bayern München 2025/26|🇩🇪|85"],
+"International · Europapokal/Champions League-Sieger":["Real Madrid 2024|🇪🇸|87","AC Milan 2007|🇮🇹|85","Liverpool 2019|🏴|85","Bayern München 2020|🇩🇪|86","FC Barcelona 2015|🇪🇸|86","Ajax 1995|🇳🇱|84","Inter Mailand 2010|🇮🇹|85","Manchester United 2008|🏴|85","Chelsea 2021|🏴|84","Juventus 1996|🇮🇹|84","Benfica 1962|🇵🇹|84","Nottingham Forest 1980|🏴|83","FC Porto 2004|🇵🇹|83","Borussia Dortmund 1997|🇩🇪|83","Manchester City 2023|🏴|86","Paris Saint-Germain 2026|🇫🇷|86"],"England · Premier League":["Manchester United 1992/93|🏴|84","Blackburn Rovers 1994/95|🏴|82","Arsenal 1997/98|🏴|84","Chelsea 2004/05|🏴|85","Manchester City 2011/12|🏴|85","Leicester City 2015/16|🏴|82","Liverpool 2019/20|🏴|86"],
 "Spanien · La Liga":["Real Madrid|🇪🇸|86","FC Barcelona|🇪🇸|85","Atlético Madrid|🇪🇸|82"],
 "Italien · Serie A":["Inter Mailand|🇮🇹|83","AC Mailand|🇮🇹|81","Juventus|🇮🇹|82"],
 "Frankreich · Ligue 1":["Paris Saint-Germain|🇫🇷|84","Olympique Marseille|🇫🇷|79"],
@@ -33,7 +33,7 @@ const phrases={neutral:["Das Mittelfeld ist hart umkämpft.","Beide Teams ordnen
 let pick=null,running=false,paused=false,fast=false,g=0,i=0,A=0,B=0,serA=0,serB=0,games=[],timer=null,seriesLen=5,chosenA=false,chosenB=false,matchPoints=+(localStorage.getItem("biMatchPoints")||0),played=+(localStorage.getItem("biMatchPlayed")||0),correct=+(localStorage.getItem("biMatchCorrect")||0),streak=+(localStorage.getItem("biMatchStreak")||0),TA={name:"Italien 2006",flag:"🇮🇹",rating:82},TB={name:"Spanien 2026",flag:"🇪🇸",rating:83};
 const $=s=>document.querySelector(s), rnd=n=>Math.floor(Math.random()*n), one=a=>a[rnd(a.length)],fmt=s=>s.replaceAll("{A}",TA.name).replaceAll("{B}",TB.name);
 const crestMap={"Juventus":"https://upload.wikimedia.org/wikipedia/commons/b/bc/Juventus_FC_2017_icon.svg","Flamengo":"https://upload.wikimedia.org/wikipedia/commons/2/2e/Flamengo_braz_logo.svg"};
-function parseTeam(v){let p=v.split("|");return{name:p[0],flag:p[1],rating:+p[2],crest:crestMap[p[0]]||""}}
+function parseTeam(v){let p=v.split("|"),base=p[0].replace(/\s+(18|19|20)\d{2}(\/\d{2})?(\s+·.*)?$/,"").replace(/\s+·.*$/,"");return{name:p[0],base,flag:p[1],rating:+p[2],crest:crestMap[base]||""}}
 function mark(el,t){el.innerHTML=t.crest?'<img src="'+t.crest+'" alt="'+t.name+' Wappen" referrerpolicy="no-referrer">':t.flag}
 function fill(side){let type=$("#type"+side).value,group=$("#group"+side),team=$("#team"+side),old=group.value;group.innerHTML=Object.keys(catalog[type]).map(x=>'<option>'+x+'</option>').join("");if(old&&catalog[type][old])group.value=old;team.innerHTML=catalog[type][group.value].map(x=>'<option value="'+x+'">'+x.split("|")[0]+'</option>').join("");updateTeams()}
 function updateTeams(){TA=parseTeam($("#teamA").value||"Italien 2006|🇮🇹|82");TB=parseTeam($("#teamB").value||"Spanien 2026|🇪🇸|83");if(!chosenA&&!chosenB)return;$("#teamsPanel").classList.remove("placeholder");mark($("#markA"),TA);mark($("#scoreMarkA"),TA);mark($("#markB"),TB);mark($("#scoreMarkB"),TB);$("#nameA").textContent=$("#scoreNameA").textContent=TA.name.toUpperCase();$("#nameB").textContent=$("#scoreNameB").textContent=TB.name.toUpperCase();$("#pickI").textContent="Ich tippe "+TA.name;$("#pickS").textContent="Ich tippe "+TB.name}
