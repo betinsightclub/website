@@ -106,7 +106,7 @@ function activeRoster(side){
  return own.filter(p=>!otherIds.has(p.id)||conflictChoices[p.id]===side)
 }
 function player(side){let r=activeRoster(side);return r.length?one(r).name:null}
-function actor(side,fallback){let p=player(side);return p||"nicht namentlich erfasster Spieler"}
+function actor(side,fallback){let p=player(side);return p||null}
 function assister(side,scorer){let r=activeRoster(side).filter(p=>p.name!==scorer);return r.length?one(r).name:null}
 function buildGame(idx){
  let ratingA=TA.rating,ratingB=TB.rating;
@@ -122,12 +122,12 @@ function buildGame(idx){
    if(r<.16)ev.push({m,msg:"🔥 "+actor(side,nm)+" treibt den Angriff für "+nm+" bis an den Strafraum.",type:"chance"});
    else if(r<.31)ev.push({m,msg:"⚡ "+actor(side,nm)+" schaltet für "+nm+" schnell um und sucht den Abschluss.",type:side==="A"?"shotA":"shotB"});
    else if(r<.43)ev.push({m,msg:"🎯 "+actor(side,nm)+" kommt für "+nm+" zum Abschluss – der Torhüter pariert!",type:side==="A"?"targetA":"targetB"});
-   else if(r<.55)ev.push({m,msg:"🚩 "+actor(side,nm)+" holt eine Ecke für "+nm+" heraus. "+(player(side)?actor(side,nm)+" übernimmt den Eckball.":""),type:side==="A"?"cornerA":"cornerB"});
-   else if(r<.69)ev.push({m,msg:"💥 Foul an "+actor(side,nm)+" ("+nm+"). Freistoß.",type:side==="A"?"foulA":"foulB"});
-   else if(r<.76)ev.push({m,msg:"🟨 Gelbe Karte für "+actor(side,nm)+" ("+nm+").",type:side==="A"?"cardA":"cardB"});
+   else if(r<.55){let p=actor(side,nm);ev.push({m,msg:p?("🚩 "+p+" holt eine Ecke für "+nm+" heraus."):("🚩 "+nm+" erzwingt nach einem Angriff einen Eckball."),type:side==="A"?"cornerA":"cornerB"})};
+   else if(r<.69){let p=actor(side,nm);ev.push({m,msg:p?("💥 Foul an "+p+" ("+nm+"). Freistoß."):("💥 Foul gegen "+nm+". Freistoß für "+nm+"."),type:side==="A"?"foulA":"foulB"})};
+   else if(r<.76){let p=actor(side,nm);ev.push({m,msg:p?("🟨 Gelbe Karte für "+p+" ("+nm+")."):("🟨 Gelbe Karte gegen "+nm+" nach einem taktischen Foul."),type:side==="A"?"cardA":"cardB"})};
    else ev.push({m,msg:one(phrases.neutral)});
  });
- goals.forEach(x=>{let tm=x.t==="A"?TA:TB,scorer=actor(x.t,tm.name),assist=assister(x.t,scorer);ev.push({m:x.m,msg:"⚽ TOR "+tm.name.toUpperCase()+"! "+scorer+" trifft."+(assist?" Vorlage: "+assist+".":""),type:x.t==="A"?"goalA":"goalB",scorer:scorer,assist:assist})});
+ goals.forEach(x=>{let tm=x.t==="A"?TA:TB,scorer=actor(x.t,tm.name),assist=scorer?assister(x.t,scorer):null;ev.push({m:x.m,msg:scorer?("⚽ TOR "+tm.name.toUpperCase()+"! "+scorer+" trifft."+(assist?" Vorlage: "+assist+".":"")):("⚽ TOR "+tm.name.toUpperCase()+"! Erfolgreicher Abschluss nach einem Angriff von "+tm.name+"."),type:x.t==="A"?"goalA":"goalB",scorer:scorer||null,assist:assist})});
  ev.push({m:45,msg:"⏱ Halbzeit."},{m:90,msg:"⏱ Abpfiff."});ev.sort((x,y)=>x.m-y.m||((x.type||"").startsWith("goal")?1:-1));
  return{ga,gb,ev,venue:venues[idx%venues.length],weather:one(weatherList)}
 }
