@@ -30,7 +30,7 @@ nation:{
 function loadMyClub(){try{let m=JSON.parse(localStorage.getItem("biMyClub")||"null");if(!m)return;let avg=m.players.reduce((s,p)=>s+(+p.strength||0),0);catalog.myclub["Mein Club"]=[m.name+"|🛡️|"+Math.max(60,Math.min(88,68+avg/5))]}catch(e){}}
 loadMyClub();
 async function loadCommunityClubs(){try{let local=null;try{local=JSON.parse(localStorage.getItem("biMyClub")||"null")}catch(e){}let r=await fetch(CLUB_API+"?action=community",{cache:"no-store"}),d=await r.json(),clubs=Array.isArray(d.clubs)?d.clubs:[];if(local&&!clubs.some(x=>x.club_name===local.name))clubs.unshift({id:"local-own-club",club_name:local.name,primary_color:local.c1,secondary_color:local.c2,league:local.league||"Startliga",rating_points:local.ratingPoints||0,players:local.players||[],coach:local.coach||{}});catalog.community["BetInsight Community"]=clubs.map(x=>{let ps=Array.isArray(x.players)?x.players:[];let starter=ps.slice(0,11),sum=starter.reduce((s,p)=>s+(+p.strength||0),0),rating=Math.max(60,Math.min(88,68+sum/5));rosterDBPending.push([x.club_name,ps]);return x.club_name+"|🛡️|"+rating});clubs.forEach(x=>communityClubMeta[x.club_name]=x);["A","B"].forEach(s=>{if($("#type"+s)?.value==="community")fill(s)})}catch(e){console.warn("Community clubs",e)}}
-const communityClubMeta={},rosterDBPending=[];loadCommunityClubs();
+const communityClubMeta={},rosterDBPending=[];
 const rosterDB={
  "1. FC Kaiserslautern 1997/98":[{id:"andreas-reinke",name:"Andreas Reinke",impact:2},{id:"miroslav-kadlec",name:"Miroslav Kadlec",impact:3},{id:"harry-koch",name:"Harry Koch",impact:2},{id:"michael-schjonberg",name:"Michael Schjønberg",impact:2},{id:"axel-roos",name:"Axel Roos",impact:2},{id:"ciriaco-sforza",name:"Ciriaco Sforza",impact:3},{id:"ratinho",name:"Ratinho",impact:3},{id:"andreas-buck",name:"Andreas Buck",impact:2},{id:"martin-wagner",name:"Martin Wagner",impact:3},{id:"pavel-kuka",name:"Pavel Kuka",impact:3},{id:"olaf-marschall",name:"Olaf Marschall",impact:4},{id:"michael-ballack",name:"Michael Ballack",impact:2},{id:"marco-reich",name:"Marco Reich",impact:2},{id:"jurgen-rische",name:"Jürgen Rische",impact:2}],
  "1860 München 1965/66":[{id:"petar-radenkovic",name:"Petar Radenković",impact:2},{id:"friedhelm-konietzka",name:"Timo Konietzka",impact:3},{id:"peter-grosser",name:"Peter Grosser",impact:3},{id:"hans-rebele",name:"Hans Rebele",impact:2},{id:"alfred-heiss",name:"Alfred Heiß",impact:2}],
@@ -73,7 +73,7 @@ function mark(el,t,kind){
    }else el.appendChild(clubBadge(t))
  }else el.textContent=t.flag
 }
-function fill(side){
+loadCommunityClubs();\nfunction fill(side){
  let other=side==="A"?"B":"A",type=$("#type"+side).value,group=$("#group"+side),team=$("#team"+side),old=group.value,data=catalog[type]||{},groups=Object.keys(data);
  if(type==="myclub"&&(!data["Mein Club"]||!data["Mein Club"].length)){group.innerHTML="<option>Mein Club</option>";team.innerHTML='<option value="">Noch kein Team erstellt</option>';updateTeams();return}
  group.innerHTML=groups.map(x=>'<option value="'+x+'">'+x+'</option>').join("");
