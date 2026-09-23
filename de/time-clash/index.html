@@ -51,7 +51,19 @@ const crestMap={
 };
 function parseTeam(v){let p=v.split("|"),base=p[0].replace(/\s+(18|19|20)\d{2}(\/\d{2})?(\s+·.*)?$/,"").replace(/\s+·.*$/,"");return{name:p[0],base,flag:p[1],rating:+p[2],crest:crestMap[base]||""}}
 function initials(n){return n.split(/\s+/).filter(x=>!/^(FC|CF|SV|AC|CP|de|der|und)$/i.test(x)).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
-function mark(el,t,kind){if(kind==="club"){el.innerHTML=t.crest?'<img src="'+t.crest+'" alt="'+t.base+' Wappen" referrerpolicy="no-referrer" onerror="this.outerHTML=(()=>{let cc=clubColors[t.base]||['linear-gradient(145deg,#f6c64e,#173f55 72%)','#fff'];return '<span class=&quot;clubFallback&quot; style=&quot;--clubbg:'+cc[0]+';--clubfg:'+cc[1]+'&quot;>'+initials(t.base)+'</span>'})()">':(()=>{let cc=clubColors[t.base]||["linear-gradient(145deg,#f6c64e,#173f55 72%)","#fff"];return '<span class="clubFallback" style="--clubbg:'+cc[0]+';--clubfg:'+cc[1]+'">'+initials(t.base)+'</span>'})()}else el.textContent=t.flag}
+function clubBadge(t){
+ let cc=clubColors[t.base]||["linear-gradient(145deg,#f6c64e,#173f55 72%)","#fff"];
+ let s=document.createElement("span");s.className="clubFallback";s.style.setProperty("--clubbg",cc[0]);s.style.setProperty("--clubfg",cc[1]);s.textContent=initials(t.base);return s
+}
+function mark(el,t,kind){
+ el.innerHTML="";
+ if(kind==="club"){
+   if(t.crest){
+     let img=document.createElement("img");img.src=t.crest;img.alt=t.base+" Wappen";img.referrerPolicy="no-referrer";
+     img.onerror=()=>{el.innerHTML="";el.appendChild(clubBadge(t))};el.appendChild(img)
+   }else el.appendChild(clubBadge(t))
+ }else el.textContent=t.flag
+}
 function fill(side){let type=$("#type"+side).value,group=$("#group"+side),team=$("#team"+side),old=group.value;group.innerHTML=Object.keys(catalog[type]).map(x=>'<option>'+x+'</option>').join("");if(old&&catalog[type][old])group.value=old;team.innerHTML=catalog[type][group.value].map(x=>'<option value="'+x+'">'+x.split("|")[0]+'</option>').join("");updateTeams()}
 function updateTeams(){TA=parseTeam($("#teamA").value||"Italien 2006|🇮🇹|82");TB=parseTeam($("#teamB").value||"Spanien 2026|🇪🇸|83");if(!chosenA&&!chosenB)return;$("#teamsPanel").classList.remove("placeholder");mark($("#markA"),TA,$("#typeA").value);mark($("#scoreMarkA"),TA,$("#typeA").value);mark($("#markB"),TB,$("#typeB").value);mark($("#scoreMarkB"),TB,$("#typeB").value);$("#nameA").textContent=$("#scoreNameA").textContent=TA.name.toUpperCase();$("#nameB").textContent=$("#scoreNameB").textContent=TB.name.toUpperCase();if(chosenA){$("#pickI").textContent="Ich tippe "+TA.name;$("#pickI").disabled=false}else{$("#pickI").textContent="TEAM A ZUERST WÄHLEN";$("#pickI").disabled=true}if(chosenB){$("#pickS").textContent="Ich tippe "+TB.name;$("#pickS").disabled=false}else{$("#pickS").textContent="TEAM B ZUERST WÄHLEN";$("#pickS").disabled=true}conflicts()}
 ["A","B"].forEach(s=>{$("#type"+s).onchange=()=>{if(s==="A")chosenA=true;else chosenB=true;fill(s)};$("#group"+s).onchange=()=>{if(s==="A")chosenA=true;else chosenB=true;fill(s)};$("#team"+s).onchange=()=>{if(s==="A")chosenA=true;else chosenB=true;updateTeams()}});fill("A");$("#groupA").value="Europa";fill("A");$("#teamA").value="Italien 2006|🇮🇹|82";fill("B");$("#groupB").value="Europa";fill("B");$("#teamB").value="Spanien 2026|🇪🇸|83";/* Initial dropdown defaults are only suggestions; arena remains neutral until the user interacts. */
