@@ -300,7 +300,9 @@
         `${T.links}: ${fd.get("links")||""}`,"",
         `${T.intro}:\n${fd.get("intro")||""}`
       ];
-      const subjectTitle=String(fd.get("title")||"").trim();\n      const subject=subjectTitle?`${T.mailSubject}: ${subjectTitle}`:T.mailSubject;\n      location.href=`mailto:betinsight.club@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+      const subjectTitle=String(fd.get("title")||"").trim();
+      const subject=subjectTitle?`${T.mailSubject}: ${subjectTitle}`:T.mailSubject;
+      location.href=`mailto:betinsight.club@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
     });
   }
 
