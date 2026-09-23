@@ -73,7 +73,8 @@ function mark(el,t,kind){
    }else el.appendChild(clubBadge(t))
  }else el.textContent=t.flag
 }
-loadCommunityClubs();\nfunction fill(side){
+loadCommunityClubs();
+function fill(side){
  let other=side==="A"?"B":"A",type=$("#type"+side).value,group=$("#group"+side),team=$("#team"+side),old=group.value,data=catalog[type]||{},groups=Object.keys(data);
  if(type==="myclub"&&(!data["Mein Club"]||!data["Mein Club"].length)){group.innerHTML="<option>Mein Club</option>";team.innerHTML='<option value="">Noch kein Team erstellt</option>';updateTeams();return}
  group.innerHTML=groups.map(x=>'<option value="'+x+'">'+x+'</option>').join("");
