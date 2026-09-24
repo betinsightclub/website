@@ -42,7 +42,9 @@ Elite ist aktuell vor allem die Freischaltung der vollständigen Gegnerwelt. Ein
 - Für jede tatsächlich verbrauchte **gekaufte** Unit entsteht 1 zusätzliches, dauerhaftes Spiel.
 - Dauerhafte Spiele verfallen nicht.
 - Geschenk- und Referral-Units erzeugen kein dauerhaftes TIME-CLASH-Spielguthaben.
-- Eine Serie verbraucht so viele Spiele wie sie Einzelspiele enthält: 3er-Serie = 3 Spiele, 5er-Serie = 5 Spiele, 10er-Serie = 10 Spiele.
+- Das Spielguthaben wird für Begegnungen mit dem eigenen bzw. internen BetInsight-Club verwendet.
+- Der öffentliche Modus „reale/historische Mannschaft gegen reale/historische Mannschaft“ bleibt kostenlos – auch wenn ein registrierter Nutzer ihn verwendet. So entsteht kein Anreiz, sich für den öffentlichen Modus auszuloggen.
+- Eine interne Club-Serie verbraucht so viele Spiele wie sie Einzelspiele enthält: 3er-Serie = 3 Spiele, 5er-Serie = 5 Spiele, 10er-Serie = 10 Spiele.
 - Kostenlose Wochenspiele werden zuerst verbraucht, danach dauerhaftes Spielguthaben.
 - Der Gesamtverbrauch gekaufter Units wird aus dem bestehenden BetInsight-Profil/FIFO-System synchronisiert; bereits synchronisierte Kauf-Units werden nicht doppelt gutgeschrieben.
 
