@@ -7,8 +7,8 @@
   const CHARS='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
   const $=id=>document.getElementById(id);
-  const panel=$('regAdmin'),state=$('regState'),count=$('regCount'),nameList=$('regNames'),link=$('regLink'),magic=$('regMagic'),openBtn=$('regGenerate'),countBtn=$('regLoad'),closeBtn=$('regClose'),names=$('names'),apply=$('apply');
-  if(!panel||!state||!count||!nameList||!link||!magic||!openBtn||!countBtn||!closeBtn||!names||!apply)return;
+  const panel=$('regAdmin'),state=$('regState'),count=$('regCount'),nameList=$('regNames'),link=$('regLink'),magic=$('regMagic'),newLinkBtn=$('regNewLink'),openBtn=$('regGenerate'),countBtn=$('regLoad'),closeBtn=$('regClose'),names=$('names'),apply=$('apply');
+  if(!panel||!state||!count||!nameList||!link||!magic||!newLinkBtn||!openBtn||!countBtn||!closeBtn||!names||!apply)return;
 
   let round=null,busy=false,lastNames=[];
 
@@ -21,7 +21,7 @@
   function newRoundData(){const slug=LINK_PREFIX+code();return{slug,url:'https://betinsight.club/tombula/teilnehmen/?r='+encodeURIComponent(slug),magic:MAGIC[rand(MAGIC.length)],status:'open',count:null,names:[]}}
   function save(){try{round?localStorage.setItem(STORE,JSON.stringify(round)):localStorage.removeItem(STORE)}catch(e){}}
   function restore(){try{const x=JSON.parse(localStorage.getItem(STORE)||'null');if(x&&x.slug&&x.url){round=x;lastNames=Array.isArray(x.names)?x.names:[]}}catch(e){}}
-  function setBusy(v){busy=v;openBtn.disabled=v;countBtn.disabled=v||!round||round.status!=='open';closeBtn.disabled=v||!round||round.status!=='open'}
+  function setBusy(v){busy=v;newLinkBtn.disabled=v;openBtn.disabled=v||!round||round.status!=='open';countBtn.disabled=v||!round||round.status!=='open';closeBtn.disabled=v||!round||round.status!=='open'}
   function showState(text,kind=''){state.textContent=text;state.className='regState '+kind}
 
   async function api(data,timeout=6500){
@@ -38,7 +38,7 @@
     if(!round){
       link.value='';magic.textContent='–';count.textContent='–';nameList.textContent='Noch keine Namen abgerufen';
       showState('Noch keine Anmelderunde','');
-      openBtn.disabled=busy;countBtn.disabled=true;closeBtn.disabled=true;
+      newLinkBtn.disabled=busy;openBtn.disabled=true;countBtn.disabled=true;closeBtn.disabled=true;
       return;
     }
     link.value=round.url;magic.textContent=round.magic||'–';
@@ -47,7 +47,8 @@
     nameList.innerHTML=shown.length?shown.map(n=>'<span class="regNameChip"></span>').join(''):'<span class="regNamesEmpty">Noch keine Namen abgerufen</span>';
     if(shown.length){[...nameList.querySelectorAll('.regNameChip')].forEach((el,i)=>el.textContent=shown[i])}
     if(round.status==='open')showState('🟢 Anmeldung geöffnet','open');else showState('🔒 Anmeldung geschlossen','closed');
-    openBtn.disabled=busy;
+    newLinkBtn.disabled=busy;
+    openBtn.disabled=busy||round.status!=='open';
     countBtn.disabled=busy||round.status!=='open';
     closeBtn.disabled=busy||round.status!=='open';
   }
@@ -85,24 +86,32 @@
     return lastNames;
   }
 
-  openBtn.addEventListener('click',async()=>{
+  newLinkBtn.addEventListener('click',async()=>{
     if(busy)return;
-    let tab=null;
-    try{tab=window.open('about:blank','_blank')}catch(e){}
     if(round?.status==='open'){
-      if(tab)tab.location.href=round.url;
-      else window.location.href=round.url;
-      return;
+      const existingCount=Number(round.count)||0;
+      const msg=existingCount>0
+        ? 'Für die aktuelle Runde sind bereits '+existingCount+' Teilnehmer gespeichert. Ein neuer Link macht den bisherigen Link ungültig. Wirklich neuen Link generieren?'
+        : 'Ein neuer Link macht den bisherigen Link ungültig. Wirklich neuen Link generieren?';
+      if(!confirm(msg))return;
     }
-    setBusy(true);showState('Neue Anmelderunde wird erstellt …','warn');
+    setBusy(true);showState('Neuer Teilnahmelink wird generiert …','warn');
     try{
       await createRound();
-      if(tab)tab.location.href=round.url;
-      else showState('🟢 Anmeldung geöffnet – Link ist bereit','open');
+      showState('🟢 Neuer Teilnahmelink erstellt','open');
     }catch(e){
-      if(tab)try{tab.close()}catch(x){}
       showState('🔴 Teilnahmelink konnte nicht erstellt werden','error');
     }finally{setBusy(false);render()}
+  });
+
+  openBtn.addEventListener('click',()=>{
+    if(busy||!round||round.status!=='open')return;
+    try{
+      const tab=window.open(round.url,'_blank');
+      if(!tab)window.location.href=round.url;
+    }catch(e){
+      window.location.href=round.url;
+    }
   });
 
   countBtn.addEventListener('click',async()=>{
