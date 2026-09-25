@@ -1,16 +1,16 @@
 (()=>{
   const WEBHOOK='https://hook.eu1.make.com/avimc6q8t6qxb79cuiako2xya1ow3oyx';
-  const ADMIN='OtWHJme9x0b0xw4xvO6Bn_4noDHF7os2';
+  const ADMIN='tombola-ui-v2';
   const STORE='betinsightTombolaRound';
   const LINK_PREFIX='betinsight-gluecksbringer-';
   const MAGIC=['GLÜCKSSTERN','FORTUNA','VOLLTREFFER','GOLDMOMENT','GLÜCKSKLEE','STERNSTUNDE','SONNENKIND','JACKPOT'];
   const CHARS='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
   const $=id=>document.getElementById(id);
-  const panel=$('regAdmin'),state=$('regState'),count=$('regCount'),link=$('regLink'),magic=$('regMagic'),generate=$('regGenerate'),copy=$('regCopy'),load=$('regLoad'),close=$('regClose'),names=$('names'),apply=$('apply');
-  if(!panel||!state||!count||!link||!magic||!generate||!copy||!load||!close||!names||!apply)return;
+  const panel=$('regAdmin'),state=$('regState'),count=$('regCount'),link=$('regLink'),magic=$('regMagic'),openBtn=$('regGenerate'),countBtn=$('regLoad'),closeBtn=$('regClose'),names=$('names'),apply=$('apply');
+  if(!panel||!state||!count||!link||!magic||!openBtn||!countBtn||!closeBtn||!names||!apply)return;
 
-  let round=null,pollTimer=null,busy=false,lastNames=[];
+  let round=null,busy=false,lastNames=[];
 
   function rand(max){
     if(max<=1)return 0;
@@ -18,10 +18,10 @@
     return Math.floor(Math.random()*max);
   }
   function code(n=6){let s='';for(let i=0;i<n;i++)s+=CHARS[rand(CHARS.length)];return s}
-  function newRoundData(){const slug=LINK_PREFIX+code();return{slug,url:'https://betinsight.club/tombula/teilnehmen/?r='+encodeURIComponent(slug),magic:MAGIC[rand(MAGIC.length)],status:'open'}}
+  function newRoundData(){const slug=LINK_PREFIX+code();return{slug,url:'https://betinsight.club/tombula/teilnehmen/?r='+encodeURIComponent(slug),magic:MAGIC[rand(MAGIC.length)],status:'open',count:0}}
   function save(){try{round?localStorage.setItem(STORE,JSON.stringify(round)):localStorage.removeItem(STORE)}catch(e){}}
   function restore(){try{const x=JSON.parse(localStorage.getItem(STORE)||'null');if(x&&x.slug&&x.url)round=x}catch(e){}}
-  function setBusy(v){busy=v;generate.disabled=v;copy.disabled=v||!round;load.disabled=v||!round;close.disabled=v||!round||round.status!=='open'}
+  function setBusy(v){busy=v;openBtn.disabled=v;countBtn.disabled=v||!round||round.status!=='open';closeBtn.disabled=v||!round||round.status!=='open'}
   function showState(text,kind=''){state.textContent=text;state.className='regState '+kind}
 
   async function api(data,timeout=6500){
@@ -35,10 +35,18 @@
   }
 
   function render(){
-    if(!round){link.value='';magic.textContent='–';count.textContent='0';showState('Noch keine Anmelderunde','');copy.disabled=load.disabled=close.disabled=true;return}
+    if(!round){
+      link.value='';magic.textContent='–';count.textContent='–';
+      showState('Noch keine Anmelderunde','');
+      openBtn.disabled=busy;countBtn.disabled=true;closeBtn.disabled=true;
+      return;
+    }
     link.value=round.url;magic.textContent=round.magic||'–';
+    count.textContent=Number.isFinite(Number(round.count))?String(Number(round.count)):'–';
     if(round.status==='open')showState('🟢 Anmeldung geöffnet','open');else showState('🔒 Anmeldung geschlossen','closed');
-    copy.disabled=false;load.disabled=false;close.disabled=round.status!=='open';
+    openBtn.disabled=busy;
+    countBtn.disabled=busy||round.status!=='open';
+    closeBtn.disabled=busy||round.status!=='open';
   }
 
   function normalizeRows(data){
@@ -56,57 +64,80 @@
     return out;
   }
 
-  async function refresh(applyToTombola=false){
-    if(!round)return [];
-    try{
-      const data=await api({action:'list',admin:ADMIN,slug:round.slug});
-      lastNames=normalizeRows(data);count.textContent=String(lastNames.length);
-      if(lastNames.length)names.value=lastNames.join('\n');
-      if(applyToTombola&&lastNames.length>=2){names.value=lastNames.join('\n');apply.click()}
-      return lastNames;
-    }catch(e){showState(round.status==='open'?'🟠 Verbindung wird erneut geprüft':'🔒 Anmeldung geschlossen',round.status==='open'?'warn':'closed');return lastNames}
+  async function createRound(){
+    const next=newRoundData();
+    const r=await api({action:'create',admin:ADMIN,slug:next.slug,zauberwort:next.magic});
+    if(!r||r.ok!==true)throw new Error('create failed');
+    round=next;lastNames=[];save();render();
+    return round;
   }
 
-  function startPolling(){clearInterval(pollTimer);pollTimer=null;if(round?.status==='open'&&!busy){refresh(false)}}
+  async function getCount(){
+    if(!round||round.status!=='open')return [];
+    const data=await api({action:'list',admin:ADMIN,slug:round.slug});
+    lastNames=normalizeRows(data);
+    round.count=lastNames.length;
+    save();render();
+    return lastNames;
+  }
 
-  generate.addEventListener('click',async()=>{
+  openBtn.addEventListener('click',async()=>{
     if(busy)return;
-    if(round?.status==='open'&&Number(count.textContent||0)>0&&!confirm('Die aktuelle Anmelderunde wird durch einen neuen Link ersetzt. Fortfahren?'))return;
-    const next=newRoundData();setBusy(true);showState('Neuer Teilnahme-Link wird erstellt …','warn');
+    let tab=null;
+    try{tab=window.open('about:blank','_blank')}catch(e){}
+    if(round?.status==='open'){
+      if(tab)tab.location.href=round.url;
+      else window.location.href=round.url;
+      return;
+    }
+    setBusy(true);showState('Neue Anmelderunde wird erstellt …','warn');
     try{
-      const r=await api({action:'create',admin:ADMIN,slug:next.slug,zauberwort:next.magic});
-      if(!r||r.ok!==true)throw new Error('create failed');
-      round=next;lastNames=[];count.textContent='0';names.value='';save();render();startPolling();
-    }catch(e){showState('🔴 Link konnte nicht erstellt werden','error')}
-    finally{setBusy(false);render()}
-  });
-
-  copy.addEventListener('click',async()=>{
-    if(!round)return;
-    try{await navigator.clipboard.writeText(round.url);copy.textContent='✅ Link kopiert';setTimeout(()=>copy.textContent='📋 Link kopieren',1600)}
-    catch(e){link.focus();link.select();try{document.execCommand('copy');copy.textContent='✅ Link kopiert';setTimeout(()=>copy.textContent='📋 Link kopieren',1600)}catch(x){}}
-  });
-
-  load.addEventListener('click',async()=>{
-    if(!round||busy)return;
-    setBusy(true);load.textContent='↻ Wird geladen …';
-    try{
-      const list=await refresh(false);
-      if(list.length<2){alert('Es sind noch nicht mindestens zwei Teilnehmer angemeldet.');return}
-      names.value=list.join('\n');apply.click();load.textContent='✅ Namen übernommen';setTimeout(()=>load.textContent='↻ Namen übernehmen',1700)
+      await createRound();
+      if(tab)tab.location.href=round.url;
+      else showState('🟢 Anmeldung geöffnet – Link ist bereit','open');
+    }catch(e){
+      if(tab)try{tab.close()}catch(x){}
+      showState('🔴 Teilnahmelink konnte nicht erstellt werden','error');
     }finally{setBusy(false);render()}
   });
 
-  close.addEventListener('click',async()=>{
+  countBtn.addEventListener('click',async()=>{
+    if(!round||round.status!=='open'||busy)return;
+    setBusy(true);countBtn.textContent='↻ Wird abgerufen …';
+    try{
+      const list=await getCount();
+      showState('🟢 Anmeldung geöffnet · '+list.length+' Teilnehmer','open');
+    }catch(e){
+      showState('🟠 Anmeldestand konnte nicht abgerufen werden','warn');
+    }finally{
+      countBtn.textContent='👥 Anmeldestand abrufen';
+      setBusy(false);render();
+    }
+  });
+
+  closeBtn.addEventListener('click',async()=>{
     if(!round||round.status!=='open'||busy)return;
     setBusy(true);showState('Anmeldung wird geschlossen …','warn');
     try{
       const r=await api({action:'close',admin:ADMIN,slug:round.slug});
-      if(!r||r.ok!==true)throw new Error('close failed');
-      round.status='closed';save();clearInterval(pollTimer);await refresh(true);render();
-    }catch(e){showState('🔴 Anmeldung konnte nicht geschlossen werden','error')}
-    finally{setBusy(false);render()}
+      if(!r||r.ok!==true||r.status!=='closed')throw new Error('close failed');
+
+      lastNames=normalizeRows(r);
+      round.status='closed';
+      round.count=lastNames.length;
+      save();
+
+      names.value=lastNames.join('\n');
+      if(lastNames.length>=2)apply.click();
+
+      render();
+      showState('🔒 Anmeldung geschlossen · '+lastNames.length+' Teilnehmer übernommen','closed');
+      if(lastNames.length<2)alert('Anmeldung geschlossen. Es wurden '+lastNames.length+' Teilnehmer übernommen. Für die Ziehung werden mindestens zwei Teilnehmer benötigt.');
+    }catch(e){
+      showState('🔴 Anmeldung konnte nicht geschlossen werden','error');
+    }finally{setBusy(false);render()}
   });
 
-  restore();render();startPolling();
+  link.addEventListener('click',()=>{try{link.focus();link.select()}catch(e){}});
+  restore();render();
 })();
