@@ -70,8 +70,8 @@ Elite ist aktuell vor allem die Freischaltung der vollständigen Gegnerwelt. Ein
 ## 9. Monatsranking & Belohnungen
 - Erstes offizielles Ranking: Oktober 2026.
 - Zeitraum: jeweils vollständiger Kalendermonat nach Europe/Berlin.
-- Launch-Monat Oktober 2026: Platz 1 = 20 Geschenk-Units, Platz 2 = 10 Geschenk-Units, Platz 3 = 5 Geschenk-Units.
-- Ab November 2026 gilt automatisch der reguläre Monatspool: 10 / 5 / 3 Geschenk-Units.
+- Ab Oktober 2026 gilt dauerhaft: Platz 1 = 15 Geschenk-Units, Platz 2 = 8 Geschenk-Units, Platz 3 = 5 Geschenk-Units.
+- Es gibt keine reduzierte Folgeregel ab November; derselbe Monatspool 15 / 8 / 5 gilt automatisch in jedem folgenden Kalendermonat.
 - Die App berechnet Monatsname und Monatsgrenzen automatisch; dafür ist keine monatliche Seitenänderung nötig.
 - Teilnahme nur für verifizierte BetInsight-User.
 - Geschenk-Units aus dem Ranking erzeugen kein zusätzliches TIME-CLASH-Spielguthaben.
