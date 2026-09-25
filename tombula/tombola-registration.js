@@ -7,8 +7,8 @@
   const CHARS='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
   const $=id=>document.getElementById(id);
-  const panel=$('regAdmin'),state=$('regState'),count=$('regCount'),link=$('regLink'),magic=$('regMagic'),openBtn=$('regGenerate'),countBtn=$('regLoad'),closeBtn=$('regClose'),names=$('names'),apply=$('apply');
-  if(!panel||!state||!count||!link||!magic||!openBtn||!countBtn||!closeBtn||!names||!apply)return;
+  const panel=$('regAdmin'),state=$('regState'),count=$('regCount'),nameList=$('regNames'),link=$('regLink'),magic=$('regMagic'),openBtn=$('regGenerate'),countBtn=$('regLoad'),closeBtn=$('regClose'),names=$('names'),apply=$('apply');
+  if(!panel||!state||!count||!nameList||!link||!magic||!openBtn||!countBtn||!closeBtn||!names||!apply)return;
 
   let round=null,busy=false,lastNames=[];
 
@@ -18,9 +18,9 @@
     return Math.floor(Math.random()*max);
   }
   function code(n=6){let s='';for(let i=0;i<n;i++)s+=CHARS[rand(CHARS.length)];return s}
-  function newRoundData(){const slug=LINK_PREFIX+code();return{slug,url:'https://betinsight.club/tombula/teilnehmen/?r='+encodeURIComponent(slug),magic:MAGIC[rand(MAGIC.length)],status:'open',count:0}}
+  function newRoundData(){const slug=LINK_PREFIX+code();return{slug,url:'https://betinsight.club/tombula/teilnehmen/?r='+encodeURIComponent(slug),magic:MAGIC[rand(MAGIC.length)],status:'open',count:null,names:[]}}
   function save(){try{round?localStorage.setItem(STORE,JSON.stringify(round)):localStorage.removeItem(STORE)}catch(e){}}
-  function restore(){try{const x=JSON.parse(localStorage.getItem(STORE)||'null');if(x&&x.slug&&x.url)round=x}catch(e){}}
+  function restore(){try{const x=JSON.parse(localStorage.getItem(STORE)||'null');if(x&&x.slug&&x.url){round=x;lastNames=Array.isArray(x.names)?x.names:[]}}catch(e){}}
   function setBusy(v){busy=v;openBtn.disabled=v;countBtn.disabled=v||!round||round.status!=='open';closeBtn.disabled=v||!round||round.status!=='open'}
   function showState(text,kind=''){state.textContent=text;state.className='regState '+kind}
 
@@ -36,13 +36,16 @@
 
   function render(){
     if(!round){
-      link.value='';magic.textContent='–';count.textContent='–';
+      link.value='';magic.textContent='–';count.textContent='–';nameList.textContent='Noch keine Namen abgerufen';
       showState('Noch keine Anmelderunde','');
       openBtn.disabled=busy;countBtn.disabled=true;closeBtn.disabled=true;
       return;
     }
     link.value=round.url;magic.textContent=round.magic||'–';
-    count.textContent=Number.isFinite(Number(round.count))?String(Number(round.count)):'–';
+    count.textContent=round.count===null||round.count===undefined?'–':String(Number(round.count)||0);
+    const shown=Array.isArray(round.names)?round.names:lastNames;
+    nameList.innerHTML=shown.length?shown.map(n=>'<span class="regNameChip"></span>').join(''):'<span class="regNamesEmpty">Noch keine Namen abgerufen</span>';
+    if(shown.length){[...nameList.querySelectorAll('.regNameChip')].forEach((el,i)=>el.textContent=shown[i])}
     if(round.status==='open')showState('🟢 Anmeldung geöffnet','open');else showState('🔒 Anmeldung geschlossen','closed');
     openBtn.disabled=busy;
     countBtn.disabled=busy||round.status!=='open';
@@ -77,6 +80,7 @@
     const data=await api({action:'list',admin:ADMIN,slug:round.slug});
     lastNames=normalizeRows(data);
     round.count=lastNames.length;
+    round.names=[...lastNames];
     save();render();
     return lastNames;
   }
@@ -125,6 +129,7 @@
       lastNames=normalizeRows(r);
       round.status='closed';
       round.count=lastNames.length;
+      round.names=[...lastNames];
       save();
 
       names.value=lastNames.join('\n');
