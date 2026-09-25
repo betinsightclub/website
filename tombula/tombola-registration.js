@@ -67,7 +67,7 @@
     }catch(e){showState(round.status==='open'?'🟠 Verbindung wird erneut geprüft':'🔒 Anmeldung geschlossen',round.status==='open'?'warn':'closed');return lastNames}
   }
 
-  function startPolling(){clearInterval(pollTimer);if(round?.status==='open'){pollTimer=setInterval(()=>{if(!busy)refresh(false)},15000);refresh(false)}}
+  function startPolling(){clearInterval(pollTimer);pollTimer=null;if(round?.status==='open'&&!busy){refresh(false)}}
 
   generate.addEventListener('click',async()=>{
     if(busy)return;
