@@ -8,7 +8,7 @@
 <section class="memberZone"><div class="eyebrow">APP · REGISTERED USERS</div><h2>Your unlocked teams</h2><p class="memberLead">Below the real teams is your personal area. Here you only see opponents your club is allowed to face at its current level.</p><div id="guestMemberLock" class="memberLock">🔒 <b>Internal BetInsight teams cannot be selected by guests.</b><br>Open TIME CLASH from your signed-in BetInsight profile to load your team, level, game balance and allowed community opponents.<div class="memberLockActions"><a class="registerCta" data-time-clash-registration href="https://betinsight.systeme.io/registrierung?ref=POOL">Register for free</a></div></div><div id="memberPanel" class="hidden"><div class="memberGrid"><div class="memberStat"><strong id="memberLevel">Start</strong><span>Current level</span></div><div class="memberStat"><strong id="memberWins">0</strong><span>Total wins</span></div><div class="memberStat"><strong id="memberBudget">100</strong><span>Team budget</span></div><div class="memberStat"><strong id="memberGames">0</strong><span>Games available</span></div></div><div class="nextWins" id="nextWinsText">Your progress is loading …</div><div class="progressBar"><i id="levelProgressBar"></i></div><div class="memberPick"><div><label>Allowed community opponent · maximum 1 level higher or lower</label><select id="memberOpponent"><option>Your progress is loading …</option></select></div><button id="loadLeagueMatch">MY TEAM VS THIS OPPONENT</button></div><button id="eliteVsSelected" class="memberPick eliteBtn hidden">🏆 ELITE: MY TEAM VS REAL TEAM B SELECTED ABOVE</button><div class="seoLink"><a href="/en/time-clash/mein-team/" style="font-weight:900;text-decoration:underline">🛡️ Edit my team & distribute development points →</a></div></div></section>
 <section class="creditBox"><h2>Your game balance</h2><div class="creditLine"><span class="creditPill">🎁 Weekly bonus: <b id="weeklyGames">5</b></span><span class="creditPill">🔷 Permanent: <b id="permanentGames">0</b></span></div><p class="memberLead" style="margin-top:12px">Registered users receive 5 free games each week. Unused weekly games expire at the weekly reset. Every actually consumed <b>purchased</b> Unit creates 1 additional game that never expires. A 5-game series consumes 5 games.</p></section>
 <section class="levelRoad"><h2>Your road to Elite</h2><p class="memberLead">All levels stay visible. The status automatically shows what you have reached and how many wins are missing for the next promotion.</p><table class="levelTable"><thead><tr><th>Level</th><th>Wins for promotion</th><th>Team budget</th><th>Status</th></tr></thead><tbody><tr id="lvl0"><td>Start</td><td>0</td><td>100</td><td class="lvlStatus">✅</td></tr><tr id="lvl1"><td>Bronze</td><td>5</td><td>120</td><td class="lvlStatus">🔒</td></tr><tr id="lvl2"><td>Silver</td><td>25 more · 30 total</td><td>150</td><td class="lvlStatus">🔒</td></tr><tr id="lvl3"><td>Gold</td><td>20 more · 50 total</td><td>185</td><td class="lvlStatus">🔒</td></tr><tr id="lvl4"><td>Platinum</td><td>50 more · 100 total</td><td>225</td><td class="lvlStatus">🔒</td></tr><tr id="lvl5"><td>Elite</td><td>100 more · 200 total</td><td>—</td><td class="lvlStatus">🔒 All opponents</td></tr></tbody></table><p class="memberLead" style="margin-top:12px">For progression the stages are counted cumulatively: Bronze 5 · Silver 30 · Gold 50 · Platinum 100 · Elite 200 wins.</p></section><div class="devStatus"><b>PLAYER CONFLICT MODULE ACTIVE</b> · Overlapping players are checked before the series starts. Historical rosters are being expanded gradually.</div><section class="arena">
-<div class="teams placeholder" id="teamsPanel"><div class="team"><div class="teamMark" id="markA">⚽</div><h2 id="nameA">CHOOSE TEAM A</h2><small id="metaA">NOT SELECTED YET</small></div><div class="seriesScore"><small>SERIE</small><strong><span id="serA">0</span> : <span id="serB">0</span></strong><small id="seriesText">Open</small></div><div class="team"><div class="teamMark" id="markB">⚽</div><h2 id="nameB">CHOOSE TEAM B</h2><small id="metaB">NOT SELECTED YET</small></div></div>
+<div class="teams placeholder" id="teamsPanel"><div class="team"><div class="teamMark" id="markA">⚽</div><h2 id="nameA">CHOOSE TEAM A</h2><small id="metaA">NOT SELECTED YET</small></div><div class="seriesScore"><small>SERIENPUNKTE</small><strong><span id="serA">0</span> : <span id="serB">0</span></strong><small id="seriesText">Open</small></div><div class="team"><div class="teamMark" id="markB">⚽</div><h2 id="nameB">CHOOSE TEAM B</h2><small id="metaB">NOT SELECTED YET</small></div></div>
 <div class="pick"><button id="pickI" disabled>CHOOSE TEAM A FIRST</button><button id="pickS" disabled>CHOOSE TEAM B FIRST</button><button class="start" id="start">START TIME CLASH</button></div>
 <div class="series" id="series"></div><div class="conflictBox hidden" id="conflictBox"><h3>⚠️ SPIELER-KONFLIKT</h3><p>Mindestens ein Spieler gehört zu beiden ausgewählten historischen Kadern. Entscheide für jeden Spieler, für welche Mannschaft er in dieser TIME-CLASH-Serie antreten soll.</p><div id="conflictList"></div><div class="conflictNote">Die Zuordnung gilt für die komplette Serie und wird nach deren Ende wieder aufgehoben.</div></div><div class="stadiumStage" id="stadiumStage"><div><small id="stadiumGame">GAME 1</small><h3 id="stadiumName">Stadium is set when the series starts</h3><p id="stadiumPlace">Each game gets its own stadium.</p></div></div>
 <div class="matchMeta"><aside class="infoCard"><h3>GAME INFO</h3><div class="infoRow"><span>🏟 Stadium</span><b id="infoVenue">—</b></div><div class="infoRow"><span>📅 Date</span><b>Virtual</b></div><div class="infoRow"><span>🏆 Competition</span><b>BetInsight Time Clash</b></div><div class="infoRow"><span>☁ Weather</span><b id="weather">—</b></div><div class="quote">„Große Teams schreiben Geschichte – in jeder Zeit.“</div></aside><section class="historyCard"><h3>SERIES PROGRESS</h3><div class="historyGrid" id="historyGrid"></div></section></div><div class="game"><aside class="infoCard"><h3>GAME INFORMATIONEN</h3><div class="infoRow"><span>🏟 Stadium</span><b id="infoVenueDesk">—</b></div><div class="infoRow"><span>📍 Location</span><b id="infoCity">Virtual</b></div><div class="infoRow"><span>📅 Date</span><b>Virtual</b></div><div class="infoRow"><span>🏆 Competition</span><b>Time Clash</b></div><div class="infoRow"><span>☀ Weather</span><b id="weatherDesk">—</b></div><div class="quote">„Große Mannschaften schreiben große Geschichten – in jeder Zeit.“</div></aside><div class="main"><div class="gameTitle" id="gameTitle">GAME 1 VON 5 · Stadio Olimpico, Rom</div><div class="score"><div><span class="teamMark" id="scoreMarkA">🇮🇹</span><br><b id="scoreNameA">ITALIEN 2006</b></div><div><div class="live"><i class="pulse"></i><span id="status">BEREIT</span></div><br><strong><span id="a">0</span> : <span id="b">0</span></strong><div id="minute">00:00</div></div><div><span class="teamMark" id="scoreMarkB">🇪🇸</span><br><b id="scoreNameB">SPANIEN 2026</b></div></div><div class="ticker"><div class="tickerHead"><b>LIVE TICKER</b><span id="next">Choose your winner and start.</span></div><div class="events" id="events"><div class="event"><b>—</b><span>Your TIME CLASH is waiting for you.</span></div></div></div></div><div class="rightRail"><aside class="stats"><h3>LIVE STATS</h3><div class="stat"><div class="statline"><span id="posA">50%</span><span>Possession</span><span id="posB">50%</span></div><div class="bar"><i id="posBar"></i></div></div><div class="stat"><div class="statline"><span id="shotsA">0</span><span>Shots</span><span id="shotsB">0</span></div></div><div class="stat"><div class="statline"><span id="targetA">0</span><span>Shots on target</span><span id="targetB">0</span></div></div><div class="stat"><div class="statline"><span id="cornA">0</span><span>Corners</span><span id="cornB">0</span></div></div><div class="stat"><div class="statline"><span id="foulsA">0</span><span>Fouls</span><span id="foulsB">0</span></div></div><div class="stat"><div class="statline"><span id="cardsA">0</span><span>Gelbe Cards</span><span id="cardsB">0</span></div></div><div class="stat"><div class="statline"><span id="redA">0</span><span>Rote Cards</span><span id="redB">0</span></div></div></aside><section class="historyCard"><h3>SERIES PROGRESS</h3><div class="historyGrid" id="historyGridDesk"></div></section><section class="profileMini"><h3>YOUR TIME CLASH PROFILE</h3><strong id="pointsDesk">0 MP</strong><div id="pointInfoDesk">0 correct picks · 0 series</div><div class="badge" id="streakDesk">🔥 Serie 0</div></section></div></div>
@@ -74,7 +74,7 @@ try{let m=JSON.parse(localStorage.getItem("biMyClub")||"null");if(m&&m.players)r
 const venues=["Stadio Olimpico, Rom","Santiago Bernabéu, Madrid","Allianz Arena, München","Wembley, London","MetLife Stadium, New York","Maracanã, Rio de Janeiro","Estadio Monumental, Buenos Aires","Hazza bin Zayed Stadium, Al Ain","Rose Bowl, Pasadena","Olympiastadion, Berlin"];
 const weatherList=["Leicht bewölkt · 18°C","Klar · 21°C","Flutlicht · 16°C","Trocken · 20°C","Leichter Wind · 17°C"];
 const phrases={neutral:["Das Mittelfeld ist hart umkämpft.","Beide Teams ordnen sich neu.","Das Tempo bleibt hoch.","Beide Mannschaften verschieben kompakt.","Das Spiel bleibt taktisch ausgeglichen."],a:["{A} schaltet schnell um.","{A} sucht den Weg über die Außen.","Ein Angriff von {A} nimmt Fahrt auf."],b:["{B} kombiniert sich ins letzte Drittel.","{B} erhöht den Druck.","{B} sucht die Lücke zwischen den Linien."],saveA:["🧤 Starke Parade von {A}!","🎯 {B} kommt zum Abschluss – gehalten!"],saveB:["🧤 {B} entschärft den Abschluss von {A}.","🎯 {A} zieht ab – der Torhüter ist zur Stelle!"],corner:["🚩 Ecke nach abgefälschtem Abschluss.","🚩 Der Ball wird zur Ecke geklärt."],foul:["💥 Foul im Mittelfeld. Der Schiedsrichter belässt es bei einer Ermahnung.","⚠️ Zweikampf zu spät – Freistoß."],chance:["🔥 Gefährlicher Angriff bis an den Strafraum.","⚡ Schneller Gegenstoß mit viel Raum.","🎯 Abschluss aus aussichtsreicher Position – knapp vorbei!"]};
-let pick=null,running=false,paused=false,fast=false,g=0,i=0,A=0,B=0,serA=0,serB=0,games=[],timer=null,seriesLen=5,chosenA=false,chosenB=false,kindAActive="nation",kindBActive="nation",activeMode="public",matchPoints=+(localStorage.getItem("biMatchPoints")||0),played=+(localStorage.getItem("biMatchPlayed")||0),correct=+(localStorage.getItem("biMatchCorrect")||0),streak=+(localStorage.getItem("biMatchStreak")||0),TA={name:"Italien 2006",flag:"🇮🇹",rating:82},TB={name:"Spanien 2026",flag:"🇪🇸",rating:83};
+let pick=null,running=false,paused=false,fast=false,g=0,i=0,A=0,B=0,serA=0,serB=0,games=[],seriesDecision=null,seriesVenueOrder=[],timer=null,seriesLen=5,chosenA=false,chosenB=false,kindAActive="nation",kindBActive="nation",activeMode="public",matchPoints=+(localStorage.getItem("biMatchPoints")||0),played=+(localStorage.getItem("biMatchPlayed")||0),correct=+(localStorage.getItem("biMatchCorrect")||0),streak=+(localStorage.getItem("biMatchStreak")||0),TA={name:"Italien 2006",flag:"🇮🇹",rating:82},TB={name:"Spanien 2026",flag:"🇪🇸",rating:83};
 const $=s=>document.querySelector(s), rnd=n=>Math.floor(Math.random()*n), one=a=>a[rnd(a.length)],fmt=s=>s.replaceAll("{A}",TA.name).replaceAll("{B}",TB.name);
 const clubColors={
 "1. FC Köln":["linear-gradient(135deg,#fff 0 48%,#d71920 48% 100%)","#111"],"Werder Bremen":["linear-gradient(135deg,#0b8f55,#fff)","#fff"],"1860 München":["linear-gradient(135deg,#6fc7e9 0 52%,#fff 52%)","#123"],"Eintracht Braunschweig":["linear-gradient(135deg,#ffd400,#1261a0)","#111"],"1. FC Nürnberg":["linear-gradient(135deg,#8b1020,#fff)","#fff"],"Bayern München":["linear-gradient(135deg,#d71920 0 38%,#fff 38% 62%,#1769aa 62%)","#fff"],"Borussia Mönchengladbach":["linear-gradient(135deg,#111 0 45%,#fff 45%)","#fff"],"Hamburger SV":["linear-gradient(135deg,#fff 0 33%,#1769aa 33% 66%,#111 66%)","#fff"],"VfB Stuttgart":["linear-gradient(135deg,#fff 0 48%,#d71920 48% 62%,#fff 62%)","#111"],"1. FC Kaiserslautern":["linear-gradient(135deg,#c8102e,#fff)","#fff"],"Borussia Dortmund":["linear-gradient(135deg,#ffe500 0 62%,#111 62%)","#111"],"VfL Wolfsburg":["linear-gradient(135deg,#65b32e,#fff)","#111"],"Bayer Leverkusen":["linear-gradient(135deg,#e32219 0 50%,#111 50%)","#fff"],"Real Madrid":["linear-gradient(135deg,#fff 0 55%,#6b3fa0 55%)","#111"],"AC Milan":["linear-gradient(90deg,#111 0 25%,#c8102e 25% 50%,#111 50% 75%,#c8102e 75%)","#fff"],"Liverpool":["linear-gradient(135deg,#c8102e,#fff)","#fff"],"FC Barcelona":["linear-gradient(90deg,#a50044 0 25%,#004d98 25% 50%,#a50044 50% 75%,#004d98 75%)","#fff"],"Ajax":["linear-gradient(135deg,#fff 0 35%,#d2122e 35% 65%,#fff 65%)","#111"],"Inter Mailand":["linear-gradient(90deg,#111 0 25%,#0068a8 25% 50%,#111 50% 75%,#0068a8 75%)","#fff"],"Manchester United":["linear-gradient(135deg,#da291c,#fbe122)","#fff"],"Chelsea":["linear-gradient(135deg,#034694,#fff)","#fff"],"Juventus":["linear-gradient(90deg,#111 0 25%,#fff 25% 50%,#111 50% 75%,#fff 75%)","#fff"],"Benfica":["linear-gradient(135deg,#e30613,#fff)","#fff"],"Nottingham Forest":["linear-gradient(135deg,#dd0000,#fff)","#fff"],"FC Porto":["linear-gradient(90deg,#fff 0 25%,#004f9e 25% 50%,#fff 50% 75%,#004f9e 75%)","#111"],"Manchester City":["linear-gradient(135deg,#6cabdd,#fff)","#123"],"Paris Saint-Germain":["linear-gradient(90deg,#004170 0 40%,#e30613 40% 60%,#004170 60%)","#fff"],"Blackburn Rovers":["linear-gradient(135deg,#fff 0 50%,#1b5dab 50%)","#111"],"Arsenal":["linear-gradient(135deg,#ef0107,#fff)","#fff"],"Leicester City":["linear-gradient(135deg,#003090,#fdbb30)","#fff"],"Atlético Madrid":["repeating-linear-gradient(90deg,#d71920 0 10px,#fff 10px 20px)","#123"],"AC Mailand":["linear-gradient(90deg,#111 0 25%,#c8102e 25% 50%,#111 50% 75%,#c8102e 75%)","#fff"],"Olympique Marseille":["linear-gradient(135deg,#2faee0,#fff)","#123"],"Sporting CP":["repeating-linear-gradient(0deg,#fff 0 9px,#159447 9px 18px)","#111"],"Flamengo":["repeating-linear-gradient(0deg,#111 0 11px,#c8102e 11px 22px)","#fff"],"Palmeiras":["linear-gradient(135deg,#006437,#fff)","#fff"],"Santos":["linear-gradient(135deg,#fff,#111)","#111"],"Corinthians":["linear-gradient(135deg,#fff 0 65%,#111 65%)","#111"],"River Plate":["linear-gradient(135deg,#fff 0 38%,#d71920 38% 58%,#fff 58%)","#111"],"Boca Juniors":["linear-gradient(0deg,#003b73 0 38%,#f4d000 38% 62%,#003b73 62%)","#fff"],"Al Ain":["linear-gradient(135deg,#6b2c91,#fff)","#fff"],"Shabab Al Ahli":["linear-gradient(135deg,#d71920,#fff)","#fff"],"Al Wasl":["linear-gradient(135deg,#f6c900,#111)","#111"],"Inter Miami":["linear-gradient(135deg,#f7b5cd,#111)","#111"],"Los Angeles FC":["linear-gradient(135deg,#111,#c8a45d)","#fff"],"Seattle Sounders":["linear-gradient(135deg,#236192,#5d9732)","#fff"]
@@ -146,37 +146,181 @@ function conflicts(){
 }
 function select(x){pick=x;$("#pickI").classList.toggle("sel",x==="I");$("#pickS").classList.toggle("sel",x==="S")}$("#pickI").onclick=()=>select("I");$("#pickS").onclick=()=>select("S");
 function poisson(lambda){let L=Math.exp(-lambda),p=1,k=0;do{k++;p*=Math.random()}while(p>L);return k-1}
-function activeRoster(side){
- let team=side==="A"?TA:TB, own=rosterDB[team.name]||[], other=rosterDB[(side==="A"?TB:TA).name]||[], otherIds=new Set(other.map(p=>p.id));
- return own.filter(p=>!otherIds.has(p.id)||conflictChoices[p.id]===side)
+function inferredRole(i){
+ if(i===0)return "Torwart";
+ if(i>=1&&i<=4)return "Abwehr";
+ if(i>=5&&i<=7)return "Mittelfeld";
+ if(i>=8&&i<=10)return "Sturm";
+ return "Feldspieler"
 }
-const TC_GENERIC_PLAYER={de:"Teamspieler",en:"Team player",es:"Jugador del equipo",fr:"Joueur de l’équipe",it:"Giocatore della squadra",pt:"Jogador da equipa"};function player(side){let r=activeRoster(side);if(r.length)return one(r).name;let t=side==="A"?TA:TB;return (TC_GENERIC_PLAYER[TC_DISPLAY_LANG]||"Team player")+" · "+t.name}
-function actor(side,fallback){let p=player(side);return p||fallback}
-function assister(side,scorer){let r=activeRoster(side).filter(p=>p.name!==scorer);return r.length?one(r).name:null}
+function normalizePlayer(p,i){
+ let raw=Number(p?.strength),impact=Number(p?.impact||0);
+ let strength=Number.isFinite(raw)&&raw>0?Math.max(1,Math.min(25,raw)):Math.max(1,Math.min(25,2.5+impact*3.5));
+ return {...p,strength,prole:String(p?.prole||p?.role||inferredRole(i)),starter:p?.starter!==undefined?!!p.starter:i<11,squadIndex:Number.isFinite(Number(p?.squadIndex))?Number(p.squadIndex):i}
+}
+function squad(side){
+ let team=side==="A"?TA:TB,other=side==="A"?TB:TA,own=(rosterDB[team.name]||[]).map((p,i)=>normalizePlayer(p,i)),otherIds=new Set((rosterDB[other.name]||[]).map(p=>p.id));
+ own=own.filter(p=>!otherIds.has(p.id)||conflictChoices[p.id]===side);
+ let ids=new Set(own.map(p=>p.id)),base=Math.max(6,Math.min(18,8+(Number(team.rating||75)-70)*.28));
+ for(let i=own.length;i<17;i++){let p=normalizePlayer({id:"sim-"+side+"-"+i,name:"Teamspieler "+(i+1),strength:Math.max(5,Math.min(18,base+(Math.random()-.5)*2)),prole:inferredRole(i),starter:i<11},i);while(ids.has(p.id))p.id+="-x";own.push(p);ids.add(p.id)}
+ return own
+}
+function startingLineup(side){
+ let all=squad(side),starters=all.filter(p=>p.starter).slice(0,11),ids=new Set(starters.map(p=>p.id));
+ if(starters.length<11){for(const p of all.filter(p=>!p.starter)){if(starters.length>=11)break;if(!ids.has(p.id)){starters.push({...p,promoted:true});ids.add(p.id)}}}
+ return starters
+}
+function benchRoster(side){let ids=new Set(startingLineup(side).map(p=>p.id));return squad(side).filter(p=>!ids.has(p.id))}
+function activeRoster(side){return startingLineup(side)}
+function weightedPick(list,weightFn){
+ if(!list.length)return null;
+ let weights=list.map(p=>Math.max(0,Number(weightFn(p))||0)),total=weights.reduce((a,b)=>a+b,0);
+ if(total<=0)return one(list);
+ let r=Math.random()*total;
+ for(let i=0;i<list.length;i++){r-=weights[i];if(r<=0)return list[i]}
+ return list[list.length-1]
+}
+function roleFactor(p,kind){
+ let r=String(p.prole||"Feldspieler");
+ if(kind==="goal")return r==="Sturm"?2:r==="Mittelfeld"?1.15:r==="Abwehr"?.45:r==="Torwart"?.02:.8;
+ if(kind==="assist")return r==="Mittelfeld"?1.5:r==="Sturm"?1.15:r==="Abwehr"?.75:r==="Torwart"?.03:.8;
+ if(kind==="corner"||kind==="shot"||kind==="chance"||kind==="penalty")return r==="Sturm"?1.55:r==="Mittelfeld"?1.3:r==="Abwehr"?.45:r==="Torwart"?.03:.8;
+ if(kind==="card")return r==="Abwehr"?1.35:r==="Mittelfeld"?1.1:r==="Sturm"?.65:r==="Torwart"?.25:.9;
+ if(kind==="defense")return r==="Abwehr"?1.8:r==="Mittelfeld"?1.15:r==="Torwart"?.8:r==="Sturm"?.25:.7;
+ if(kind==="ownGoal")return r==="Abwehr"?1.8:r==="Torwart"?1.1:r==="Mittelfeld"?.35:r==="Sturm"?.08:.6;
+ return r==="Torwart"?.35:1
+}
+function playerWeight(p,kind="generic"){return Math.pow(Math.max(1,Number(p.strength||1)),1.35)*roleFactor(p,kind)}
+function teamCoachLabel(side){
+ let team=side==="A"?TA:TB,kind=side==="A"?kindAActive:kindBActive,coach=null;
+ if(kind==="myclub")coach=memberClub?.coach;
+ else if(kind==="community")coach=communityClubMeta?.[team.name]?.coach;
+ let name=String(coach?.name||"").trim();
+ return name?"Trainer "+name:"Der Trainer von "+team.name
+}
+function buildSubPlan(side){
+ let lineup=startingLineup(side).map(x=>({...x})),bench=benchRoster(side).filter(p=>String(p.prole)!=="Torwart"),plan=[];
+ if(!bench.length)return plan;
+ let count=Math.min(5,bench.length,Math.random()<.08?1:2+rnd(4)),usedIn=new Set(),usedOut=new Set();
+ let mins=[50+rnd(10),59+rnd(9),68+rnd(8),75+rnd(8),82+rnd(6)].sort((a,b)=>a-b);
+ for(let n=0;n<count;n++){
+   let available=bench.filter(p=>!usedIn.has(p.id));if(!available.length)break;
+   let incoming=weightedPick(available,p=>Math.max(1,p.strength));
+   let same=lineup.filter(p=>!usedOut.has(p.id)&&String(p.prole)!=="Torwart"&&String(p.prole)===String(incoming.prole));
+   let pool=same.length?same:lineup.filter(p=>!usedOut.has(p.id)&&String(p.prole)!=="Torwart");
+   if(!pool.length)break;
+   let outgoing=weightedPick(pool,p=>1/Math.max(1,p.strength));
+   let m=mins[n]||60+n*6;
+   plan.push({m,out:outgoing,in:incoming,reason:"tactical"});
+   usedIn.add(incoming.id);usedOut.add(outgoing.id);
+   lineup=lineup.map(p=>p.id===outgoing.id?incoming:p)
+ }
+ return plan.sort((a,b)=>a.m-b.m)
+}
+function lineupAtMinute(side,minute,plans,dismissals=null){
+ let lineup=startingLineup(side).map(x=>({...x})),plan=(plans&&plans[side])||[];
+ for(const sub of plan){
+   if(sub.m>minute)break;
+   if(!lineup.some(p=>p.id===sub.out.id)||lineup.some(p=>p.id===sub.in.id))continue;
+   lineup=lineup.map(p=>p.id===sub.out.id?sub.in:p)
+ }
+ if(dismissals?.[side])lineup=lineup.filter(p=>!(dismissals[side][p.id]!=null&&dismissals[side][p.id]<=minute));
+ return lineup
+}
+function actorObj(side,minute,plans,kind="generic",dismissals=null){
+ return weightedPick(lineupAtMinute(side,minute,plans,dismissals),x=>playerWeight(x,kind))
+}
+function actor(side,minute,plans,kind="generic",dismissals=null){let p=actorObj(side,minute,plans,kind,dismissals);return p?p.name:null}
+function assister(side,scorer,minute,plans,dismissals=null){
+ let r=lineupAtMinute(side,minute,plans,dismissals).filter(p=>p.name!==scorer),p=weightedPick(r,x=>playerWeight(x,"assist"));return p?p.name:null
+}
+function goalkeeperObj(side,minute,plans,dismissals=null){
+ let r=lineupAtMinute(side,minute,plans,dismissals),p=r.find(x=>String(x.prole)==="Torwart");
+ return p||weightedPick(r,x=>String(x.prole)==="Abwehr"?x.strength*.8:x.strength*.25)
+}
+function goalkeeper(side,minute,plans,dismissals=null){return goalkeeperObj(side,minute,plans,dismissals)?.name||null}
+function goalkeeperStrength(side,minute,plans,dismissals=null){return Math.max(1,Math.min(25,Number(goalkeeperObj(side,minute,plans,dismissals)?.strength||5)))}
+function scheduleCautionSub(side,player,minute,plans,dismissals){
+ if(!player||minute>=82||plans[side].length>=5)return null;
+ let existing=plans[side].find(s=>s.out.id===player.id&&s.m>minute);
+ if(existing){existing.m=Math.max(minute+2,Math.min(existing.m,minute+5+rnd(6)));existing.reason="yellow";plans[side].sort((a,b)=>a.m-b.m);return existing}
+ let usedIn=new Set(plans[side].map(s=>s.in.id)),bench=benchRoster(side).filter(p=>!usedIn.has(p.id)&&String(p.prole)!=="Torwart");
+ let same=bench.filter(p=>String(p.prole)===String(player.prole)),pool=same.length?same:bench;
+ if(!pool.length)return null;
+ let incoming=weightedPick(pool,p=>Math.max(1,p.strength)),sub={m:Math.min(88,minute+4+rnd(8)),out:player,in:incoming,reason:"yellow"};
+ plans[side].push(sub);plans[side].sort((a,b)=>a.m-b.m);return sub
+}
+function rosterReady(side){let kind=side==="A"?kindAActive:kindBActive;return kind==="nation"||kind==="club"||startingLineup(side).length>=11}
+function rosterLabel(side){let t=side==="A"?TA:TB;return t.name+": "+startingLineup(side).length+" Startspieler verfügbar"}
+function lineupMetrics(lineup){
+ let attackW={Torwart:.02,Abwehr:.22,Mittelfeld:.72,Sturm:1,Feldspieler:.62},defW={Torwart:.35,Abwehr:1,Mittelfeld:.62,Sturm:.18,Feldspieler:.62},midW={Torwart:.05,Abwehr:.45,Mittelfeld:1,Sturm:.48,Feldspieler:.65};
+ let calc=w=>{let s=0,d=0;for(const p of lineup){let k=w[p.prole]??w.Feldspieler;s+=Number(p.strength||1)*k;d+=k}return d?s/d:8};
+ return {attack:calc(attackW),defense:calc(defW),midfield:calc(midW),overall:lineup.length?lineup.reduce((z,p)=>z+Number(p.strength||1),0)/lineup.length:8,count:lineup.length}
+}
+function effectiveMetrics(side,plans,dismissals=null){
+ let a=lineupMetrics(lineupAtMinute(side,15,plans,dismissals)),b=lineupMetrics(lineupAtMinute(side,55,plans,dismissals)),d=lineupMetrics(lineupAtMinute(side,82,plans,dismissals));
+ return {attack:a.attack*.4+b.attack*.35+d.attack*.25,defense:a.defense*.4+b.defense*.35+d.defense*.25,midfield:a.midfield*.4+b.midfield*.35+d.midfield*.25,overall:a.overall*.4+b.overall*.35+d.overall*.25,count:a.count*.4+b.count*.35+d.count*.25}
+}
+function spacedGoalMinutes(total){let out=[],tries=0;while(out.length<total&&tries++<1500){let m=7+rnd(82);if(out.every(x=>Math.abs(x-m)>=6))out.push(m)}return out.sort((a,b)=>a-b)}
+function shuffleCopy(list){let a=[...list];for(let x=a.length-1;x>0;x--){let y=rnd(x+1);[a[x],a[y]]=[a[y],a[x]]}return a}
+function keeperSaveChance(strength){return Math.max(.10,Math.min(.92,.12+(Math.max(1,Math.min(25,strength))-5)*.04))}
 function buildGame(idx){
- let ratingA=TA.rating,ratingB=TB.rating;
- let ca=rosterDB[TA.name]||[],cb=rosterDB[TB.name]||[],idsB=new Set(cb.map(p=>p.id));
- ca.filter(p=>idsB.has(p.id)).forEach(p=>{if(conflictChoices[p.id]==="A")ratingA+=p.impact/10;else if(conflictChoices[p.id]==="B")ratingB+=p.impact/10});
- let ratingGap=(ratingA-ratingB)/20,qualityShift=(Math.random()-.5)*.42;
- let ga=Math.min(5,poisson(Math.max(.35,1.30+ratingGap+qualityShift))),gb=Math.min(5,poisson(Math.max(.35,1.30-ratingGap-qualityShift)));
- if(ga===gb){Math.random()<.5?ga++:gb++}
- let goals=[];for(let x=0;x<ga;x++)goals.push({m:7+rnd(82),t:"A"});for(let x=0;x<gb;x++)goals.push({m:7+rnd(82),t:"B"});
- let ev=[{m:1,msg:"⚽ Anpfiff! Spiel "+(idx+1)+" der TIME-CLASH-Serie läuft."}];
- let target=32+rnd(9),minutes=new Set([1,45,90]);while(minutes.size<target){minutes.add(3+rnd(86))}
- [...minutes].sort((a,b)=>a-b).forEach(m=>{if(m===1||m===45||m===90)return;let r=Math.random(),side=Math.random()<.5?"A":"B",nm=side==="A"?TA.name:TB.name;
-   if(r<.16)ev.push({m,msg:"🔥 "+actor(side,nm)+" treibt den Angriff für "+nm+" bis an den Strafraum.",type:"chance"});
-   else if(r<.31)ev.push({m,msg:"⚡ "+actor(side,nm)+" schaltet für "+nm+" schnell um und sucht den Abschluss.",type:side==="A"?"shotA":"shotB"});
-   else if(r<.43)ev.push({m,msg:"🎯 "+actor(side,nm)+" kommt für "+nm+" zum Abschluss – der Torhüter pariert!",type:side==="A"?"targetA":"targetB"});
-   else if(r<.55)ev.push({m,msg:"🚩 "+actor(side,nm)+" holt eine Ecke für "+nm+" heraus. "+(player(side)?actor(side,nm)+" übernimmt den Eckball.":""),type:side==="A"?"cornerA":"cornerB"});
-   else if(r<.69)ev.push({m,msg:"💥 Foul an "+actor(side,nm)+" ("+nm+"). Freistoß.",type:side==="A"?"foulA":"foulB"});
-   else if(r<.76)ev.push({m,msg:"🟨 Gelbe Karte für "+actor(side,nm)+" ("+nm+").",type:side==="A"?"cardA":"cardB"});
+ let plans={A:buildSubPlan("A"),B:buildSubPlan("B")},dismissals={A:{},B:{}},yellows={A:{},B:{}},ev=[{m:1,msg:"⚽ Anpfiff! Spiel "+(idx+1)+" der TIME-CLASH-Serie läuft."}],ratingA=TA.rating,ratingB=TB.rating;
+ let preA=effectiveMetrics("A",plans,dismissals),preB=effectiveMetrics("B",plans,dismissals);
+ let sideProb=Math.max(.25,Math.min(.75,.5+(preA.attack+preA.midfield-preB.attack-preB.midfield)*.018+(ratingA-ratingB)*.004));
+ let target=30+rnd(9),minutes=new Set([1,45,90]);while(minutes.size<target)minutes.add(3+rnd(86));
+ [...minutes].sort((a,b)=>a-b).forEach(m=>{
+   if(m===1||m===45||m===90)return;
+   let r=Math.random(),side=Math.random()<sideProb?"A":"B",nm=side==="A"?TA.name:TB.name;
+   if(r<.13){let p=actor(side,m,plans,"chance",dismissals);ev.push({m,msg:p?"🔥 "+p+" treibt den Angriff für "+nm+" bis an den Strafraum.":"🔥 "+nm+" baut einen gefährlichen Angriff auf.",type:"chance",sceneKind:"attack",scenePlayer:p,sceneSide:side});}
+   else if(r<.25){let p=actor(side,m,plans,"shot",dismissals);ev.push({m,msg:p?"⚡ "+p+" schaltet für "+nm+" schnell um und sucht den Abschluss.":"⚡ "+nm+" schaltet schnell um und sucht den Abschluss.",type:side==="A"?"shotA":"shotB",sceneKind:"shot",scenePlayer:p,sceneSide:side});}
+   else if(r<.36){let p=actor(side,m,plans,"shot",dismissals),def=side==="A"?"B":"A",kp=goalkeeperObj(def,m,plans,dismissals),dn=def==="A"?TA.name:TB.name,k=Number(kp?.strength||5),quality=keeperSaveChance(k);let suffix=quality>.72?" mit einer herausragenden Parade":quality<.35?" mit Mühe":"";ev.push({m,msg:kp?"🧤 "+kp.name+" hält"+suffix+" für "+dn+" gegen den Abschluss von "+(p||nm)+"!":p?"🎯 "+p+" kommt für "+nm+" zum Abschluss.":"🎯 "+nm+" kommt zum Abschluss.",type:side==="A"?"targetA":"targetB",sceneKind:"save",scenePlayer:kp?.name||null,sceneSide:def,attacker:p});}
+   else if(r<.47){let p=actor(side,m,plans,"corner",dismissals);ev.push({m,msg:p?"🚩 "+p+" holt eine Ecke für "+nm+" heraus.":"🚩 "+nm+" erzwingt einen Eckball.",type:side==="A"?"cornerA":"cornerB"});}
+   else if(r<.60){let p=actor(side,m,plans,"generic",dismissals);ev.push({m,msg:p?"💥 Foul an "+p+" ("+nm+"). Freistoß.":"💥 Foul gegen "+nm+". Freistoß für "+nm+".",type:side==="A"?"foulA":"foulB"});}
+   else if(r<.665){
+     let p=actorObj(side,m,plans,"card",dismissals);
+     if(p){
+       let key=p.id||p.name,count=(yellows[side][key]||0)+1;yellows[side][key]=count;
+       if(count>=2){dismissals[side][key]=m;ev.push({m,msg:"🟨🟥 Zweite Gelbe für "+p.name+" ("+nm+") – Platzverweis. "+nm+" spielt ab jetzt in Unterzahl.",type:side==="A"?"secondYellowA":"secondYellowB",player:p.name});}
+       else{ev.push({m,msg:"🟨 Gelbe Karte für "+p.name+" ("+nm+").",type:side==="A"?"cardA":"cardB",player:p.name});if(Math.random()<.42){let sub=scheduleCautionSub(side,p,m,plans,dismissals);if(sub)sub.coachReaction=true}}
+     }
+   }
+   else if(r<.672){
+     let p=actorObj(side,m,plans,"card",dismissals);if(p){dismissals[side][p.id]=m;ev.push({m,msg:"🟥 Direkter Platzverweis für "+p.name+" ("+nm+"). "+nm+" muss in Unterzahl weiterspielen.",type:side==="A"?"redA":"redB",player:p.name})}
+   }
+   else if(r<.75)ev.push({m,msg:"🚫 Abseits gegen "+nm+" – der Angriff wird zurückgepfiffen.",type:"offside"});
+   else if(r<.86){let def=side==="A"?"B":"A",dn=def==="A"?TA.name:TB.name,p=actor(def,m,plans,"defense",dismissals);ev.push({m,msg:p?"🛡️ "+p+" klärt im letzten Moment für "+dn+".":"🛡️ "+dn+" verteidigt die Situation stark.",type:def==="A"?"defenseA":"defenseB",sceneKind:"defense",scenePlayer:p,sceneSide:def});}
    else ev.push({m,msg:one(phrases.neutral)});
  });
- goals.forEach(x=>{let tm=x.t==="A"?TA:TB,scorer=actor(x.t,tm.name),assist=assister(x.t,scorer);ev.push({m:x.m,msg:"⚽ TOR "+tm.name.toUpperCase()+"! "+scorer+" trifft."+(assist?" Vorlage: "+assist+".":""),type:x.t==="A"?"goalA":"goalB",scorer:scorer,assist:assist})});
- ev.push({m:45,msg:"⏱ Halbzeit."},{m:90,msg:"⏱ Abpfiff."});ev.sort((x,y)=>x.m-y.m||((x.type||"").startsWith("goal")?1:-1));
- return{ga,gb,ev,venue:venues[idx%venues.length],weather:one(weatherList)}
+ // Substitutions are rendered after card logic so a coach may react to a booked player.
+ for(const side of ["A","B"]){
+   let nm=side==="A"?TA.name:TB.name;
+   for(const sub of plans[side]){
+     if(dismissals[side][sub.out.id]!=null&&dismissals[side][sub.out.id]<=sub.m)continue;
+     let coach=teamCoachLabel(side),reason=sub.reason==="yellow"?" reagiert auf die Verwarnung":" nimmt eine taktische Änderung vor";
+     ev.push({m:sub.m,msg:"🔄 "+coach+reason+": "+sub.in.name+" kommt für "+sub.out.name+" ("+nm+").",type:side==="A"?"subA":"subB",sub_in:sub.in.name,sub_out:sub.out.name,reason:sub.reason});
+   }
+ }
+ let ma=effectiveMetrics("A",plans,dismissals),mb=effectiveMetrics("B",plans,dismissals);
+ let keeperA=(goalkeeperStrength("A",20,plans,dismissals)+goalkeeperStrength("A",72,plans,dismissals))/2,keeperB=(goalkeeperStrength("B",20,plans,dismissals)+goalkeeperStrength("B",72,plans,dismissals))/2;
+ let ratingGap=(ratingA-ratingB)*.018,qualityShift=(Math.random()-.5)*.32;
+ let saveA=keeperSaveChance(keeperA),saveB=keeperSaveChance(keeperB),baseA=1.24+ratingGap+(ma.attack-mb.defense)*.09+(ma.midfield-mb.midfield)*.035+(ma.count-mb.count)*.16+qualityShift,baseB=1.24-ratingGap+(mb.attack-ma.defense)*.09+(mb.midfield-ma.midfield)*.035+(mb.count-ma.count)*.16-qualityShift,avgSave=.42;
+ let lambdaA=Math.max(.08,Math.min(4.8,baseA*((1-saveB)/(1-avgSave)))),lambdaB=Math.max(.08,Math.min(4.8,baseB*((1-saveA)/(1-avgSave))));
+ let ga=Math.min(6,poisson(lambdaA)),gb=Math.min(6,poisson(lambdaB));
+ let sides=[];for(let x=0;x<ga;x++)sides.push("A");for(let x=0;x<gb;x++)sides.push("B");sides.sort(()=>Math.random()-.5);
+ let goals=spacedGoalMinutes(sides.length).map((m,n)=>({m,t:sides[n]}));
+ goals.forEach(x=>{
+   let tm=x.t==="A"?TA:TB,sc=actorObj(x.t,x.m,plans,"goal",dismissals),scorer=sc?.name||null,assist=scorer?assister(x.t,scorer,x.m,plans,dismissals):null,roll=Math.random();
+   if(roll<.07){let opp=x.t==="A"?"B":"A",own=actor(opp,x.m,plans,"ownGoal",dismissals);ev.push({m:x.m,msg:own?"⚽ EIGENTOR! "+own+" lenkt den Ball unglücklich ins eigene Tor. "+tm.name+" profitiert.":"⚽ EIGENTOR zugunsten von "+tm.name+".",type:x.t==="A"?"goalA":"goalB",ownGoal:true,sceneKind:"goal",sceneSide:x.t})}
+   else ev.push({m:x.m,msg:"⚽ TOR "+tm.name.toUpperCase()+"! "+(scorer?scorer+" trifft.":"Der Abschluss sitzt.")+(assist?" Vorlage: "+assist+".":""),type:x.t==="A"?"goalA":"goalB",scorer,assist,sceneKind:"goal",scenePlayer:scorer,sceneSide:x.t});
+ });
+ let used=goals.map(x=>x.m);if(Math.random()<.3){let m=10+rnd(75),guard=0;while(used.some(x=>Math.abs(x-m)<4)&&guard++<30)m=10+rnd(75);let side=Math.random()<sideProb?"A":"B",sc=actor(side,m,plans,"goal",dismissals),nm=side==="A"?TA.name:TB.name;if(sc)ev.push({m,msg:"🚫 ABSEITS-TOR! "+sc+" trifft für "+nm+", doch die Fahne geht hoch – der Treffer zählt nicht.",type:"offsideGoal"})}
+ ev.push({m:45,msg:"⏱ Halbzeit."},{m:90,msg:"⏱ Abpfiff."});ev.sort((x,y)=>x.m-y.m||((x.type||"").startsWith("sub")?-2:((x.type||"").startsWith("goal")?1:-1)));
+ ga=ev.filter(e=>e.type==="goalA").length;gb=ev.filter(e=>e.type==="goalB").length;
+ let posA=Math.max(31,Math.min(69,Math.round(50+(ma.midfield-mb.midfield)*1.6+(ratingA-ratingB)*.11+(Math.random()-.5)*7)));
+ return{ga,gb,ev,venue:seriesVenueOrder[idx]||one(venues),weather:one(weatherList),posA,subs:plans,dismissals,yellows,model:{keeperA,keeperB,lambdaA,lambdaB}}
 }
-function makeSeries(){games=Array.from({length:seriesLen},(_,x)=>buildGame(x));$("#series").dataset.long=seriesLen>5?"1":"0";renderTabs();renderHistory()}
+function makeSeries(){seriesDecision=null;seriesVenueOrder=shuffleCopy(venues);games=Array.from({length:seriesLen},(_,x)=>buildGame(x));$("#series").dataset.long=seriesLen>5?"1":"0";renderTabs();renderHistory()}
 function renderTabs(){$("#series").innerHTML=games.map((x,n)=>'<div class="dot '+(n<g?"done":n===g?"on":"")+'"><b>GAME '+(n+1)+'</b>'+(n<g?x.ga+":"+x.gb:n===g&&running?"LIVE …":"SOON")+'</div>').join("")}
 function renderHistory(){let h=games.map((x,n)=>'<div class="hist"><b>GAME '+(n+1)+'</b><span>'+(n<g?(kindAActive==="club"?"⚽":TA.flag)+' '+x.ga+':'+x.gb+' '+(kindBActive==="club"?"⚽":TB.flag):n===g&&running?'● LIVE':'🔒 WAITING')+'</span><small>'+x.venue+'</small></div>').join("");$("#historyGrid").innerHTML=h;$("#historyGridDesk").innerHTML=h}
 function showPoints(){$("#points").textContent=matchPoints+" MP";$("#pointsDesk").textContent=matchPoints+" MP";$("#pointInfo").textContent=correct+" correct picks · "+played+" series";$("#pointInfoDesk").textContent=correct+" correct picks · "+played+" series";$("#streakBadge").textContent="🔥 Serie "+streak;$("#streakDesk").textContent="🔥 Serie "+streak}
@@ -186,10 +330,59 @@ function setStadium(){if(!games[g])return;$("#stadiumGame").textContent="GAME "+
 function beginGame(){resetStats();setStadium();running=true;$("#status").textContent="LIVE";$("#next").textContent="Nächstes Ereignis in ca. 3–5 Sekunden …";renderTabs();step()}
 function addStat(type){if(type==="goalA"){A++;$("#a").textContent=A}if(type==="goalB"){B++;$("#b").textContent=B}if(type==="shotA")$("#shotsA").textContent=+$("#shotsA").textContent+1;if(type==="shotB")$("#shotsB").textContent=+$("#shotsB").textContent+1;if(type==="targetA"){$("#shotsA").textContent=+$("#shotsA").textContent+1;$("#targetA").textContent=+$("#targetA").textContent+1}if(type==="targetB"){$("#shotsB").textContent=+$("#shotsB").textContent+1;$("#targetB").textContent=+$("#targetB").textContent+1}if(type==="cornerA")$("#cornA").textContent=+$("#cornA").textContent+1;if(type==="cornerB")$("#cornB").textContent=+$("#cornB").textContent+1;if(type==="foulA")$("#foulsA").textContent=+$("#foulsA").textContent+1;if(type==="foulB")$("#foulsB").textContent=+$("#foulsB").textContent+1;if(type==="cardA")$("#cardsA").textContent=+$("#cardsA").textContent+1;if(type==="cardB")$("#cardsB").textContent=+$("#cardsB").textContent+1}
 function step(){if(!running||paused)return;let game=games[g];if(i>=game.ev.length){finishGame();return}let e=game.ev[i++];$("#minute").textContent=e.m+"'";let msg=e.msg;if((e.type||"").startsWith("goal")){let nextA=A+(e.type==="goalA"),nextB=B+(e.type==="goalB");msg+=" "+nextA+":"+nextB+"."}let d=document.createElement("div");d.className="event"+((e.type||"").startsWith("goal")?" goal":"");d.innerHTML="<b>"+e.m+"'</b><span>"+msg+"</span>";$("#events").prepend(d);addStat(e.type);timer=setTimeout(step,fast?700:3000+rnd(2001))}
-function finishGame(){running=false;let x=games[g];x.ga=A;x.gb=B;if(A>B)serA++;else serB++;$("#serA").textContent=serA;$("#serB").textContent=serB;$("#status").textContent="ENDE";$("#seriesText").textContent=serA===serB?"Series level":serA>serB?TA.name+" führt":TB.name+" führt";$("#report").classList.remove("hidden");$("#reportTitle").textContent="Spiel "+(g+1)+": "+TA.name+" "+A+":"+B+" "+TB.name;let gw=A>B?TA.name:TB.name;$("#reportText").textContent="Kurzbericht: "+gw+" entscheidet dieses eigenständig simulierte Spiel für sich. Der vollständige Bericht gehört zur gewählten Begegnung "+TA.name+" gegen "+TB.name+".";$("#reportLink").href="#";$("#reportLink").textContent="Match report is being prepared";g++;renderTabs();renderHistory();if(g<seriesLen){$("#next").textContent="Next game starts in 6 seconds …";timer=setTimeout(beginGame,fast?1200:6000)}else finishSeries()}
-function finishSeries(){running=false;$("#status").textContent="END";let win=serA>serB?TA.name:TB.name,hit=(pick==="I"&&serA>serB)||(pick==="S"&&serB>serA);played++;matchPoints+=10;if(hit){correct++;streak++;matchPoints+=20}else streak=0;localStorage.setItem("biMatchPoints",matchPoints);localStorage.setItem("biMatchPlayed",played);localStorage.setItem("biMatchCorrect",correct);localStorage.setItem("biMatchStreak",streak);showPoints();$("#seriesText").textContent=win;$("#next").textContent=win+" · "+Math.max(serA,serB)+":"+Math.min(serA,serB);$("#start").textContent="TIME CLASH";let cred=ownerRef();fetch(REPORT_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"archive",credential:cred,guest_ref:guestRef(),language:"en",team_a:TA.name,team_b:TB.name,series_length:seriesLen,series_a:serA,series_b:serB,winner:win,prediction:pick==="I"?TA.name:TB.name,prediction_correct:hit,games})}).then(x=>x.json()).then(d0=>{if(d0.report_url){$("#report").classList.remove("hidden");$("#reportLink").href=d0.report_url;$("#reportLink").textContent="Open full TIME-CLASH report";}}).catch(()=>{});try{let m=JSON.parse(localStorage.getItem("biMyClub")||"null"),hasOwn=kindAActive==="myclub"||kindBActive==="myclub";if(m&&hasOwn){let ownA=kindAActive==="myclub",ownGoals=ownA?games.reduce((s,x)=>s+(+x.ga||0),0):games.reduce((s,x)=>s+(+x.gb||0),0),oppGoals=ownA?games.reduce((s,x)=>s+(+x.gb||0),0):games.reduce((s,x)=>s+(+x.ga||0),0),won=ownA?serA>serB:serB>serA,scorers=[];games.forEach(x=>(x.ev||[]).forEach(e=>{if((ownA&&e.type==="goalA")||(!ownA&&e.type==="goalB"))if(e.scorer)scorers.push(e.scorer)}));if(cred)fetch(CLUB_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"finish",owner_ref:cred,language:"en",team_a:TA.name,team_b:TB.name,series_length:seriesLen,series_a:serA,series_b:serB,winner:win,prediction:pick==="I"?TA.name:TB.name,prediction_correct:hit,match_points:hit?30:10,own_a:ownA,opponent:ownA?TB.name:TA.name,games})}).then(async x=>({ok:x.ok,data:await x.json()})).then(({ok,data:d0})=>{if(!ok||!d0.club)return;m.ratingPoints=d0.club.rating_points;m.league=d0.club.league;m.winsTotal=Number(d0.club.wins_total||0);if(d0.progress){memberProgress=d0.progress;m.budget=d0.progress.budget;localStorage.setItem("biMyClubProgress",JSON.stringify(d0.progress))}localStorage.setItem("biMyClub",JSON.stringify(m));let hist=JSON.parse(localStorage.getItem("biMyClubHistory")||"[]");hist.push({date:new Date().toLocaleDateString("en"),opponent:ownA?TB.name:TA.name,score:ownGoals+":"+oppGoals,goals:ownGoals,won,scorers,seriesLength:seriesLen});localStorage.setItem("biMyClubHistory",JSON.stringify(hist));memberClub=d0.club;renderLevelRoad();$("#memberLevel").textContent=levelLabel(d0.progress?.index||0);$("#memberWins").textContent=m.winsTotal;$("#memberBudget").textContent=d0.progress?.budget||m.budget||100}).catch(()=>{})}}catch(e){}}
+function finishGame(){
+ running=false;let x=games[g];x.ga=A;x.gb=B;
+ let ptsA=A>B?3:A===B?1:0,ptsB=B>A?3:A===B?1:0;x.pointsA=ptsA;x.pointsB=ptsB;serA+=ptsA;serB+=ptsB;
+ $("#serA").textContent=serA;$("#serB").textContent=serB;$("#status").textContent="ENDE";$("#seriesText").textContent=serA===serB?"Punktestand ausgeglichen":serA>serB?TA.name+" führt nach Punkten":TB.name+" führt nach Punkten";
+ $("#report").classList.remove("hidden");$("#reportTitle").textContent="Spiel "+(g+1)+": "+TA.name+" "+A+":"+B+" "+TB.name;
+ let summary=A===B?"Unentschieden – beide Teams erhalten 1 Serienpunkt.":(A>B?TA.name:TB.name)+" gewinnt und erhält 3 Serienpunkte.";
+ $("#reportText").textContent="Kurzbericht: "+summary+" Serienstand: "+serA+":"+serB+" Punkte. Der vollständige Bericht gehört zur Begegnung "+TA.name+" gegen "+TB.name+".";
+ $("#reportLink").href="#";$("#reportLink").textContent="Begegnungsbericht wird vorbereitet";g++;renderTabs();renderHistory();
+ if(g<seriesLen){$("#next").textContent="Nächstes Spiel startet in 6 Sekunden …";timer=setTimeout(beginGame,fast?1200:6000)}else finishSeries()
+}
+function tieBreakStrength(side){
+ let p=effectiveMetrics(side,{A:[],B:[]},null),k=goalkeeperStrength(side,90,{A:[],B:[]},null),r=side==="A"?TA.rating:TB.rating;
+ return p.attack*.34+p.midfield*.26+p.defense*.2+k*.12+r*.08
+}
+function simulatePenaltyShootout(){
+ let a=startingLineup("A").sort((x,y)=>playerWeight(y,"penalty")-playerWeight(x,"penalty")),b=startingLineup("B").sort((x,y)=>playerWeight(y,"penalty")-playerWeight(x,"penalty")),ka=goalkeeperObj("A",90,{A:[],B:[]}),kb=goalkeeperObj("B",90,{A:[],B:[]}),sa=0,sb=0,events=[],round=0;
+ const kick=(side,p,keeper)=>{let chance=Math.max(.52,Math.min(.94,.76+(Number(p?.strength||10)-12)*.014-(Number(keeper?.strength||10)-12)*.017));return Math.random()<chance};
+ for(round=0;round<5;round++){let pa=a[round%Math.max(1,a.length)],pb=b[round%Math.max(1,b.length)],ha=kick("A",pa,kb),hb=kick("B",pb,ka);if(ha)sa++;if(hb)sb++;events.push({m:121+round*2,msg:"🎯 Elfmeterschießen "+TA.name+": "+(pa?.name||"Schütze")+" "+(ha?"trifft.":"scheitert.")+" Stand "+sa+":"+sb+".",type:"shootout"});events.push({m:122+round*2,msg:"🎯 Elfmeterschießen "+TB.name+": "+(pb?.name||"Schütze")+" "+(hb?"trifft.":"scheitert.")+" Stand "+sa+":"+sb+".",type:"shootout"})}
+ let sudden=0;while(sa===sb&&sudden<10){let pa=a[(5+sudden)%Math.max(1,a.length)],pb=b[(5+sudden)%Math.max(1,b.length)],ha=kick("A",pa,kb),hb=kick("B",pb,ka);if(ha)sa++;if(hb)sb++;events.push({m:131+sudden*2,msg:"🎯 Sudden Death "+TA.name+": "+(pa?.name||"Schütze")+" "+(ha?"trifft.":"verschießt.")+" Stand "+sa+":"+sb+".",type:"shootout"});events.push({m:132+sudden*2,msg:"🎯 Sudden Death "+TB.name+": "+(pb?.name||"Schütze")+" "+(hb?"trifft.":"verschießt.")+" Stand "+sa+":"+sb+".",type:"shootout"});sudden++}
+ if(sa===sb){if(Math.random()<.5)sa++;else sb++}
+ return{a:sa,b:sb,winner:sa>sb?TA.name:TB.name,events}
+}
+function resolveSeriesTie(){
+ let sA=tieBreakStrength("A"),sB=tieBreakStrength("B"),edge=Math.max(-.22,Math.min(.22,(sA-sB)*.018)),extraA=Math.min(2,poisson(Math.max(.08,.32+edge))),extraB=Math.min(2,poisson(Math.max(.08,.32-edge))),events=[{m:91,msg:"⏱ Nach "+seriesLen+" Spielen steht es "+serA+":"+serB+" nach Punkten. Die Serienentscheidung geht in die Verlängerung.",type:"seriesExtraStart"}];
+ if(extraA)for(let n=0;n<extraA;n++){let p=actor("A",95+rnd(23),{A:[],B:[]},"goal"),m=94+rnd(25);events.push({m,msg:"⚽ VERLÄNGERUNG: "+TA.name+" trifft"+(p?" durch "+p:"")+".",type:"seriesExtraGoalA",scorer:p})}
+ if(extraB)for(let n=0;n<extraB;n++){let p=actor("B",95+rnd(23),{A:[],B:[]},"goal"),m=94+rnd(25);events.push({m,msg:"⚽ VERLÄNGERUNG: "+TB.name+" trifft"+(p?" durch "+p:"")+".",type:"seriesExtraGoalB",scorer:p})}
+ events.push({m:120,msg:"⏱ Ende der Verlängerung. Stand "+extraA+":"+extraB+".",type:"seriesExtraEnd"});
+ if(extraA!==extraB)return{method:"extra_time",extra_a:extraA,extra_b:extraB,penalties_a:null,penalties_b:null,winner:extraA>extraB?TA.name:TB.name,events:events.sort((a,b)=>a.m-b.m)};
+ let shoot=simulatePenaltyShootout();events.push({m:121,msg:"🎯 Auch die Verlängerung bringt keine Entscheidung – Elfmeterschießen.",type:"shootoutStart"},...shoot.events,{m:160,msg:"🏁 "+shoot.winner+" gewinnt das Elfmeterschießen "+shoot.a+":"+shoot.b+".",type:"shootoutEnd"});
+ return{method:"penalties",extra_a:extraA,extra_b:extraB,penalties_a:shoot.a,penalties_b:shoot.b,winner:shoot.winner,events:events.sort((a,b)=>a.m-b.m)}
+}
+function renderSeriesDecision(dec){
+ if(!dec)return;let last=games[games.length-1];last.seriesDecision={method:dec.method,extra_a:dec.extra_a,extra_b:dec.extra_b,penalties_a:dec.penalties_a,penalties_b:dec.penalties_b,winner:dec.winner};last.ev.push(...dec.events);last.ev.sort((a,b)=>Number(a.m||0)-Number(b.m||0));
+ for(const e of dec.events){let d=document.createElement("div");d.className="event"+(String(e.type).includes("Goal")?" goal":"");d.innerHTML="<b>"+(e.m<=120?e.m+"'":"ELF")+"</b><span>"+e.msg+"</span>";$("#events").prepend(d)}
+}
+function finishSeries(){
+ running=false;$("#status").textContent="SERIE ENDE";seriesDecision=serA===serB?resolveSeriesTie():null;if(seriesDecision)renderSeriesDecision(seriesDecision);
+ let win=seriesDecision?.winner||(serA>serB?TA.name:TB.name),hit=(pick==="I"&&win===TA.name)||(pick==="S"&&win===TB.name);played++;matchPoints+=10;if(hit){correct++;streak++;matchPoints+=20}else streak=0;
+ localStorage.setItem("biMatchPoints",matchPoints);localStorage.setItem("biMatchPlayed",played);localStorage.setItem("biMatchCorrect",correct);localStorage.setItem("biMatchStreak",streak);showPoints();
+ let decisionText=seriesDecision?(seriesDecision.method==="penalties"?" · Entscheidung nach Verlängerung und Elfmeterschießen "+seriesDecision.penalties_a+":"+seriesDecision.penalties_b:" · Entscheidung nach Verlängerung "+seriesDecision.extra_a+":"+seriesDecision.extra_b):"";
+ $("#seriesText").textContent="SERIENSIEGER: "+win;$("#next").textContent="TIME CLASH beendet · Serienpunkte "+serA+":"+serB+decisionText+" · "+win+" gewinnt. Dein Tipp: "+(hit?"RICHTIG ✓ · +30 CLASH POINTS":"DANEBEN · +10 CLASH POINTS");$("#start").textContent="NEUEN TIME CLASH STARTEN";
+ let cred=ownerRef();fetch(REPORT_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"archive",credential:cred,guest_ref:guestRef(),language:TC_DISPLAY_LANG,team_a:TA.name,team_b:TB.name,series_length:seriesLen,series_a:serA,series_b:serB,series_decision:seriesDecision,winner:win,prediction:pick==="I"?TA.name:TB.name,prediction_correct:hit,games})}).then(x=>x.json()).then(d=>{if(d.report_url){$("#report").classList.remove("hidden");let rp=String(d.report_url||"").replace(/^\/de\//,"/"+TC_DISPLAY_LANG+"/");$("#reportLink").href="https://betinsight.club"+rp+(cred?"&from=app":"");$("#reportLink").textContent="Vollständigen TIME-CLASH-Bericht ansehen";if(cred&&d.report?.public_slug&&(kindAActive==="myclub"||kindBActive==="myclub")){$("#newspaperBtn").dataset.slug=d.report.public_slug;$("#newspaperBtn").disabled=false;$("#newspaperBtn").setAttribute("aria-disabled","false");$("#newspaperBtn").textContent="📰 ZEITUNGSBILD ERSTELLEN";$("#newspaperBtn").title="Bildmoment wählen und Zeitungsbild im Medienbereich erstellen"}}if(d.registered&&d.balance){memberBalance=d.balance;renderBalance();$("#next").textContent+=" · +"+d.earned_points+" Clash Points · "+Number(d.balance.clash_tokens||0)+" Spiele verfügbar"}}).catch(()=>{});
+ try{
+  let m=JSON.parse(localStorage.getItem("biMyClub")||"null"),hasOwn=kindAActive==="myclub"||kindBActive==="myclub";
+  if(m&&hasOwn){
+   let ownA=kindAActive==="myclub",won=ownA?win===TA.name:win===TB.name,ownGoals=ownA?games.reduce((s,x)=>s+(+x.ga||0),0):games.reduce((s,x)=>s+(+x.gb||0),0),oppGoals=ownA?games.reduce((s,x)=>s+(+x.gb||0),0):games.reduce((s,x)=>s+(+x.ga||0),0),scorers=[];
+   games.forEach(x=>(x.ev||[]).forEach(e=>{if((ownA&&e.type==="goalA")||(!ownA&&e.type==="goalB"))if(e.scorer)scorers.push(e.scorer)}));let owner=ownerRef();
+   if(owner){fetch(CLUB_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"finish",owner_ref:owner,language:TC_DISPLAY_LANG,team_a:TA.name,team_b:TB.name,series_length:seriesLen,series_a:serA,series_b:serB,series_decision:seriesDecision,winner:win,prediction:pick==="I"?TA.name:TB.name,prediction_correct:hit,match_points:hit?30:10,own_a:ownA,opponent:ownA?TB.name:TA.name,games})}).then(async x=>({ok:x.ok,data:await x.json()})).then(({ok,data:d})=>{if(!ok){$("#next").textContent+=" · Clubwertung konnte nicht gespeichert werden.";return}if(d.club){m.ratingPoints=d.club.rating_points;m.league=d.club.league;m.winsTotal=Number(d.club.wins_total||0);if(d.progress){memberProgress=d.progress;m.budget=d.progress.budget;localStorage.setItem("biMyClubProgress",JSON.stringify(d.progress))}localStorage.setItem("biMyClub",JSON.stringify(m));let hist=JSON.parse(localStorage.getItem("biMyClubHistory")||"[]");hist.push({date:new Date().toLocaleDateString("en-GB"),opponent:ownA?TB.name:TA.name,score:ownGoals+":"+oppGoals,seriesPoints:(ownA?serA:serB)+":"+(ownA?serB:serA),goals:ownGoals,won,scorers,seriesLength:seriesLen,decision:seriesDecision});localStorage.setItem("biMyClubHistory",JSON.stringify(hist));memberClub=d.club;renderLevelRoad();$("#memberLevel").textContent=String(d.progress?.name||d.club.league).replace("-Liga","");$("#memberWins").textContent=m.winsTotal;$("#memberBudget").textContent=d.progress?.budget||m.budget||100;$("#next").textContent+=" · Dein Club: "+m.winsTotal+" Siege · "+String(m.league).replace("-Liga","")+(d.progress?.elite?" · 🏆 alle Gegner freigeschaltet":" · noch "+Number(d.progress?.wins_missing||0)+" Siege bis "+String(d.progress?.next_level||"").replace("-Liga",""));if(d.promotion_reward?.granted){let bonus=Number(d.promotion_reward.reward_tokens||0);$("#next").textContent+=" · 🎁 AUFSTIEGSBONUS: +"+bonus+" Clash Token";memberBalance=memberBalance||{};memberBalance.permanent_game_credits=Number(d.promotion_reward.permanent_game_credits||memberBalance.permanent_game_credits||0);memberBalance.clash_tokens=Number(d.promotion_reward.clash_tokens||0);renderBalance()}}}).catch(()=>{$("#next").textContent+=" · Clubwertung konnte nicht synchronisiert werden."})}
+  }
+ }catch(e){}
+}
 function selectedLevel(side){let kind=side==="A"?kindAActive:kindBActive,t=side==="A"?TA:TB;if(kind==="myclub")return memberProgress?.index??0;if(kind==="community")return Number(communityClubMeta[t.name]?.level_index??levelIndexFromName(communityClubMeta[t.name]?.league));return null}
-$("#start").onclick=async()=>{if(running)return;if(!chosenA||!chosenB)return;if(!pick)return;let kindA=kindAActive,kindB=kindBActive,internalA=["myclub","community"].includes(kindA),internalB=["myclub","community"].includes(kindB);if((internalA||internalB)&&!ownerRef()){$("#next").textContent="Internal BetInsight teams are only available to signed-in users.";return}if(internalA!==internalB&&!memberProgress?.elite){$("#next").textContent="Your own/community team can only face national teams or historical clubs after reaching Elite.";return}if(internalA&&internalB&&!memberProgress?.elite){let la=selectedLevel("A"),lb=selectedLevel("B");if(la===null||lb===null||Math.abs(la-lb)>1){$("#next").textContent="This league duel is locked. Only opponents on the same level or a maximum of one level higher/lower are allowed.";return}}if(typeof rosterReady==="function"&&(!rosterReady("A")||!rosterReady("B"))){$("#next").textContent="Roster data incomplete.";return}let hits=conflicts();if(hits.some(p=>!conflictChoices[p.id]))return;if((internalA||internalB)&&ownerRef()&&!(await consumeSeriesCredit()))return;if(lastNewsBlobUrl){URL.revokeObjectURL(lastNewsBlobUrl);lastNewsBlobUrl=""}lastNewsBlob=null;$("#newspaperPreview").classList.add("hidden");$("#newspaperPreview").innerHTML="";clearTimeout(timer);g=0;serA=serB=0;$("#serA").textContent=$("#serB").textContent=0;makeSeries();beginGame()};
+$("#start").onclick=async()=>{if(running)return;if(!chosenA||!chosenB)return;if(!pick)return;let kindA=kindAActive,kindB=kindBActive,internalA=["myclub","community"].includes(kindA),internalB=["myclub","community"].includes(kindB);if((internalA||internalB)&&!ownerRef()){$("#next").textContent="Internal BetInsight teams are only available to signed-in users.";return}if(internalA!==internalB&&!memberProgress?.elite){$("#next").textContent="Your own/community team can only face national teams or historical clubs after reaching Elite.";return}if(internalA&&internalB&&!memberProgress?.elite){let la=selectedLevel("A"),lb=selectedLevel("B");if(la===null||lb===null||Math.abs(la-lb)>1){$("#next").textContent="This league duel is locked. Only opponents on the same level or a maximum of one level higher/lower are allowed.";return}}if(typeof rosterReady==="function"&&(!rosterReady("A")||!rosterReady("B"))){$("#next").textContent="Roster data incomplete.";return}let hits=conflicts();if(hits.some(p=>!conflictChoices[p.id]))return;if((internalA||internalB)&&ownerRef()&&!(await consumeSeriesCredit()))return;if(lastNewsBlobUrl){URL.revokeObjectURL(lastNewsBlobUrl);lastNewsBlobUrl=""}lastNewsBlob=null;$("#newspaperPreview").classList.add("hidden");$("#newspaperPreview").innerHTML="";clearTimeout(timer);g=0;serA=serB=0;seriesDecision=null;$("#serA").textContent=$("#serB").textContent=0;makeSeries();beginGame()};
 function newsHeadline(winner){return String(winner).toUpperCase()+" WINS TIME CLASH"}
 function wrapCanvas(ctx,text,x,y,maxWidth,lineHeight,maxLines=4){let words=String(text).split(/\s+/),line="",n=0;for(let i=0;i<words.length;i++){let test=line?line+" "+words[i]:words[i];if(ctx.measureText(test).width>maxWidth&&line){ctx.fillText(line,x,y+n*lineHeight);n++;line=words[i];if(n>=maxLines-1)break}else line=test}if(n<maxLines)ctx.fillText(line,x,y+n*lineHeight);return n+1}
 function createNewspaperImage(){if(lastNewsBlobUrl){$("#newspaperPreview").classList.remove("hidden");return}let goals=[];games.forEach((gm,gi)=>(gm.ev||[]).forEach(e=>{if(String(e.type||"").startsWith("goal"))goals.push({...e,game:gi+1,team:e.type==="goalA"?TA.name:TB.name})}));let decisive=goals.slice().sort((x,y)=>(y.game-x.game)||(Number(y.m)-Number(x.m)))[0]||null,winner=serA>serB?TA.name:TB.name,scorer=decisive?.scorer||"MATCHWINNER",cv=document.createElement("canvas");cv.width=1080;cv.height=1350;let x=cv.getContext("2d"),paper=x.createLinearGradient(0,0,0,1350);paper.addColorStop(0,"#f4efe3");paper.addColorStop(1,"#ded4c2");x.fillStyle=paper;x.fillRect(0,0,1080,1350);x.fillStyle="#171512";x.fillRect(55,55,970,3);x.font="700 34px Georgia";x.fillText("BETINSIGHT TIME CLASH",60,105);x.font="18px Georgia";x.textAlign="right";x.fillText("SPORT · VIRTUAL EDITION",1015,103);x.textAlign="left";x.font="900 70px Georgia";let lines=wrapCanvas(x,newsHeadline(winner),60,205,950,74,3),photoY=245+(lines-1)*74;x.fillStyle="#071d2b";x.fillRect(60,photoY,700,510);let glow=x.createRadialGradient(410,photoY+250,10,410,photoY+250,330);glow.addColorStop(0,"#2e8ab7");glow.addColorStop(1,"#06131d");x.fillStyle=glow;x.fillRect(60,photoY,700,510);x.fillStyle="#e7f5ff";x.beginPath();x.arc(410,photoY+145,55,0,Math.PI*2);x.fill();x.fillStyle="#102e43";x.beginPath();x.moveTo(300,photoY+440);x.lineTo(335,photoY+215);x.quadraticCurveTo(410,photoY+180,485,photoY+215);x.lineTo(520,photoY+440);x.closePath();x.fill();x.fillStyle="#fff";x.font="900 92px Arial";x.textAlign="center";let num=(String(scorer).match(/\b\d{1,2}\b/)||["10"])[0];x.fillText(num,410,photoY+355);x.textAlign="left";x.fillStyle="#f7c64e";x.font="800 26px Arial";x.fillText("MATCHWINNER",790,photoY+40);x.fillStyle="#171512";x.font="900 58px Georgia";x.fillText(serA+" : "+serB,790,photoY+105);x.font="700 20px Arial";wrapCanvas(x,TA.name+" vs. "+TB.name,790,photoY+150,220,27,3);x.fillStyle="#171512";x.font="800 24px Arial";x.fillText("HIGHLIGHTS",790,photoY+285);x.font="18px Arial";let hs=goals.slice(-3);if(!hs.length)hs=[{m:"—",scorer:"—"}];hs.forEach((e,k)=>wrapCanvas(x,(e.m||"—")+"'  "+(e.scorer||"")+" · "+(e.team||""),790,photoY+330+k*62,220,24,2));x.fillStyle="#171512";x.font="700 28px Georgia";x.fillText("The decisive TIME-CLASH moment",60,photoY+565);x.font="21px Georgia";let teaser=String(scorer)+" shaped the series. "+winner+" wins the TIME CLASH "+serA+":"+serB+". This image was created on request from the saved simulation data.";wrapCanvas(x,teaser,60,photoY+615,950,31,6);x.fillStyle="#6e6254";x.font="16px Arial";x.fillText("Fictional entertainment simulation · not a betting prediction",60,1310);cv.toBlob(bl=>{if(!bl)return;lastNewsBlob=bl;lastNewsBlobUrl=URL.createObjectURL(bl);let box=$("#newspaperPreview");box.innerHTML='<img src="'+lastNewsBlobUrl+'" alt="TIME CLASH"><div class="reportActions"><button class="shareBtn" id="shareNewsImage">↗ SHARE</button></div>';box.classList.remove("hidden");$("#shareNewsImage").onclick=shareNewsImage},"image/png")}
