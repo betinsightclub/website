@@ -76,3 +76,14 @@ Elite ist aktuell vor allem die Freischaltung der vollständigen Gegnerwelt. Ein
 - Teilnahme nur für verifizierte BetInsight-User.
 - Geschenk-Units aus dem Ranking erzeugen kein zusätzliches TIME-CLASH-Spielguthaben.
 - Die konkrete Ranking-Formel und die automatische Verbuchung der Gewinner-Units werden separat serverseitig festgelegt, bevor die erste Oktoberwertung abgeschlossen wird.
+
+
+## 10. Aufstiegsbonus in Clash Token
+- Start: kein Aufstiegsbonus.
+- Bronze: beim erstmaligen Erreichen automatisch +5 dauerhafte Clash Token.
+- Silber: beim erstmaligen Erreichen automatisch +5 dauerhafte Clash Token.
+- Gold: beim erstmaligen Erreichen automatisch +5 dauerhafte Clash Token.
+- Platin: beim erstmaligen Erreichen automatisch +5 dauerhafte Clash Token.
+- Elite: beim erstmaligen Erreichen automatisch +20 dauerhafte Clash Token und Freischaltung aller Gegner.
+- Jeder Levelbonus kann pro Club/BetInsight-Konto nur einmal vergeben werden.
+- Die Token werden serverseitig als dauerhaftes TIME-CLASH-Spielguthaben verbucht und verfallen nicht beim Wochenwechsel.
