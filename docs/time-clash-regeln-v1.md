@@ -87,3 +87,19 @@ Elite ist aktuell vor allem die Freischaltung der vollständigen Gegnerwelt. Ein
 - Elite: beim erstmaligen Erreichen automatisch +20 dauerhafte Clash Token und Freischaltung aller Gegner.
 - Jeder Levelbonus kann pro Club/BetInsight-Konto nur einmal vergeben werden.
 - Die Token werden serverseitig als dauerhaftes TIME-CLASH-Spielguthaben verbucht und verfallen nicht beim Wochenwechsel.
+
+
+## 11. Fußball- und Simulationslogik
+- Einzelspiele dürfen regulär unentschieden enden. Es wird kein künstliches Siegtor mehr erzeugt.
+- Serienwertung pro Einzelspiel: Sieg = 3 Punkte, Unentschieden = 1 Punkt, Niederlage = 0 Punkte.
+- Nach 3, 5 oder 10 Einzelspielen muss die TIME-CLASH-Serie einen Sieger haben. Bei gleicher Serienpunktzahl folgt eine zusätzliche Serien-Verlängerung; bleibt diese unentschieden, folgt Elfmeterschießen mit fünf Schützen und bei Bedarf Sudden Death.
+- Gelbe Karten werden je Spieler und Einzelspiel gezählt. Die zweite Gelbe im selben Spiel führt zu Gelb-Rot/Platzverweis.
+- Ein Platzverweis reduziert die Mannschaft für den Rest des Einzelspiels; der ausgeschlossene Spieler darf nicht ersetzt werden.
+- Trainer können einen bereits verwarnten Spieler aus taktischen Gründen auswechseln. Regulär sind maximal fünf Wechsel pro Mannschaft und Einzelspiel vorgesehen.
+- Direkte rote Karten, Abseits, Eigentore, Fouls, Ecken, Paraden und taktische Wechsel bleiben mögliche Ereignisse.
+- Stadien werden für jede neue Serie neu gemischt. Es gibt keine feste Reihenfolge und keinen festen Start in Rom.
+- Individuelle Spielerstärke ist auf 25 Punkte begrenzt.
+- Die Punkteverteilung innerhalb des Teams ist für die Simulation positionsbezogen: Angriff wird gegen gegnerische Abwehr, Mittelfeld gegen Mittelfeld und Abschlusswahrscheinlichkeit gegen die gegnerische Torwartstärke bewertet.
+- Ein sehr starker Torwart reduziert die gegnerische Torwahrscheinlichkeit deutlich; ein schwacher Torwart erhöht sie deutlich.
+- Die genaue interne Punkteverteilung eines gegnerischen User-Clubs wird dem Gegner nicht offengelegt.
+- Die 3/1/0-Serienpunkte und eine eventuell notwendige Serienentscheidung werden zusätzlich serverseitig validiert, bevor ein Bericht gespeichert oder ein Clubergebnis gewertet wird.
