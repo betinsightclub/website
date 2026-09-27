@@ -16,6 +16,15 @@ const reportMap={
 "BI-20260920-134759-MAR":"valencia-real-sociedad-20-09-2026/",
 "BI-20260925-185756-MAR":"girona-fc-albacete-25-09-2026/"
 };
+const lang=(document.documentElement.lang||"de").toLowerCase().split("-")[0];
+const C={
+de:{odds:"Quote",units:"Units",score:"Endstand",won:"Gewonnen",lost:"Verloren",read:"Auswertung lesen →"},
+en:{odds:"Odds",units:"Units",score:"Final score",won:"Won",lost:"Lost",read:"Read review →"},
+es:{odds:"Cuota",units:"Units",score:"Resultado final",won:"Ganado",lost:"Perdido",read:"Leer análisis →"},
+pt:{odds:"Odd",units:"Units",score:"Placar final",won:"Ganho",lost:"Perdido",read:"Ler análise →"},
+it:{odds:"Quota",units:"Units",score:"Risultato finale",won:"Vinto",lost:"Perso",read:"Leggi analisi →"},
+fr:{odds:"Cote",units:"Units",score:"Score final",won:"Gagné",lost:"Perdu",read:"Lire le bilan →"}
+}[lang]||{odds:"Quote",units:"Units",score:"Endstand",won:"Gewonnen",lost:"Verloren",read:"Auswertung lesen →"};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const n=v=>{const s=String(v??"").trim();return Number(s.includes(",")?s.replace(/\./g,"").replace(",","."):s)||0};
 const dnum=v=>{const m=String(v||"").match(/(\d{2})\.(\d{2})\.(\d{4})/);return m?Number(m[3]+m[2]+m[1]):0};
@@ -24,13 +33,13 @@ fetch(URL,{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(rows=
  rows.filter(r=>r&&r.qualitaetsrelevant==="JA"&&r.sichtbar_fuer_teilnehmer==="JA"&&(r.ergebnis_status==="GEWONNEN"||r.ergebnis_status==="VERLOREN")&&dnum(r.spiel_datum)>=20260828&&n(r.preis_units)>0)
  .sort((a,b)=>dnum(a.spiel_datum)-dnum(b.spiel_datum)||String(a.bestaetigt_am||"").localeCompare(String(b.bestaetigt_am||"")))
  .forEach(r=>{
-   const mapped=reportMap[r.tipp_id];
-   if(mapped&&grid.querySelector('a[href="'+mapped+'"]'))return;
+   const staticPath=reportMap[r.tipp_id];
+   if(staticPath&&grid.querySelector('a[href="'+staticPath+'"]'))return;
    if(grid.querySelector('[data-live-id="'+CSS.escape(String(r.tipp_id))+'"]'))return;
-   const won=r.ergebnis_status==="GEWONNEN",tag=mapped?"a":"article",el=document.createElement(tag);
+   const won=r.ergebnis_status==="GEWONNEN",el=document.createElement("a");
    el.className="report-card";el.dataset.liveId=String(r.tipp_id||"");
-   if(mapped)el.href=mapped;
-   el.innerHTML='<span class="date">'+esc(r.spiel_datum)+' · '+esc(r.liga||r.sportart||"")+'</span><h2>'+esc(r.spiel)+'</h2><p>'+esc(r.tipp||r.markt||"")+'</p><div class="cardmeta"><span>Quote '+esc(r.quote)+'</span><span>'+esc(r.preis_units)+' Units</span>'+(r.endergebnis?'<span>Endstand '+esc(r.endergebnis)+'</span>':'')+'<span class="'+(won?"result-win":"result-loss")+'">'+(won?"Gewonnen":"Verloren")+'</span></div><span class="read">'+(mapped?"Auswertung lesen →":"Ergebnis bestätigt")+'</span>';
+   el.href="bericht/?id="+encodeURIComponent(String(r.tipp_id||""));
+   el.innerHTML='<span class="date">'+esc(r.spiel_datum)+' · '+esc(r.liga||r.sportart||"")+'</span><h2>'+esc(r.spiel)+'</h2><p>'+esc(r.tipp||r.markt||"")+'</p><div class="cardmeta"><span>'+C.odds+' '+esc(r.quote)+'</span><span>'+esc(r.preis_units)+' '+C.units+'</span>'+(r.endergebnis?'<span>'+C.score+' '+esc(r.endergebnis)+'</span>':'')+'<span class="'+(won?"result-win":"result-loss")+'">'+(won?C.won:C.lost)+'</span></div><span class="read">'+C.read+'</span>';
    grid.appendChild(el);
  });
 }).catch(()=>{});
