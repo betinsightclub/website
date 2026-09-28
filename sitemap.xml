@@ -179,7 +179,7 @@
   </url>
   <url>
     <loc>https://betinsight.club/en/ads/</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-28</lastmod>
   </url>
   <url>
     <loc>https://betinsight.club/en/ads/qwikad-miami-dade-nfl-nba-fan-another-game-worth-watching/</loc>
@@ -1135,5 +1135,19 @@
   <url>
     <loc>https://betinsight.club/social/facebook/football-analysis-20260927/</loc>
     <lastmod>2026-09-27</lastmod>
+  </url>
+  <url>
+    <loc>https://betinsight.club/en/ads/qwikad-kaohsiung-data-driven-football-analysis/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://betinsight.club/en/ads/qwikad-kaohsiung-data-driven-football-analysis/" />
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://betinsight.club/zh-tw/publications/qwikad-kaohsiung-football-data-analysis/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://betinsight.club/en/ads/qwikad-kaohsiung-data-driven-football-analysis/" />
+  </url>
+  <url>
+    <loc>https://betinsight.club/zh-tw/publications/qwikad-kaohsiung-football-data-analysis/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://betinsight.club/en/ads/qwikad-kaohsiung-data-driven-football-analysis/" />
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://betinsight.club/zh-tw/publications/qwikad-kaohsiung-football-data-analysis/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://betinsight.club/en/ads/qwikad-kaohsiung-data-driven-football-analysis/" />
   </url>
 </urlset>
