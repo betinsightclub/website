@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>BetInsight – Neue Startseite Muster V6</title>
+  <title>BetInsight – Neue Startseite Muster V7</title>
   <meta name="description" content="Musterseite für das neue BetInsight Ecosystem.">
   <link rel="icon" href="../favicon.ico">
   <style>
@@ -13,13 +13,13 @@
       --text:#f5f8fb;--muted:#a8b6c8;--blue:#2b8cff;--cyan:#48d7ff;--green:#46db9a;--gold:#f7c85d;
       --shadow:0 24px 80px rgba(0,0,0,.35);--radius:24px;--max:1180px
     }
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;scroll-padding-top:78px}body{margin:0;overscroll-behavior-y:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;scroll-padding-top:92px}body{margin:0;overscroll-behavior-y:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
     radial-gradient(circle at 15% 5%,rgba(43,140,255,.15),transparent 28%),
     radial-gradient(circle at 85% 10%,rgba(72,215,255,.08),transparent 26%),
     linear-gradient(180deg,var(--bg),#06101b 38%,#07111d);color:var(--text)}
     a{color:inherit;text-decoration:none}img{max-width:100%;display:block}.wrap{width:min(var(--max),calc(100% - 36px));margin:auto}
     .topbar{position:sticky;top:0;z-index:50;background:rgba(5,11,19,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-    .nav{height:78px;display:flex;align-items:center;gap:22px}.brand{display:flex;align-items:center;min-width:122px}.brand img{height:48px;width:auto;transform-origin:left center}.links{display:flex;gap:18px;margin-left:auto;color:#cbd7e6;font-size:14px}.links a:hover{color:white}
+    .nav{height:92px;display:flex;align-items:center;gap:22px}.brand{display:flex;align-items:center;justify-content:flex-start;min-width:176px;height:92px;overflow:visible}.brand img{height:68px;width:auto;transform:scale(1.55);transform-origin:left center;display:block}.links{display:flex;gap:18px;margin-left:auto;color:#cbd7e6;font-size:14px}.links a:hover{color:white}
     .actions{display:flex;align-items:center;gap:10px}.lang{background:#0d1a29;color:white;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:13px;padding:12px 17px;font-weight:800;border:1px solid transparent;transition:.2s}
     .btn.primary{background:linear-gradient(135deg,var(--blue),#5a67ff);box-shadow:0 10px 35px rgba(43,140,255,.22)}
@@ -31,7 +31,7 @@
     h1{font-size:clamp(48px,7vw,86px);line-height:.96;margin:17px 0 24px;letter-spacing:-.045em}
     .lead{font-size:clamp(18px,2vw,23px);line-height:1.55;color:#c7d2e0;max-width:690px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
     .hero-pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:34px}.pill{border:1px solid var(--line);background:rgba(9,20,33,.7);padding:9px 12px;border-radius:999px;font-size:12px;color:#d9e5f1}
-    main>section{min-height:calc(100vh - 78px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center}section{padding:72px 0}.section-head{max-width:760px;margin-bottom:34px}.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#74c9ff;font-weight:900}
+    main>section{min-height:calc(100vh - 92px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center}section{padding:72px 0}.section-head{max-width:760px;margin-bottom:34px}.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#74c9ff;font-weight:900}
     h2{font-size:clamp(32px,4.5vw,54px);line-height:1.02;margin:10px 0 14px;letter-spacing:-.035em}.section-head p{color:var(--muted);font-size:18px;line-height:1.6}
     .suite-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.suite{min-height:280px;padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));box-shadow:var(--shadow);position:relative;overflow:hidden}
     .suite:after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;right:-55px;bottom:-55px;background:radial-gradient(circle,var(--accent),transparent 70%);opacity:.25}.suite small{color:var(--accent);font-weight:900;letter-spacing:.12em}.suite h3{font-size:23px;margin:70px 0 10px}.suite p{color:#afbed0;line-height:1.5;font-size:14px}
@@ -93,7 +93,7 @@
     .growth{border-radius:30px;border:1px solid rgba(70,219,154,.2);background:linear-gradient(135deg,rgba(70,219,154,.08),rgba(43,140,255,.055));padding:38px}.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.growth-item{border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(0,0,0,.14)}.growth-item strong{display:block;font-size:18px;margin-bottom:7px}.growth-item span{color:var(--muted);line-height:1.5;font-size:14px}.growth-note{margin-top:20px;color:#7fdcb3;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.core{border-radius:30px;border:1px solid rgba(72,215,255,.18);background:linear-gradient(135deg,rgba(72,215,255,.08),rgba(43,140,255,.07));padding:36px}.core-services{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}.core-service{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(3,12,21,.36);min-height:132px}.core-service .core-icon{font-size:24px;display:block;margin-bottom:11px}.core-service strong{display:block;font-size:15px;margin-bottom:6px}.core-service small{display:block;color:var(--muted);line-height:1.45}.core-tech-label{margin-top:25px;color:#77cfff;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.coreline{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}.coreline span{border:1px solid var(--line);border-radius:999px;padding:9px 12px;color:#d7e5f4;background:rgba(0,0,0,.14);font-size:12px}.core-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px}.core-actions small{color:#91a7b9}.core .section-lead{color:var(--muted);font-size:17px;line-height:1.55;max-width:900px}@media(max-width:1050px){.core-services{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.core-services{grid-template-columns:1fr}}
     footer{border-top:1px solid var(--line);padding:36px 0 50px;color:#869bb1}.foot{display:flex;gap:20px;align-items:center}.foot img{height:34px}.foot nav{display:flex;gap:16px;margin-left:auto;flex-wrap:wrap}
     @media(max-width:1050px){.suite-grid{grid-template-columns:repeat(2,1fr)}.suite:last-child{grid-column:span 2}.links{display:none}.live-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:760px){html{scroll-snap-type:none}.nav{height:auto;padding:13px 0;flex-wrap:wrap}.actions{margin-left:auto}.hero{min-height:640px}.hero-content{padding:70px 0}.suite-grid,.two,.pro-grid,.worlds,.live-grid,.growth-grid{grid-template-columns:1fr}.suite:last-child{grid-column:auto}.matchup{gap:12px;width:100%}.flag{font-size:50px}.duel-caption p{font-size:13px}.duel-caption a{display:none}.duel-viewport{min-height:330px}.foot{align-items:flex-start;flex-direction:column}.foot nav{margin-left:0}.hide-mobile{display:none}main>section{min-height:auto;display:block;scroll-snap-align:none}}
+    @media(max-width:760px){html{scroll-snap-type:none}.nav{height:auto;padding:13px 0;flex-wrap:wrap}.brand{min-width:132px;height:60px}.brand img{height:50px;transform:scale(1.25)}.actions{margin-left:auto}.hero{min-height:640px}.hero-content{padding:70px 0}.suite-grid,.two,.pro-grid,.worlds,.live-grid,.growth-grid{grid-template-columns:1fr}.suite:last-child{grid-column:auto}.matchup{gap:12px;width:100%}.flag{font-size:50px}.duel-caption p{font-size:13px}.duel-caption a{display:none}.duel-viewport{min-height:330px}.foot{align-items:flex-start;flex-direction:column}.foot nav{margin-left:0}.hide-mobile{display:none}main>section{min-height:auto;display:block;scroll-snap-align:none}}
   </style>
 </head>
 <body>
@@ -399,7 +399,7 @@
 <footer>
   <div class="wrap foot">
     <img src="../assets/betinsight-logo.png" alt="BetInsight">
-    <span data-i18n="footerText">Musterseite V6 · nicht indexiert · Konzeptstand</span>
+    <span data-i18n="footerText">Musterseite V7 · nicht indexiert · Konzeptstand</span>
     <nav><a href="/de/impressum/" class="route-link" data-route="imprint" data-i18n="imprint">Impressum</a><a href="/de/datenschutz/" class="route-link" data-route="privacy" data-i18n="privacy">Datenschutz</a></nav>
   </div>
 </footer>
@@ -743,7 +743,7 @@ renderDuelDots();startDuelAuto();
 const pageSections=[...document.querySelectorAll("main>section")];
 let pageScrollLock=false;
 function nearestSectionIndex(){
-  const header=document.querySelector(".topbar")?.offsetHeight||78;
+  const header=document.querySelector(".topbar")?.offsetHeight||92;
   let best=0,dist=Infinity;
   pageSections.forEach((s,i)=>{const d=Math.abs(s.getBoundingClientRect().top-header);if(d<dist){dist=d;best=i;}});
   return best;
@@ -758,7 +758,7 @@ window.addEventListener("wheel",e=>{
   const next=Math.max(0,Math.min(pageSections.length-1,here+(e.deltaY>0?1:-1)));
   if(next===here)return;
   pageScrollLock=true;
-  const header=document.querySelector(".topbar")?.offsetHeight||78;
+  const header=document.querySelector(".topbar")?.offsetHeight||92;
   const y=pageSections[next].getBoundingClientRect().top+window.scrollY-header;
   window.scrollTo({top:y,behavior:"smooth"});
   window.setTimeout(()=>{pageScrollLock=false;},820);
