@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Öffentlicher BetInsight Trainer Feed mit den neuesten global veröffentlichten Beiträgen aus der Community.">
+  <title>BetInsight – Öffentlicher Trainer Feed</title>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root{
+      --bg:#050b13;--panel:#0c1726;--panel2:#101e30;--line:rgba(255,255,255,.09);
+      --text:#f5f8fb;--muted:#a8b6c8;--blue:#2b8cff;--cyan:#48d7ff;--green:#46db9a;--gold:#f7c85d;
+      --shadow:0 22px 65px rgba(0,0,0,.28);--max:980px
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
+      radial-gradient(circle at 12% 4%,rgba(43,140,255,.13),transparent 28rem),
+      radial-gradient(circle at 88% 12%,rgba(72,215,255,.07),transparent 26rem),
+      linear-gradient(180deg,var(--bg),#06101b);color:var(--text);min-height:100vh}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{width:min(var(--max),calc(100% - 34px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(5,11,19,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav{min-height:82px;display:flex;align-items:center;gap:18px}
+    .brand img{height:54px;width:auto}
+    .nav-copy{margin-left:auto;color:#bfd0df;font-size:14px}
+    .lang{background:#0d1a29;color:white;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:13px;padding:11px 16px;font-weight:800;border:1px solid var(--line);background:rgba(255,255,255,.035)}
+    .btn.primary{background:linear-gradient(135deg,var(--blue),#5a67ff);border-color:transparent}
+    .hero{padding:72px 0 34px}
+    .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#74c9ff;font-weight:900}
+    h1{font-size:clamp(42px,7vw,72px);line-height:.98;letter-spacing:-.045em;margin:12px 0 18px}
+    .lead{max-width:760px;color:#b9c8d8;font-size:18px;line-height:1.6}
+    .hero-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+    .live-dot{display:inline-flex;align-items:center;gap:8px;color:#c7f6dd;font-size:13px;font-weight:800}
+    .live-dot:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px rgba(70,219,154,.8)}
+    .feed{display:grid;gap:18px;padding:18px 0 70px}
+    .state{padding:24px;border:1px dashed rgba(255,255,255,.13);border-radius:18px;color:#9fb3c7;text-align:center}
+    .post{border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));box-shadow:var(--shadow);overflow:hidden}
+    .post-inner{padding:22px}
+    .post-head{display:flex;align-items:center;gap:13px}
+    .avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#0b1c2d;border:2px solid rgba(255,255,255,.12);font-weight:900}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .author{min-width:0}
+    .author strong{display:block;font-size:16px}
+    .author small{display:block;margin-top:3px;color:#8fa4b8}
+    .rank{margin-left:auto;font-size:12px;font-weight:900;border:1px solid var(--line);border-radius:999px;padding:7px 10px;white-space:nowrap}
+    .body{margin-top:18px;color:#e0e9f2;line-height:1.65;white-space:pre-wrap;font-size:15px}
+    .media{margin-top:17px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#03101a}
+    .media img{width:100%;max-height:560px;object-fit:cover}
+    .external{display:inline-flex;margin-top:14px;color:#8fdfff;font-size:13px;font-weight:800}
+    .post-foot{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 22px;border-top:1px solid var(--line);color:#91a6ba;font-size:13px}
+    .notice{margin:0 0 32px;padding:14px 16px;border:1px solid rgba(72,215,255,.17);border-radius:14px;background:rgba(72,215,255,.045);color:#a9bfd0;font-size:13px;line-height:1.55}
+    footer{border-top:1px solid var(--line);padding:32px 0 42px;color:#8599ab}
+    .footer-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+    .footer-row img{height:42px}
+    .footer-links{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap;font-size:13px}
+    .footer-links a:hover{color:white}
+    @media(max-width:700px){
+      .nav-copy{display:none}.brand img{height:46px}.hero{padding-top:52px}
+      .post-head{align-items:flex-start}.rank{font-size:11px}.post-foot{align-items:flex-start;flex-direction:column}
+      .footer-links{margin-left:0;width:100%}
+    }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="/"><img src="/assets/betinsight-logo.png" alt="BetInsight Club"></a>
+    <span class="nav-copy" data-i18n="navCopy">Öffentlicher Community-Bereich</span>
+    <select class="lang" id="langSelect" aria-label="Sprache">
+      <option value="de">🇩🇪 DE</option>
+      <option value="en">🇬🇧 EN</option>
+      <option value="pt">🇵🇹 PT</option>
+      <option value="es">🇪🇸 ES</option>
+      <option value="fr">🇫🇷 FR</option>
+      <option value="it">🇮🇹 IT</option>
+      <option value="nl">🇳🇱 NL</option>
+      <option value="zh-tw">🇹🇼 繁中</option>
+    </select>
+    <a class="btn" href="/" data-i18n="homeBtn">Startseite</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker" data-i18n="kicker">BETINSIGHT COMMUNITY</div>
+      <h1 data-i18n="title">Öffentlicher Trainer Feed.</h1>
+      <p class="lead" data-i18n="lead">Die neuesten global veröffentlichten Beiträge unserer Trainer und Mannschaften – öffentlich lesbar, auch ohne BetInsight-Login.</p>
+      <div class="hero-row">
+        <span class="live-dot" data-i18n="live">Live aus der Community</span>
+        <a class="btn primary" href="https://betinsight.systeme.io/registrierung?ref=POOL" data-i18n="join">Kostenlos starten · 5 Start-Units</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <p class="notice" data-i18n="notice">Hier erscheinen ausschließlich Beiträge, die von Trainern ausdrücklich global veröffentlicht und freigegeben wurden. Private Profilbeiträge werden nicht angezeigt.</p>
+    <div class="feed" id="publicFeed">
+      <div class="state" data-i18n="loading">Die neuesten Trainer-Beiträge werden geladen …</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <img src="/assets/betinsight-logo.png" alt="BetInsight Club">
+    <div class="footer-links">
+      <a href="/de/agb/" data-legal="terms" data-i18n="terms">AGB</a>
+      <a href="/de/datenschutz/" data-legal="privacy" data-i18n="privacy">Datenschutz</a>
+      <a href="/de/impressum/" data-legal="imprint" data-i18n="imprint">Impressum</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+const API="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/community-api";
+const SUPPORTED=["de","en","pt","es","fr","it","nl","zh-tw"];
+
+const COPY={
+  de:{navCopy:"Öffentlicher Community-Bereich",homeBtn:"Startseite",kicker:"BETINSIGHT COMMUNITY",title:"Öffentlicher Trainer Feed.",lead:"Die neuesten global veröffentlichten Beiträge unserer Trainer und Mannschaften – öffentlich lesbar, auch ohne BetInsight-Login.",live:"Live aus der Community",join:"Kostenlos starten · 5 Start-Units",notice:"Hier erscheinen ausschließlich Beiträge, die von Trainern ausdrücklich global veröffentlicht und freigegeben wurden. Private Profilbeiträge werden nicht angezeigt.",loading:"Die neuesten Trainer-Beiträge werden geladen …",empty:"Noch keine globalen Trainer-Beiträge veröffentlicht.",error:"Der Trainer Feed konnte gerade nicht geladen werden.",terms:"AGB",privacy:"Datenschutz",imprint:"Impressum",external:"Externen Link öffnen"},
+  en:{navCopy:"Public community area",homeBtn:"Home",kicker:"BETINSIGHT COMMUNITY",title:"Public Trainer Feed.",lead:"The latest globally published posts from our trainers and teams – publicly readable even without a BetInsight login.",live:"Live from the community",join:"Start free · 5 starter Units",notice:"Only posts explicitly published globally by trainers appear here. Private profile posts are not displayed.",loading:"Loading the latest trainer posts …",empty:"No global trainer posts have been published yet.",error:"The Trainer Feed could not be loaded right now.",terms:"Terms",privacy:"Privacy",imprint:"Legal notice",external:"Open external link"},
+  pt:{navCopy:"Área pública da comunidade",homeBtn:"Início",kicker:"COMUNIDADE BETINSIGHT",title:"Feed público de treinadores.",lead:"As publicações globais mais recentes dos nossos treinadores e equipas – visíveis publicamente mesmo sem login BetInsight.",live:"Ao vivo da comunidade",join:"Começar grátis · 5 Units iniciais",notice:"Aqui aparecem apenas publicações que os treinadores publicaram e aprovaram explicitamente como globais. Publicações privadas não são mostradas.",loading:"A carregar as publicações mais recentes …",empty:"Ainda não existem publicações globais.",error:"Não foi possível carregar o feed agora.",terms:"Termos",privacy:"Privacidade",imprint:"Aviso legal",external:"Abrir link externo"},
+  es:{navCopy:"Área pública de la comunidad",homeBtn:"Inicio",kicker:"COMUNIDAD BETINSIGHT",title:"Feed público de entrenadores.",lead:"Las publicaciones globales más recientes de nuestros entrenadores y equipos – visibles públicamente incluso sin iniciar sesión.",live:"En directo desde la comunidad",join:"Empezar gratis · 5 Units",notice:"Aquí solo aparecen publicaciones que los entrenadores han publicado y aprobado expresamente como globales. Las publicaciones privadas no se muestran.",loading:"Cargando las publicaciones más recientes …",empty:"Todavía no hay publicaciones globales.",error:"No se pudo cargar el feed en este momento.",terms:"Términos",privacy:"Privacidad",imprint:"Aviso legal",external:"Abrir enlace externo"},
+  fr:{navCopy:"Espace communautaire public",homeBtn:"Accueil",kicker:"COMMUNAUTÉ BETINSIGHT",title:"Fil public des entraîneurs.",lead:"Les dernières publications globales de nos entraîneurs et équipes – lisibles publiquement même sans connexion BetInsight.",live:"En direct de la communauté",join:"Commencer gratuitement · 5 Units",notice:"Seules les publications explicitement diffusées globalement par les entraîneurs apparaissent ici. Les publications privées ne sont pas affichées.",loading:"Chargement des dernières publications …",empty:"Aucune publication globale pour le moment.",error:"Le fil des entraîneurs ne peut pas être chargé pour le moment.",terms:"CGV",privacy:"Confidentialité",imprint:"Mentions légales",external:"Ouvrir le lien externe"},
+  it:{navCopy:"Area community pubblica",homeBtn:"Home",kicker:"COMMUNITY BETINSIGHT",title:"Feed pubblico allenatori.",lead:"Gli ultimi post globali dei nostri allenatori e delle squadre – leggibili pubblicamente anche senza login BetInsight.",live:"Live dalla community",join:"Inizia gratis · 5 Unit",notice:"Qui compaiono solo i post pubblicati globalmente e approvati esplicitamente dagli allenatori. I post privati non vengono mostrati.",loading:"Caricamento degli ultimi post …",empty:"Non ci sono ancora post globali.",error:"Al momento non è possibile caricare il feed.",terms:"Termini",privacy:"Privacy",imprint:"Note legali",external:"Apri link esterno"},
+  nl:{navCopy:"Openbare community",homeBtn:"Startpagina",kicker:"BETINSIGHT COMMUNITY",title:"Openbare Trainer Feed.",lead:"De nieuwste wereldwijd gepubliceerde berichten van trainers en teams – openbaar leesbaar, ook zonder BetInsight-login.",live:"Live uit de community",join:"Gratis starten · 5 start-Units",notice:"Hier verschijnen alleen berichten die trainers uitdrukkelijk wereldwijd hebben gepubliceerd. Privéprofielberichten worden niet getoond.",loading:"De nieuwste trainerberichten worden geladen …",empty:"Er zijn nog geen wereldwijde trainerberichten.",error:"De Trainer Feed kan momenteel niet worden geladen.",terms:"Voorwaarden",privacy:"Privacy",imprint:"Juridische informatie",external:"Externe link openen"},
+  "zh-tw":{navCopy:"公開社群區",homeBtn:"首頁",kicker:"BETINSIGHT 社群",title:"公開教練動態。",lead:"查看教練與球隊最新的全球公開貼文，即使沒有 BetInsight 登入也能閱讀。",live:"社群即時動態",join:"免費開始 · 5 個起始 Units",notice:"這裡只顯示教練明確設定為全球公開並已發布的內容。私人個人檔案貼文不會顯示。",loading:"正在載入最新教練貼文…",empty:"目前尚無全球公開教練貼文。",error:"目前無法載入教練動態。",terms:"條款",privacy:"隱私",imprint:"法律聲明",external:"開啟外部連結"}
+};
+
+function rankFromWins(wins){
+  const n=Number(wins||0);
+  if(n>=200)return {label:"Elite",icon:"🏆"};
+  if(n>=100)return {label:"Platin",icon:"💠"};
+  if(n>=50)return {label:"Gold",icon:"🥇"};
+  if(n>=30)return {label:"Silber",icon:"🥈"};
+  if(n>=5)return {label:"Bronze",icon:"🥉"};
+  return {label:"Startliga",icon:"⚽"};
+}
+
+function initials(name){
+  return String(name||"TR").split(/\s+/).filter(Boolean).slice(0,2).map(v=>(v[0]||"").toUpperCase()).join("")||"TR";
+}
+
+function localDate(value,lang){
+  try{return new Intl.DateTimeFormat(lang==="zh-tw"?"zh-TW":lang,{dateStyle:"medium",timeStyle:"short"}).format(new Date(value));}
+  catch(_e){return "";}
+}
+
+function addText(parent,tag,className,text){
+  const el=document.createElement(tag);
+  if(className)el.className=className;
+  el.textContent=text;
+  parent.appendChild(el);
+  return el;
+}
+
+function renderPost(post,lang){
+  const article=document.createElement("article");
+  article.className="post";
+
+  const inner=document.createElement("div");
+  inner.className="post-inner";
+  article.appendChild(inner);
+
+  const head=document.createElement("div");
+  head.className="post-head";
+  inner.appendChild(head);
+
+  const avatar=document.createElement("div");
+  avatar.className="avatar";
+  if(post.author_avatar_url){
+    const img=document.createElement("img");
+    img.loading="lazy";
+    img.alt="";
+    img.src=post.author_avatar_url;
+    avatar.appendChild(img);
+  }else{
+    avatar.textContent=initials(post.author||"Trainer");
+  }
+  head.appendChild(avatar);
+
+  const author=document.createElement("div");
+  author.className="author";
+  addText(author,"strong","",post.author||"Trainerprofil");
+  addText(author,"small","",(post.team_name||"BetInsight Team")+" · "+localDate(post.created_at,lang));
+  head.appendChild(author);
+
+  const rank=rankFromWins(post.author_wins);
+  addText(head,"span","rank",rank.icon+" "+rank.label);
+
+  addText(inner,"div","body",post.body||"");
+
+  if(post.media&&post.media.public_url){
+    const media=document.createElement("div");
+    media.className="media";
+    const img=document.createElement("img");
+    img.loading="lazy";
+    img.alt="Beitragsbild";
+    img.src=post.media.public_url;
+    media.appendChild(img);
+    inner.appendChild(media);
+  }
+
+  if(post.external_url){
+    const a=document.createElement("a");
+    a.className="external";
+    a.href=post.external_url;
+    a.target="_blank";
+    a.rel="noopener noreferrer nofollow";
+    a.textContent=(COPY[lang]||COPY.de).external+" →";
+    inner.appendChild(a);
+  }
+
+  const foot=document.createElement("div");
+  foot.className="post-foot";
+  const reactions=Array.isArray(post.reactions)?post.reactions.length:0;
+  const comments=Array.isArray(post.comments)?post.comments.length:0;
+  addText(foot,"span","", "♡ "+reactions+" · 💬 "+comments);
+  addText(foot,"span","",post.distribution_scope==="GLOBAL"?"GLOBAL · PUBLIC":"PUBLIC");
+  article.appendChild(foot);
+
+  return article;
+}
+
+function setLanguage(raw){
+  const lang=SUPPORTED.includes(raw)?raw:"de";
+  document.documentElement.lang=lang;
+  document.getElementById("langSelect").value=lang;
+  const copy=COPY[lang]||COPY.de;
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.dataset.i18n;
+    if(copy[key])el.textContent=copy[key];
+  });
+
+  const legal={terms:"agb",privacy:"datenschutz",imprint:"impressum"};
+  document.querySelectorAll("[data-legal]").forEach(a=>{
+    a.href="/"+lang+"/"+legal[a.dataset.legal]+"/";
+  });
+
+  const url=new URL(location.href);
+  url.searchParams.set("lang",lang);
+  history.replaceState(null,"",url);
+  try{localStorage.setItem("betinsight-lang",lang);}catch(_e){}
+  return lang;
+}
+
+async function loadFeed(lang){
+  const box=document.getElementById("publicFeed");
+  try{
+    const response=await fetch(API+"?action=feed&scope=global",{
+      method:"GET",cache:"no-store",credentials:"omit",headers:{"Accept":"application/json"}
+    });
+    const data=await response.json();
+    if(!response.ok||data.ok!==true||!Array.isArray(data.posts))throw new Error("feed");
+
+    const posts=data.posts.slice(0,10);
+    box.innerHTML="";
+    if(!posts.length){
+      addText(box,"div","state",(COPY[lang]||COPY.de).empty);
+      return;
+    }
+    posts.forEach(post=>box.appendChild(renderPost(post,lang)));
+  }catch(error){
+    console.error("Public Trainer Feed",error);
+    box.innerHTML="";
+    addText(box,"div","state",(COPY[lang]||COPY.de).error);
+  }
+}
+
+const params=new URLSearchParams(location.search);
+let initial=params.get("lang");
+if(!SUPPORTED.includes(initial)){
+  try{initial=localStorage.getItem("betinsight-lang");}catch(_e){}
+}
+if(!SUPPORTED.includes(initial)){
+  const browser=(navigator.language||"de").toLowerCase();
+  initial=browser.startsWith("pt")?"pt":browser.startsWith("es")?"es":browser.startsWith("fr")?"fr":browser.startsWith("it")?"it":browser.startsWith("nl")?"nl":browser.startsWith("zh")?"zh-tw":browser.startsWith("en")?"en":"de";
+}
+
+let currentLang=setLanguage(initial);
+loadFeed(currentLang);
+
+document.getElementById("langSelect").addEventListener("change",event=>{
+  currentLang=setLanguage(event.target.value);
+  loadFeed(currentLang);
+});
+</script>
+<script src="/assets/footer-social.js?v=20260929-2" defer></script>
+</body>
+</html>
