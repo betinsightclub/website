@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>BetInsight – Neue Startseite Muster V3</title>
+  <title>BetInsight – Neue Startseite Muster V4</title>
   <meta name="description" content="Musterseite für das neue BetInsight Ecosystem.">
   <link rel="icon" href="../favicon.ico">
   <style>
@@ -50,7 +50,41 @@
     .duel-caption{display:flex;justify-content:space-between;gap:16px;align-items:end;color:#d6e3f0}.duel-caption p{margin:0;color:#c3d0de;max-width:720px}.duel-caption a{white-space:nowrap;font-weight:900;color:#fff}
     .duel-controls{position:absolute;left:18px;right:18px;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;pointer-events:none}.duel-arrow{pointer-events:auto;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(4,10,18,.72);color:#fff;font-size:22px;cursor:pointer;backdrop-filter:blur(10px)}
     .duel-dots{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:8px}.duel-dot{width:8px;height:8px;border:0;border-radius:50%;background:rgba(255,255,255,.42);padding:0;cursor:pointer}.duel-dot.active{width:24px;border-radius:999px;background:var(--gold)}
-    .duel-cta{display:flex;justify-content:center;padding:18px 20px 22px}
+    .duel-cta{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;padding:13px 18px 15px;border-top:1px solid var(--line);background:rgba(4,12,21,.72)}
+    .duel-cta-copy{display:flex;flex-direction:column;gap:2px;min-width:210px}
+    .duel-cta-copy strong{font-size:14px}.duel-cta-copy small{font-size:11px;color:#8fa5b8}
+    #duels{padding:28px 0}
+    #duels .section-head{margin-bottom:16px;max-width:800px}
+    #duels .section-head h2{font-size:clamp(31px,4vw,48px);margin:7px 0 10px}
+    #duels .section-head p{font-size:16px;line-height:1.48;margin:0}
+    #duels .duel-viewport{height:min(36vh,320px);min-height:280px}
+    #duels .duel-top{padding:13px 18px}
+    #duels .duel-content{padding:20px clamp(22px,4vw,52px)}
+    #duels .team strong{font-size:clamp(20px,2.6vw,32px)}
+    #duels .flag{font-size:clamp(46px,6vw,72px)}
+    #duels .duel-caption{padding-bottom:3px}
+    .trainer-feed-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:24px}
+    .trainer-feed-head .section-head{margin:0}
+    .trainer-feed-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+    .trainer-post{min-width:0;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,#0d1927,#09131f);padding:18px;display:flex;flex-direction:column;gap:13px;min-height:285px}
+    .trainer-post-head{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:11px;align-items:center}
+    .trainer-avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#102535;color:white;font-weight:950;border:3px solid #3c6577;box-shadow:0 0 0 2px #244454}
+    .trainer-avatar img{width:100%;height:100%;object-fit:cover}
+    .trainer-avatar.rank-bronze{border-color:#b97a56;box-shadow:0 0 0 2px #8c5a3c}
+    .trainer-avatar.rank-silver{border-color:#b7c0c9;box-shadow:0 0 0 2px #7d8994}
+    .trainer-avatar.rank-gold{border-color:#d4a62a;box-shadow:0 0 0 2px #a77a12,0 0 14px rgba(240,210,122,.12)}
+    .trainer-avatar.rank-platinum{border-color:#aebcc8;box-shadow:0 0 0 2px #6f7f8b,0 0 15px rgba(221,231,239,.13)}
+    .trainer-avatar.rank-elite{border-color:#d8dde5;box-shadow:0 0 0 2px #b79a45,0 0 18px rgba(255,223,120,.18)}
+    .trainer-author strong{display:block;font-size:14px}.trainer-author small{display:block;color:#8fa8b8;font-size:11px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .trainer-rank{font-size:11px;font-weight:900;color:#f0d579;white-space:nowrap}
+    .trainer-post-text{color:#dbe6ed;line-height:1.55;font-size:14px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+    .trainer-post-media{height:96px;border-radius:13px;overflow:hidden;border:1px solid var(--line);background:#07121b}
+    .trainer-post-media img{width:100%;height:100%;object-fit:cover}
+    .trainer-post-foot{margin-top:auto;display:flex;justify-content:space-between;gap:10px;color:#819aaa;font-size:11px}
+    .trainer-post-link{font-weight:900;color:#8ed6ff}
+    .feed-loading{grid-column:1/-1;border:1px dashed var(--line);border-radius:20px;padding:28px;text-align:center;color:var(--muted)}
+    @media(max-width:1050px){.trainer-feed-grid{grid-template-columns:repeat(2,1fr)}.trainer-post:last-child{display:none}}
+    @media(max-width:760px){.trainer-feed-head{align-items:flex-start;flex-direction:column}.trainer-feed-grid{grid-template-columns:1fr}.trainer-post:last-child{display:flex}#duels .duel-viewport{height:auto;min-height:330px}.duel-cta{align-items:stretch}.duel-cta-copy{width:100%;text-align:center}}
     .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.032);padding:26px}.card h3{font-size:27px;margin:6px 0 11px}.card p{color:var(--muted);line-height:1.58}
     .pro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.pro{padding:26px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,#0d1929,#0a1421)}.pro .number{font-size:46px;font-weight:950;letter-spacing:-.04em}.pro .number span{font-size:17px;color:#8fa5bc}.pro p{color:var(--muted);line-height:1.55}
     .media{border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#07101b}.media img{width:100%;height:100%;object-fit:cover}.feature-copy{padding:12px 6px}.feature-copy ul{padding-left:20px;color:#c0cede;line-height:1.9}
@@ -69,6 +103,7 @@
     <nav class="links">
       <a href="#ecosystem" data-i18n="navEcosystem">Ecosystem</a>
       <a href="#duels" data-i18n="navDuels">Musterduelle</a>
+      <a href="#trainer-feed" data-i18n="navFeed">Trainer Feed</a>
       <a href="#pros" data-i18n="navPros">Profis</a>
       <a href="#stats" data-i18n="navStats">Statistik</a>
       <a href="#calculator" data-i18n="navCalc">Rechner</a>
@@ -122,75 +157,89 @@
     <div class="section-head">
       <div class="kicker" data-i18n="duelKicker">MUSTERSPIELE · TIME CLASH</div>
       <h2 data-i18n="duelTitle">Die Duelle, über die Fußballfans diskutieren.</h2>
-      <p data-i18n="duelText">Ein eigener Banner im ersten Drittel der Startseite zeigt wechselnde Musterduelle – etwa Weltmeister gegen Weltmeister, historische Angstgegner oder Generationen, die sich nie begegnen konnten.</p>
+      <p data-i18n="duelText">Fünf Wunschduelle rotieren automatisch – mit Länderflaggen und dezentem Stadion im Hintergrund. Nach dem fünften startet der Slider wieder beim ersten.</p>
     </div>
+
     <div class="duel-wrap">
       <div class="duel-top"><strong data-i18n="duelTop">Aktuelle Musterduelle</strong><span class="tc-badge">TIME CLASH</span></div>
       <div class="duel-viewport" id="duelViewport">
         <div class="slider" id="duelTrack">
-          <article class="duel-slide" style="--stadium:url('../assets/stadion-community.webp');--pos:center 54%">
+          <article class="duel-slide" style="--stadium:url('../assets/tombola/stadion-hintergrund.webp');--pos:center 55%">
             <div class="duel-content">
-              <div class="duel-type" data-i18n="d1Type">WELTMEISTER VS. WELTMEISTER</div>
-              <div class="matchup">
-                <div class="team"><span class="flag">🇮🇹</span><strong>Italien</strong><small>2006</small></div>
-                <div class="big-vs">VS</div>
-                <div class="team"><span class="flag">🇧🇷</span><strong>Brasilien</strong><small>2002</small></div>
-              </div>
-              <div class="duel-caption"><p data-i18n="d1Text">Defensivkunst einer legendären Turniermannschaft gegen brasilianische Offensivklasse.</p><a class="route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="dCta">Duell öffnen →</a></div>
-            </div>
-          </article>
-          <article class="duel-slide" style="--stadium:url('../assets/hero-fussball-dunkel.png');--pos:center 46%">
-            <div class="duel-content">
-              <div class="duel-type" data-i18n="d2Type">HISTORISCHER ANGSTGEGNER</div>
+              <div class="duel-type" data-i18n="d1Type">HISTORISCHER ANGSTGEGNER</div>
               <div class="matchup">
                 <div class="team"><span class="flag">🇮🇹</span><strong>Italien</strong><small>2006</small></div>
                 <div class="big-vs">VS</div>
                 <div class="team"><span class="flag">🇩🇪</span><strong>Deutschland</strong><small>2014</small></div>
               </div>
-              <div class="duel-caption"><p data-i18n="d2Text">Eine Paarung mit Geschichte – neu gedacht als generationsübergreifendes Match.</p><a class="route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="dCta">Duell öffnen →</a></div>
+              <div class="duel-caption"><p data-i18n="d1Text">Ein Duell mit Turniergeschichte – zwei Weltmeistergenerationen im direkten Vergleich.</p></div>
             </div>
           </article>
-          <article class="duel-slide" style="--stadium:url('../assets/stadion-community.webp');--pos:center 37%">
+
+          <article class="duel-slide" style="--stadium:url('../assets/stadion-community.webp');--pos:center 48%">
             <div class="duel-content">
-              <div class="duel-type" data-i18n="d3Type">SÜDAMERIKAS GIGANTEN</div>
+              <div class="duel-type" data-i18n="d2Type">SÜDAMERIKA GIGANTEN</div>
               <div class="matchup">
-                <div class="team"><span class="flag">🇩🇪</span><strong>Deutschland</strong><small>2014</small></div>
-                <div class="big-vs">VS</div>
                 <div class="team"><span class="flag">🇧🇷</span><strong>Brasilien</strong><small>2002</small></div>
-              </div>
-              <div class="duel-caption"><p data-i18n="d3Text">Zwei Weltmeister-Generationen, zwei unterschiedliche Fußballidentitäten.</p><a class="route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="dCta">Duell öffnen →</a></div>
-            </div>
-          </article>
-          <article class="duel-slide" style="--stadium:url('../assets/hero-fussball-dunkel.png');--pos:center 58%">
-            <div class="duel-content">
-              <div class="duel-type" data-i18n="d4Type">GENERATIONEN-DUELL</div>
-              <div class="matchup">
-                <div class="team"><span class="flag">🇫🇷</span><strong>Frankreich</strong><small>1998</small></div>
                 <div class="big-vs">VS</div>
                 <div class="team"><span class="flag">🇦🇷</span><strong>Argentinien</strong><small>2022</small></div>
               </div>
-              <div class="duel-caption"><p data-i18n="d4Text">Zwei Weltmeister aus unterschiedlichen Epochen im direkten TIME CLASH.</p><a class="route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="dCta">Duell öffnen →</a></div>
+              <div class="duel-caption"><p data-i18n="d2Text">Zwei Fußballkulturen, zwei Weltmeistergenerationen und eine Rivalität, die jeder kennt.</p></div>
             </div>
           </article>
-          <article class="duel-slide" style="--stadium:url('../assets/stadion-community.webp');--pos:center 65%">
+
+          <article class="duel-slide" style="--stadium:url('../assets/tombola/stadion-hintergrund.webp');--pos:center 42%">
             <div class="duel-content">
-              <div class="duel-type" data-i18n="d5Type">EWIGE RIVALITÄT</div>
+              <div class="duel-type" data-i18n="d3Type">WELTMEISTER-KLASSIKER</div>
               <div class="matchup">
-                <div class="team"><span class="flag">🇪🇸</span><strong>Spanien</strong><small>2010</small></div>
+                <div class="team"><span class="flag">🇩🇪</span><strong>Deutschland</strong><small>2014</small></div>
                 <div class="big-vs">VS</div>
-                <div class="team"><span class="flag">🇳🇱</span><strong>Niederlande</strong><small>2010</small></div>
+                <div class="team"><span class="flag">🇧🇷</span><strong>Brasilien</strong><small>2002</small></div>
               </div>
-              <div class="duel-caption"><p data-i18n="d5Text">Ein Finale mit Geschichte – als neue Serie noch einmal gedacht.</p><a class="route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="dCta">Duell öffnen →</a></div>
+              <div class="duel-caption"><p data-i18n="d3Text">Struktur und Pressing treffen auf eine der berühmtesten brasilianischen Offensiven.</p></div>
+            </div>
+          </article>
+
+          <article class="duel-slide" style="--stadium:url('../assets/stadion-community.webp');--pos:center 58%">
+            <div class="duel-content">
+              <div class="duel-type" data-i18n="d4Type">KLASSIKER EUROPAS</div>
+              <div class="matchup">
+                <div class="team"><span class="flag">🇬🇧</span><strong>England</strong><small>1966</small></div>
+                <div class="big-vs">VS</div>
+                <div class="team"><span class="flag">🇩🇪</span><strong>Deutschland</strong><small>2014</small></div>
+              </div>
+              <div class="duel-caption"><p data-i18n="d4Text">Ein legendärer Klassiker über fast fünf Jahrzehnte Fußballentwicklung hinweg.</p></div>
+            </div>
+          </article>
+
+          <article class="duel-slide" style="--stadium:url('../assets/tombola/stadion-hintergrund.webp');--pos:center 62%">
+            <div class="duel-content">
+              <div class="duel-type" data-i18n="d5Type">MODERNE GIGANTEN</div>
+              <div class="matchup">
+                <div class="team"><span class="flag">🇫🇷</span><strong>Frankreich</strong><small>2018</small></div>
+                <div class="big-vs">VS</div>
+                <div class="team"><span class="flag">🇦🇷</span><strong>Argentinien</strong><small>2022</small></div>
+              </div>
+              <div class="duel-caption"><p data-i18n="d5Text">Tempo, Technik und Weltmeisterqualität aus zwei modernen Turniergenerationen.</p></div>
             </div>
           </article>
         </div>
+
         <div class="duel-controls">
           <button class="duel-arrow" id="duelPrev" type="button" aria-label="Vorheriges Duell">‹</button>
           <button class="duel-arrow" id="duelNext" type="button" aria-label="Nächstes Duell">›</button>
         </div>
         <div class="duel-dots" id="duelDots" aria-label="Duell Auswahl"></div>
       </div>
-      <div class="duel-cta"><a class="btn primary route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="allClash">TIME CLASH entdecken</a></div>
+
+      <div class="duel-cta">
+        <div class="duel-cta-copy">
+          <strong data-i18n="clashCtaHeadline">Duell selbst erleben</strong>
+          <small data-i18n="clashCtaSub">Öffne TIME CLASH und stelle deine eigene Serie zusammen.</small>
+        </div>
+        <a class="btn primary route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="clashStart">CLASH STARTEN</a>
+        <a class="btn secondary route-link" data-route="time-clash-community" href="/de/time-clash/community/" data-i18n="allDuels">ALLE DUELLE ANSEHEN</a>
+      </div>
     </div>
   </div>
 </section>
@@ -256,6 +305,23 @@
   </div>
 </section>
 
+<section id="trainer-feed">
+  <div class="wrap">
+    <div class="trainer-feed-head">
+      <div class="section-head">
+        <div class="kicker" data-i18n="feedKicker">LIVE AUS DER COMMUNITY</div>
+        <h2 data-i18n="feedTitle">Trainer Feed.</h2>
+        <p data-i18n="feedText">Ein Blick in die BetInsight-Community: aktuelle globale Beiträge von Trainerprofilen mit Team, Rang, Reaktionen und direktem Weg zum öffentlichen Profil.</p>
+      </div>
+      <a class="btn secondary" href="https://app.betinsight.club/trainer/" data-i18n="feedOpen">Trainer Feed öffnen</a>
+    </div>
+
+    <div class="trainer-feed-grid" id="homeTrainerFeed">
+      <div class="feed-loading" data-i18n="feedLoading">Aktuelle Trainer-Beiträge werden geladen …</div>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <div class="section-head"><div class="kicker" data-i18n="moreKicker">MEHR ALS ANALYSEN</div><h2 data-i18n="moreTitle">Die Bereiche, die BetInsight zur Plattform machen.</h2></div>
@@ -299,7 +365,7 @@
 <footer>
   <div class="wrap foot">
     <img src="../assets/betinsight-logo.png" alt="BetInsight">
-    <span data-i18n="footerText">Musterseite V3 · nicht indexiert · Konzeptstand</span>
+    <span data-i18n="footerText">Musterseite V4 · nicht indexiert · Konzeptstand</span>
     <nav><a href="/de/impressum/" class="route-link" data-route="imprint" data-i18n="imprint">Impressum</a><a href="/de/datenschutz/" class="route-link" data-route="privacy" data-i18n="privacy">Datenschutz</a></nav>
   </div>
 </footer>
@@ -422,7 +488,97 @@ Object.assign(T.it,{tipsTitle:"PRONOSTICI STRUTTURATI",tipsText:"Preparati dai n
 Object.assign(T.nl,{tipsTitle:"GESTRUCTUREERDE TIPS",tipsText:"Voorbereid door onze analisten, duidelijk ingedeeld en gepubliceerd met transparante unit-weging.",tipsBtn:"Tips & resultaten",growthKicker:"BETINSIGHT BLIJFT GROEIEN",growthTitle:"Ons ecosysteem groeit.",growthText:"Analyse, TIME CLASH, Community, Live en Network vormen de basis voor nieuwe tools en sportwerelden.",growth1Title:"Nieuwe tools",growth1Text:"Meer calculators en data- en analysetools kunnen direct worden toegevoegd.",growth2Title:"Nieuwe sportwerelden",growth2Text:"Simulaties kunnen uitbreiden met meer competities, teams en sporten.",growth3Title:"BetInsight Labs",growth3Text:"Nieuwe AI-, statistiek- en experimentele functies krijgen een eigen ontwikkelruimte.",growthNote:"ONE PLATFORM · BUILT TO GROW"});
 Object.assign(T["zh-tw"],{tipsTitle:"結構化建議",tipsText:"由分析師準備、清楚分類，並以透明的 Unit 權重發布。",tipsBtn:"建議與結果",growthKicker:"BETINSIGHT 持續進化",growthTitle:"我們的生態系持續成長。",growthText:"分析、TIME CLASH、社群、Live 與 Network 是未來更多工具與運動世界的基礎。",growth1Title:"新工具",growth1Text:"可直接加入更多計算器、資料與分析工具。",growth2Title:"新運動世界",growth2Text:"模擬可擴展到更多賽事、球隊與運動。",growth3Title:"BetInsight Labs",growth3Text:"新的 AI、統計與實驗功能將擁有獨立開發區。",growthNote:"ONE PLATFORM · BUILT TO GROW"});
 
-const routes={calculator:"rechner",stats:"statistik-vorschau","time-clash":"time-clash",events:"events",tips:"tipps",imprint:"impressum",privacy:"datenschutz"};
+
+Object.assign(T.de,{
+  navFeed:"Trainer Feed",
+  duelText:"Fünf Wunschduelle rotieren automatisch – mit Länderflaggen und dezentem Stadion im Hintergrund. Nach dem fünften startet der Slider wieder beim ersten.",
+  d1Type:"HISTORISCHER ANGSTGEGNER",d1Text:"Ein Duell mit Turniergeschichte – zwei Weltmeistergenerationen im direkten Vergleich.",
+  d2Type:"SÜDAMERIKA GIGANTEN",d2Text:"Zwei Fußballkulturen, zwei Weltmeistergenerationen und eine Rivalität, die jeder kennt.",
+  d3Type:"WELTMEISTER-KLASSIKER",d3Text:"Struktur und Pressing treffen auf eine der berühmtesten brasilianischen Offensiven.",
+  d4Type:"KLASSIKER EUROPAS",d4Text:"Ein legendärer Klassiker über fast fünf Jahrzehnte Fußballentwicklung hinweg.",
+  d5Type:"MODERNE GIGANTEN",d5Text:"Tempo, Technik und Weltmeisterqualität aus zwei modernen Turniergenerationen.",
+  clashCtaHeadline:"Duell selbst erleben",clashCtaSub:"Öffne TIME CLASH und stelle deine eigene Serie zusammen.",clashStart:"CLASH STARTEN",allDuels:"ALLE DUELLE ANSEHEN",
+  feedKicker:"LIVE AUS DER COMMUNITY",feedTitle:"Trainer Feed.",feedText:"Ein Blick in die BetInsight-Community: aktuelle globale Beiträge von Trainerprofilen mit Team, Rang, Reaktionen und direktem Weg zum öffentlichen Profil.",feedOpen:"Trainer Feed öffnen",feedLoading:"Aktuelle Trainer-Beiträge werden geladen …"
+});
+Object.assign(T.en,{
+  navFeed:"Trainer Feed",
+  duelText:"Five showcase matchups rotate automatically with national flags and a subtle stadium background. After slide five, the sequence starts again.",
+  d1Type:"HISTORIC NEMESIS",d1Text:"A matchup with tournament history – two world champion generations head to head.",
+  d2Type:"SOUTH AMERICAN GIANTS",d2Text:"Two football cultures, two world champion generations and a rivalry everyone knows.",
+  d3Type:"WORLD CHAMPION CLASSIC",d3Text:"Structure and pressing meet one of Brazil's most famous attacking generations.",
+  d4Type:"EUROPEAN CLASSIC",d4Text:"A legendary rivalry spanning almost five decades of football development.",
+  d5Type:"MODERN GIANTS",d5Text:"Pace, technique and world champion quality from two modern tournament generations.",
+  clashCtaHeadline:"Experience the matchup",clashCtaSub:"Open TIME CLASH and create your own series.",clashStart:"START CLASH",allDuels:"VIEW ALL DUELS",
+  feedKicker:"LIVE FROM THE COMMUNITY",feedTitle:"Trainer Feed.",feedText:"A live look into BetInsight: recent global posts from coach profiles with team, rank, reactions and a direct path to the public profile.",feedOpen:"Open Trainer Feed",feedLoading:"Loading recent trainer posts …"
+});
+Object.assign(T.pt,{
+  navFeed:"Feed de Treinadores",
+  duelText:"Cinco confrontos em destaque rodam automaticamente, com bandeiras e um estádio discreto ao fundo. Após o quinto, a sequência recomeça.",
+  d1Type:"ADVERSÁRIO HISTÓRICO",d1Text:"Um confronto com história em torneios – duas gerações campeãs do mundo frente a frente.",
+  d2Type:"GIGANTES SUL-AMERICANOS",d2Text:"Duas culturas de futebol, duas gerações campeãs e uma rivalidade conhecida no mundo inteiro.",
+  d3Type:"CLÁSSICO DE CAMPEÕES",d3Text:"Estrutura e pressão contra uma das gerações ofensivas mais famosas do Brasil.",
+  d4Type:"CLÁSSICO EUROPEU",d4Text:"Uma rivalidade lendária atravessando quase cinco décadas de evolução do futebol.",
+  d5Type:"GIGANTES MODERNOS",d5Text:"Velocidade, técnica e qualidade de campeões em duas gerações modernas.",
+  clashCtaHeadline:"Viva o confronto",clashCtaSub:"Abra o TIME CLASH e monte a sua própria série.",clashStart:"INICIAR CLASH",allDuels:"VER TODOS OS DUELOS",
+  feedKicker:"AO VIVO DA COMUNIDADE",feedTitle:"Feed de Treinadores.",feedText:"Uma visão da comunidade BetInsight: posts globais recentes de perfis de treinadores com equipe, ranking, reações e acesso direto ao perfil público.",feedOpen:"Abrir Feed de Treinadores",feedLoading:"Carregando posts recentes …"
+});
+Object.assign(T.es,{
+  navFeed:"Feed de entrenadores",
+  duelText:"Cinco enfrentamientos destacados rotan automáticamente con banderas y un estadio sutil de fondo. Después del quinto, la secuencia vuelve al primero.",
+  d1Type:"RIVAL HISTÓRICO",d1Text:"Un duelo con historia de torneos: dos generaciones campeonas del mundo frente a frente.",
+  d2Type:"GIGANTES SUDAMERICANOS",d2Text:"Dos culturas de fútbol, dos generaciones campeonas y una rivalidad conocida por todos.",
+  d3Type:"CLÁSICO DE CAMPEONES",d3Text:"Estructura y presión frente a una de las generaciones ofensivas más famosas de Brasil.",
+  d4Type:"CLÁSICO EUROPEO",d4Text:"Una rivalidad legendaria a través de casi cinco décadas de evolución del fútbol.",
+  d5Type:"GIGANTES MODERNOS",d5Text:"Velocidad, técnica y calidad de campeón en dos generaciones modernas.",
+  clashCtaHeadline:"Vive el duelo",clashCtaSub:"Abre TIME CLASH y crea tu propia serie.",clashStart:"INICIAR CLASH",allDuels:"VER TODOS LOS DUELOS",
+  feedKicker:"EN VIVO DESDE LA COMUNIDAD",feedTitle:"Feed de entrenadores.",feedText:"Una mirada a la comunidad BetInsight: publicaciones globales recientes con equipo, rango, reacciones y acceso directo al perfil público.",feedOpen:"Abrir feed",feedLoading:"Cargando publicaciones recientes …"
+});
+Object.assign(T.fr,{
+  navFeed:"Fil des entraîneurs",
+  duelText:"Cinq affiches tournent automatiquement avec drapeaux nationaux et stade discret en arrière-plan. Après la cinquième, la séquence recommence.",
+  d1Type:"ADVERSAIRE HISTORIQUE",d1Text:"Une affiche chargée d'histoire en tournoi – deux générations championnes du monde face à face.",
+  d2Type:"GÉANTS SUD-AMÉRICAINS",d2Text:"Deux cultures du football, deux générations championnes et une rivalité connue de tous.",
+  d3Type:"CLASSIQUE DES CHAMPIONS",d3Text:"Structure et pressing face à l'une des générations offensives brésiliennes les plus célèbres.",
+  d4Type:"CLASSIQUE EUROPÉEN",d4Text:"Une rivalité légendaire à travers près de cinq décennies d'évolution du football.",
+  d5Type:"GÉANTS MODERNES",d5Text:"Vitesse, technique et qualité de champion dans deux générations modernes.",
+  clashCtaHeadline:"Vivre le duel",clashCtaSub:"Ouvrez TIME CLASH et créez votre propre série.",clashStart:"LANCER LE CLASH",allDuels:"VOIR TOUS LES DUELS",
+  feedKicker:"EN DIRECT DE LA COMMUNAUTÉ",feedTitle:"Fil des entraîneurs.",feedText:"Un aperçu de la communauté BetInsight : publications globales récentes avec équipe, rang, réactions et accès direct au profil public.",feedOpen:"Ouvrir le fil",feedLoading:"Chargement des publications récentes …"
+});
+Object.assign(T.it,{
+  navFeed:"Feed allenatori",
+  duelText:"Cinque sfide ruotano automaticamente con bandiere nazionali e uno stadio discreto sullo sfondo. Dopo la quinta, la sequenza ricomincia.",
+  d1Type:"NEMESI STORICA",d1Text:"Una sfida con storia nei tornei – due generazioni campioni del mondo faccia a faccia.",
+  d2Type:"GIGANTI SUDAMERICANI",d2Text:"Due culture calcistiche, due generazioni campioni e una rivalità conosciuta da tutti.",
+  d3Type:"CLASSICO DEI CAMPIONI",d3Text:"Struttura e pressing contro una delle generazioni offensive brasiliane più famose.",
+  d4Type:"CLASSICO EUROPEO",d4Text:"Una rivalità leggendaria attraverso quasi cinque decenni di evoluzione del calcio.",
+  d5Type:"GIGANTI MODERNI",d5Text:"Velocità, tecnica e qualità mondiale in due generazioni moderne.",
+  clashCtaHeadline:"Vivi la sfida",clashCtaSub:"Apri TIME CLASH e crea la tua serie.",clashStart:"AVVIA CLASH",allDuels:"VEDI TUTTI I DUELLI",
+  feedKicker:"LIVE DALLA COMMUNITY",feedTitle:"Feed allenatori.",feedText:"Uno sguardo alla community BetInsight: post globali recenti con squadra, rango, reazioni e accesso diretto al profilo pubblico.",feedOpen:"Apri feed allenatori",feedLoading:"Caricamento dei post recenti …"
+});
+Object.assign(T.nl,{
+  navFeed:"Trainer Feed",
+  duelText:"Vijf topduels draaien automatisch met nationale vlaggen en een subtiel stadion op de achtergrond. Na de vijfde begint de reeks opnieuw.",
+  d1Type:"HISTORISCHE ANGSTGEGNER",d1Text:"Een duel met toernooigeschiedenis – twee wereldkampioengeneraties tegenover elkaar.",
+  d2Type:"ZUID-AMERIKAANSE GROOTMACHTEN",d2Text:"Twee voetbalculturen, twee kampioengeneraties en een rivaliteit die iedereen kent.",
+  d3Type:"WERELDKAMPIOEN-KLASSIEKER",d3Text:"Structuur en pressing tegenover een van Braziliës beroemdste aanvalsgeneraties.",
+  d4Type:"EUROPESE KLASSIEKER",d4Text:"Een legendarische rivaliteit over bijna vijf decennia voetbalontwikkeling.",
+  d5Type:"MODERNE GROOTMACHTEN",d5Text:"Snelheid, techniek en wereldkampioenskwaliteit uit twee moderne generaties.",
+  clashCtaHeadline:"Beleef het duel",clashCtaSub:"Open TIME CLASH en stel je eigen serie samen.",clashStart:"START CLASH",allDuels:"BEKIJK ALLE DUELS",
+  feedKicker:"LIVE UIT DE COMMUNITY",feedTitle:"Trainer Feed.",feedText:"Een live blik op BetInsight: recente globale bijdragen van trainerprofielen met team, rang, reacties en directe toegang tot het openbare profiel.",feedOpen:"Open Trainer Feed",feedLoading:"Recente trainerberichten laden …"
+});
+Object.assign(T["zh-tw"],{
+  navFeed:"教練動態",
+  duelText:"五組焦點對戰會自動輪播，搭配國旗與低調的球場背景。第五組之後會重新從第一組開始。",
+  d1Type:"歷史剋星",d1Text:"具有大賽歷史的對決——兩個世界冠軍世代正面交鋒。",
+  d2Type:"南美巨人",d2Text:"兩種足球文化、兩個冠軍世代，以及人人熟悉的宿敵關係。",
+  d3Type:"世界冠軍經典戰",d3Text:"結構與壓迫對上巴西最著名的進攻世代之一。",
+  d4Type:"歐洲經典戰",d4Text:"跨越近五十年足球演變的傳奇對決。",
+  d5Type:"現代巨人",d5Text:"兩個現代世代的速度、技術與世界冠軍水準。",
+  clashCtaHeadline:"親自體驗對戰",clashCtaSub:"開啟 TIME CLASH，建立自己的系列賽。",clashStart:"開始 CLASH",allDuels:"查看所有對戰",
+  feedKicker:"社群即時動態",feedTitle:"教練動態。",feedText:"即時查看 BetInsight 社群的全球教練貼文，包括球隊、等級、反應以及公開個人頁面。",feedOpen:"開啟教練動態",feedLoading:"正在載入最新教練貼文 …"
+});
+
+const routes={calculator:"rechner",stats:"statistik-vorschau","time-clash":"time-clash","time-clash-community":"time-clash/community",events:"events",tips:"tipps",imprint:"impressum",privacy:"datenschutz"};
 function applyLang(lang){
   if(!T[lang]) lang="de";
   document.documentElement.lang=lang;
@@ -437,7 +593,69 @@ function applyLang(lang){
   const u=new URL(location.href);u.searchParams.set("lang",lang);history.replaceState(null,"",u);
 }
 
-/* V3: lightweight TIME CLASH carousel */
+
+/* V4: public Trainer Feed teaser – loaded only when the section approaches the viewport */
+const HOME_COMMUNITY_API="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/community-api";
+let homeFeedLoaded=false;
+function homeEsc(v){return String(v==null?"":v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+function homeInitials(v){return String(v||"TR").split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]?.toUpperCase()||"").join("")||"TR";}
+function homeRank(wins){
+  wins=Number(wins||0);
+  if(wins>=200)return {key:"elite",label:"Elite",icon:"🏆"};
+  if(wins>=100)return {key:"platinum",label:"Platin",icon:"💠"};
+  if(wins>=50)return {key:"gold",label:"Gold",icon:"🥇"};
+  if(wins>=30)return {key:"silver",label:"Silber",icon:"🥈"};
+  if(wins>=5)return {key:"bronze",label:"Bronze",icon:"🥉"};
+  return {key:"start",label:"Startliga",icon:"⚽"};
+}
+function homeFeedTime(value){
+  try{return new Intl.DateTimeFormat(document.documentElement.lang||"de",{dateStyle:"medium"}).format(new Date(value));}
+  catch(_e){return "";}
+}
+async function loadHomeTrainerFeed(){
+  if(homeFeedLoaded)return;
+  homeFeedLoaded=true;
+  const box=document.getElementById("homeTrainerFeed");
+  if(!box)return;
+  try{
+    const response=await fetch(HOME_COMMUNITY_API+"?action=feed&scope=global",{method:"GET",cache:"no-store",credentials:"omit"});
+    const data=await response.json();
+    if(!response.ok||data.ok!==true||!Array.isArray(data.posts))throw new Error("feed");
+    const posts=data.posts.slice(0,3);
+    if(!posts.length){
+      box.innerHTML='<div class="feed-loading">Noch keine globalen Trainer-Feed-Beiträge veröffentlicht.</div>';
+      return;
+    }
+    box.innerHTML=posts.map(p=>{
+      const rank=homeRank(p.author_wins);
+      const author=p.author||"Trainerprofil";
+      const team=p.team_name||"BetInsight Team";
+      const avatar=p.author_avatar_url?'<img loading="lazy" src="'+homeEsc(p.author_avatar_url)+'" alt="">':homeEsc(homeInitials(author));
+      const media=p.media&&p.media.public_url?'<div class="trainer-post-media"><img loading="lazy" src="'+homeEsc(p.media.public_url)+'" alt="Beitragsbild"></div>':"";
+      const reactions=Array.isArray(p.reactions)?p.reactions.length:0;
+      const comments=Array.isArray(p.comments)?p.comments.length:0;
+      const href="https://app.betinsight.club/trainer/"+(p.public_slug?"?p="+encodeURIComponent(p.public_slug):"");
+      return '<article class="trainer-post">'+
+        '<div class="trainer-post-head"><div class="trainer-avatar rank-'+rank.key+'">'+avatar+'</div>'+
+        '<div class="trainer-author"><strong>'+homeEsc(author)+'</strong><small>'+homeEsc(team)+' · '+homeEsc(homeFeedTime(p.created_at))+'</small></div>'+
+        '<div class="trainer-rank">'+rank.icon+' '+homeEsc(rank.label)+'</div></div>'+
+        '<div class="trainer-post-text">'+homeEsc(p.body||"")+'</div>'+media+
+        '<div class="trainer-post-foot"><span>♡ '+reactions+' · 💬 '+comments+'</span><a class="trainer-post-link" href="'+href+'">Profil öffnen →</a></div>'+
+      '</article>';
+    }).join("");
+  }catch(_e){
+    box.innerHTML='<div class="feed-loading">Trainer Feed ist momentan nicht erreichbar. <a class="trainer-post-link" href="https://app.betinsight.club/trainer/">Trainerbereich öffnen →</a></div>';
+  }
+}
+const trainerFeedSection=document.getElementById("trainer-feed");
+if(trainerFeedSection&&"IntersectionObserver" in window){
+  const feedObserver=new IntersectionObserver(entries=>{
+    if(entries.some(e=>e.isIntersecting)){loadHomeTrainerFeed();feedObserver.disconnect();}
+  },{rootMargin:"350px 0px"});
+  feedObserver.observe(trainerFeedSection);
+}else if(trainerFeedSection){loadHomeTrainerFeed();}
+
+/* V4: lightweight TIME CLASH carousel */
 const duelTrack=document.getElementById("duelTrack");
 const duelViewport=document.getElementById("duelViewport");
 const duelSlides=duelTrack?[...duelTrack.children]:[];
@@ -467,7 +685,7 @@ duelViewport?.addEventListener("mouseleave",startDuelAuto);
 document.addEventListener("visibilitychange",()=>document.hidden?clearInterval(duelTimer):startDuelAuto());
 renderDuelDots();startDuelAuto();
 
-/* V3: one wheel gesture = one complete homepage panel on desktop */
+/* V4: one wheel gesture = one complete homepage panel on desktop */
 const pageSections=[...document.querySelectorAll("main>section")];
 let pageScrollLock=false;
 function nearestSectionIndex(){
