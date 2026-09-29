@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>BetInsight – Neue Startseite Muster V12</title>
+  <title>BetInsight – Neue Startseite Muster V13</title>
   <meta name="description" content="Musterseite für das neue BetInsight Ecosystem.">
   <link rel="icon" href="../favicon.ico">
   <style>
@@ -791,11 +791,16 @@ function applyLang(lang){
 }
 
 
-/* V4: public Trainer Feed teaser – loaded only when the section approaches the viewport */
+/* V13: public Trainer Feed teaser – load immediately and show the 3 newest global posts */
 const HOME_COMMUNITY_API="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/community-api";
 let homeFeedLoaded=false;
-function homeEsc(v){return String(v==null?"":v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
-function homeInitials(v){return String(v||"TR").split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]?.toUpperCase()||"").join("")||"TR";}
+
+function homeEsc(v){
+  return String(v==null?"":v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function homeInitials(v){
+  return String(v||"TR").split(/\s+/).filter(Boolean).slice(0,2).map(x=>(x[0]||"").toUpperCase()).join("")||"TR";
+}
 function homeRank(wins){
   wins=Number(wins||0);
   if(wins>=200)return {key:"elite",label:"Elite",icon:"🏆"};
@@ -806,50 +811,64 @@ function homeRank(wins){
   return {key:"start",label:"Startliga",icon:"⚽"};
 }
 function homeFeedTime(value){
-  try{return new Intl.DateTimeFormat(document.documentElement.lang||"de",{dateStyle:"medium"}).format(new Date(value));}
-  catch(_e){return "";}
+  try{
+    return new Intl.DateTimeFormat(document.documentElement.lang||"de",{dateStyle:"medium"}).format(new Date(value));
+  }catch(_e){return "";}
 }
 async function loadHomeTrainerFeed(){
   if(homeFeedLoaded)return;
   homeFeedLoaded=true;
   const box=document.getElementById("homeTrainerFeed");
   if(!box)return;
+
   try{
-    const response=await fetch(HOME_COMMUNITY_API+"?action=feed&scope=global",{method:"GET",cache:"no-store",credentials:"omit"});
+    const response=await fetch(HOME_COMMUNITY_API+"?action=feed&scope=global",{
+      method:"GET",cache:"no-store",credentials:"omit",headers:{"Accept":"application/json"}
+    });
     const data=await response.json();
     if(!response.ok||data.ok!==true||!Array.isArray(data.posts))throw new Error("feed");
+
     const posts=data.posts.slice(0,3);
     if(!posts.length){
       box.innerHTML='<div class="feed-loading">Noch keine globalen Trainer-Feed-Beiträge veröffentlicht.</div>';
       return;
     }
+
+    const lang=encodeURIComponent(document.documentElement.lang||"de");
+    const publicHref="/trainer-feed/?lang="+lang;
+
     box.innerHTML=posts.map(p=>{
       const rank=homeRank(p.author_wins);
       const author=p.author||"Trainerprofil";
       const team=p.team_name||"BetInsight Team";
-      const avatar=p.author_avatar_url?'<img loading="lazy" src="'+homeEsc(p.author_avatar_url)+'" alt="">':homeEsc(homeInitials(author));
-      const media=p.media&&p.media.public_url?'<div class="trainer-post-media"><img loading="lazy" src="'+homeEsc(p.media.public_url)+'" alt="Beitragsbild"></div>':"";
+      const avatar=p.author_avatar_url
+        ? '<img loading="lazy" src="'+homeEsc(p.author_avatar_url)+'" alt="">'
+        : homeEsc(homeInitials(author));
+      const media=p.media&&p.media.public_url
+        ? '<div class="trainer-post-media"><img loading="lazy" src="'+homeEsc(p.media.public_url)+'" alt="Beitragsbild"></div>'
+        : "";
       const reactions=Array.isArray(p.reactions)?p.reactions.length:0;
       const comments=Array.isArray(p.comments)?p.comments.length:0;
+
       return '<article class="trainer-post">'+
-        '<div class="trainer-post-head"><div class="trainer-avatar rank-'+rank.key+'">'+avatar+'</div>'+
-        '<div class="trainer-author"><strong>'+homeEsc(author)+'</strong><small>'+homeEsc(team)+' · '+homeEsc(homeFeedTime(p.created_at))+'</small></div>'+
-        '<div class="trainer-rank">'+rank.icon+' '+homeEsc(rank.label)+'</div></div>'+
-        '<div class="trainer-post-text">'+homeEsc(p.body||"")+'</div>'+media+
-        '<div class="trainer-post-foot"><span>♡ '+reactions+' · 💬 '+comments+'</span><a class="trainer-post-link" href="/trainer-feed/?lang="+encodeURIComponent(document.documentElement.lang||"de")+'">Im öffentlichen Feed lesen →</a></div>'+
+        '<div class="trainer-post-head">'+
+          '<div class="trainer-avatar rank-'+rank.key+'">'+avatar+'</div>'+
+          '<div class="trainer-author"><strong>'+homeEsc(author)+'</strong><small>'+homeEsc(team)+' · '+homeEsc(homeFeedTime(p.created_at))+'</small></div>'+
+          '<div class="trainer-rank">'+rank.icon+' '+homeEsc(rank.label)+'</div>'+
+        '</div>'+
+        '<div class="trainer-post-text">'+homeEsc(p.body||"")+'</div>'+
+        media+
+        '<div class="trainer-post-foot"><span>♡ '+reactions+' · 💬 '+comments+'</span><a class="trainer-post-link" href="'+publicHref+'">Im öffentlichen Feed lesen →</a></div>'+
       '</article>';
     }).join("");
-  }catch(_e){
+  }catch(error){
+    console.error("Trainer Feed",error);
     box.innerHTML='<div class="feed-loading">Trainer Feed ist momentan nicht erreichbar. <a class="trainer-post-link" href="/trainer-feed/?lang=de">Öffentlichen Trainer Feed öffnen →</a></div>';
   }
 }
-const trainerFeedSection=document.getElementById("trainer-feed");
-if(trainerFeedSection&&"IntersectionObserver" in window){
-  const feedObserver=new IntersectionObserver(entries=>{
-    if(entries.some(e=>e.isIntersecting)){loadHomeTrainerFeed();feedObserver.disconnect();}
-  },{rootMargin:"350px 0px"});
-  feedObserver.observe(trainerFeedSection);
-}else if(trainerFeedSection){loadHomeTrainerFeed();}
+
+/* This is intentionally immediate. The global feed is lightweight and should never sit forever on “wird geladen”. */
+loadHomeTrainerFeed();
 
 /* V4: lightweight TIME CLASH carousel */
 const duelTrack=document.getElementById("duelTrack");
@@ -881,12 +900,12 @@ duelViewport?.addEventListener("mouseleave",startDuelAuto);
 document.addEventListener("visibilitychange",()=>document.hidden?clearInterval(duelTimer):startDuelAuto());
 renderDuelDots();startDuelAuto();
 
-/* V11: original full-page pager everywhere; free scrolling only in the footer */
+/* V13: original full-page paging; footer is one explicit final target with native scrolling */
 const pageSections=[...document.querySelectorAll("main>section")];
 const siteFooter=document.querySelector(".site-footer");
 const rootScroller=document.documentElement;
 let pageScrollLock=false;
-let footerFreeMode=false;
+let footerMode=false;
 
 function nearestSectionIndex(){
   const header=document.querySelector(".topbar")?.offsetHeight||92;
@@ -898,28 +917,12 @@ function nearestSectionIndex(){
   return best;
 }
 
-function setFooterFreeMode(on){
-  if(footerFreeMode===on)return;
-  footerFreeMode=on;
+function setFooterMode(on){
+  footerMode=on;
   rootScroller.style.scrollSnapType=on?"none":"y mandatory";
   document.body.style.overscrollBehaviorY=on?"auto":"none";
   if(on)pageScrollLock=false;
 }
-
-function footerVisible(){
-  if(!siteFooter)return false;
-  const r=siteFooter.getBoundingClientRect();
-  return r.top<window.innerHeight && r.bottom>0;
-}
-
-/* Re-enable the normal full-page system automatically after leaving the footer. */
-window.addEventListener("scroll",()=>{
-  if(!footerFreeMode)return;
-  if(!footerVisible()){
-    const r=siteFooter?.getBoundingClientRect();
-    if(r && r.top>=window.innerHeight-2)setFooterFreeMode(false);
-  }
-},{passive:true});
 
 window.addEventListener("wheel",e=>{
   if(window.innerWidth<=760||e.ctrlKey||Math.abs(e.deltaY)<12)return;
@@ -927,34 +930,47 @@ window.addEventListener("wheel",e=>{
   const target=e.target;
   if(target?.closest?.("select"))return;
 
-  /* Once inside the footer, never interfere with normal browser scrolling. */
-  if(footerFreeMode || target?.closest?.(".site-footer") || footerVisible()){
-    setFooterFreeMode(true);
+  const header=document.querySelector(".topbar")?.offsetHeight||92;
+
+  /* Footer: normal browser scrolling and normal clickable links. */
+  if(footerMode){
+    const footerTop=siteFooter?.getBoundingClientRect().top??9999;
+
+    /* Only at the very top of the footer, scrolling upward returns to the last full panel. */
+    if(e.deltaY<0 && footerTop>=header-4){
+      e.preventDefault();
+      setFooterMode(false);
+      const last=pageSections[pageSections.length-1];
+      const y=last.getBoundingClientRect().top+window.scrollY-header;
+      window.scrollTo({top:y,behavior:"smooth"});
+      pageScrollLock=true;
+      window.setTimeout(()=>{pageScrollLock=false;},820);
+    }
     return;
   }
 
   const here=nearestSectionIndex();
-  const last=pageSections.length-1;
+  const lastIndex=pageSections.length-1;
 
-  /* This is the ONLY exception to the original pager:
-     from the final content panel downward, release scrolling into the footer. */
-  if(here===last && e.deltaY>0){
-    setFooterFreeMode(true);
+  /* Final content panel -> footer: one clean step, then release all wheel handling. */
+  if(here===lastIndex && e.deltaY>0 && siteFooter){
+    e.preventDefault();
+    setFooterMode(true);
+    const y=siteFooter.getBoundingClientRect().top+window.scrollY-header;
+    window.scrollTo({top:y,behavior:"smooth"});
     return;
   }
 
-  /* Original V9-style one-wheel-step = one full section. */
   if(pageScrollLock){
     e.preventDefault();
     return;
   }
 
   e.preventDefault();
-  const next=Math.max(0,Math.min(last,here+(e.deltaY>0?1:-1)));
+  const next=Math.max(0,Math.min(lastIndex,here+(e.deltaY>0?1:-1)));
   if(next===here)return;
 
   pageScrollLock=true;
-  const header=document.querySelector(".topbar")?.offsetHeight||92;
   const y=pageSections[next].getBoundingClientRect().top+window.scrollY-header;
   window.scrollTo({top:y,behavior:"smooth"});
   window.setTimeout(()=>{pageScrollLock=false;},820);
