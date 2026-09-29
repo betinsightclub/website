@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>BetInsight – Neue Startseite Muster V4</title>
+  <title>BetInsight – Neue Startseite Muster V5</title>
   <meta name="description" content="Musterseite für das neue BetInsight Ecosystem.">
   <link rel="icon" href="../favicon.ico">
   <style>
@@ -88,7 +88,7 @@
     .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.032);padding:26px}.card h3{font-size:27px;margin:6px 0 11px}.card p{color:var(--muted);line-height:1.58}
     .pro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.pro{padding:26px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,#0d1929,#0a1421)}.pro .number{font-size:46px;font-weight:950;letter-spacing:-.04em}.pro .number span{font-size:17px;color:#8fa5bc}.pro p{color:var(--muted);line-height:1.55}
     .media{border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#07101b}.media img{width:100%;height:100%;object-fit:cover}.feature-copy{padding:12px 6px}.feature-copy ul{padding-left:20px;color:#c0cede;line-height:1.9}
-    .worlds{display:grid;grid-template-columns:1fr 1fr;gap:18px}.world{padding:30px;border:1px solid var(--line);border-radius:28px;min-height:330px}.world.real{background:linear-gradient(150deg,rgba(43,140,255,.14),rgba(255,255,255,.025))}.world.clash{background:linear-gradient(150deg,rgba(247,200,93,.11),rgba(255,255,255,.025))}.world h3{font-size:34px}.world ul{padding-left:20px;line-height:1.9;color:#c0cede}
+    .worlds{display:grid;grid-template-columns:1fr 1fr;gap:18px}.world{padding:30px;border:1px solid var(--line);border-radius:28px;min-height:360px;display:flex;flex-direction:column}.world.real{background:linear-gradient(150deg,rgba(43,140,255,.14),rgba(255,255,255,.025))}.world.clash{background:linear-gradient(150deg,rgba(247,200,93,.11),rgba(255,255,255,.025))}.world h3{font-size:34px}.world ul{padding-left:20px;line-height:1.9;color:#c0cede;flex:1}.world-actions{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-direction:column;align-items:flex-start;gap:8px}.world-actions small{color:#8fa5b8;line-height:1.45}.starter-pill{border-color:rgba(70,219,154,.32);background:rgba(70,219,154,.08);color:#bdf5d7;font-weight:850}
     .live-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.live-card{min-height:220px;padding:24px;border-radius:22px;border:1px solid var(--line);background:#0b1624}.live-card .icon{font-size:28px}.live-card h3{font-size:22px}.live-card p{color:var(--muted);line-height:1.5}
     .growth{border-radius:30px;border:1px solid rgba(70,219,154,.2);background:linear-gradient(135deg,rgba(70,219,154,.08),rgba(43,140,255,.055));padding:38px}.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.growth-item{border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(0,0,0,.14)}.growth-item strong{display:block;font-size:18px;margin-bottom:7px}.growth-item span{color:var(--muted);line-height:1.5;font-size:14px}.growth-note{margin-top:20px;color:#7fdcb3;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.core{border-radius:30px;border:1px solid rgba(72,215,255,.18);background:linear-gradient(135deg,rgba(72,215,255,.08),rgba(43,140,255,.07));padding:38px}.coreline{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.coreline span{border:1px solid var(--line);border-radius:999px;padding:10px 13px;color:#d7e5f4;background:rgba(0,0,0,.14)}
     footer{border-top:1px solid var(--line);padding:36px 0 50px;color:#869bb1}.foot{display:flex;gap:20px;align-items:center}.foot img{height:34px}.foot nav{display:flex;gap:16px;margin-left:auto;flex-wrap:wrap}
@@ -130,7 +130,7 @@
       <a class="btn secondary" href="#duels" data-i18n="seeDuels">Musterduelle ansehen</a>
     </div>
     <div class="hero-pills">
-      <span class="pill">ANALYZE</span><span class="pill">TIME CLASH</span><span class="pill">CLUB</span><span class="pill">LIVE</span><span class="pill">NETWORK</span>
+      <span class="pill">ANALYZE</span><span class="pill">TIME CLASH</span><span class="pill">CLUB</span><span class="pill">LIVE</span><span class="pill">NETWORK</span><span class="pill starter-pill" data-i18n="starterPill">5 Start-Units kostenlos bei Neuregistrierung</span>
     </div>
   </div>
 </section>
@@ -299,8 +299,24 @@
   <div class="wrap">
     <div class="section-head"><div class="kicker" data-i18n="worldKicker">ZWEI FUSSBALL-WELTEN</div><h2 data-i18n="worldTitle">Reale Analyse und Simulation klar getrennt.</h2></div>
     <div class="worlds">
-      <article class="world real"><div class="kicker">REAL WORLD</div><h3 data-i18n="realTitle">Reale Spiele. Reale Daten.</h3><ul><li data-i18n="real1">Fußballanalysen und Sporttipps</li><li data-i18n="real2">Dokumentierte Ergebnisse und Statistik</li><li data-i18n="real3">Rechner und Bankroll-Werkzeuge</li><li data-i18n="real4">Live-Alarm und Events</li></ul></article>
-      <article class="world clash"><div class="kicker">TIME CLASH</div><h3 data-i18n="clashTitle">Historische Duelle. Neue Geschichten.</h3><ul><li data-i18n="clash1">Teams aus verschiedenen Epochen vergleichen</li><li data-i18n="clash2">Serien und Match-Simulationen erleben</li><li data-i18n="clash3">Live-Ticker, Trainer und Community</li><li data-i18n="clash4">Rankings, Galerie und eigene Historie</li></ul></article>
+      <article class="world real">
+        <div class="kicker">REAL WORLD</div>
+        <h3 data-i18n="realTitle">Reale Spiele. Reale Daten.</h3>
+        <ul><li data-i18n="real1">Fußballanalysen und Sporttipps</li><li data-i18n="real2">Dokumentierte Ergebnisse und Statistik</li><li data-i18n="real3">Rechner und Bankroll-Werkzeuge</li><li data-i18n="real4">Live-Alarm und Events</li></ul>
+        <div class="world-actions">
+          <a class="btn primary" href="https://betinsight.systeme.io/registrierung?ref=POOL" data-i18n="realWorldCta">Kostenlos testen · 5 Start-Units</a>
+          <small data-i18n="realWorldNote">Für neue BetInsight-Accounts · kostenlose Registrierung.</small>
+        </div>
+      </article>
+      <article class="world clash">
+        <div class="kicker">TIME CLASH</div>
+        <h3 data-i18n="clashTitle">Historische Duelle. Neue Geschichten.</h3>
+        <ul><li data-i18n="clash1">Teams aus verschiedenen Epochen vergleichen</li><li data-i18n="clash2">Serien und Match-Simulationen erleben</li><li data-i18n="clash3">Live-Ticker, Trainer und Community</li><li data-i18n="clash4">Rankings, Galerie und eigene Historie</li></ul>
+        <div class="world-actions">
+          <a class="btn primary route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="clashWorldCta">Eigenen TIME CLASH starten</a>
+          <small data-i18n="clashWorldNote">Historische Teams wählen und deine eigene Serie erleben.</small>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -365,7 +381,7 @@
 <footer>
   <div class="wrap foot">
     <img src="../assets/betinsight-logo.png" alt="BetInsight">
-    <span data-i18n="footerText">Musterseite V4 · nicht indexiert · Konzeptstand</span>
+    <span data-i18n="footerText">Musterseite V5 · nicht indexiert · Konzeptstand</span>
     <nav><a href="/de/impressum/" class="route-link" data-route="imprint" data-i18n="imprint">Impressum</a><a href="/de/datenschutz/" class="route-link" data-route="privacy" data-i18n="privacy">Datenschutz</a></nav>
   </div>
 </footer>
@@ -577,6 +593,16 @@ Object.assign(T["zh-tw"],{
   clashCtaHeadline:"親自體驗對戰",clashCtaSub:"開啟 TIME CLASH，建立自己的系列賽。",clashStart:"開始 CLASH",allDuels:"查看所有對戰",
   feedKicker:"社群即時動態",feedTitle:"教練動態。",feedText:"即時查看 BetInsight 社群的全球教練貼文，包括球隊、等級、反應以及公開個人頁面。",feedOpen:"開啟教練動態",feedLoading:"正在載入最新教練貼文 …"
 });
+
+
+Object.assign(T.de,{starterPill:"5 Start-Units kostenlos bei Neuregistrierung",realWorldCta:"Kostenlos testen · 5 Start-Units",realWorldNote:"Für neue BetInsight-Accounts · kostenlose Registrierung.",clashWorldCta:"Eigenen TIME CLASH starten",clashWorldNote:"Historische Teams wählen und deine eigene Serie erleben."});
+Object.assign(T.en,{starterPill:"5 free starter Units with new registration",realWorldCta:"Try free · 5 starter Units",realWorldNote:"For new BetInsight accounts · free registration.",clashWorldCta:"Start your own TIME CLASH",clashWorldNote:"Choose historic teams and experience your own series."});
+Object.assign(T.pt,{starterPill:"5 Units iniciais grátis no novo registo",realWorldCta:"Testar grátis · 5 Units iniciais",realWorldNote:"Para novas contas BetInsight · registo gratuito.",clashWorldCta:"Criar o seu TIME CLASH",clashWorldNote:"Escolha equipas históricas e viva a sua própria série."});
+Object.assign(T.es,{starterPill:"5 Units iniciales gratis al registrarte",realWorldCta:"Probar gratis · 5 Units iniciales",realWorldNote:"Para nuevas cuentas BetInsight · registro gratuito.",clashWorldCta:"Crear tu propio TIME CLASH",clashWorldNote:"Elige equipos históricos y vive tu propia serie."});
+Object.assign(T.fr,{starterPill:"5 Units de départ offertes à l'inscription",realWorldCta:"Tester gratuitement · 5 Units",realWorldNote:"Pour les nouveaux comptes BetInsight · inscription gratuite.",clashWorldCta:"Créer votre TIME CLASH",clashWorldNote:"Choisissez des équipes historiques et vivez votre propre série."});
+Object.assign(T.it,{starterPill:"5 Unit iniziali gratis con la registrazione",realWorldCta:"Prova gratis · 5 Unit iniziali",realWorldNote:"Per nuovi account BetInsight · registrazione gratuita.",clashWorldCta:"Crea il tuo TIME CLASH",clashWorldNote:"Scegli squadre storiche e vivi la tua serie."});
+Object.assign(T.nl,{starterPill:"5 gratis start-Units bij nieuwe registratie",realWorldCta:"Gratis testen · 5 start-Units",realWorldNote:"Voor nieuwe BetInsight-accounts · gratis registratie.",clashWorldCta:"Start je eigen TIME CLASH",clashWorldNote:"Kies historische teams en beleef je eigen serie."});
+Object.assign(T["zh-tw"],{starterPill:"新註冊可獲 5 個免費起始 Units",realWorldCta:"免費體驗 · 5 個起始 Units",realWorldNote:"適用於新的 BetInsight 帳戶 · 免費註冊。",clashWorldCta:"建立自己的 TIME CLASH",clashWorldNote:"選擇歷史球隊，體驗自己的系列賽。"});
 
 const routes={calculator:"rechner",stats:"statistik-vorschau","time-clash":"time-clash","time-clash-community":"time-clash/community",events:"events",tips:"tipps",imprint:"impressum",privacy:"datenschutz"};
 function applyLang(lang){
