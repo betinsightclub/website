@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>BetInsight – Neue Startseite Muster</title>
+  <meta name="description" content="Musterseite für das neue BetInsight Ecosystem.">
+  <link rel="icon" href="../favicon.ico">
+  <style>
+    :root{
+      --bg:#050b13;--bg2:#08121f;--panel:#0c1726;--panel2:#101e30;--line:rgba(255,255,255,.09);
+      --text:#f5f8fb;--muted:#a8b6c8;--blue:#2b8cff;--cyan:#48d7ff;--green:#46db9a;--gold:#f7c85d;
+      --shadow:0 24px 80px rgba(0,0,0,.35);--radius:24px;--max:1180px
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
+    radial-gradient(circle at 15% 5%,rgba(43,140,255,.15),transparent 28%),
+    radial-gradient(circle at 85% 10%,rgba(72,215,255,.08),transparent 26%),
+    linear-gradient(180deg,var(--bg),#06101b 38%,#07111d);color:var(--text)}
+    a{color:inherit;text-decoration:none}img{max-width:100%;display:block}.wrap{width:min(var(--max),calc(100% - 36px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:50;background:rgba(5,11,19,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav{height:78px;display:flex;align-items:center;gap:22px}.brand img{height:40px;width:auto}.links{display:flex;gap:18px;margin-left:auto;color:#cbd7e6;font-size:14px}.links a:hover{color:white}
+    .actions{display:flex;align-items:center;gap:10px}.lang{background:#0d1a29;color:white;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:13px;padding:12px 17px;font-weight:800;border:1px solid transparent;transition:.2s}
+    .btn.primary{background:linear-gradient(135deg,var(--blue),#5a67ff);box-shadow:0 10px 35px rgba(43,140,255,.22)}
+    .btn.secondary{border-color:var(--line);background:rgba(255,255,255,.035)}.btn:hover{transform:translateY(-1px)}
+    .hero{min-height:720px;display:grid;align-items:center;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,11,19,.96) 0%,rgba(5,11,19,.78) 46%,rgba(5,11,19,.2) 100%),url("../assets/hero-fussball-dunkel.png") center/cover no-repeat;filter:saturate(.95)}
+    .hero-content{position:relative;z-index:1;max-width:760px;padding:96px 0}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;color:#b8e9ff;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900}
+    h1{font-size:clamp(48px,7vw,86px);line-height:.96;margin:17px 0 24px;letter-spacing:-.045em}
+    .lead{font-size:clamp(18px,2vw,23px);line-height:1.55;color:#c7d2e0;max-width:690px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .hero-pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:34px}.pill{border:1px solid var(--line);background:rgba(9,20,33,.7);padding:9px 12px;border-radius:999px;font-size:12px;color:#d9e5f1}
+    section{padding:92px 0}.section-head{max-width:760px;margin-bottom:34px}.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#74c9ff;font-weight:900}
+    h2{font-size:clamp(32px,4.5vw,54px);line-height:1.02;margin:10px 0 14px;letter-spacing:-.035em}.section-head p{color:var(--muted);font-size:18px;line-height:1.6}
+    .suite-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.suite{min-height:280px;padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .suite:after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;right:-55px;bottom:-55px;background:radial-gradient(circle,var(--accent),transparent 70%);opacity:.25}.suite small{color:var(--accent);font-weight:900;letter-spacing:.12em}.suite h3{font-size:23px;margin:70px 0 10px}.suite p{color:#afbed0;line-height:1.5;font-size:14px}
+    .duel-wrap{border:1px solid rgba(247,200,93,.23);border-radius:30px;background:linear-gradient(135deg,#0a1320,#111e2d);overflow:hidden;box-shadow:var(--shadow)}
+    .duel-top{padding:22px 24px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}.tc-badge{margin-left:auto;font-size:11px;letter-spacing:.15em;font-weight:900;color:#05101c;background:linear-gradient(135deg,var(--gold),#fff0a8);padding:8px 10px;border-radius:999px}
+    .slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:20px}.slider::-webkit-scrollbar{height:7px}.slider::-webkit-scrollbar-thumb{background:#33465d;border-radius:99px}
+    .duel{min-width:min(78vw,360px);scroll-snap-align:start;border:1px solid var(--line);border-radius:20px;padding:20px;background:rgba(255,255,255,.035)}.duel .type{font-size:11px;color:var(--gold);font-weight:900;letter-spacing:.1em;text-transform:uppercase}.duel h3{font-size:24px;margin:18px 0 9px}.duel p{color:var(--muted);min-height:42px}.duel .vs{font-size:12px;color:#d6e5f5;border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+    .duel-cta{display:flex;justify-content:center;padding:0 20px 24px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.032);padding:26px}.card h3{font-size:27px;margin:6px 0 11px}.card p{color:var(--muted);line-height:1.58}
+    .pro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.pro{padding:26px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,#0d1929,#0a1421)}.pro .number{font-size:46px;font-weight:950;letter-spacing:-.04em}.pro .number span{font-size:17px;color:#8fa5bc}.pro p{color:var(--muted);line-height:1.55}
+    .media{border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#07101b}.media img{width:100%;height:100%;object-fit:cover}.feature-copy{padding:12px 6px}.feature-copy ul{padding-left:20px;color:#c0cede;line-height:1.9}
+    .worlds{display:grid;grid-template-columns:1fr 1fr;gap:18px}.world{padding:30px;border:1px solid var(--line);border-radius:28px;min-height:330px}.world.real{background:linear-gradient(150deg,rgba(43,140,255,.14),rgba(255,255,255,.025))}.world.clash{background:linear-gradient(150deg,rgba(247,200,93,.11),rgba(255,255,255,.025))}.world h3{font-size:34px}.world ul{padding-left:20px;line-height:1.9;color:#c0cede}
+    .live-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.live-card{min-height:220px;padding:24px;border-radius:22px;border:1px solid var(--line);background:#0b1624}.live-card .icon{font-size:28px}.live-card h3{font-size:22px}.live-card p{color:var(--muted);line-height:1.5}
+    .core{border-radius:30px;border:1px solid rgba(72,215,255,.18);background:linear-gradient(135deg,rgba(72,215,255,.08),rgba(43,140,255,.07));padding:38px}.coreline{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.coreline span{border:1px solid var(--line);border-radius:999px;padding:10px 13px;color:#d7e5f4;background:rgba(0,0,0,.14)}
+    footer{border-top:1px solid var(--line);padding:36px 0 50px;color:#869bb1}.foot{display:flex;gap:20px;align-items:center}.foot img{height:34px}.foot nav{display:flex;gap:16px;margin-left:auto;flex-wrap:wrap}
+    @media(max-width:1050px){.suite-grid{grid-template-columns:repeat(2,1fr)}.suite:last-child{grid-column:span 2}.links{display:none}}
+    @media(max-width:760px){.nav{height:auto;padding:13px 0;flex-wrap:wrap}.actions{margin-left:auto}.hero{min-height:640px}.hero-content{padding:70px 0}.suite-grid,.two,.pro-grid,.worlds,.live-grid{grid-template-columns:1fr}.suite:last-child{grid-column:auto}.foot{align-items:flex-start;flex-direction:column}.foot nav{margin-left:0}.hide-mobile{display:none}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="../assets/betinsight-logo.png" alt="BetInsight"></a>
+    <nav class="links">
+      <a href="#ecosystem" data-i18n="navEcosystem">Ecosystem</a>
+      <a href="#duels" data-i18n="navDuels">Musterduelle</a>
+      <a href="#pros" data-i18n="navPros">Profis</a>
+      <a href="#stats" data-i18n="navStats">Statistik</a>
+      <a href="#calculator" data-i18n="navCalc">Rechner</a>
+    </nav>
+    <div class="actions">
+      <select class="lang" id="langSelect" aria-label="Sprache">
+        <option value="de">DE</option><option value="en">EN</option><option value="pt">PT</option><option value="es">ES</option>
+        <option value="fr">FR</option><option value="it">IT</option><option value="nl">NL</option><option value="zh-tw">繁中</option>
+      </select>
+      <a class="btn secondary hide-mobile" href="https://betinsight.systeme.io/school/course/mitglieder/lecture/9870726" data-i18n="login">Einloggen</a>
+      <a class="btn primary" href="https://betinsight.systeme.io/registrierung?ref=POOL" data-i18n="register">Kostenlos starten</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-content">
+    <div class="eyebrow" data-i18n="heroEyebrow">BETINSIGHT · SPORTS INTELLIGENCE & EXPERIENCE</div>
+    <h1 data-i18n="heroTitle">Sport verstehen. Erleben. Vergleichen.</h1>
+    <p class="lead" data-i18n="heroLead">Eine Plattform für reale Fußballanalysen, dokumentierte Ergebnisse, smarte Werkzeuge, Community, Live-Formate und historische Duelle mit TIME CLASH.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#ecosystem" data-i18n="discover">BetInsight entdecken</a>
+      <a class="btn secondary" href="#duels" data-i18n="seeDuels">Musterduelle ansehen</a>
+    </div>
+    <div class="hero-pills">
+      <span class="pill">ANALYZE</span><span class="pill">TIME CLASH</span><span class="pill">CLUB</span><span class="pill">LIVE</span><span class="pill">NETWORK</span>
+    </div>
+  </div>
+</section>
+
+<section id="ecosystem">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="ecoKicker">DAS BETINSIGHT ECOSYSTEM</div>
+      <h2 data-i18n="ecoTitle">Fünf Bereiche. Ein Account. Ein gemeinsames System.</h2>
+      <p data-i18n="ecoText">Die neue Startseite führt nicht mehr nur zu Tipps. Sie zeigt BetInsight als Plattform – mit klar getrennten Produktwelten und gemeinsamen Funktionen im Hintergrund.</p>
+    </div>
+    <div class="suite-grid">
+      <article class="suite" style="--accent:#48d7ff"><small>01</small><h3>ANALYZE</h3><p data-i18n="suiteAnalyze">Reale Spiele, strukturierte Analysen, Tipps, Ergebnisse, Statistik und Rechner.</p></article>
+      <article class="suite" style="--accent:#f7c85d"><small>02</small><h3>TIME CLASH</h3><p data-i18n="suiteClash">Historische und hypothetische Duelle, Serien, Live-Ticker, Teams, Trainer und Rankings.</p></article>
+      <article class="suite" style="--accent:#46db9a"><small>03</small><h3>CLUB</h3><p data-i18n="suiteClub">Profile, Community, Beiträge, Reaktionen, Galerie und gemeinsame Match-Erlebnisse.</p></article>
+      <article class="suite" style="--accent:#ff7aa9"><small>04</small><h3>LIVE</h3><p data-i18n="suiteLive">Live-Alarm, Events, Workshops, Webinar und Academy an einem Ort.</p></article>
+      <article class="suite" style="--accent:#9d8cff"><small>05</small><h3>NETWORK</h3><p data-i18n="suiteNetwork">Empfehlungen, Partnerprogramm, Marketing, Tracking und Netzwerk-Funktionen.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="duels">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="duelKicker">MUSTERSPIELE · TIME CLASH</div>
+      <h2 data-i18n="duelTitle">Die Duelle, über die Fußballfans diskutieren.</h2>
+      <p data-i18n="duelText">Ein eigener Banner im ersten Drittel der Startseite zeigt wechselnde Musterduelle – etwa Weltmeister gegen Weltmeister, historische Angstgegner oder Generationen, die sich nie begegnen konnten.</p>
+    </div>
+    <div class="duel-wrap">
+      <div class="duel-top"><strong data-i18n="duelTop">Aktuelle Musterduelle</strong><span class="tc-badge">TIME CLASH</span></div>
+      <div class="slider">
+        <article class="duel"><div class="type" data-i18n="d1Type">WELTMEISTER VS. WELTMEISTER</div><h3>Italia 2006 <span style="color:#7f94aa">vs.</span> España 2026</h3><p data-i18n="d1Text">Defensivkunst einer legendären Turniermannschaft gegen eine neue Generation.</p><div class="vs" data-i18n="dCta">Duell öffnen →</div></article>
+        <article class="duel"><div class="type" data-i18n="d2Type">HISTORISCHER ANGSTGEGNER</div><h3>Deutschland 2014 <span style="color:#7f94aa">vs.</span> Italien 2006</h3><p data-i18n="d2Text">Eine Paarung mit Geschichte – neu gedacht als generationsübergreifendes Match.</p><div class="vs" data-i18n="dCta">Duell öffnen →</div></article>
+        <article class="duel"><div class="type" data-i18n="d3Type">SÜDAMERIKAS GIGANTEN</div><h3>Brasil 2002 <span style="color:#7f94aa">vs.</span> Argentina 2022</h3><p data-i18n="d3Text">Zwei Weltmeister-Generationen, zwei unterschiedliche Fußballidentitäten.</p><div class="vs" data-i18n="dCta">Duell öffnen →</div></article>
+        <article class="duel"><div class="type" data-i18n="d4Type">GENERATIONEN-DUELL</div><h3>France 1998 <span style="color:#7f94aa">vs.</span> France 2018</h3><p data-i18n="d4Text">Welche französische Weltmeistergeneration setzt sich im direkten Vergleich durch?</p><div class="vs" data-i18n="dCta">Duell öffnen →</div></article>
+        <article class="duel"><div class="type" data-i18n="d5Type">EWIGE RIVALITÄT</div><h3>Argentina 1986 <span style="color:#7f94aa">vs.</span> England 1966</h3><p data-i18n="d5Text">Historische Fußballkultur, Ikonen und völlig unterschiedliche Epochen.</p><div class="vs" data-i18n="dCta">Duell öffnen →</div></article>
+      </div>
+      <div class="duel-cta"><a class="btn primary route-link" data-route="time-clash" href="/de/time-clash/" data-i18n="allClash">TIME CLASH entdecken</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="pros">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="proKicker">DIE PROFIS HINTER DEN ANALYSEN</div>
+      <h2 data-i18n="proTitle">Erfahrung bleibt ein zentraler Teil von BetInsight.</h2>
+      <p data-i18n="proText">Die neue Plattform macht BetInsight größer – aber die reale Analysearbeit bleibt ein eigener, klar sichtbarer Kern. Die Namen müssen dabei nicht im Vordergrund stehen; entscheidend sind Erfahrung, Arbeitsweise und Transparenz.</p>
+    </div>
+    <div class="pro-grid">
+      <article class="pro"><div class="number">11 <span data-i18n="years">Jahre</span></div><h3 data-i18n="p1h">Praktische Erfahrung</h3><p data-i18n="p1p">Langjährige Analyse- und Tipp-Erfahrung als Grundlage für strukturierte Match-Bewertungen.</p></article>
+      <article class="pro"><div class="number">5 <span data-i18n="years">Jahre</span></div><h3 data-i18n="p2h">Hauptberuflich</h3><p data-i18n="p2p">Seit fünf Jahren hauptberufliche Beschäftigung mit Analyse, Vorbereitung und Einordnung von Sporttipps.</p></article>
+      <article class="pro"><div class="number">2 <span data-i18n="analysts">Analysten</span></div><h3 data-i18n="p3h">Zweite Perspektive</h3><p data-i18n="p3p">Zwei feste Tippgeber arbeiten mit klaren Rollen, gemeinsamer Vorbereitung und einheitlicher Unit-Gewichtung.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="wrap two">
+    <div class="media"><img src="../assets/dashboard-sportanalyse.webp" alt="BetInsight Statistik Vorschau"></div>
+    <div class="feature-copy">
+      <div class="kicker" data-i18n="statsKicker">DOKUMENTIERTE STATISTIK</div>
+      <h2 data-i18n="statsTitle">Ergebnisse zeigen, statt nur darüber zu sprechen.</h2>
+      <p data-i18n="statsText">Die Statistik bleibt ein Hauptfaktor der Startseite. Besucher sollen schnell sehen können, wie die Auswertung aufgebaut ist und welche Unterschiede sich mit oder ohne Zinseszins ergeben.</p>
+      <ul>
+        <li data-i18n="stats1">Gewertete Spiele nachvollziehbar darstellen</li>
+        <li data-i18n="stats2">Performance der Analysten getrennt und kombiniert</li>
+        <li data-i18n="stats3">Vergleich ohne und mit Zinseszins</li>
+        <li data-i18n="stats4">Transparenter Hinweis: vergangene Ergebnisse sind keine Garantie</li>
+      </ul>
+      <a class="btn secondary route-link" data-route="stats" href="/de/statistik-vorschau/" data-i18n="openStats">Statistik ansehen</a>
+    </div>
+  </div>
+</section>
+
+<section id="calculator">
+  <div class="wrap two">
+    <div class="feature-copy">
+      <div class="kicker" data-i18n="calcKicker">KOSTENLOSER RECHNER</div>
+      <h2 data-i18n="calcTitle">Nicht nur lesen – selbst durchrechnen.</h2>
+      <p data-i18n="calcText">Der Rechner bleibt prominent. Nutzer können Startkapital, Einsatzhöhe, Quote, Trefferquote und Gewinnverwendung simulieren und unterschiedliche Szenarien vergleichen.</p>
+      <ul>
+        <li data-i18n="calc1">Startkapital und Einsatz flexibel testen</li>
+        <li data-i18n="calc2">Quoten und Trefferquoten vergleichen</li>
+        <li data-i18n="calc3">Gewinne auszahlen oder im Kapital lassen</li>
+        <li data-i18n="calc4">Keine Registrierung für die Beispielrechnung nötig</li>
+      </ul>
+      <a class="btn primary route-link" data-route="calculator" href="/de/rechner/" data-i18n="openCalc">Rechner öffnen</a>
+    </div>
+    <a class="media route-link" data-route="calculator" href="/de/rechner/"><img src="../assets/kundenrechner-vorschau.png" alt="BetInsight Rechner Vorschau"></a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head"><div class="kicker" data-i18n="worldKicker">ZWEI FUSSBALL-WELTEN</div><h2 data-i18n="worldTitle">Reale Analyse und Simulation klar getrennt.</h2></div>
+    <div class="worlds">
+      <article class="world real"><div class="kicker">REAL WORLD</div><h3 data-i18n="realTitle">Reale Spiele. Reale Daten.</h3><ul><li data-i18n="real1">Fußballanalysen und Sporttipps</li><li data-i18n="real2">Dokumentierte Ergebnisse und Statistik</li><li data-i18n="real3">Rechner und Bankroll-Werkzeuge</li><li data-i18n="real4">Live-Alarm und Events</li></ul></article>
+      <article class="world clash"><div class="kicker">TIME CLASH</div><h3 data-i18n="clashTitle">Historische Duelle. Neue Geschichten.</h3><ul><li data-i18n="clash1">Teams aus verschiedenen Epochen vergleichen</li><li data-i18n="clash2">Serien und Match-Simulationen erleben</li><li data-i18n="clash3">Live-Ticker, Trainer und Community</li><li data-i18n="clash4">Rankings, Galerie und eigene Historie</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head"><div class="kicker" data-i18n="moreKicker">MEHR ALS ANALYSEN</div><h2 data-i18n="moreTitle">Die Bereiche, die BetInsight zur Plattform machen.</h2></div>
+    <div class="live-grid">
+      <article class="live-card"><div class="icon">👥</div><h3>BETINSIGHT CLUB</h3><p data-i18n="clubText">Profile, Community, Beiträge, Reaktionen und gemeinsame Match-Erlebnisse.</p></article>
+      <article class="live-card"><div class="icon">🔴</div><h3>BETINSIGHT LIVE</h3><p data-i18n="liveText">Live-Alarm, Events, Workshops, Webinar und Academy.</p><a class="btn secondary route-link" data-route="events" href="/de/events/" data-i18n="eventsBtn">Events ansehen</a></article>
+      <article class="live-card"><div class="icon">🌐</div><h3>BETINSIGHT NETWORK</h3><p data-i18n="networkText">Empfehlungen, Partnerprogramm, Marketing-Material, Tracking und Netzwerk-Funktionen.</p><a class="btn secondary" href="https://betinsight.network" data-i18n="networkBtn">Network öffnen</a></article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="core">
+      <div class="kicker">BETINSIGHT CORE</div>
+      <h2 data-i18n="coreTitle">Ein Account verbindet das gesamte Ecosystem.</h2>
+      <p data-i18n="coreText">Units, Wallet, Wechselstube, Premium, Premium Plus, Sicherheit und persönliche Einstellungen bilden die gemeinsame technische Basis hinter den einzelnen Bereichen.</p>
+      <div class="coreline"><span>ACCOUNT</span><span>UNITS</span><span>WALLET</span><span>WECHSELSTUBE</span><span>PREMIUM</span><span>SECURITY</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <img src="../assets/betinsight-logo.png" alt="BetInsight">
+    <span data-i18n="footerText">Musterseite · nicht indexiert · Konzeptstand</span>
+    <nav><a href="/de/impressum/" class="route-link" data-route="imprint" data-i18n="imprint">Impressum</a><a href="/de/datenschutz/" class="route-link" data-route="privacy" data-i18n="privacy">Datenschutz</a></nav>
+  </div>
+</footer>
+
+<script>
+const T={
+de:{
+navEcosystem:"Ecosystem",navDuels:"Musterduelle",navPros:"Profis",navStats:"Statistik",navCalc:"Rechner",login:"Einloggen",register:"Kostenlos starten",
+heroEyebrow:"BETINSIGHT · SPORTS INTELLIGENCE & EXPERIENCE",heroTitle:"Sport verstehen. Erleben. Vergleichen.",heroLead:"Eine Plattform für reale Fußballanalysen, dokumentierte Ergebnisse, smarte Werkzeuge, Community, Live-Formate und historische Duelle mit TIME CLASH.",discover:"BetInsight entdecken",seeDuels:"Musterduelle ansehen",
+ecoKicker:"DAS BETINSIGHT ECOSYSTEM",ecoTitle:"Fünf Bereiche. Ein Account. Ein gemeinsames System.",ecoText:"Die neue Startseite führt nicht mehr nur zu Tipps. Sie zeigt BetInsight als Plattform – mit klar getrennten Produktwelten und gemeinsamen Funktionen im Hintergrund.",
+suiteAnalyze:"Reale Spiele, strukturierte Analysen, Tipps, Ergebnisse, Statistik und Rechner.",suiteClash:"Historische und hypothetische Duelle, Serien, Live-Ticker, Teams, Trainer und Rankings.",suiteClub:"Profile, Community, Beiträge, Reaktionen, Galerie und gemeinsame Match-Erlebnisse.",suiteLive:"Live-Alarm, Events, Workshops, Webinar und Academy an einem Ort.",suiteNetwork:"Empfehlungen, Partnerprogramm, Marketing, Tracking und Netzwerk-Funktionen.",
+duelKicker:"MUSTERSPIELE · TIME CLASH",duelTitle:"Die Duelle, über die Fußballfans diskutieren.",duelText:"Ein eigener Banner im ersten Drittel der Startseite zeigt wechselnde Musterduelle – etwa Weltmeister gegen Weltmeister, historische Angstgegner oder Generationen, die sich nie begegnen konnten.",duelTop:"Aktuelle Musterduelle",d1Type:"WELTMEISTER VS. WELTMEISTER",d1Text:"Defensivkunst einer legendären Turniermannschaft gegen eine neue Generation.",d2Type:"HISTORISCHER ANGSTGEGNER",d2Text:"Eine Paarung mit Geschichte – neu gedacht als generationsübergreifendes Match.",d3Type:"SÜDAMERIKAS GIGANTEN",d3Text:"Zwei Weltmeister-Generationen, zwei unterschiedliche Fußballidentitäten.",d4Type:"GENERATIONEN-DUELL",d4Text:"Welche französische Weltmeistergeneration setzt sich im direkten Vergleich durch?",d5Type:"EWIGE RIVALITÄT",d5Text:"Historische Fußballkultur, Ikonen und völlig unterschiedliche Epochen.",dCta:"Duell öffnen →",allClash:"TIME CLASH entdecken",
+proKicker:"DIE PROFIS HINTER DEN ANALYSEN",proTitle:"Erfahrung bleibt ein zentraler Teil von BetInsight.",proText:"Die neue Plattform macht BetInsight größer – aber die reale Analysearbeit bleibt ein eigener, klar sichtbarer Kern. Die Namen müssen dabei nicht im Vordergrund stehen; entscheidend sind Erfahrung, Arbeitsweise und Transparenz.",years:"Jahre",analysts:"Analysten",p1h:"Praktische Erfahrung",p1p:"Langjährige Analyse- und Tipp-Erfahrung als Grundlage für strukturierte Match-Bewertungen.",p2h:"Hauptberuflich",p2p:"Seit fünf Jahren hauptberufliche Beschäftigung mit Analyse, Vorbereitung und Einordnung von Sporttipps.",p3h:"Zweite Perspektive",p3p:"Zwei feste Tippgeber arbeiten mit klaren Rollen, gemeinsamer Vorbereitung und einheitlicher Unit-Gewichtung.",
+statsKicker:"DOKUMENTIERTE STATISTIK",statsTitle:"Ergebnisse zeigen, statt nur darüber zu sprechen.",statsText:"Die Statistik bleibt ein Hauptfaktor der Startseite. Besucher sollen schnell sehen können, wie die Auswertung aufgebaut ist und welche Unterschiede sich mit oder ohne Zinseszins ergeben.",stats1:"Gewertete Spiele nachvollziehbar darstellen",stats2:"Performance der Analysten getrennt und kombiniert",stats3:"Vergleich ohne und mit Zinseszins",stats4:"Transparenter Hinweis: vergangene Ergebnisse sind keine Garantie",openStats:"Statistik ansehen",
+calcKicker:"KOSTENLOSER RECHNER",calcTitle:"Nicht nur lesen – selbst durchrechnen.",calcText:"Der Rechner bleibt prominent. Nutzer können Startkapital, Einsatzhöhe, Quote, Trefferquote und Gewinnverwendung simulieren und unterschiedliche Szenarien vergleichen.",calc1:"Startkapital und Einsatz flexibel testen",calc2:"Quoten und Trefferquoten vergleichen",calc3:"Gewinne auszahlen oder im Kapital lassen",calc4:"Keine Registrierung für die Beispielrechnung nötig",openCalc:"Rechner öffnen",
+worldKicker:"ZWEI FUSSBALL-WELTEN",worldTitle:"Reale Analyse und Simulation klar getrennt.",realTitle:"Reale Spiele. Reale Daten.",real1:"Fußballanalysen und Sporttipps",real2:"Dokumentierte Ergebnisse und Statistik",real3:"Rechner und Bankroll-Werkzeuge",real4:"Live-Alarm und Events",clashTitle:"Historische Duelle. Neue Geschichten.",clash1:"Teams aus verschiedenen Epochen vergleichen",clash2:"Serien und Match-Simulationen erleben",clash3:"Live-Ticker, Trainer und Community",clash4:"Rankings, Galerie und eigene Historie",
+moreKicker:"MEHR ALS ANALYSEN",moreTitle:"Die Bereiche, die BetInsight zur Plattform machen.",clubText:"Profile, Community, Beiträge, Reaktionen und gemeinsame Match-Erlebnisse.",liveText:"Live-Alarm, Events, Workshops, Webinar und Academy.",eventsBtn:"Events ansehen",networkText:"Empfehlungen, Partnerprogramm, Marketing-Material, Tracking und Netzwerk-Funktionen.",networkBtn:"Network öffnen",
+coreTitle:"Ein Account verbindet das gesamte Ecosystem.",coreText:"Units, Wallet, Wechselstube, Premium, Premium Plus, Sicherheit und persönliche Einstellungen bilden die gemeinsame technische Basis hinter den einzelnen Bereichen.",footerText:"Musterseite · nicht indexiert · Konzeptstand",imprint:"Impressum",privacy:"Datenschutz"
+},
+en:{
+navEcosystem:"Ecosystem",navDuels:"Showcase duels",navPros:"Experts",navStats:"Statistics",navCalc:"Calculator",login:"Log in",register:"Start free",
+heroEyebrow:"BETINSIGHT · SPORTS INTELLIGENCE & EXPERIENCE",heroTitle:"Understand sport. Experience it. Compare eras.",heroLead:"One platform for real football analysis, documented results, smart tools, community, live formats and historic matchups with TIME CLASH.",discover:"Explore BetInsight",seeDuels:"See showcase duels",
+ecoKicker:"THE BETINSIGHT ECOSYSTEM",ecoTitle:"Five areas. One account. One connected system.",ecoText:"The new homepage is no longer only about tips. It presents BetInsight as a platform with clearly separated product worlds and shared functions underneath.",
+suiteAnalyze:"Real matches, structured analysis, tips, results, statistics and calculator.",suiteClash:"Historic and hypothetical matchups, series, live ticker, teams, coaches and rankings.",suiteClub:"Profiles, community, posts, reactions, gallery and shared match experiences.",suiteLive:"Live alerts, events, workshops, webinars and Academy in one place.",suiteNetwork:"Referrals, partner program, marketing, tracking and network functions.",
+duelKicker:"SHOWCASE MATCHES · TIME CLASH",duelTitle:"The matchups football fans love to debate.",duelText:"A dedicated banner in the first third of the homepage rotates showcase matchups such as world champion vs world champion, historic nemesis battles or generations that never met.",duelTop:"Current showcase duels",d1Type:"WORLD CHAMPION VS WORLD CHAMPION",d1Text:"A legendary defensive tournament team against a new generation.",d2Type:"HISTORIC NEMESIS",d2Text:"A matchup with history, reimagined across generations.",d3Type:"SOUTH AMERICAN GIANTS",d3Text:"Two world champion generations with very different football identities.",d4Type:"GENERATION CLASH",d4Text:"Which French world champion generation would prevail head to head?",d5Type:"ETERNAL RIVALRY",d5Text:"Historic football culture, icons and completely different eras.",dCta:"Open duel →",allClash:"Explore TIME CLASH",
+proKicker:"THE EXPERTS BEHIND THE ANALYSIS",proTitle:"Experience remains a core part of BetInsight.",proText:"The platform is growing, but real analysis remains a clearly visible core. Names do not need to dominate; experience, process and transparency matter most.",years:"years",analysts:"analysts",p1h:"Practical experience",p1p:"Long-term analysis and tip experience as the basis for structured match assessments.",p2h:"Full-time",p2p:"Five years of full-time work in analysis, preparation and classification of sports tips.",p3h:"Second perspective",p3p:"Two dedicated analysts work with clear roles, shared preparation and one consistent unit system.",
+statsKicker:"DOCUMENTED STATISTICS",statsTitle:"Show results instead of only talking about them.",statsText:"Statistics remain a major homepage pillar. Visitors should quickly understand how results are evaluated and how scenarios differ with or without compounding.",stats1:"Traceable presentation of evaluated matches",stats2:"Analyst performance shown separately and combined",stats3:"Comparison with and without compounding",stats4:"Transparent note: past results are no guarantee",openStats:"View statistics",
+calcKicker:"FREE CALCULATOR",calcTitle:"Do not just read it – calculate it yourself.",calcText:"The calculator stays prominent. Users can simulate starting capital, stake size, odds, hit rate and how winnings are handled.",calc1:"Test starting capital and stake flexibly",calc2:"Compare odds and hit rates",calc3:"Withdraw winnings or keep them in capital",calc4:"No registration required for the sample calculation",openCalc:"Open calculator",
+worldKicker:"TWO FOOTBALL WORLDS",worldTitle:"Real analysis and simulation clearly separated.",realTitle:"Real matches. Real data.",real1:"Football analysis and sports tips",real2:"Documented results and statistics",real3:"Calculator and bankroll tools",real4:"Live alerts and events",clashTitle:"Historic matchups. New stories.",clash1:"Compare teams from different eras",clash2:"Experience series and match simulations",clash3:"Live ticker, coaches and community",clash4:"Rankings, gallery and personal history",
+moreKicker:"MORE THAN ANALYSIS",moreTitle:"The areas that turn BetInsight into a platform.",clubText:"Profiles, community, posts, reactions and shared match experiences.",liveText:"Live alerts, events, workshops, webinars and Academy.",eventsBtn:"View events",networkText:"Referrals, partner program, marketing material, tracking and network functions.",networkBtn:"Open Network",
+coreTitle:"One account connects the entire ecosystem.",coreText:"Units, wallet, exchange, Premium, Premium Plus, security and personal settings form the shared technical core.",footerText:"Concept page · noindex · preview version",imprint:"Legal notice",privacy:"Privacy"
+},
+pt:{
+navEcosystem:"Ecossistema",navDuels:"Duelos modelo",navPros:"Especialistas",navStats:"Estatísticas",navCalc:"Calculadora",login:"Entrar",register:"Começar grátis",
+heroEyebrow:"BETINSIGHT · INTELIGÊNCIA & EXPERIÊNCIA ESPORTIVA",heroTitle:"Entenda o esporte. Viva. Compare.",heroLead:"Uma plataforma para análises reais de futebol, resultados documentados, ferramentas inteligentes, comunidade, conteúdos ao vivo e confrontos históricos com TIME CLASH.",discover:"Explorar BetInsight",seeDuels:"Ver duelos modelo",
+ecoKicker:"O ECOSSISTEMA BETINSIGHT",ecoTitle:"Cinco áreas. Uma conta. Um sistema conectado.",ecoText:"A nova página inicial não fala apenas de palpites. Ela apresenta a BetInsight como plataforma, com áreas de produto claras e funções compartilhadas.",
+suiteAnalyze:"Jogos reais, análises estruturadas, palpites, resultados, estatísticas e calculadora.",suiteClash:"Confrontos históricos e hipotéticos, séries, placar ao vivo, equipes, treinadores e rankings.",suiteClub:"Perfis, comunidade, posts, reações, galeria e experiências de jogo.",suiteLive:"Alertas ao vivo, eventos, workshops, webinar e Academy.",suiteNetwork:"Indicações, programa de parceiros, marketing, rastreamento e recursos de rede.",
+duelKicker:"JOGOS MODELO · TIME CLASH",duelTitle:"Os confrontos que fazem torcedores discutirem.",duelText:"Um banner próprio no primeiro terço da página exibe confrontos modelo alternados: campeão contra campeão, adversários históricos ou gerações que nunca puderam se enfrentar.",duelTop:"Duelos em destaque",d1Type:"CAMPEÃO VS. CAMPEÃO",d1Text:"Uma seleção lendária de defesa contra uma nova geração.",d2Type:"ADVERSÁRIO HISTÓRICO",d2Text:"Um duelo com história, recriado entre gerações.",d3Type:"GIGANTES SUL-AMERICANOS",d3Text:"Duas gerações campeãs do mundo com identidades de futebol diferentes.",d4Type:"DUELO DE GERAÇÕES",d4Text:"Qual geração campeã da França venceria no confronto direto?",d5Type:"RIVALIDADE ETERNA",d5Text:"Cultura do futebol, ícones e épocas completamente diferentes.",dCta:"Abrir duelo →",allClash:"Explorar TIME CLASH",
+proKicker:"OS ESPECIALISTAS POR TRÁS DAS ANÁLISES",proTitle:"Experiência continua sendo parte central da BetInsight.",proText:"A plataforma cresce, mas a análise real continua como núcleo visível. Os nomes não precisam ficar em primeiro plano; experiência, método e transparência são o mais importante.",years:"anos",analysts:"analistas",p1h:"Experiência prática",p1p:"Anos de experiência em análise e palpites como base para avaliações estruturadas.",p2h:"Atuação profissional",p2p:"Cinco anos de trabalho em tempo integral com análise, preparação e classificação de palpites esportivos.",p3h:"Segunda perspectiva",p3p:"Dois analistas fixos trabalham com funções claras, preparação conjunta e o mesmo sistema de units.",
+statsKicker:"ESTATÍSTICAS DOCUMENTADAS",statsTitle:"Mostrar resultados em vez de apenas falar sobre eles.",statsText:"As estatísticas continuam sendo um pilar da página. O visitante deve entender rapidamente como os resultados são avaliados e a diferença entre cenários com ou sem juros compostos.",stats1:"Partidas avaliadas de forma rastreável",stats2:"Desempenho dos analistas separado e combinado",stats3:"Comparação com e sem juros compostos",stats4:"Aviso transparente: resultados passados não garantem resultados futuros",openStats:"Ver estatísticas",
+calcKicker:"CALCULADORA GRATUITA",calcTitle:"Não apenas leia – faça a conta.",calcText:"A calculadora permanece em destaque. O usuário pode simular capital inicial, valor de aposta, odds, taxa de acerto e uso dos ganhos.",calc1:"Testar capital inicial e valor de aposta",calc2:"Comparar odds e taxas de acerto",calc3:"Sacar ganhos ou mantê-los no capital",calc4:"Sem cadastro para a simulação",openCalc:"Abrir calculadora",
+worldKicker:"DOIS MUNDOS DO FUTEBOL",worldTitle:"Análise real e simulação claramente separadas.",realTitle:"Jogos reais. Dados reais.",real1:"Análises de futebol e palpites",real2:"Resultados documentados e estatísticas",real3:"Calculadora e ferramentas de gestão",real4:"Alertas ao vivo e eventos",clashTitle:"Duelos históricos. Novas histórias.",clash1:"Comparar equipes de épocas diferentes",clash2:"Viver séries e simulações de partidas",clash3:"Placar ao vivo, treinadores e comunidade",clash4:"Rankings, galeria e histórico pessoal",
+moreKicker:"MAIS QUE ANÁLISES",moreTitle:"As áreas que transformam a BetInsight em plataforma.",clubText:"Perfis, comunidade, posts, reações e experiências de partidas.",liveText:"Alertas, eventos, workshops, webinar e Academy.",eventsBtn:"Ver eventos",networkText:"Indicações, programa de parceiros, materiais de marketing, rastreamento e recursos de rede.",networkBtn:"Abrir Network",
+coreTitle:"Uma conta conecta todo o ecossistema.",coreText:"Units, carteira, exchange, Premium, Premium Plus, segurança e configurações pessoais formam a base técnica comum.",footerText:"Página modelo · noindex · versão conceitual",imprint:"Aviso legal",privacy:"Privacidade"
+},
+es:{
+navEcosystem:"Ecosistema",navDuels:"Duelos muestra",navPros:"Expertos",navStats:"Estadísticas",navCalc:"Calculadora",login:"Entrar",register:"Empezar gratis",
+heroEyebrow:"BETINSIGHT · INTELIGENCIA & EXPERIENCIA DEPORTIVA",heroTitle:"Entender el deporte. Vivirlo. Compararlo.",heroLead:"Una plataforma para análisis reales de fútbol, resultados documentados, herramientas inteligentes, comunidad, formatos en vivo y duelos históricos con TIME CLASH.",discover:"Explorar BetInsight",seeDuels:"Ver duelos muestra",
+ecoKicker:"EL ECOSISTEMA BETINSIGHT",ecoTitle:"Cinco áreas. Una cuenta. Un sistema conectado.",ecoText:"La nueva portada ya no trata solo de pronósticos. Presenta BetInsight como una plataforma con mundos de producto claros y funciones compartidas.",
+suiteAnalyze:"Partidos reales, análisis estructurados, pronósticos, resultados, estadísticas y calculadora.",suiteClash:"Duelos históricos e hipotéticos, series, marcador en vivo, equipos, entrenadores y rankings.",suiteClub:"Perfiles, comunidad, publicaciones, reacciones, galería y experiencias compartidas.",suiteLive:"Alertas en vivo, eventos, talleres, webinar y Academy.",suiteNetwork:"Referidos, programa de socios, marketing, seguimiento y funciones de red.",
+duelKicker:"PARTIDOS MUESTRA · TIME CLASH",duelTitle:"Los duelos que los aficionados quieren debatir.",duelText:"Un banner propio en el primer tercio de la portada rota duelos como campeón contra campeón, rivales históricos o generaciones que nunca se enfrentaron.",duelTop:"Duelos destacados",d1Type:"CAMPEÓN VS. CAMPEÓN",d1Text:"Una selección legendaria de defensa frente a una nueva generación.",d2Type:"RIVAL HISTÓRICO",d2Text:"Un enfrentamiento con historia, reinterpretado entre generaciones.",d3Type:"GIGANTES SUDAMERICANOS",d3Text:"Dos generaciones campeonas del mundo con identidades distintas.",d4Type:"DUELO DE GENERACIONES",d4Text:"¿Qué generación campeona de Francia ganaría cara a cara?",d5Type:"RIVALIDAD ETERNA",d5Text:"Cultura futbolística, iconos y épocas totalmente diferentes.",dCta:"Abrir duelo →",allClash:"Explorar TIME CLASH",
+proKicker:"LOS EXPERTOS DETRÁS DE LOS ANÁLISIS",proTitle:"La experiencia sigue siendo central en BetInsight.",proText:"La plataforma crece, pero el análisis real sigue siendo un núcleo visible. Los nombres no tienen que estar en primer plano; importan la experiencia, el método y la transparencia.",years:"años",analysts:"analistas",p1h:"Experiencia práctica",p1p:"Años de análisis y pronósticos como base para evaluaciones estructuradas.",p2h:"A tiempo completo",p2p:"Cinco años trabajando a tiempo completo en análisis, preparación y clasificación de pronósticos deportivos.",p3h:"Segunda perspectiva",p3p:"Dos analistas fijos trabajan con roles claros, preparación conjunta y un sistema de units coherente.",
+statsKicker:"ESTADÍSTICAS DOCUMENTADAS",statsTitle:"Mostrar resultados en lugar de solo hablar de ellos.",statsText:"Las estadísticas siguen siendo un pilar principal. El visitante debe comprender rápidamente cómo se evalúan los resultados y la diferencia con o sin interés compuesto.",stats1:"Partidos evaluados de forma rastreable",stats2:"Rendimiento de analistas por separado y combinado",stats3:"Comparación con y sin interés compuesto",stats4:"Aviso transparente: los resultados pasados no garantizan el futuro",openStats:"Ver estadísticas",
+calcKicker:"CALCULADORA GRATUITA",calcTitle:"No solo leas: calcúlalo tú mismo.",calcText:"La calculadora mantiene un lugar destacado. Los usuarios pueden simular capital inicial, apuesta, cuota, tasa de acierto y uso de ganancias.",calc1:"Probar capital inicial y apuesta",calc2:"Comparar cuotas y tasas de acierto",calc3:"Retirar ganancias o mantenerlas en capital",calc4:"Sin registro para la simulación",openCalc:"Abrir calculadora",
+worldKicker:"DOS MUNDOS DEL FÚTBOL",worldTitle:"Análisis real y simulación claramente separados.",realTitle:"Partidos reales. Datos reales.",real1:"Análisis de fútbol y pronósticos",real2:"Resultados documentados y estadísticas",real3:"Calculadora y herramientas de bankroll",real4:"Alertas en vivo y eventos",clashTitle:"Duelos históricos. Nuevas historias.",clash1:"Comparar equipos de distintas épocas",clash2:"Vivir series y simulaciones",clash3:"Marcador en vivo, entrenadores y comunidad",clash4:"Rankings, galería e historial personal",
+moreKicker:"MÁS QUE ANÁLISIS",moreTitle:"Las áreas que convierten BetInsight en plataforma.",clubText:"Perfiles, comunidad, publicaciones, reacciones y experiencias compartidas.",liveText:"Alertas en vivo, eventos, talleres, webinar y Academy.",eventsBtn:"Ver eventos",networkText:"Referidos, programa de socios, material de marketing, seguimiento y funciones de red.",networkBtn:"Abrir Network",
+coreTitle:"Una cuenta conecta todo el ecosistema.",coreText:"Units, wallet, exchange, Premium, Premium Plus, seguridad y ajustes personales forman la base técnica común.",footerText:"Página muestra · noindex · versión conceptual",imprint:"Aviso legal",privacy:"Privacidad"
+},
+fr:{
+navEcosystem:"Écosystème",navDuels:"Duels exemples",navPros:"Experts",navStats:"Statistiques",navCalc:"Calculateur",login:"Connexion",register:"Commencer gratuitement",
+heroEyebrow:"BETINSIGHT · INTELLIGENCE & EXPÉRIENCE SPORTIVE",heroTitle:"Comprendre le sport. Le vivre. Comparer les époques.",heroLead:"Une plateforme pour l’analyse réelle du football, des résultats documentés, des outils intelligents, la communauté, le live et des duels historiques avec TIME CLASH.",discover:"Découvrir BetInsight",seeDuels:"Voir les duels exemples",
+ecoKicker:"L'ÉCOSYSTÈME BETINSIGHT",ecoTitle:"Cinq univers. Un compte. Un système commun.",ecoText:"La nouvelle page d’accueil ne parle plus uniquement de pronostics. Elle présente BetInsight comme une plateforme avec des univers clairement séparés et des fonctions partagées.",
+suiteAnalyze:"Matchs réels, analyses structurées, pronostics, résultats, statistiques et calculateur.",suiteClash:"Duels historiques et hypothétiques, séries, live ticker, équipes, coachs et classements.",suiteClub:"Profils, communauté, publications, réactions, galerie et expériences partagées.",suiteLive:"Alertes live, événements, ateliers, webinar et Academy.",suiteNetwork:"Parrainage, programme partenaire, marketing, suivi et fonctions réseau.",
+duelKicker:"MATCHS EXEMPLES · TIME CLASH",duelTitle:"Les confrontations dont les fans aiment débattre.",duelText:"Un bandeau dédié dans le premier tiers de la page fait tourner des affiches comme champion contre champion, adversaires historiques ou générations qui ne se sont jamais rencontrées.",duelTop:"Duels en vedette",d1Type:"CHAMPION VS. CHAMPION",d1Text:"Une équipe de tournoi légendaire face à une nouvelle génération.",d2Type:"ADVERSAIRE HISTORIQUE",d2Text:"Une affiche chargée d’histoire, réinventée entre générations.",d3Type:"GÉANTS SUD-AMÉRICAINS",d3Text:"Deux générations championnes du monde aux identités différentes.",d4Type:"DUEL DE GÉNÉRATIONS",d4Text:"Quelle génération championne de France l’emporterait ?",d5Type:"RIVALITÉ ÉTERNELLE",d5Text:"Culture football, icônes et époques totalement différentes.",dCta:"Ouvrir le duel →",allClash:"Découvrir TIME CLASH",
+proKicker:"LES EXPERTS DERRIÈRE LES ANALYSES",proTitle:"L’expérience reste au cœur de BetInsight.",proText:"La plateforme grandit, mais l’analyse réelle reste un pilier visible. Les noms n’ont pas besoin d’être au premier plan : l’expérience, la méthode et la transparence comptent.",years:"ans",analysts:"analystes",p1h:"Expérience pratique",p1p:"Des années d’analyse et de pronostics comme base d’évaluations structurées.",p2h:"À plein temps",p2p:"Cinq années de travail à plein temps dans l’analyse, la préparation et la classification de pronostics sportifs.",p3h:"Deuxième perspective",p3p:"Deux analystes permanents travaillent avec des rôles clairs, une préparation commune et un même système d’unités.",
+statsKicker:"STATISTIQUES DOCUMENTÉES",statsTitle:"Montrer les résultats au lieu d’en parler seulement.",statsText:"Les statistiques restent un pilier majeur. Les visiteurs doivent voir rapidement comment l’évaluation est construite et la différence avec ou sans capitalisation.",stats1:"Présentation traçable des matchs évalués",stats2:"Performance des analystes séparée et combinée",stats3:"Comparaison avec et sans capitalisation",stats4:"Mention transparente : les résultats passés ne garantissent pas l’avenir",openStats:"Voir les statistiques",
+calcKicker:"CALCULATEUR GRATUIT",calcTitle:"Ne pas seulement lire – calculer soi-même.",calcText:"Le calculateur reste très visible. Les utilisateurs peuvent simuler capital initial, mise, cote, taux de réussite et utilisation des gains.",calc1:"Tester capital initial et mise",calc2:"Comparer cotes et taux de réussite",calc3:"Retirer les gains ou les conserver dans le capital",calc4:"Aucune inscription requise pour la simulation",openCalc:"Ouvrir le calculateur",
+worldKicker:"DEUX MONDES DU FOOTBALL",worldTitle:"Analyse réelle et simulation clairement séparées.",realTitle:"Matchs réels. Données réelles.",real1:"Analyses football et pronostics",real2:"Résultats documentés et statistiques",real3:"Calculateur et outils bankroll",real4:"Alertes live et événements",clashTitle:"Duels historiques. Nouvelles histoires.",clash1:"Comparer des équipes de différentes époques",clash2:"Vivre des séries et simulations",clash3:"Live ticker, coachs et communauté",clash4:"Classements, galerie et historique personnel",
+moreKicker:"PLUS QUE DE L’ANALYSE",moreTitle:"Les univers qui font de BetInsight une plateforme.",clubText:"Profils, communauté, publications, réactions et expériences partagées.",liveText:"Alertes live, événements, ateliers, webinar et Academy.",eventsBtn:"Voir les événements",networkText:"Parrainage, programme partenaire, supports marketing, suivi et fonctions réseau.",networkBtn:"Ouvrir Network",
+coreTitle:"Un compte relie tout l’écosystème.",coreText:"Units, wallet, exchange, Premium, Premium Plus, sécurité et réglages personnels forment la base technique commune.",footerText:"Page modèle · noindex · version concept",imprint:"Mentions légales",privacy:"Confidentialité"
+},
+it:{
+navEcosystem:"Ecosistema",navDuels:"Duelli demo",navPros:"Esperti",navStats:"Statistiche",navCalc:"Calcolatore",login:"Accedi",register:"Inizia gratis",
+heroEyebrow:"BETINSIGHT · SPORTS INTELLIGENCE & EXPERIENCE",heroTitle:"Capire lo sport. Viverlo. Confrontarlo.",heroLead:"Una piattaforma per analisi reali di calcio, risultati documentati, strumenti intelligenti, community, live e sfide storiche con TIME CLASH.",discover:"Scopri BetInsight",seeDuels:"Vedi i duelli demo",
+ecoKicker:"L'ECOSISTEMA BETINSIGHT",ecoTitle:"Cinque aree. Un account. Un sistema connesso.",ecoText:"La nuova homepage non parla più solo di pronostici. Presenta BetInsight come piattaforma, con mondi di prodotto chiari e funzioni condivise.",
+suiteAnalyze:"Partite reali, analisi strutturate, pronostici, risultati, statistiche e calcolatore.",suiteClash:"Sfide storiche e ipotetiche, serie, live ticker, squadre, allenatori e ranking.",suiteClub:"Profili, community, post, reazioni, galleria ed esperienze condivise.",suiteLive:"Live alert, eventi, workshop, webinar e Academy.",suiteNetwork:"Referral, programma partner, marketing, tracking e funzioni di rete.",
+duelKicker:"PARTITE DEMO · TIME CLASH",duelTitle:"Le sfide di cui i tifosi vogliono discutere.",duelText:"Un banner dedicato nel primo terzo della homepage mostra duelli come campione contro campione, nemesi storiche o generazioni che non si sono mai affrontate.",duelTop:"Duelli in evidenza",d1Type:"CAMPIONE VS. CAMPIONE",d1Text:"Una leggendaria squadra da torneo contro una nuova generazione.",d2Type:"NEMESI STORICA",d2Text:"Una sfida con una grande storia, reinventata tra generazioni.",d3Type:"GIGANTI SUDAMERICANI",d3Text:"Due generazioni campioni del mondo con identità calcistiche diverse.",d4Type:"SFIDA TRA GENERAZIONI",d4Text:"Quale generazione campione di Francia vincerebbe?",d5Type:"RIVALITÀ ETERNA",d5Text:"Cultura calcistica, icone ed epoche totalmente diverse.",dCta:"Apri duello →",allClash:"Scopri TIME CLASH",
+proKicker:"GLI ESPERTI DIETRO LE ANALISI",proTitle:"L’esperienza resta centrale in BetInsight.",proText:"La piattaforma cresce, ma l’analisi reale resta un nucleo ben visibile. I nomi non devono essere protagonisti; contano esperienza, metodo e trasparenza.",years:"anni",analysts:"analisti",p1h:"Esperienza pratica",p1p:"Anni di analisi e pronostici come base per valutazioni strutturate.",p2h:"A tempo pieno",p2p:"Cinque anni di lavoro a tempo pieno in analisi, preparazione e classificazione di pronostici sportivi.",p3h:"Seconda prospettiva",p3p:"Due analisti fissi lavorano con ruoli chiari, preparazione condivisa e un unico sistema di unit.",
+statsKicker:"STATISTICHE DOCUMENTATE",statsTitle:"Mostrare i risultati invece di parlarne soltanto.",statsText:"Le statistiche restano un pilastro importante. I visitatori devono capire rapidamente come vengono valutati i risultati e la differenza con o senza interesse composto.",stats1:"Partite valutate in modo tracciabile",stats2:"Performance degli analisti separata e combinata",stats3:"Confronto con e senza interesse composto",stats4:"Nota trasparente: i risultati passati non garantiscono quelli futuri",openStats:"Vedi statistiche",
+calcKicker:"CALCOLATORE GRATUITO",calcTitle:"Non solo leggere – calcola tu stesso.",calcText:"Il calcolatore resta in primo piano. Gli utenti possono simulare capitale iniziale, puntata, quota, percentuale di successo e gestione dei profitti.",calc1:"Testare capitale iniziale e puntata",calc2:"Confrontare quote e percentuali di successo",calc3:"Prelevare i profitti o mantenerli nel capitale",calc4:"Nessuna registrazione per la simulazione",openCalc:"Apri calcolatore",
+worldKicker:"DUE MONDI DEL CALCIO",worldTitle:"Analisi reale e simulazione chiaramente separate.",realTitle:"Partite reali. Dati reali.",real1:"Analisi calcistiche e pronostici",real2:"Risultati documentati e statistiche",real3:"Calcolatore e strumenti bankroll",real4:"Live alert ed eventi",clashTitle:"Sfide storiche. Nuove storie.",clash1:"Confronta squadre di epoche diverse",clash2:"Vivi serie e simulazioni",clash3:"Live ticker, allenatori e community",clash4:"Ranking, galleria e cronologia personale",
+moreKicker:"OLTRE LE ANALISI",moreTitle:"Le aree che trasformano BetInsight in una piattaforma.",clubText:"Profili, community, post, reazioni ed esperienze condivise.",liveText:"Live alert, eventi, workshop, webinar e Academy.",eventsBtn:"Vedi eventi",networkText:"Referral, programma partner, materiali marketing, tracking e funzioni di rete.",networkBtn:"Apri Network",
+coreTitle:"Un account collega tutto l’ecosistema.",coreText:"Unit, wallet, exchange, Premium, Premium Plus, sicurezza e impostazioni personali formano la base tecnica comune.",footerText:"Pagina demo · noindex · versione concept",imprint:"Note legali",privacy:"Privacy"
+},
+nl:{
+navEcosystem:"Ecosysteem",navDuels:"Voorbeeldduels",navPros:"Experts",navStats:"Statistiek",navCalc:"Calculator",login:"Inloggen",register:"Gratis starten",
+heroEyebrow:"BETINSIGHT · SPORTS INTELLIGENCE & EXPERIENCE",heroTitle:"Sport begrijpen. Beleven. Vergelijken.",heroLead:"Eén platform voor echte voetbalanalyses, gedocumenteerde resultaten, slimme tools, community, live formats en historische duels met TIME CLASH.",discover:"Ontdek BetInsight",seeDuels:"Bekijk voorbeeldduels",
+ecoKicker:"HET BETINSIGHT ECOSYSTEEM",ecoTitle:"Vijf gebieden. Eén account. Eén verbonden systeem.",ecoText:"De nieuwe homepage gaat niet meer alleen over tips. Ze presenteert BetInsight als platform met duidelijke productwerelden en gedeelde functies.",
+suiteAnalyze:"Echte wedstrijden, gestructureerde analyses, tips, resultaten, statistiek en calculator.",suiteClash:"Historische en hypothetische duels, series, live ticker, teams, coaches en rankings.",suiteClub:"Profielen, community, posts, reacties, galerie en gedeelde wedstrijdervaringen.",suiteLive:"Live alerts, events, workshops, webinar en Academy.",suiteNetwork:"Referrals, partnerprogramma, marketing, tracking en netwerkfuncties.",
+duelKicker:"VOORBEELDWEDSTRIJDEN · TIME CLASH",duelTitle:"De duels waar voetbalfans over discussiëren.",duelText:"Een aparte banner in het eerste deel van de homepage rouleert duels zoals wereldkampioen tegen wereldkampioen, historische angstgegners of generaties die elkaar nooit konden ontmoeten.",duelTop:"Actuele voorbeeldduels",d1Type:"WERELDKAMPIOEN VS. WERELDKAMPIOEN",d1Text:"Een legendarisch toernooiteam tegen een nieuwe generatie.",d2Type:"HISTORISCHE ANGSTGEGNER",d2Text:"Een duel met geschiedenis, opnieuw bedacht over generaties heen.",d3Type:"ZUID-AMERIKAANSE GROOTMACHTEN",d3Text:"Twee wereldkampioengeneraties met verschillende voetbalidentiteiten.",d4Type:"GENERATIEDUEL",d4Text:"Welke Franse wereldkampioengeneratie zou winnen?",d5Type:"EEUWIGE RIVALITEIT",d5Text:"Voetbalcultuur, iconen en totaal verschillende tijdperken.",dCta:"Open duel →",allClash:"Ontdek TIME CLASH",
+proKicker:"DE EXPERTS ACHTER DE ANALYSES",proTitle:"Ervaring blijft een kernonderdeel van BetInsight.",proText:"Het platform groeit, maar echte analyse blijft een duidelijk zichtbare kern. Namen hoeven niet centraal te staan; ervaring, werkwijze en transparantie wel.",years:"jaar",analysts:"analisten",p1h:"Praktische ervaring",p1p:"Jarenlange analyse- en tipervaring als basis voor gestructureerde wedstrijdbeoordelingen.",p2h:"Fulltime",p2p:"Vijf jaar fulltime werk in analyse, voorbereiding en classificatie van sporttips.",p3h:"Tweede perspectief",p3p:"Twee vaste analisten werken met duidelijke rollen, gezamenlijke voorbereiding en één unit-systeem.",
+statsKicker:"GEDOCUMENTEERDE STATISTIEK",statsTitle:"Resultaten tonen in plaats van er alleen over praten.",statsText:"Statistiek blijft een belangrijke pijler. Bezoekers moeten snel zien hoe de evaluatie is opgebouwd en wat het verschil is met of zonder samengestelde groei.",stats1:"Beoordeelde wedstrijden traceerbaar tonen",stats2:"Prestaties per analist en gecombineerd",stats3:"Vergelijking met en zonder samengestelde groei",stats4:"Transparant: resultaten uit het verleden bieden geen garantie",openStats:"Bekijk statistiek",
+calcKicker:"GRATIS CALCULATOR",calcTitle:"Niet alleen lezen – zelf berekenen.",calcText:"De calculator blijft prominent. Gebruikers kunnen startkapitaal, inzet, odds, hitrate en winstgebruik simuleren.",calc1:"Startkapitaal en inzet flexibel testen",calc2:"Odds en hitrates vergelijken",calc3:"Winst opnemen of in het kapitaal laten",calc4:"Geen registratie nodig voor de simulatie",openCalc:"Open calculator",
+worldKicker:"TWEE VOETBALWERELDEN",worldTitle:"Echte analyse en simulatie duidelijk gescheiden.",realTitle:"Echte wedstrijden. Echte data.",real1:"Voetbalanalyses en sporttips",real2:"Gedocumenteerde resultaten en statistiek",real3:"Calculator en bankroll-tools",real4:"Live alerts en events",clashTitle:"Historische duels. Nieuwe verhalen.",clash1:"Teams uit verschillende tijdperken vergelijken",clash2:"Series en simulaties beleven",clash3:"Live ticker, coaches en community",clash4:"Rankings, galerie en eigen historie",
+moreKicker:"MEER DAN ANALYSE",moreTitle:"De onderdelen die BetInsight tot een platform maken.",clubText:"Profielen, community, posts, reacties en gedeelde wedstrijdervaringen.",liveText:"Live alerts, events, workshops, webinar en Academy.",eventsBtn:"Bekijk events",networkText:"Referrals, partnerprogramma, marketingmateriaal, tracking en netwerkfuncties.",networkBtn:"Open Network",
+coreTitle:"Eén account verbindt het hele ecosysteem.",coreText:"Units, wallet, exchange, Premium, Premium Plus, security en persoonlijke instellingen vormen de gedeelde technische basis.",footerText:"Voorbeeldpagina · noindex · conceptversie",imprint:"Juridisch",privacy:"Privacy"
+},
+"zh-tw":{
+navEcosystem:"生態系",navDuels:"示範對戰",navPros:"專業分析",navStats:"統計",navCalc:"計算器",login:"登入",register:"免費開始",
+heroEyebrow:"BETINSIGHT · SPORTS INTELLIGENCE & EXPERIENCE",heroTitle:"理解足球。體驗足球。跨時代比較。",heroLead:"一個整合真實足球分析、可追溯結果、智慧工具、社群、直播內容與 TIME CLASH 歷史對戰的平台。",discover:"探索 BetInsight",seeDuels:"查看示範對戰",
+ecoKicker:"BETINSIGHT 生態系",ecoTitle:"五大領域。一個帳號。一套共同系統。",ecoText:"新的首頁不再只介紹投注分析，而是把 BetInsight 呈現為完整平台：產品世界清楚分開，底層功能彼此連接。",
+suiteAnalyze:"真實比賽、結構化分析、建議、結果、統計與計算器。",suiteClash:"歷史與假想對戰、系列賽、即時文字、球隊、教練與排名。",suiteClub:"個人檔案、社群、貼文、反應、圖庫與共同賽事體驗。",suiteLive:"即時警報、活動、工作坊、網路研討會與 Academy。",suiteNetwork:"推薦、合作夥伴計畫、行銷、追蹤與網路功能。",
+duelKicker:"示範賽事 · TIME CLASH",duelTitle:"球迷最想討論的跨時代對戰。",duelText:"首頁前段加入專屬橫幅，輪播世界冠軍對世界冠軍、歷史剋星與從未真正交手過的不同世代。",duelTop:"目前示範對戰",d1Type:"世界冠軍 VS 世界冠軍",d1Text:"經典防守型冠軍隊伍對上新世代。",d2Type:"歷史剋星",d2Text:"帶有歷史背景的對戰，以跨世代方式重新演繹。",d3Type:"南美巨人",d3Text:"兩個世界冠軍世代、兩種不同足球風格。",d4Type:"世代對決",d4Text:"哪一代法國世界冠軍能在正面交鋒中勝出？",d5Type:"永恆宿敵",d5Text:"足球文化、傳奇人物與完全不同的年代。",dCta:"開啟對戰 →",allClash:"探索 TIME CLASH",
+proKicker:"分析背後的專業團隊",proTitle:"經驗仍然是 BetInsight 的核心。",proText:"平台正在擴大，但真實賽事分析仍是清楚可見的核心。姓名不必成為主角，經驗、流程與透明度才是重點。",years:"年",analysts:"位分析師",p1h:"實務經驗",p1p:"多年分析與建議經驗，作為結構化賽事評估的基礎。",p2h:"全職投入",p2p:"已有五年全職從事體育分析、準備與建議分類。",p3h:"第二視角",p3p:"兩位固定分析師以清楚分工、共同準備與一致的 Unit 系統合作。",
+statsKicker:"可追溯統計",statsTitle:"用結果說話，而不是只談結果。",statsText:"統計仍是首頁的重要支柱。訪客可以快速了解結果如何評估，以及有無複利時的差異。",stats1:"清楚追蹤已評估賽事",stats2:"個別與合併顯示分析師表現",stats3:"比較有複利與無複利",stats4:"透明提示：過去結果不保證未來表現",openStats:"查看統計",
+calcKicker:"免費計算器",calcTitle:"不只閱讀，也能自己計算。",calcText:"計算器仍放在顯眼位置。使用者可模擬本金、投注額、賠率、命中率與獲利使用方式。",calc1:"彈性測試本金與投注額",calc2:"比較賠率與命中率",calc3:"提領獲利或保留在本金中",calc4:"示範計算不需註冊",openCalc:"開啟計算器",
+worldKicker:"兩個足球世界",worldTitle:"真實分析與模擬清楚分開。",realTitle:"真實比賽。真實數據。",real1:"足球分析與體育建議",real2:"可追溯結果與統計",real3:"計算器與資金管理工具",real4:"即時警報與活動",clashTitle:"歷史對戰。全新故事。",clash1:"比較不同年代的球隊",clash2:"體驗系列賽與模擬",clash3:"即時文字、教練與社群",clash4:"排名、圖庫與個人歷史",
+moreKicker:"不只是分析",moreTitle:"讓 BetInsight 成為平台的其他領域。",clubText:"個人檔案、社群、貼文、反應與共同賽事體驗。",liveText:"即時警報、活動、工作坊、網路研討會與 Academy。",eventsBtn:"查看活動",networkText:"推薦、合作夥伴計畫、行銷素材、追蹤與網路功能。",networkBtn:"開啟 Network",
+coreTitle:"一個帳號連接整個生態系。",coreText:"Units、錢包、交易、Premium、Premium Plus、安全與個人設定構成共同技術核心。",footerText:"示範頁 · noindex · 概念版本",imprint:"法律聲明",privacy:"隱私"
+}
+};
+
+const routes={calculator:"rechner",stats:"statistik-vorschau","time-clash":"time-clash",events:"events",imprint:"impressum",privacy:"datenschutz"};
+function applyLang(lang){
+  if(!T[lang]) lang="de";
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k=el.dataset.i18n;if(T[lang][k]) el.textContent=T[lang][k];
+  });
+  document.querySelectorAll(".route-link").forEach(a=>{
+    const r=routes[a.dataset.route]; if(r) a.href="/"+lang+"/"+r+"/";
+  });
+  document.getElementById("langSelect").value=lang;
+  localStorage.setItem("betinsight-lang",lang);
+  const u=new URL(location.href);u.searchParams.set("lang",lang);history.replaceState(null,"",u);
+}
+const qs=new URLSearchParams(location.search).get("lang");
+const saved=localStorage.getItem("betinsight-lang");
+const browser=(navigator.language||"de").toLowerCase();
+let initial=qs||saved||(browser.startsWith("pt")?"pt":browser.startsWith("es")?"es":browser.startsWith("fr")?"fr":browser.startsWith("it")?"it":browser.startsWith("nl")?"nl":browser.startsWith("zh")?"zh-tw":browser.startsWith("en")?"en":"de");
+document.getElementById("langSelect").addEventListener("change",e=>applyLang(e.target.value));
+applyLang(initial);
+</script>
+</body>
+</html>
