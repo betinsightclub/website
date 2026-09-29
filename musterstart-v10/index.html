@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>BetInsight – Neue Startseite Muster V10</title>
+  <title>BetInsight – Neue Startseite Muster V11</title>
   <meta name="description" content="Musterseite für das neue BetInsight Ecosystem.">
   <link rel="icon" href="../favicon.ico">
   <style>
@@ -13,7 +13,7 @@
       --text:#f5f8fb;--muted:#a8b6c8;--blue:#2b8cff;--cyan:#48d7ff;--green:#46db9a;--gold:#f7c85d;
       --shadow:0 24px 80px rgba(0,0,0,.35);--radius:24px;--max:1180px
     }
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y proximity;scroll-padding-top:92px}body{margin:0;overscroll-behavior-y:auto;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;scroll-padding-top:92px}body{margin:0;overscroll-behavior-y:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
     radial-gradient(circle at 15% 5%,rgba(43,140,255,.15),transparent 28%),
     radial-gradient(circle at 85% 10%,rgba(72,215,255,.08),transparent 26%),
     linear-gradient(180deg,var(--bg),#06101b 38%,#07111d);color:var(--text)}
@@ -880,10 +880,12 @@ duelViewport?.addEventListener("mouseleave",startDuelAuto);
 document.addEventListener("visibilitychange",()=>document.hidden?clearInterval(duelTimer):startDuelAuto());
 renderDuelDots();startDuelAuto();
 
-/* V10: section paging in content, native free scrolling in footer */
+/* V11: original full-page pager everywhere; free scrolling only in the footer */
 const pageSections=[...document.querySelectorAll("main>section")];
 const siteFooter=document.querySelector(".site-footer");
+const rootScroller=document.documentElement;
 let pageScrollLock=false;
+let footerFreeMode=false;
 
 function nearestSectionIndex(){
   const header=document.querySelector(".topbar")?.offsetHeight||92;
@@ -895,11 +897,28 @@ function nearestSectionIndex(){
   return best;
 }
 
-function footerIsVisible(){
+function setFooterFreeMode(on){
+  if(footerFreeMode===on)return;
+  footerFreeMode=on;
+  rootScroller.style.scrollSnapType=on?"none":"y mandatory";
+  document.body.style.overscrollBehaviorY=on?"auto":"none";
+  if(on)pageScrollLock=false;
+}
+
+function footerVisible(){
   if(!siteFooter)return false;
   const r=siteFooter.getBoundingClientRect();
-  return r.top < window.innerHeight && r.bottom > 0;
+  return r.top<window.innerHeight && r.bottom>0;
 }
+
+/* Re-enable the normal full-page system automatically after leaving the footer. */
+window.addEventListener("scroll",()=>{
+  if(!footerFreeMode)return;
+  if(!footerVisible()){
+    const r=siteFooter?.getBoundingClientRect();
+    if(r && r.top>=window.innerHeight-2)setFooterFreeMode(false);
+  }
+},{passive:true});
 
 window.addEventListener("wheel",e=>{
   if(window.innerWidth<=760||e.ctrlKey||Math.abs(e.deltaY)<12)return;
@@ -907,43 +926,37 @@ window.addEventListener("wheel",e=>{
   const target=e.target;
   if(target?.closest?.("select"))return;
 
-  /* The footer is a normal document area: never hijack the wheel there. */
-  if(target?.closest?.(".site-footer")||footerIsVisible()){
-    pageScrollLock=false;
+  /* Once inside the footer, never interfere with normal browser scrolling. */
+  if(footerFreeMode || target?.closest?.(".site-footer") || footerVisible()){
+    setFooterFreeMode(true);
     return;
   }
 
   const here=nearestSectionIndex();
   const last=pageSections.length-1;
 
-  /* Leaving the final content panel downward must be native so the footer can enter. */
-  if(here===last&&e.deltaY>0){
-    pageScrollLock=false;
+  /* This is the ONLY exception to the original pager:
+     from the final content panel downward, release scrolling into the footer. */
+  if(here===last && e.deltaY>0){
+    setFooterFreeMode(true);
     return;
   }
 
-  /* Likewise do not block native scrolling at the very first panel when scrolling upward. */
-  if(here===0&&e.deltaY<0){
-    pageScrollLock=false;
-    return;
-  }
-
+  /* Original V9-style one-wheel-step = one full section. */
   if(pageScrollLock){
     e.preventDefault();
     return;
   }
 
+  e.preventDefault();
   const next=Math.max(0,Math.min(last,here+(e.deltaY>0?1:-1)));
   if(next===here)return;
 
-  e.preventDefault();
   pageScrollLock=true;
-
   const header=document.querySelector(".topbar")?.offsetHeight||92;
   const y=pageSections[next].getBoundingClientRect().top+window.scrollY-header;
   window.scrollTo({top:y,behavior:"smooth"});
-
-  window.setTimeout(()=>{pageScrollLock=false;},760);
+  window.setTimeout(()=>{pageScrollLock=false;},820);
 },{passive:false});
 
 const qs=new URLSearchParams(location.search).get("lang");
