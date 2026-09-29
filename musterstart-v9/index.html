@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>BetInsight – Neue Startseite Muster V9</title>
+  <title>BetInsight – Neue Startseite Muster V10</title>
   <meta name="description" content="Musterseite für das neue BetInsight Ecosystem.">
   <link rel="icon" href="../favicon.ico">
   <style>
@@ -13,7 +13,7 @@
       --text:#f5f8fb;--muted:#a8b6c8;--blue:#2b8cff;--cyan:#48d7ff;--green:#46db9a;--gold:#f7c85d;
       --shadow:0 24px 80px rgba(0,0,0,.35);--radius:24px;--max:1180px
     }
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;scroll-padding-top:92px}body{margin:0;overscroll-behavior-y:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y proximity;scroll-padding-top:92px}body{margin:0;overscroll-behavior-y:auto;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
     radial-gradient(circle at 15% 5%,rgba(43,140,255,.15),transparent 28%),
     radial-gradient(circle at 85% 10%,rgba(72,215,255,.08),transparent 26%),
     linear-gradient(180deg,var(--bg),#06101b 38%,#07111d);color:var(--text)}
@@ -108,7 +108,7 @@
 .growth{border-radius:30px;border:1px solid rgba(70,219,154,.2);background:linear-gradient(135deg,rgba(70,219,154,.08),rgba(43,140,255,.055));padding:38px}.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.growth-item{border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(0,0,0,.14)}.growth-item strong{display:block;font-size:18px;margin-bottom:7px}.growth-item span{color:var(--muted);line-height:1.5;font-size:14px}.growth-note{margin-top:20px;color:#7fdcb3;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.core{border-radius:30px;border:1px solid rgba(72,215,255,.18);background:linear-gradient(135deg,rgba(72,215,255,.08),rgba(43,140,255,.07));padding:36px}.core-benefit-strip{display:flex;flex-wrap:wrap;gap:10px 16px;margin:18px 0 6px;padding:13px 15px;border-radius:14px;border:1px solid rgba(70,219,154,.18);background:rgba(70,219,154,.055);color:#c7f6dd;font-size:13px}.core-benefit-strip b{font-weight:850}.core-services{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}.core-service{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(3,12,21,.36);min-height:132px}.core-service .core-icon{font-size:24px;display:block;margin-bottom:11px}.core-service strong{display:block;font-size:15px;margin-bottom:6px}.core-service small{display:block;color:var(--muted);line-height:1.45}.core-tech-label{margin-top:25px;color:#77cfff;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.coreline{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}.coreline span{border:1px solid var(--line);border-radius:999px;padding:9px 12px;color:#d7e5f4;background:rgba(0,0,0,.14);font-size:12px}.core-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px}.core-actions small{color:#91a7b9}.core .section-lead{color:var(--muted);font-size:17px;line-height:1.55;max-width:900px}@media(max-width:1050px){.core-services{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.core-services{grid-template-columns:1fr}}
     footer{border-top:1px solid var(--line);padding:36px 0 50px;color:#869bb1}.foot{display:flex;gap:20px;align-items:center}.foot img{height:34px}.foot nav{display:flex;gap:16px;margin-left:auto;flex-wrap:wrap}
     
-    .site-footer{padding:50px 0 26px;border-top:1px solid rgba(255,255,255,.07);background:#020f16}
+    .site-footer{scroll-snap-align:none;scroll-snap-stop:normal;padding:50px 0 26px;border-top:1px solid rgba(255,255,255,.07);background:#020f16}
     .site-footer .footer-grid{display:grid;grid-template-columns:1.25fr .75fr .75fr;gap:48px;padding-bottom:34px}
     .site-footer .footer-logo{width:210px;height:auto;margin-bottom:16px}
     .site-footer .footer-copy{max-width:440px;color:#91a9b5;font-size:14px;line-height:1.6}
@@ -880,29 +880,70 @@ duelViewport?.addEventListener("mouseleave",startDuelAuto);
 document.addEventListener("visibilitychange",()=>document.hidden?clearInterval(duelTimer):startDuelAuto());
 renderDuelDots();startDuelAuto();
 
-/* V4: one wheel gesture = one complete homepage panel on desktop */
+/* V10: section paging in content, native free scrolling in footer */
 const pageSections=[...document.querySelectorAll("main>section")];
+const siteFooter=document.querySelector(".site-footer");
 let pageScrollLock=false;
+
 function nearestSectionIndex(){
   const header=document.querySelector(".topbar")?.offsetHeight||92;
   let best=0,dist=Infinity;
-  pageSections.forEach((s,i)=>{const d=Math.abs(s.getBoundingClientRect().top-header);if(d<dist){dist=d;best=i;}});
+  pageSections.forEach((s,i)=>{
+    const d=Math.abs(s.getBoundingClientRect().top-header);
+    if(d<dist){dist=d;best=i;}
+  });
   return best;
 }
+
+function footerIsVisible(){
+  if(!siteFooter)return false;
+  const r=siteFooter.getBoundingClientRect();
+  return r.top < window.innerHeight && r.bottom > 0;
+}
+
 window.addEventListener("wheel",e=>{
   if(window.innerWidth<=760||e.ctrlKey||Math.abs(e.deltaY)<12)return;
-  if(pageScrollLock){e.preventDefault();return;}
+
   const target=e.target;
-  if(target && target.closest && target.closest("select"))return;
-  e.preventDefault();
+  if(target?.closest?.("select"))return;
+
+  /* The footer is a normal document area: never hijack the wheel there. */
+  if(target?.closest?.(".site-footer")||footerIsVisible()){
+    pageScrollLock=false;
+    return;
+  }
+
   const here=nearestSectionIndex();
-  const next=Math.max(0,Math.min(pageSections.length-1,here+(e.deltaY>0?1:-1)));
+  const last=pageSections.length-1;
+
+  /* Leaving the final content panel downward must be native so the footer can enter. */
+  if(here===last&&e.deltaY>0){
+    pageScrollLock=false;
+    return;
+  }
+
+  /* Likewise do not block native scrolling at the very first panel when scrolling upward. */
+  if(here===0&&e.deltaY<0){
+    pageScrollLock=false;
+    return;
+  }
+
+  if(pageScrollLock){
+    e.preventDefault();
+    return;
+  }
+
+  const next=Math.max(0,Math.min(last,here+(e.deltaY>0?1:-1)));
   if(next===here)return;
+
+  e.preventDefault();
   pageScrollLock=true;
+
   const header=document.querySelector(".topbar")?.offsetHeight||92;
   const y=pageSections[next].getBoundingClientRect().top+window.scrollY-header;
   window.scrollTo({top:y,behavior:"smooth"});
-  window.setTimeout(()=>{pageScrollLock=false;},820);
+
+  window.setTimeout(()=>{pageScrollLock=false;},760);
 },{passive:false});
 
 const qs=new URLSearchParams(location.search).get("lang");
