@@ -1,0 +1,34 @@
+name: TIME CLASH public guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "de/time-clash/**"
+      - "en/time-clash/**"
+      - "es/time-clash/**"
+      - "fr/time-clash/**"
+      - "it/time-clash/**"
+      - "pt/time-clash/**"
+      - "time-clash/**"
+      - "scripts/validate-time-clash-public.mjs"
+      - ".github/workflows/time-clash-guard.yml"
+  pull_request:
+    paths:
+      - "de/time-clash/**"
+      - "en/time-clash/**"
+      - "es/time-clash/**"
+      - "fr/time-clash/**"
+      - "it/time-clash/**"
+      - "pt/time-clash/**"
+      - "time-clash/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: node scripts/validate-time-clash-public.mjs
