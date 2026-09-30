@@ -5,7 +5,8 @@ const slug=params.get("clash")||"";
 if(!slug)return;
 const SUPPORTED=["de","en","es","pt","it","fr","nl","zh-tw"];
 const raw=(document.documentElement.lang||location.pathname.split("/").filter(Boolean)[0]||"de").toLowerCase();
-const normalized=raw==="zh-tw"||raw.startsWith("zh")?"zh-tw":raw.slice(0,2);\nconst lang=SUPPORTED.includes(normalized)?normalized:"de";
+const normalized=raw==="zh-tw"||raw.startsWith("zh")?"zh-tw":raw.slice(0,2);
+const lang=SUPPORTED.includes(normalized)?normalized:"de";
 const locale={de:"de-DE",en:"en-GB",es:"es-ES",pt:"pt-PT",it:"it-IT",fr:"fr-FR",nl:"nl-NL","zh-tw":"zh-TW"}[lang];
 const T={
 de:{language:"Sprache",title:"Kommentare zu Spiel",loading:"Kommentare werden geladen …",empty:"Noch kein Kommentar. Du kannst der Erste sein.",placeholder:"Dein Kommentar zu diesem Spiel …",send:"Senden",registered:"Du bist angemeldet und kannst kommentieren.",guestTitle:"Du möchtest auch kommentieren?",guestText:"Registriere dich kostenlos bei BetInsight oder melde dich an. Danach kannst du zu jedem Einzelspiel kommentieren.",reg:"KOSTENLOS REGISTRIEREN & KOMMENTIEREN",login:"BEREITS MITGLIED? ANMELDEN",loadError:"Kommentare konnten gerade nicht geladen werden.",sendError:"Kommentar konnte nicht gespeichert werden.",expired:"Dein Kommentar-Zugang ist abgelaufen. Öffne den Bericht erneut aus TIME CLASH.",rate:"Bitte warte ein paar Sekunden bis zum nächsten Kommentar.",blocked:"Dieser Kommentar ist so nicht zulässig."},
