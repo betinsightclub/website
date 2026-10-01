@@ -381,11 +381,11 @@ function adjacentZones(z){
 function simulatePenalty(target,shooterName,k){
  const s=strengthFor(shooterName), ks=keeperStrengthFor(k);
  const upper=target.endsWith("t"), central=target.startsWith("c");
- const difficulty=(upper?.035:0)+(central?-.018:.018);
- const pressure=(round>=4?.012:0)+(round===4?.01:0);
+ const difficulty=(upper ? .035 : 0)+(central?-.018:.018);
+ const pressure=(round>=4 ? .012 : 0)+(round===4 ? .01 : 0);
  const missChance=clamp(.115-(s-18)*.008+difficulty+pressure,.025,.17);
- const postChance=clamp(.028+(upper?.008:0)+(central?-.01:.004),.012,.05);
- const shotQuality=clamp(.48+(s-18)*.025+(Math.random()-.5)*.30-(upper?.035:0),.18,.97);
+ const postChance=clamp(.028+(upper ? .008 : 0)+(central ? -.01 : .004),.012,.05);
+ const shotQuality=clamp(.48+(s-18)*.025+(Math.random()-.5)*.30-(upper ? .035 : 0),.18,.97);
 
  let outcome="goal", actualZone=target;
  const executionRoll=Math.random();
@@ -393,11 +393,11 @@ function simulatePenalty(target,shooterName,k){
    outcome="miss";
  }else if(executionRoll<missChance+postChance){
    outcome="post";
- }else if(Math.random()>clamp(.82+(s-18)*.014-(upper?.025:0),.72,.96)){
+ }else if(Math.random()>clamp(.82+(s-18)*.014-(upper ? .025 : 0),.72,.96)){
    const adj=adjacentZones(target);actualZone=adj.length?adj[Math.floor(Math.random()*adj.length)]:target;
  }
 
- const readChance=clamp(.18+(ks-18)*.018+(central?.045:0),.18,.38);
+ const readChance=clamp(.18+(ks-18)*.018+(central ? .045 : 0),.18,.38);
  let dive;
  if(Math.random()<readChance) dive=actualZone;
  else{
@@ -408,9 +408,9 @@ function simulatePenalty(target,shooterName,k){
  if(outcome==="goal"){
    const exact=dive===actualZone,near=adjacentZones(actualZone).includes(dive);
    let saveChance= exact
-     ? .35+(ks-s)*.022+(1-shotQuality)*.33+(central?.12:0)
+     ? .35+(ks-s)*.022+(1-shotQuality)*.33+(central ? .12 : 0)
      : near ? .045+(ks-18)*.011+(1-shotQuality)*.09 : .008;
-   saveChance=clamp(saveChance,exact?.18:.01,exact?.80:.24);
+   saveChance=clamp(saveChance,exact ? .18 : .01,exact ? .80 : .24);
    if(Math.random()<saveChance) outcome="save";
  }
  return {outcome,target,actualZone,dive,shooterStrength:s,keeperStrength:ks,shotQuality};
