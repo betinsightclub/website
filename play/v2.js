@@ -84,6 +84,12 @@
   async function flyBall(toZone,outcome){
     const stadium=$(".stadium"),ball=$("#ball");if(!stadium||!ball)return;
     const from=ballStart(),to=zonePoint(toZone);
+    if(outcome==="miss"){
+      to.x+=toZone.startsWith("l")?-78:toZone.startsWith("r")?78:52;
+      to.y-=12;
+    }else if(outcome==="post"){
+      to.x+=toZone.startsWith("l")?-13:toZone.startsWith("r")?13:0;
+    }
     placeBallAt(from.x,from.y,1,0);ball.style.transition="none";ball.className="ball";
     const t0=performance.now(),dur=470;
     return new Promise(resolve=>{
@@ -149,16 +155,10 @@
     setTimeout(()=>$(".stadium")?.classList.remove("camera-kick"),250);
     await wait(65);
     if(fig)fig.className="keeper dive-"+sim.dive;
-    const flight=flyBall(sim.actualZone);
+    const flight=flyBall(sim.actualZone,sim.outcome);
     await wait(310);
 
     let visualZone=sim.actualZone;
-    if(sim.outcome==="miss"){
-      const p=zonePoint(sim.actualZone);const stadium=$(".stadium");placeBallAt(p.x+(sim.actualZone.startsWith("l")?-80:sim.actualZone.startsWith("r")?80:55),p.y-12,.5,760);
-    }
-    if(sim.outcome==="post"){
-      const p=zonePoint(sim.actualZone);placeBallAt(p.x+(sim.actualZone.startsWith("l")?-12:sim.actualZone.startsWith("r")?12:0),p.y,.52,760);
-    }
     await flight;
     impactFx(sim.outcome,visualZone);
 
