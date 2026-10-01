@@ -77,19 +77,24 @@ h1{font-size:clamp(2.5rem,7vw,5.6rem);line-height:.92;margin:12px 0 14px;letter-
 .dot{width:12px;height:12px;border-radius:50%;background:#2a3c59;border:1px solid #52698a}
 .dot.goal{background:var(--green);border-color:var(--green)}
 .dot.save{background:var(--red);border-color:var(--red)}
+.dot.miss{background:#f5a742;border-color:#f5a742}
+.dot.post{background:#d7e3ef;border-color:#d7e3ef;box-shadow:0 0 8px #fff8}
 .stadium{
   position:relative;min-height:470px;border-radius:24px;overflow:hidden;border:1px solid #285078;
   background:
-    linear-gradient(180deg,rgba(3,12,28,.05),rgba(3,12,28,.22)),
-    radial-gradient(ellipse at 50% 95%,#2d9149 0 20%,#176d37 21% 47%,#0c4d29 48% 63%,transparent 64%),
-    radial-gradient(ellipse at 50% 35%,#203d67 0 22%,#102849 23% 38%,#09172c 39% 64%,#050b14 65%);
+    linear-gradient(180deg,rgba(2,10,24,.20),rgba(2,12,24,.42) 58%,rgba(4,18,18,.12)),
+    url("/assets/hero-fussball-dunkel.png") center 66%/cover no-repeat;
+  box-shadow:inset 0 -90px 110px rgba(0,0,0,.26),0 18px 44px rgba(0,0,0,.3)
 }
 .crowd{position:absolute;inset:0 0 47%;opacity:.5;background-image:radial-gradient(circle,#d8e8ff 0 1px,transparent 1.6px);background-size:9px 9px;mask-image:linear-gradient(#000,transparent)}
 .flood{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:72%;height:26px;background:radial-gradient(ellipse,#fff 0,#c3eeff 12%,rgba(99,211,255,.25) 40%,transparent 72%);filter:blur(4px)}
 .goal{
   position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:min(74%,620px);aspect-ratio:1.92/1;
-  border:6px solid rgba(245,249,255,.95);border-bottom-width:8px;box-shadow:0 0 30px rgba(208,241,255,.18)
+  border:7px solid rgba(248,252,255,.98);border-bottom-width:9px;
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(4,17,27,.08));
+  box-shadow:0 8px 0 rgba(188,205,217,.42),0 0 34px rgba(208,241,255,.23),inset 0 0 30px rgba(255,255,255,.04)
 }
+.goal:before{content:"";position:absolute;left:2.5%;right:2.5%;bottom:-22px;height:22px;border:3px solid rgba(215,228,236,.45);border-top:0;transform:perspective(240px) rotateX(62deg);transform-origin:top}
 .net{position:absolute;inset:0;background:
   repeating-linear-gradient(90deg,transparent 0 31px,rgba(255,255,255,.18) 32px 33px),
   repeating-linear-gradient(0deg,transparent 0 25px,rgba(255,255,255,.16) 26px 27px)
@@ -276,6 +281,13 @@ h1{font-size:clamp(2.5rem,7vw,5.6rem);line-height:.92;margin:12px 0 14px;letter-
               <div class="kv"><span>Nationalität</span><strong id="sideNationality">–</strong></div>
               <div class="kv"><span>Club im Turnierjahr</span><strong id="sideClub">–</strong></div>
               <div class="kv"><span>Game-Rating</span><strong id="sideRating">–</strong></div>
+              <div class="kv"><span>Simulator-Stärke</span><strong id="sideKeeperStrength">–</strong></div>
+            </div>
+            <div class="sidebox">
+              <h3>Penalty Engine</h3>
+              <div class="kv"><span>Schütze</span><strong id="shotStrength">–</strong></div>
+              <div class="kv"><span>Ziel</span><strong id="shotTarget">frei wählbar</strong></div>
+              <div class="kv"><span>Modell</span><strong>Stärke · Präzision · Antizipation</strong></div>
             </div>
             <div class="sidebox">
               <h3>Live-Kommentar</h3>
@@ -323,7 +335,7 @@ h1{font-size:clamp(2.5rem,7vw,5.6rem);line-height:.92;margin:12px 0 14px;letter-
     </section>
   </main>
 
-  <footer class="footer">BetInsight Play · Penalty Clash V1 · Spiel-Ratings sind Teil der Spielmechanik und keine historischen Leistungsstatistiken.</footer>
+  <footer class="footer">BetInsight Play · Penalty Clash V1.1 · Engine: Kaderstärke, Schusspräzision, Zielzone, Druck und Torwart-Antizipation. Keine Wettprognose.</footer>
 </div>
 
 <script>
@@ -351,6 +363,58 @@ const TEAMS=[
 
 const zoneNames={lt:"links oben",ct:"Mitte oben",rt:"rechts oben",lb:"links unten",cb:"Mitte unten",rb:"rechts unten"};
 const zones=Object.keys(zoneNames);
+const PLAYER_STRENGTH={"Bastian Schweinsteiger":23,"Miroslav Klose":22,"Toni Kroos":23,"Thomas Müller":24,"Mario Götze":22,"Manuel Neuer":24,"Xabi Alonso":21,"Dennis Bergkamp":21,"Marc Overmars":20,"Emmanuel Petit":20,"Fabien Barthez":21,"Thierry Henry":21,"Ricardo":20,"Edwin van der Sar":21,"Cristiano Ronaldo":22,"Clarence Seedorf":22,"Patrick Kluivert":20,"Xavi":23,"Iker Casillas":23,"Deco":21,"Andrés Iniesta":23,"Lionel Messi":23,"David Villa":22,"Romário":22,"Alessandro Del Piero":22,"Francesco Totti":20,"Daniele De Rossi":17,"Gianluigi Buffon":23,"David Trezeguet":20,"Andrea Pirlo":20,"Marco Materazzi":19,"Luís Figo":22,"Lautaro Martínez":20,"Nuno Gomes":18,"Branco":21,"Rui Costa":19,"Leandro Paredes":21,"Raí":20,"Ronald de Boer":21,"Cláudio Taffarel":17,"Julián Álvarez":19,"Ángel Di María":15,"Bebeto":19};
+const FALLBACK_STRENGTH={
+ "Emiliano Martínez":23,"Zinédine Zidane":24,"Fernando Torres":21,"Dunga":21,"Youri Djorkaeff":20
+};
+function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+function strengthFor(name){
+ return Number(PLAYER_STRENGTH[name]||FALLBACK_STRENGTH[name]||20);
+}
+function keeperStrengthFor(k){
+ return Number(PLAYER_STRENGTH[k.name]||FALLBACK_STRENGTH[k.name]||clamp(Math.round(18+(k.rating-90)*.85),18,24));
+}
+function adjacentZones(z){
+ const m={lt:["ct","lb"],ct:["lt","rt","cb"],rt:["ct","rb"],lb:["lt","cb"],cb:["lb","rb","ct"],rb:["rt","cb"]};
+ return m[z]||[];
+}
+function simulatePenalty(target,shooterName,k){
+ const s=strengthFor(shooterName), ks=keeperStrengthFor(k);
+ const upper=target.endsWith("t"), central=target.startsWith("c");
+ const difficulty=(upper?.035:0)+(central?-.018:.018);
+ const pressure=(round>=4?.012:0)+(round===4?.01:0);
+ const missChance=clamp(.115-(s-18)*.008+difficulty+pressure,.025,.17);
+ const postChance=clamp(.028+(upper?.008:0)+(central?-.01:.004),.012,.05);
+ const shotQuality=clamp(.48+(s-18)*.025+(Math.random()-.5)*.30-(upper?.035:0),.18,.97);
+
+ let outcome="goal", actualZone=target;
+ const executionRoll=Math.random();
+ if(executionRoll<missChance){
+   outcome="miss";
+ }else if(executionRoll<missChance+postChance){
+   outcome="post";
+ }else if(Math.random()>clamp(.82+(s-18)*.014-(upper?.025:0),.72,.96)){
+   const adj=adjacentZones(target);actualZone=adj.length?adj[Math.floor(Math.random()*adj.length)]:target;
+ }
+
+ const readChance=clamp(.18+(ks-18)*.018+(central?.045:0),.18,.38);
+ let dive;
+ if(Math.random()<readChance) dive=actualZone;
+ else{
+   const pool=Math.random()<.52?adjacentZones(actualZone):zones.filter(z=>z!==actualZone);
+   dive=(pool&&pool.length)?pool[Math.floor(Math.random()*pool.length)]:zones[Math.floor(Math.random()*zones.length)];
+ }
+
+ if(outcome==="goal"){
+   const exact=dive===actualZone,near=adjacentZones(actualZone).includes(dive);
+   let saveChance= exact
+     ? .35+(ks-s)*.022+(1-shotQuality)*.33+(central?.12:0)
+     : near ? .045+(ks-18)*.011+(1-shotQuality)*.09 : .008;
+   saveChance=clamp(saveChance,exact?.18:.01,exact?.80:.24);
+   if(Math.random()<saveChance) outcome="save";
+ }
+ return {outcome,target,actualZone,dive,shooterStrength:s,keeperStrength:ks,shotQuality};
+}
 let step=1,keeper=null,team=null,round=0,goals=0,saves=0,busy=false,shots=[];
 
 const $=s=>document.querySelector(s);
@@ -407,7 +471,7 @@ function startGame(){
  round=0;goals=0;saves=0;busy=false;shots=[];
  $("#setupPanel").classList.add("hidden");$("#reportPanel").classList.add("hidden");$("#gamePanel").classList.remove("hidden");
  $("#gameTitle").textContent=`${team.flag} ${team.name} vs. ${keeper.flag} ${keeper.name}`;
- $("#sideKeeper").textContent=keeper.name;$("#sideNationality").textContent=keeper.nation;$("#sideClub").textContent=keeper.club;$("#sideRating").textContent=keeper.rating+" / 100";
+ $("#sideKeeper").textContent=keeper.name;$("#sideNationality").textContent=keeper.nation;$("#sideClub").textContent=keeper.club;$("#sideRating").textContent=keeper.rating+" / 100";$("#sideKeeperStrength").textContent=keeperStrengthFor(keeper)+" / 25";
  $("#commentary").textContent=`${keeper.name} steht bereit. Der erste Schütze läuft an.`;
  buildDots();updateGameUI();setZones(true);window.scrollTo({top:$("#gamePanel").offsetTop-10,behavior:"smooth"});
 }
@@ -415,54 +479,48 @@ function buildDots(){ $("#shotDots").innerHTML=team.shooters.map(()=>'<span clas
 function updateGameUI(){
  $("#scoreText").textContent=`${goals} Tore · ${saves} Paraden`;
  $("#roundText").textContent=round<5?`Elfmeter ${round+1} von 5`:"Serie beendet";
- if(round<5){$("#shooterName").textContent=team.shooters[round];$("#shooterMeta").textContent=`${team.flag} ${team.name} · Schütze ${round+1}/5`;}
+ if(round<5){const sn=team.shooters[round],ss=strengthFor(sn);$("#shooterName").textContent=sn;$("#shooterMeta").textContent=`${team.flag} ${team.name} · Schütze ${round+1}/5 · Stärke ${ss}/25`;$("#shotStrength").textContent=ss+" / 25";}
 }
 function setZones(on){ $$(".zone").forEach(z=>z.disabled=!on) }
 $$(".zone").forEach(z=>z.onclick=()=>takeShot(z.dataset.zone));
 
 function takeShot(target){
  if(busy||round>=5)return; busy=true;setZones(false);
- const kDive=chooseDive(target,keeper.save);
- const isSaved=kDive===target;
  const shooter=team.shooters[round];
+ const sim=simulatePenalty(target,shooter,keeper);
  const ball=$("#ball"),fig=$("#keeperFigure");
- fig.className="keeper dive-"+kDive; ball.className="ball fly-"+target;
- $("#prompt").textContent=isSaved?"PARADE!":"TOR!";
- $("#commentary").textContent=isSaved
-   ? `${keeper.name} liest den Schuss von ${shooter} und ist in ${zoneNames[target]} zur Stelle.`
-   : `${shooter} setzt den Ball ${zoneNames[target]}. ${keeper.name} entscheidet sich für ${zoneNames[kDive]}.`;
- shots.push({shooter,target,dive:kDive,saved:isSaved});
- if(isSaved)saves++;else goals++;
- const dot=$$(".dot")[round];dot.classList.add(isSaved?"save":"goal");
+ $("#shotTarget").textContent=zoneNames[target];
+ fig.className="keeper dive-"+sim.dive;
+ ball.className="ball fly-"+sim.actualZone;
+ if(ball.animate)ball.animate([{rotate:"0deg",filter:"blur(0)"},{rotate:"720deg",filter:"blur(.3px)"}],{duration:520,easing:"cubic-bezier(.18,.72,.18,1)"});
+
+ const saved=sim.outcome==="save";
+ if(sim.outcome==="save"){
+   $("#prompt").textContent="PARADE!";
+   $("#commentary").textContent=`${keeper.name} liest ${shooter}. ${zoneNames[sim.actualZone]} – und die Parade sitzt.`;
+   saves++;
+ }else if(sim.outcome==="miss"){
+   $("#prompt").textContent="DANEBEN!";
+   $("#commentary").textContent=`${shooter} zielt ${zoneNames[target]}, setzt den Ball unter Druck aber neben das Tor.`;
+ }else if(sim.outcome==="post"){
+   $("#prompt").textContent="PFOSTEN!";
+   $("#commentary").textContent=`${shooter} trifft mit dem Versuch ${zoneNames[target]} nur Aluminium. ${keeper.name} wäre in ${zoneNames[sim.dive]} gewesen.`;
+ }else{
+   $("#prompt").textContent="TOR!";
+   const same=sim.dive===sim.actualZone;
+   $("#commentary").textContent=same
+     ? `${shooter} trifft ${zoneNames[sim.actualZone]} mit genug Qualität – ${keeper.name} ist dran, kommt aber nicht entscheidend heran.`
+     : `${shooter} setzt den Ball ${zoneNames[sim.actualZone]}. ${keeper.name} entscheidet sich für ${zoneNames[sim.dive]}.`;
+   goals++;
+ }
+ shots.push({shooter,target:sim.target,actualZone:sim.actualZone,dive:sim.dive,outcome:sim.outcome,saved,shooterStrength:sim.shooterStrength,keeperStrength:sim.keeperStrength,shotQuality:sim.shotQuality});
+ const dot=$$(".dot")[round];dot.classList.add(sim.outcome==="goal"?"goal":sim.outcome==="save"?"save":sim.outcome==="post"?"post":"miss");
  round++;updateGameUI();
  setTimeout(()=>{
    ball.className="ball";fig.className="keeper";
    if(round>=5){$("#prompt").textContent="Serie beendet";setTimeout(finishGame,450)}
    else{$("#prompt").textContent="Wähle eine Ecke";busy=false;setZones(true)}
- },760);
-}
-function chooseDive(target,base){
- // The keeper's game rating influences reaction chance. This is a game mechanic, not a historic save percentage.
- if(Math.random()<base) return target;
- const others=zones.filter(z=>z!==target);
- return others[Math.floor(Math.random()*others.length)];
-}
-function finishGame(){
- busy=true;setZones(false);recordRanking();
- $("#gamePanel").classList.add("hidden");$("#reportPanel").classList.remove("hidden");
- $("#finalScore").textContent=`${goals}: ${saves}`;
- const pct=Math.round(saves/5*100);
- $("#reportSummary").textContent=`${team.name} erzielt ${goals} von 5 Treffern. ${keeper.name} pariert ${saves} Elfmeter.`;
- $("#keeperGrade").textContent=pct+"%";
- $("#keeperReport").textContent=saves>=3
-  ? `${keeper.name} prägt die Serie mit ${saves} Paraden und gewinnt das direkte Duell gegen die Schützen.`
-  : saves===2
-  ? `${keeper.name} hält zwei Versuche. Die Serie bleibt bis zum Ende umkämpft.`
-  : saves===1
-  ? `${keeper.name} kommt zu einer Parade, die Schützen finden aber mehrfach die freie Ecke.`
-  : `${keeper.name} bleibt diesmal ohne Parade. Im nächsten Duell kann die Rangliste sofort wieder kippen.`;
- $("#shotLog").innerHTML=shots.map((s,i)=>`<div class="log"><span>${i+1}. ${s.shooter} · ${zoneNames[s.target]}</span><strong style="color:${s.saved?'var(--red)':'var(--green)'}">${s.saved?'PARADE':'TOR'}</strong></div>`).join("");
- renderRanking();window.scrollTo({top:$("#reportPanel").offsetTop-10,behavior:"smooth"});
+ },820);
 }
 function stats(){
  try{return JSON.parse(localStorage.getItem("betinsight_penalty_keeper_stats_v1")||"{}")}catch(e){return{}}
