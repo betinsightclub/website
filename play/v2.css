@@ -1,0 +1,139 @@
+
+/* BetInsight Penalty Clash V2 · cinematic game-feel layer */
+:root{--pc-accent:#55ddff;--pc-gold:#f5c768}
+body{overflow-x:hidden}
+.hero{padding-top:24px}
+.hero h1{
+  background:linear-gradient(180deg,#fff 5%,#cfe9ff 48%,#7fb8df 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,.55))
+}
+.panel{border-color:#284d78}
+#gamePanel .panel-body{padding:14px}
+.stadium{
+  min-height:560px;
+  isolation:isolate;
+  perspective:950px;
+  background-position:center 58%;
+  box-shadow:inset 0 -110px 140px rgba(0,0,0,.34),0 28px 80px rgba(0,0,0,.42)
+}
+.stadium:before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(1,9,21,.02) 0%,rgba(1,9,21,.04) 38%,rgba(6,26,22,.12) 57%,rgba(4,30,20,.18) 100%),
+    radial-gradient(ellipse at 50% 78%,rgba(120,255,168,.16),transparent 46%);
+}
+.stadium:after{
+  content:"";position:absolute;left:-10%;right:-10%;bottom:-4%;height:38%;z-index:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 44px,rgba(0,0,0,.018) 44px 88px),
+    linear-gradient(180deg,rgba(36,133,71,.05),rgba(7,77,39,.40));
+  transform:rotateX(58deg);transform-origin:bottom center
+}
+.crowd{z-index:1;opacity:.26}
+.flood{z-index:2;opacity:.72}
+.goal{z-index:4;top:40%;width:min(73%,680px);filter:drop-shadow(0 12px 18px rgba(0,0,0,.52));transition:filter .2s ease}
+.goal.goal-hit{filter:drop-shadow(0 12px 18px rgba(0,0,0,.52)) drop-shadow(0 0 18px rgba(95,219,255,.5))}
+.goal .net{transform-origin:center;transition:transform .14s ease,filter .14s ease}
+.goal.goal-net .net{animation:pcNet .44s ease-out}
+@keyframes pcNet{
+  0%{transform:translateZ(0) scale(1)}
+  26%{transform:perspective(300px) translateZ(-22px) scale(.985);filter:brightness(1.35)}
+  60%{transform:perspective(300px) translateZ(10px) scale(1.008)}
+  100%{transform:translateZ(0) scale(1)}
+}
+.zones{z-index:8}
+.zone{transition:background .14s ease,box-shadow .14s ease}
+.zone:hover:not(:disabled){
+  background:radial-gradient(circle,rgba(86,225,255,.26),rgba(86,225,255,.06) 52%,transparent 72%);
+  box-shadow:inset 0 0 24px rgba(86,225,255,.12)
+}
+.zone:focus-visible{outline:2px solid var(--pc-accent);outline-offset:-4px}
+.keeper{z-index:7;width:70px;height:138px;filter:drop-shadow(0 10px 8px rgba(0,0,0,.4))}
+.keeper .head{position:relative;box-shadow:inset -4px -3px 0 rgba(0,0,0,.12)}
+.keeper .head:before{content:"";position:absolute;left:4px;right:4px;top:-2px;height:9px;border-radius:50% 50% 38% 38%;background:#302219}
+.keeper .body{
+  width:48px;height:62px;
+  background:linear-gradient(145deg,#f8d55c 0%,#efad24 56%,#c47a08 100%);
+  box-shadow:inset -7px -6px 0 rgba(0,0,0,.14),0 4px 10px rgba(0,0,0,.2)
+}
+.keeper .body:before,.keeper .body:after{height:12px;background:linear-gradient(90deg,#ffc83f,#f7df81);box-shadow:0 0 0 5px rgba(235,241,247,.85) inset}
+.keeper .legs{height:40px;border-left-width:13px;border-right-width:13px;filter:drop-shadow(0 5px 3px rgba(0,0,0,.32))}
+.keeper.ready{animation:keeperReady .9s ease-in-out infinite alternate}
+@keyframes keeperReady{from{margin-bottom:0}to{margin-bottom:3px}}
+.ball{z-index:10;width:34px;height:34px;box-shadow:0 8px 12px rgba(0,0,0,.42);will-change:transform,left,top,filter}
+.ball.hidden-ball{opacity:0}
+.pc-player{
+  position:absolute;z-index:9;left:calc(50% - min(33vw,330px));bottom:7%;
+  width:90px;height:190px;transform-origin:50% 100%;
+  filter:drop-shadow(0 15px 9px rgba(0,0,0,.45));pointer-events:none
+}
+.pc-player .p-head{position:absolute;left:31px;top:2px;width:31px;height:31px;border-radius:50%;background:#c99370;box-shadow:inset -5px -3px rgba(0,0,0,.12)}
+.pc-player .p-hair{position:absolute;left:31px;top:0;width:31px;height:11px;border-radius:60% 60% 30% 30%;background:#27201d}
+.pc-player .p-body{position:absolute;left:24px;top:32px;width:45px;height:75px;border-radius:14px 14px 10px 10px;background:linear-gradient(180deg,#1d87cb,#09517f);box-shadow:inset -7px -6px rgba(0,0,0,.15)}
+.pc-player .p-body:after{content:"";position:absolute;left:15px;top:20px;width:16px;height:24px;border-radius:5px;border:1px solid rgba(255,255,255,.48);opacity:.7}
+.pc-player .arm{position:absolute;top:42px;width:14px;height:64px;border-radius:9px;background:#c99370;transform-origin:50% 8px}
+.pc-player .arm.l{left:17px;transform:rotate(9deg)} .pc-player .arm.r{right:15px;transform:rotate(-15deg)}
+.pc-player .leg{position:absolute;top:101px;width:19px;height:78px;border-radius:9px;background:linear-gradient(180deg,#142b48 0 56%,#d9e2ea 57% 74%,#111c2a 75%);transform-origin:50% 8px}
+.pc-player .leg.l{left:25px}.pc-player .leg.r{left:50px}
+.pc-player.runup{animation:pcRunup .56s cubic-bezier(.22,.8,.25,1) forwards}
+.pc-player.runup .arm.l{animation:armL .56s ease-in-out}.pc-player.runup .arm.r{animation:armR .56s ease-in-out}
+.pc-player.runup .leg.l{animation:legL .56s ease-in-out}.pc-player.runup .leg.r{animation:legR .56s ease-in-out}
+.pc-player.kick .leg.r{animation:pcKickLeg .34s cubic-bezier(.18,.72,.25,1)}
+.pc-player.kick{animation:pcKickBody .34s ease}
+@keyframes pcRunup{0%{transform:translateX(-38px) scale(.92)}100%{transform:translateX(28px) scale(1)}}
+@keyframes armL{0%,100%{transform:rotate(9deg)}50%{transform:rotate(-28deg)}} @keyframes armR{0%,100%{transform:rotate(-15deg)}50%{transform:rotate(25deg)}}
+@keyframes legL{0%,100%{transform:rotate(0)}50%{transform:rotate(21deg)}} @keyframes legR{0%,100%{transform:rotate(0)}50%{transform:rotate(-24deg)}}
+@keyframes pcKickLeg{0%{transform:rotate(-18deg)}46%{transform:rotate(34deg)}100%{transform:rotate(2deg)}}
+@keyframes pcKickBody{0%{transform:translateX(28px) rotate(0)}55%{transform:translateX(34px) rotate(-4deg)}100%{transform:translateX(28px) rotate(0)}}
+.pc-shadow{position:absolute;z-index:3;left:50%;bottom:5%;width:58%;height:17%;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(0,0,0,.46),transparent 66%);pointer-events:none}
+.pc-aim{
+  position:absolute;z-index:12;width:44px;height:44px;border:2px solid rgba(104,230,255,.92);border-radius:50%;
+  box-shadow:0 0 0 7px rgba(83,215,255,.09),0 0 18px rgba(83,215,255,.5);
+  transform:translate(-50%,-50%);pointer-events:none;opacity:0;transition:opacity .12s ease,left .12s ease,top .12s ease
+}
+.pc-aim:before,.pc-aim:after{content:"";position:absolute;background:rgba(132,239,255,.85)}
+.pc-aim:before{width:58px;height:1px;left:-9px;top:20px}.pc-aim:after{width:1px;height:58px;left:20px;top:-9px}
+.pc-aim.show{opacity:1}
+.pc-result{
+  position:absolute;z-index:25;left:50%;top:19%;transform:translate(-50%,-50%) scale(.84);
+  min-width:min(80%,430px);text-align:center;opacity:0;pointer-events:none;
+  font-weight:1000;font-size:clamp(36px,7vw,78px);letter-spacing:.03em;font-style:italic;
+  text-shadow:0 5px 0 rgba(0,0,0,.24),0 0 28px currentColor
+}
+.pc-result.show{animation:resultPop .8s cubic-bezier(.15,.83,.22,1)}
+.pc-result.goal{color:#62f6a2}.pc-result.save{color:#ff6577}.pc-result.miss{color:#ffc66c}.pc-result.post{color:#eff7ff}
+@keyframes resultPop{0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}72%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.98)}}
+.pc-flash{position:absolute;inset:0;z-index:20;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.4),transparent 52%)}
+.pc-flash.hit{animation:flash .25s ease}@keyframes flash{0%{opacity:0}35%{opacity:.7}100%{opacity:0}}
+.pc-particle{position:absolute;z-index:22;width:7px;height:7px;border-radius:50%;background:#fff;pointer-events:none;animation:particle .65s ease-out forwards}
+@keyframes particle{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+.stadium.camera-kick{animation:cameraKick .22s ease-out}
+.stadium.camera-save{animation:cameraSave .28s ease-out}
+@keyframes cameraKick{0%{transform:scale(1)}42%{transform:scale(1.012) translateY(1px)}100%{transform:scale(1)}}
+@keyframes cameraSave{0%{transform:translateX(0)}25%{transform:translateX(-3px)}50%{transform:translateX(3px)}100%{transform:translateX(0)}}
+.pc-sound{
+  position:absolute;right:14px;top:14px;z-index:30;border:1px solid rgba(119,181,221,.54);background:rgba(4,18,34,.72);backdrop-filter:blur(8px);
+  color:#e9f7ff;border-radius:999px;padding:8px 11px;font-weight:850;cursor:pointer
+}
+.prompt{z-index:24;border-color:rgba(88,180,231,.55);box-shadow:0 9px 30px rgba(0,0,0,.22)}
+.sidebox{box-shadow:inset 0 1px rgba(255,255,255,.02)}
+.scoreboard{position:relative;overflow:hidden}
+.scoreboard:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(83,215,255,.035),transparent)}
+@media(max-width:900px){
+ .stadium{min-height:520px}
+ .pc-player{left:14%;transform:scale(.9)}
+}
+@media(max-width:620px){
+ #gamePanel .panel-body{padding:8px}
+ .stadium{min-height:470px;border-radius:18px}
+ .goal{width:90%;top:39%}
+ .pc-player{left:6%;bottom:7%;transform:scale(.76);transform-origin:bottom center}
+ .pc-player.runup{animation-name:pcRunupMobile}
+ @keyframes pcRunupMobile{0%{transform:translateX(-18px) scale(.70)}100%{transform:translateX(22px) scale(.76)}}
+ .pc-result{top:15%}
+ .pc-sound{top:8px;right:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .keeper.ready,.pc-player.runup,.pc-player.kick,.goal.goal-net .net,.stadium.camera-kick,.stadium.camera-save{animation:none!important}
+}
