@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Penalty Clash · BetInsight Play</title>
+<meta name="description" content="Penalty Clash – das BetInsight-Elfmeterschießen mit legendären Nationaltorhütern, echten Gegnerkadern, Matchreport und Torwart-Rangliste.">
+<link rel="icon" href="/favicon.ico">
+<style>
+:root{
+  --bg:#06101f;--panel:#0b1830;--panel2:#101f3d;--line:#253b61;
+  --text:#f6f8fc;--muted:#9eb0cb;--cyan:#53d7ff;--gold:#f5c768;
+  --green:#39db8a;--red:#ff6577;--shadow:0 18px 48px rgba(0,0,0,.34)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 15% -10%,rgba(83,215,255,.16),transparent 28rem),
+    radial-gradient(circle at 95% 15%,rgba(245,199,104,.10),transparent 24rem),
+    linear-gradient(180deg,#06101f 0%,#081426 55%,#050c17 100%);
+  min-height:100vh
+}
+button{font:inherit}
+.shell{width:min(1180px,calc(100% - 28px));margin:auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0}
+.logo{height:48px;max-width:220px;object-fit:contain}
+.toplinks{display:flex;gap:10px;flex-wrap:wrap}
+.pill,.btn{
+  border:1px solid var(--line);background:rgba(13,29,55,.78);color:var(--text);
+  border-radius:999px;padding:10px 15px;text-decoration:none;cursor:pointer
+}
+.pill:hover,.btn:hover{border-color:#4d6f9d}
+.hero{padding:32px 0 22px;text-align:center}
+.eyebrow{color:var(--cyan);font-weight:800;letter-spacing:.16em;font-size:.78rem}
+h1{font-size:clamp(2.5rem,7vw,5.6rem);line-height:.92;margin:12px 0 14px;letter-spacing:-.055em}
+.hero p{max-width:760px;margin:0 auto;color:var(--muted);font-size:clamp(1rem,2.3vw,1.15rem);line-height:1.65}
+.badges{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:18px}
+.badge{font-size:.83rem;color:#dbe7f7;border:1px solid #243d64;background:#0b1830;border-radius:999px;padding:7px 11px}
+.app{padding:18px 0 64px}
+.panel{
+  background:linear-gradient(180deg,rgba(16,31,61,.94),rgba(8,20,39,.97));
+  border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden
+}
+.panel-head{padding:20px 22px;border-bottom:1px solid rgba(64,91,130,.45);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.panel-head h2{margin:0;font-size:1.15rem}
+.panel-body{padding:22px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.step{padding:12px 14px;border-radius:16px;background:#081426;border:1px solid #1d3356;color:var(--muted);font-weight:800}
+.step.active{color:var(--text);border-color:#48749f;background:linear-gradient(180deg,#11284b,#0a1a31)}
+.step small{display:block;font-weight:600;color:#6f88aa;margin-top:3px}
+.section-title{font-size:1rem;margin:8px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{
+  text-align:left;border:1px solid #254267;background:linear-gradient(180deg,#0e203d,#09172c);color:var(--text);
+  border-radius:18px;padding:15px;cursor:pointer;transition:.18s ease;min-height:142px
+}
+.card:hover{transform:translateY(-2px);border-color:#4d7ca7}
+.card.selected{outline:2px solid var(--cyan);border-color:transparent;box-shadow:0 0 0 4px rgba(83,215,255,.11)}
+.flag{font-size:1.75rem}
+.name{font-weight:900;font-size:1.02rem;margin:8px 0 3px}
+.meta{color:var(--muted);font-size:.84rem;line-height:1.45}
+.rating{display:inline-flex;margin-top:10px;padding:5px 8px;border-radius:999px;background:#102d43;color:#9be8ff;font-size:.76rem;font-weight:900}
+.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;flex-wrap:wrap}
+.btn.primary{border:none;background:linear-gradient(135deg,#1e9ed0,#4ee0c1);color:#03131e;font-weight:950;padding:12px 19px}
+.btn.gold{border:none;background:linear-gradient(135deg,#eebd58,#ffd98b);color:#241500;font-weight:950}
+.btn:disabled{opacity:.42;cursor:not-allowed}
+.hidden{display:none!important}
+.game-wrap{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.75fr);gap:16px}
+.scoreboard{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-radius:18px;background:#071224;border:1px solid #203a61;margin-bottom:14px
+}
+.score-main{font-weight:950;font-size:1.06rem}
+.score-sub{font-size:.82rem;color:var(--muted)}
+.shot-dots{display:flex;gap:7px}
+.dot{width:12px;height:12px;border-radius:50%;background:#2a3c59;border:1px solid #52698a}
+.dot.goal{background:var(--green);border-color:var(--green)}
+.dot.save{background:var(--red);border-color:var(--red)}
+.stadium{
+  position:relative;min-height:470px;border-radius:24px;overflow:hidden;border:1px solid #285078;
+  background:
+    linear-gradient(180deg,rgba(3,12,28,.05),rgba(3,12,28,.22)),
+    radial-gradient(ellipse at 50% 95%,#2d9149 0 20%,#176d37 21% 47%,#0c4d29 48% 63%,transparent 64%),
+    radial-gradient(ellipse at 50% 35%,#203d67 0 22%,#102849 23% 38%,#09172c 39% 64%,#050b14 65%);
+}
+.crowd{position:absolute;inset:0 0 47%;opacity:.5;background-image:radial-gradient(circle,#d8e8ff 0 1px,transparent 1.6px);background-size:9px 9px;mask-image:linear-gradient(#000,transparent)}
+.flood{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:72%;height:26px;background:radial-gradient(ellipse,#fff 0,#c3eeff 12%,rgba(99,211,255,.25) 40%,transparent 72%);filter:blur(4px)}
+.goal{
+  position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:min(74%,620px);aspect-ratio:1.92/1;
+  border:6px solid rgba(245,249,255,.95);border-bottom-width:8px;box-shadow:0 0 30px rgba(208,241,255,.18)
+}
+.net{position:absolute;inset:0;background:
+  repeating-linear-gradient(90deg,transparent 0 31px,rgba(255,255,255,.18) 32px 33px),
+  repeating-linear-gradient(0deg,transparent 0 25px,rgba(255,255,255,.16) 26px 27px)
+}
+.zones{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr)}
+.zone{border:1px dashed rgba(255,255,255,.17);background:transparent;color:transparent;cursor:crosshair}
+.zone:hover{background:rgba(83,215,255,.13);color:#d9f8ff}
+.zone:disabled{cursor:default}
+.keeper{
+  position:absolute;left:50%;bottom:3%;transform:translateX(-50%);width:64px;height:126px;transition:.35s cubic-bezier(.2,.85,.25,1);
+  transform-origin:50% 80%;z-index:5;pointer-events:none
+}
+.keeper .head{width:28px;height:28px;border-radius:50%;background:#d5ae91;margin:0 auto 4px}
+.keeper .body{width:45px;height:58px;margin:auto;background:linear-gradient(180deg,#ffcf4b,#e89d17);border-radius:12px 12px 8px 8px;position:relative}
+.keeper .body:before,.keeper .body:after{content:"";position:absolute;width:50px;height:11px;background:#f3c34f;top:9px;border-radius:10px}
+.keeper .body:before{right:32px;transform:rotate(-18deg)}
+.keeper .body:after{left:32px;transform:rotate(18deg)}
+.keeper .legs{width:38px;height:34px;margin:auto;border-left:12px solid #19253c;border-right:12px solid #19253c}
+.keeper.dive-lt{transform:translateX(-260%) translateY(-40px) rotate(-54deg)}
+.keeper.dive-ct{transform:translateX(-50%) translateY(-74px)}
+.keeper.dive-rt{transform:translateX(160%) translateY(-40px) rotate(54deg)}
+.keeper.dive-lb{transform:translateX(-270%) translateY(5px) rotate(-72deg)}
+.keeper.dive-cb{transform:translateX(-50%) translateY(-12px)}
+.keeper.dive-rb{transform:translateX(170%) translateY(5px) rotate(72deg)}
+.ball{
+  position:absolute;left:50%;bottom:6%;transform:translate(-50%,0);width:30px;height:30px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff 0 24%,#dce6ef 25% 43%,#1a2431 44% 49%,#f4f7fa 50%);z-index:6;
+  transition:.48s cubic-bezier(.18,.72,.18,1)
+}
+.ball.fly-lt{left:18%;bottom:67%;transform:scale(.58)}
+.ball.fly-ct{left:50%;bottom:70%;transform:translateX(-50%) scale(.58)}
+.ball.fly-rt{left:82%;bottom:67%;transform:scale(.58)}
+.ball.fly-lb{left:18%;bottom:37%;transform:scale(.58)}
+.ball.fly-cb{left:50%;bottom:37%;transform:translateX(-50%) scale(.58)}
+.ball.fly-rb{left:82%;bottom:37%;transform:scale(.58)}
+.prompt{
+  position:absolute;left:50%;bottom:15px;transform:translateX(-50%);background:rgba(3,12,24,.8);backdrop-filter:blur(10px);
+  border:1px solid #2c5277;border-radius:999px;padding:9px 15px;color:#dbe8f9;font-weight:850;white-space:nowrap
+}
+.sidebox{background:#081426;border:1px solid #20395e;border-radius:20px;padding:16px}
+.sidebox+.sidebox{margin-top:12px}
+.sidebox h3{font-size:.93rem;margin:0 0 10px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;font-size:.86rem;padding:7px 0;border-bottom:1px solid #162b49}
+.kv:last-child{border-bottom:0}
+.kv span:first-child{color:var(--muted)}
+.shooter{font-size:1.15rem;font-weight:950}
+.live{min-height:90px;color:#dce8f7;font-size:.91rem;line-height:1.55}
+.report{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.big-number{font-size:3rem;font-weight:1000;letter-spacing:-.05em}
+.result-box{padding:18px;border:1px solid #29486f;border-radius:20px;background:#0a1930}
+.shot-log{display:grid;gap:8px;margin-top:12px}
+.log{display:flex;justify-content:space-between;gap:12px;padding:9px 10px;background:#071326;border-radius:12px;font-size:.86rem}
+.table{width:100%;border-collapse:collapse;font-size:.86rem}
+.table th,.table td{text-align:left;padding:10px 8px;border-bottom:1px solid #1a3152}
+.table th{color:#8fa8c8;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.rank{font-weight:950;color:var(--gold)}
+.notice{color:#8197b5;font-size:.78rem;line-height:1.5;margin-top:10px}
+.footer{padding:28px 0 42px;color:#7388a7;font-size:.8rem;text-align:center}
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .game-wrap,.report{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .shell{width:min(100% - 18px,1180px)}
+  .topbar{padding:12px 0}.logo{height:39px}.toplinks{display:none}
+  .hero{padding:18px 4px 14px}
+  .panel-head,.panel-body{padding:16px}
+  .steps{grid-template-columns:1fr}.step{display:none}.step.active{display:block}
+  .grid{grid-template-columns:1fr 1fr;gap:9px}
+  .card{padding:12px;min-height:136px}.name{font-size:.93rem}
+  .stadium{min-height:400px}
+  .goal{width:88%;top:45%}
+  .keeper{transform:translateX(-50%) scale(.86)}
+  .keeper.dive-lt{transform:translateX(-220%) translateY(-34px) rotate(-54deg) scale(.86)}
+  .keeper.dive-rt{transform:translateX(120%) translateY(-34px) rotate(54deg) scale(.86)}
+  .keeper.dive-lb{transform:translateX(-230%) rotate(-72deg) scale(.86)}
+  .keeper.dive-rb{transform:translateX(130%) rotate(72deg) scale(.86)}
+  .prompt{font-size:.75rem}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a href="/"><img class="logo" src="/assets/betinsight-logo.png" alt="BetInsight"></a>
+    <div class="toplinks">
+      <a class="pill" href="/de/time-clash/">TIME CLASH</a>
+      <button class="pill" id="jumpRanking">Torwart-Rangliste</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">BETINSIGHT PLAY · VERSION 1</div>
+    <h1>PENALTY CLASH</h1>
+    <p>Wähle einen legendären Nationaltorhüter, stelle ihm fünf echte Spieler eines historischen Teams gegenüber und entscheide bei jedem Elfmeter selbst die Ecke.</p>
+    <div class="badges">
+      <span class="badge">5 Schützen</span><span class="badge">6 Schusszonen</span><span class="badge">Matchbericht</span><span class="badge">Torwart-Rangliste</span><span class="badge">ohne Werbung</span>
+    </div>
+  </section>
+
+  <main class="app">
+    <section class="panel" id="setupPanel">
+      <div class="panel-head">
+        <h2>Neues Elfmeterschießen</h2>
+        <span class="badge">V1 · Browser-Spiel</span>
+      </div>
+      <div class="panel-body">
+        <div class="steps">
+          <div class="step active" data-step="1">1 · Torwart<small>Land, Turnierjahr und Club</small></div>
+          <div class="step" data-step="2">2 · Gegner<small>historisches Nationalteam</small></div>
+          <div class="step" data-step="3">3 · Start<small>fünf Schützen gegen deinen Keeper</small></div>
+        </div>
+
+        <div id="step1">
+          <h3 class="section-title">Welchen Torwart möchtest du herausfordern?</h3>
+          <div class="grid" id="keeperGrid"></div>
+        </div>
+
+        <div id="step2" class="hidden">
+          <h3 class="section-title">Welches Team stellt die fünf Schützen?</h3>
+          <div class="grid" id="teamGrid"></div>
+        </div>
+
+        <div id="step3" class="hidden">
+          <div class="report">
+            <div class="result-box">
+              <div class="eyebrow">DEIN TORWART</div>
+              <div class="big-number" id="confirmKeeper">–</div>
+              <div class="meta" id="confirmKeeperMeta"></div>
+            </div>
+            <div class="result-box">
+              <div class="eyebrow">5 SCHÜTZEN</div>
+              <div class="big-number" id="confirmTeam">–</div>
+              <div class="meta" id="confirmShooters"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn hidden" id="backBtn">Zurück</button>
+          <button class="btn primary" id="nextBtn" disabled>Weiter</button>
+          <button class="btn gold hidden" id="startBtn">Elfmeterschießen starten</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="gamePanel">
+      <div class="panel-head">
+        <h2 id="gameTitle">Penalty Clash</h2>
+        <button class="btn" id="abortBtn">Neu wählen</button>
+      </div>
+      <div class="panel-body">
+        <div class="scoreboard">
+          <div><div class="score-main" id="scoreText">0 Tore · 0 Paraden</div><div class="score-sub" id="roundText">Elfmeter 1 von 5</div></div>
+          <div class="shot-dots" id="shotDots"></div>
+        </div>
+        <div class="game-wrap">
+          <div class="stadium">
+            <div class="crowd"></div><div class="flood"></div>
+            <div class="goal">
+              <div class="net"></div>
+              <div class="zones">
+                <button class="zone" data-zone="lt" aria-label="links oben">links oben</button>
+                <button class="zone" data-zone="ct" aria-label="mitte oben">mitte oben</button>
+                <button class="zone" data-zone="rt" aria-label="rechts oben">rechts oben</button>
+                <button class="zone" data-zone="lb" aria-label="links unten">links unten</button>
+                <button class="zone" data-zone="cb" aria-label="mitte unten">mitte unten</button>
+                <button class="zone" data-zone="rb" aria-label="rechts unten">rechts unten</button>
+              </div>
+              <div class="keeper" id="keeperFigure"><div class="head"></div><div class="body"></div><div class="legs"></div></div>
+            </div>
+            <div class="ball" id="ball"></div>
+            <div class="prompt" id="prompt">Wähle eine Ecke</div>
+          </div>
+          <aside>
+            <div class="sidebox">
+              <h3>Aktueller Schütze</h3>
+              <div class="shooter" id="shooterName">–</div>
+              <div class="meta" id="shooterMeta"></div>
+            </div>
+            <div class="sidebox">
+              <h3>Torwart</h3>
+              <div class="kv"><span>Name</span><strong id="sideKeeper">–</strong></div>
+              <div class="kv"><span>Nationalität</span><strong id="sideNationality">–</strong></div>
+              <div class="kv"><span>Club im Turnierjahr</span><strong id="sideClub">–</strong></div>
+              <div class="kv"><span>Game-Rating</span><strong id="sideRating">–</strong></div>
+            </div>
+            <div class="sidebox">
+              <h3>Live-Kommentar</h3>
+              <div class="live" id="commentary">Der Torwart wartet auf den ersten Schuss.</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="reportPanel">
+      <div class="panel-head"><h2>Matchbericht</h2><span class="badge" id="reportBadge">Serie beendet</span></div>
+      <div class="panel-body">
+        <div class="report">
+          <div class="result-box">
+            <div class="eyebrow">ERGEBNIS</div>
+            <div class="big-number" id="finalScore">–</div>
+            <div class="meta" id="reportSummary"></div>
+            <div class="shot-log" id="shotLog"></div>
+          </div>
+          <div class="result-box">
+            <div class="eyebrow">TORWART-REPORT</div>
+            <div class="big-number" id="keeperGrade">–</div>
+            <div class="meta" id="keeperReport"></div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="sameAgain">Revanche</button>
+          <button class="btn primary" id="newMatch">Neues Duell</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="rankingPanel" style="margin-top:18px">
+      <div class="panel-head"><h2>Torwart-Rangliste</h2><span class="badge">lokal auf diesem Gerät</span></div>
+      <div class="panel-body">
+        <div style="overflow:auto">
+          <table class="table">
+            <thead><tr><th>#</th><th>Torwart</th><th>Land</th><th>Spiele</th><th>Elfmeter</th><th>Paraden</th><th>Quote</th></tr></thead>
+            <tbody id="rankingBody"></tbody>
+          </table>
+        </div>
+        <p class="notice">V1 speichert die Rangliste nur im Browser. Eine globale, kontogebundene BetInsight-Rangliste kann später serverseitig ergänzt werden, ohne Make bei jedem Schuss aufzurufen.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">BetInsight Play · Penalty Clash V1 · Spiel-Ratings sind Teil der Spielmechanik und keine historischen Leistungsstatistiken.</footer>
+</div>
+
+<script>
+const KEEPERS=[
+ {id:"neuer14",name:"Manuel Neuer",flag:"🇩🇪",nation:"Deutschland",edition:"WM 2014",club:"FC Bayern München",rating:94,save:0.40},
+ {id:"buffon06",name:"Gianluigi Buffon",flag:"🇮🇹",nation:"Italien",edition:"WM 2006",club:"Juventus",rating:95,save:0.41},
+ {id:"casillas10",name:"Iker Casillas",flag:"🇪🇸",nation:"Spanien",edition:"WM 2010",club:"Real Madrid",rating:94,save:0.40},
+ {id:"martinez22",name:"Emiliano Martínez",flag:"🇦🇷",nation:"Argentinien",edition:"WM 2022",club:"Aston Villa",rating:94,save:0.41},
+ {id:"barthez98",name:"Fabien Barthez",flag:"🇫🇷",nation:"Frankreich",edition:"WM 1998",club:"AS Monaco",rating:92,save:0.38},
+ {id:"taffarel94",name:"Cláudio Taffarel",flag:"🇧🇷",nation:"Brasilien",edition:"WM 1994",club:"Reggiana",rating:92,save:0.38},
+ {id:"ricardo04",name:"Ricardo",flag:"🇵🇹",nation:"Portugal",edition:"EM 2004",club:"Sporting CP",rating:91,save:0.37},
+ {id:"vandersar98",name:"Edwin van der Sar",flag:"🇳🇱",nation:"Niederlande",edition:"WM 1998",club:"Ajax",rating:93,save:0.39}
+];
+
+const TEAMS=[
+ {id:"ger14",name:"Deutschland 2014",flag:"🇩🇪",title:"Weltmeister",shooters:["Thomas Müller","Toni Kroos","Bastian Schweinsteiger","Mario Götze","Miroslav Klose"]},
+ {id:"ita06",name:"Italien 2006",flag:"🇮🇹",title:"Weltmeister",shooters:["Francesco Totti","Andrea Pirlo","Alessandro Del Piero","Daniele De Rossi","Marco Materazzi"]},
+ {id:"esp10",name:"Spanien 2010",flag:"🇪🇸",title:"Weltmeister",shooters:["David Villa","Xavi","Andrés Iniesta","Xabi Alonso","Fernando Torres"]},
+ {id:"arg22",name:"Argentinien 2022",flag:"🇦🇷",title:"Weltmeister",shooters:["Lionel Messi","Ángel Di María","Lautaro Martínez","Julián Álvarez","Leandro Paredes"]},
+ {id:"fra98",name:"Frankreich 1998",flag:"🇫🇷",title:"Weltmeister",shooters:["Zinédine Zidane","Thierry Henry","David Trezeguet","Youri Djorkaeff","Emmanuel Petit"]},
+ {id:"bra94",name:"Brasilien 1994",flag:"🇧🇷",title:"Weltmeister",shooters:["Romário","Bebeto","Dunga","Raí","Branco"]},
+ {id:"por04",name:"Portugal 2004",flag:"🇵🇹",title:"EM-Finalist",shooters:["Luís Figo","Cristiano Ronaldo","Rui Costa","Deco","Nuno Gomes"]},
+ {id:"ned98",name:"Niederlande 1998",flag:"🇳🇱",title:"WM-Halbfinalist",shooters:["Dennis Bergkamp","Patrick Kluivert","Marc Overmars","Ronald de Boer","Clarence Seedorf"]}
+];
+
+const zoneNames={lt:"links oben",ct:"Mitte oben",rt:"rechts oben",lb:"links unten",cb:"Mitte unten",rb:"rechts unten"};
+const zones=Object.keys(zoneNames);
+let step=1,keeper=null,team=null,round=0,goals=0,saves=0,busy=false,shots=[];
+
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+
+function keeperCard(k){
+ return `<button class="card" data-keeper="${k.id}">
+  <div class="flag">${k.flag}</div><div class="name">${k.name}</div>
+  <div class="meta">${k.nation} · ${k.edition}<br>${k.club}</div>
+  <span class="rating">Game-Rating ${k.rating}</span>
+ </button>`;
+}
+function teamCard(t){
+ return `<button class="card" data-team="${t.id}">
+  <div class="flag">${t.flag}</div><div class="name">${t.name}</div>
+  <div class="meta">${t.title}<br>5 reale Spieler aus dem Turnierkader</div>
+ </button>`;
+}
+function renderSetup(){
+ $("#keeperGrid").innerHTML=KEEPERS.map(keeperCard).join("");
+ $("#teamGrid").innerHTML=TEAMS.filter(t=>!keeper||!t.name.startsWith(keeper.nation+" ")).map(teamCard).join("");
+ $$("[data-keeper]").forEach(b=>b.onclick=()=>{keeper=KEEPERS.find(k=>k.id===b.dataset.keeper);$$("[data-keeper]").forEach(x=>x.classList.toggle("selected",x===b));$("#nextBtn").disabled=false});
+ $$("[data-team]").forEach(b=>b.onclick=()=>{team=TEAMS.find(t=>t.id===b.dataset.team);$$("[data-team]").forEach(x=>x.classList.toggle("selected",x===b));$("#nextBtn").disabled=false});
+ renderRanking();
+}
+function setStep(n){
+ step=n;
+ $$("#step1,#step2,#step3").forEach(x=>x.classList.add("hidden"));
+ $("#step"+n).classList.remove("hidden");
+ $$(".step").forEach(x=>x.classList.toggle("active",+x.dataset.step===n));
+ $("#backBtn").classList.toggle("hidden",n===1);
+ $("#nextBtn").classList.toggle("hidden",n===3);
+ $("#startBtn").classList.toggle("hidden",n!==3);
+ if(n===1) $("#nextBtn").disabled=!keeper;
+ if(n===2){
+   team=null; $("#nextBtn").disabled=true; renderSetup();
+ }
+ if(n===3){
+   $("#confirmKeeper").textContent=keeper.flag+" "+keeper.name;
+   $("#confirmKeeperMeta").textContent=keeper.nation+" · "+keeper.edition+" · "+keeper.club;
+   $("#confirmTeam").textContent=team.flag+" "+team.name;
+   $("#confirmShooters").textContent=team.shooters.join(" · ");
+ }
+}
+$("#nextBtn").onclick=()=>{ if(step===1&&keeper)setStep(2); else if(step===2&&team)setStep(3) };
+$("#backBtn").onclick=()=>setStep(Math.max(1,step-1));
+$("#startBtn").onclick=startGame;
+$("#abortBtn").onclick=resetToSetup;
+$("#newMatch").onclick=resetToSetup;
+$("#sameAgain").onclick=startGame;
+$("#jumpRanking").onclick=()=>$("#rankingPanel").scrollIntoView({behavior:"smooth"});
+
+function startGame(){
+ round=0;goals=0;saves=0;busy=false;shots=[];
+ $("#setupPanel").classList.add("hidden");$("#reportPanel").classList.add("hidden");$("#gamePanel").classList.remove("hidden");
+ $("#gameTitle").textContent=`${team.flag} ${team.name} vs. ${keeper.flag} ${keeper.name}`;
+ $("#sideKeeper").textContent=keeper.name;$("#sideNationality").textContent=keeper.nation;$("#sideClub").textContent=keeper.club;$("#sideRating").textContent=keeper.rating+" / 100";
+ $("#commentary").textContent=`${keeper.name} steht bereit. Der erste Schütze läuft an.`;
+ buildDots();updateGameUI();setZones(true);window.scrollTo({top:$("#gamePanel").offsetTop-10,behavior:"smooth"});
+}
+function buildDots(){ $("#shotDots").innerHTML=team.shooters.map(()=>'<span class="dot"></span>').join("") }
+function updateGameUI(){
+ $("#scoreText").textContent=`${goals} Tore · ${saves} Paraden`;
+ $("#roundText").textContent=round<5?`Elfmeter ${round+1} von 5`:"Serie beendet";
+ if(round<5){$("#shooterName").textContent=team.shooters[round];$("#shooterMeta").textContent=`${team.flag} ${team.name} · Schütze ${round+1}/5`;}
+}
+function setZones(on){ $$(".zone").forEach(z=>z.disabled=!on) }
+$$(".zone").forEach(z=>z.onclick=()=>takeShot(z.dataset.zone));
+
+function takeShot(target){
+ if(busy||round>=5)return; busy=true;setZones(false);
+ const kDive=chooseDive(target,keeper.save);
+ const isSaved=kDive===target;
+ const shooter=team.shooters[round];
+ const ball=$("#ball"),fig=$("#keeperFigure");
+ fig.className="keeper dive-"+kDive; ball.className="ball fly-"+target;
+ $("#prompt").textContent=isSaved?"PARADE!":"TOR!";
+ $("#commentary").textContent=isSaved
+   ? `${keeper.name} liest den Schuss von ${shooter} und ist in ${zoneNames[target]} zur Stelle.`
+   : `${shooter} setzt den Ball ${zoneNames[target]}. ${keeper.name} entscheidet sich für ${zoneNames[kDive]}.`;
+ shots.push({shooter,target,dive:kDive,saved:isSaved});
+ if(isSaved)saves++;else goals++;
+ const dot=$$(".dot")[round];dot.classList.add(isSaved?"save":"goal");
+ round++;updateGameUI();
+ setTimeout(()=>{
+   ball.className="ball";fig.className="keeper";
+   if(round>=5){$("#prompt").textContent="Serie beendet";setTimeout(finishGame,450)}
+   else{$("#prompt").textContent="Wähle eine Ecke";busy=false;setZones(true)}
+ },760);
+}
+function chooseDive(target,base){
+ // The keeper's game rating influences reaction chance. This is a game mechanic, not a historic save percentage.
+ if(Math.random()<base) return target;
+ const others=zones.filter(z=>z!==target);
+ return others[Math.floor(Math.random()*others.length)];
+}
+function finishGame(){
+ busy=true;setZones(false);recordRanking();
+ $("#gamePanel").classList.add("hidden");$("#reportPanel").classList.remove("hidden");
+ $("#finalScore").textContent=`${goals}: ${saves}`;
+ const pct=Math.round(saves/5*100);
+ $("#reportSummary").textContent=`${team.name} erzielt ${goals} von 5 Treffern. ${keeper.name} pariert ${saves} Elfmeter.`;
+ $("#keeperGrade").textContent=pct+"%";
+ $("#keeperReport").textContent=saves>=3
+  ? `${keeper.name} prägt die Serie mit ${saves} Paraden und gewinnt das direkte Duell gegen die Schützen.`
+  : saves===2
+  ? `${keeper.name} hält zwei Versuche. Die Serie bleibt bis zum Ende umkämpft.`
+  : saves===1
+  ? `${keeper.name} kommt zu einer Parade, die Schützen finden aber mehrfach die freie Ecke.`
+  : `${keeper.name} bleibt diesmal ohne Parade. Im nächsten Duell kann die Rangliste sofort wieder kippen.`;
+ $("#shotLog").innerHTML=shots.map((s,i)=>`<div class="log"><span>${i+1}. ${s.shooter} · ${zoneNames[s.target]}</span><strong style="color:${s.saved?'var(--red)':'var(--green)'}">${s.saved?'PARADE':'TOR'}</strong></div>`).join("");
+ renderRanking();window.scrollTo({top:$("#reportPanel").offsetTop-10,behavior:"smooth"});
+}
+function stats(){
+ try{return JSON.parse(localStorage.getItem("betinsight_penalty_keeper_stats_v1")||"{}")}catch(e){return{}}
+}
+function recordRanking(){
+ const all=stats(),s=all[keeper.id]||{games:0,shots:0,saves:0};
+ s.games++;s.shots+=5;s.saves+=saves;all[keeper.id]=s;
+ localStorage.setItem("betinsight_penalty_keeper_stats_v1",JSON.stringify(all));
+}
+function renderRanking(){
+ const all=stats();
+ const rows=KEEPERS.map(k=>{const s=all[k.id]||{games:0,shots:0,saves:0};return{k,...s,pct:s.shots?Math.round(s.saves/s.shots*100):0}})
+   .sort((a,b)=>b.pct-a.pct||b.saves-a.saves||b.games-a.games);
+ $("#rankingBody").innerHTML=rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td><strong>${r.name}</strong><div class="meta">${r.edition} · ${r.club}</div></td><td>${r.flag} ${r.nation}</td><td>${r.games}</td><td>${r.shots}</td><td>${r.saves}</td><td><strong>${r.pct}%</strong></td></tr>`).join("");
+}
+function resetToSetup(){
+ $("#gamePanel").classList.add("hidden");$("#reportPanel").classList.add("hidden");$("#setupPanel").classList.remove("hidden");
+ busy=false;setStep(1);window.scrollTo({top:$("#setupPanel").offsetTop-10,behavior:"smooth"});
+}
+renderSetup();
+</script>
+</body>
+</html>
