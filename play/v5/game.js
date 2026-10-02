@@ -133,7 +133,23 @@ class ShootoutScene extends Phaser.Scene{
  }
  drawColoredPlayer(g,t){}
  drawColoredKeeper(g,t){}
- resetActors(){const w=this.scale.width,h=this.scale.height;
+ showLineReplay(sim){
+   const w=this.scale.width,h=this.scale.height;
+   if(this.replayLayer)this.replayLayer.destroy(true);
+   const layer=this.add.container(w*.77,h*.74).setDepth(55).setAlpha(0);this.replayLayer=layer;
+   const bg=this.add.graphics();bg.fillStyle(0x03101b,.93);bg.fillRoundedRect(-122,-72,244,144,14);bg.lineStyle(2,0x5adff7,.75);bg.strokeRoundedRect(-122,-72,244,144,14);
+   bg.lineStyle(3,0xf4f7fa,.9);bg.lineBetween(12,-49,12,48); // goal line
+   bg.lineStyle(3,0x9eb8c8,.75);bg.lineBetween(12,-49,74,-38);bg.lineBetween(74,-38,74,48);bg.lineBetween(12,48,74,48);
+   layer.add(bg);
+   const lab=this.add.text(-104,-59,"SEITENKAMERA",{fontFamily:"Arial Black,Arial",fontSize:13,color:"#65e6ff"});layer.add(lab);
+   const lineLab=this.add.text(18,30,"TORLINIE",{fontFamily:"Arial",fontSize:10,color:"#d8e7ef"});layer.add(lineLab);
+   const keeper=this.add.graphics();keeper.fillStyle(0xe8bc39);keeper.fillRoundedRect(-24,-14,18,46,6);keeper.fillStyle(0xdfaf8a);keeper.fillCircle(-15,-22,8);layer.add(keeper);
+   const ball=this.add.graphics();ball.fillStyle(0xf7fafb);ball.fillCircle(sim.outcome==="goal"?43:-2,-8,7);ball.lineStyle(1,0x152230,1);ball.strokeCircle(sim.outcome==="goal"?43:-2,-8,7);layer.add(ball);
+   const txt=this.add.text(-104,45,sim.outcome==="goal"?"BALL HINTER DER LINIE":"BALL VOR DER LINIE",{fontFamily:"Arial Black,Arial",fontSize:12,color:sim.outcome==="goal"?"#45ef9b":"#ff7084"});layer.add(txt);
+   this.tweens.add({targets:layer,alpha:1,duration:140});
+   this.time.delayedCall(850,()=>this.tweens.add({targets:layer,alpha:0,duration:220,onComplete:()=>{layer.destroy(true);if(this.replayLayer===layer)this.replayLayer=null}}));
+ } 
+ resetActors(){const w=this.scale.width,h=this.scale.height;if(this.replayLayer){this.replayLayer.destroy(true);this.replayLayer=null;}
    this.playerGroup.setPosition(w*.255,h*.865).setRotation(0).setScale(1);
    if(this.playerParts){this.playerParts.armL.setRotation(.08);this.playerParts.armR.setRotation(-.10);this.playerParts.legL.setRotation(0);this.playerParts.legR.setRotation(0)}
    this.keeperGroup.setPosition(w/2,h*.565).setRotation(0).setScale(1);
@@ -154,15 +170,43 @@ class ShootoutScene extends Phaser.Scene{
    await tween(this,this.playerGroup,{x:w*.335,y:h*.858,duration:560,ease:"Cubic.easeIn"});
    if(this.playerParts){this.tweens.add({targets:this.playerParts.legR,rotation:1.0,duration:120,yoyo:true,ease:"Quad.easeOut"});this.tweens.add({targets:this.playerParts.armL,rotation:-.65,duration:150,yoyo:true})}
    this.playerGroup.setRotation(-.035);kickSound();if(this.ballShadow)this.ballShadow.setVisible(false);
+
    const kx=this.goal.x+this.goal.w*sim.kx,ky=this.goal.y+this.goal.h*sim.ky;
    this.tweens.add({targets:this.keeperGroup,x:kx,y:ky+62,rotation:(sim.kx<.5?-1:1)*.58,scaleX:1.16,scaleY:.90,duration:430,ease:"Cubic.easeOut"});
    if(this.keeperParts){const dir=sim.kx<.5?-1:1;this.tweens.add({targets:this.keeperParts.armL,rotation:dir<0?-1.05:-.45,duration:260});this.tweens.add({targets:this.keeperParts.armR,rotation:dir>0?1.05:.45,duration:260});this.tweens.add({targets:this.keeperParts.legL,rotation:dir<0?.45:.15,duration:320});this.tweens.add({targets:this.keeperParts.legR,rotation:dir>0?-.45:-.15,duration:320})}
+
    const bx=this.goal.x+this.goal.w*sim.ax,by=this.goal.y+this.goal.h*sim.ay;
-   await tween(this,this.ball,{x:bx,y:by,displayWidth:20,displayHeight:20,angle:1080,duration:410+(100-S.power)*2,ease:"Cubic.easeOut"});
+
+   if(sim.outcome==="save"){
+     // Ball visibly meets the keeper BEFORE the goal line, then rebounds toward the field.
+     this.ball.setDepth(18);
+     await tween(this,this.ball,{x:bx,y:by,displayWidth:24,displayHeight:24,angle:680,duration:360+(100-S.power)*2,ease:"Cubic.easeOut"});
+     this.cameras.main.shake(90,.005);
+     const reboundX=bx+(bx<w/2?-72:72),reboundY=Math.min(h*.77,by+92);
+     await tween(this,this.ball,{x:reboundX,y:reboundY,displayWidth:31,displayHeight:31,angle:920,duration:260,ease:"Quad.easeOut"});
+   }else if(sim.outcome==="post"){
+     this.ball.setDepth(18);
+     await tween(this,this.ball,{x:bx,y:by,displayWidth:21,displayHeight:21,angle:900,duration:390+(100-S.power)*2,ease:"Cubic.easeOut"});
+     postSound();this.cameras.main.shake(120,.004);
+     const reboundX=bx+(sim.ax<.5?88:-88),reboundY=Math.min(h*.73,by+70);
+     await tween(this,this.ball,{x:reboundX,y:reboundY,displayWidth:29,displayHeight:29,angle:1160,duration:280,ease:"Quad.easeOut"});
+   }else if(sim.outcome==="miss"){
+     this.ball.setDepth(18);
+     await tween(this,this.ball,{x:bx,y:by,displayWidth:20,displayHeight:20,angle:1080,duration:410+(100-S.power)*2,ease:"Cubic.easeOut"});
+   }else{
+     // GOAL: cross the line, then move behind keeper and into the net.
+     this.ball.setDepth(18);
+     await tween(this,this.ball,{x:bx,y:by,displayWidth:21,displayHeight:21,angle:980,duration:390+(100-S.power)*2,ease:"Cubic.easeOut"});
+     this.ball.setDepth(7); // visually behind keeper / goal frame
+     await tween(this,this.ball,{x:bx+(sim.ax<.5?-8:8),y:by+13,displayWidth:16,displayHeight:16,angle:1130,duration:125,ease:"Quad.easeOut"});
+   }
+
    this.showResult(sim.outcome);
-   if(sim.outcome==="goal")crowdBurst("goal");else if(sim.outcome==="post"){postSound();crowdBurst("miss")}else crowdBurst("miss");
+   if(sim.outcome==="goal")crowdBurst("goal");else if(sim.outcome!=="post")crowdBurst("miss");
    this.cameras.main.shake(sim.outcome==="save"?190:120,sim.outcome==="save"?.006:.003);
-   await sleep(1150);this.turnText.setAlpha(0);this.resetActors()
+
+   if(sim.outcome==="goal"||sim.outcome==="save")this.showLineReplay(sim);
+   await sleep(1250);this.turnText.setAlpha(0);this.ball.setDepth(16);this.resetActors()
  }
  showResult(out){const map={goal:["TOR!","#45ef9b"],save:["PARADE!","#ff7084"],post:["PFOSTEN!","#f7d678"],miss:["DANEBEN!","#ff9477"]},m=map[out];this.resultText.setText(m[0]).setColor(m[1]).setScale(.65).setAlpha(1);this.tweens.add({targets:this.resultText,scale:1,duration:180,ease:"Back.easeOut"});this.time.delayedCall(700,()=>this.tweens.add({targets:this.resultText,alpha:0,duration:180}))}
 }
@@ -180,7 +224,42 @@ function uiTurn(){board();const t=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(
  if(scene){scene.setColors(t,d);scene.resetActors();scene.target.setVisible(false);scene.turnText.setText("JETZT: "+sh[0]+"\n1. ZIEL SETZEN  ·  2. POWER  ·  3. SCHIESSEN").setAlpha(1).setScale(1);scene.time.delayedCall(1500,()=>scene.tweens.add({targets:scene.turnText,alpha:0,duration:350}))}
  tension();focusGame()}
 function gaussian(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
-function simulate(sh,kp){const x=S.target.x,y=S.target.y,p=S.power,ss=sh[1],ks=kp.strength,pn=(p-45)/55,disp=Math.max(.012,.052-(ss-18)*.0035+Math.max(0,pn-.60)*.06);let ax=x+gaussian()*disp,ay=y+gaussian()*disp*.78,out=(ax<0||ax>1||ay<0||ay>1)?"miss":"goal";if(out==="goal"&&(ax<.028||ax>.972||ay<.028)&&Math.random()<.18+.22*pn)out="post";const read=.14+(ks-18)*.018,kx=Math.random()<read?ax:.5+gaussian()*.20,ky=Math.random()<read?ay:.54+gaussian()*.17,dist=Math.hypot(ax-kx,(ay-ky)*1.18),saveRadius=.105+(ks-18)*.0065-(ss-18)*.003-(pn*.027);if(out==="goal"&&dist<saveRadius)out="save";return{outcome:out,ax:Math.max(-.13,Math.min(1.13,ax)),ay:Math.max(-.12,Math.min(1.12,ay)),kx:Math.max(.03,Math.min(.97,kx)),ky:Math.max(.05,Math.min(.95,ky))}}
+function simulate(sh,kp){
+ const x=S.target.x,y=S.target.y,p=S.power,ss=sh[1],ks=kp.strength,pn=(p-45)/55;
+ const disp=Math.max(.012,.052-(ss-18)*.0035+Math.max(0,pn-.60)*.06);
+ let ax=x+gaussian()*disp,ay=y+gaussian()*disp*.78;
+ let out=(ax<0||ax>1||ay<0||ay>1)?"miss":"goal";
+ if(out==="goal"&&(ax<.028||ax>.972||ay<.028)&&Math.random()<.18+.22*pn)out="post";
+ const read=.14+(ks-18)*.018;
+ let kx=Math.random()<read?ax:.5+gaussian()*.20,ky=Math.random()<read?ay:.54+gaussian()*.17;
+ const saveRadius=.105+(ks-18)*.0065-(ss-18)*.003-(pn*.027);
+ const dist=Math.hypot(ax-kx,(ay-ky)*1.18);
+ if(out==="goal"&&dist<saveRadius)out="save";
+
+ // Visual truth rule:
+ // A goal must show daylight between keeper and ball.
+ // A save must end at a keeper contact point in front of the line.
+ if(out==="goal"){
+   const visualClearance=.205;
+   let dx=ax-kx,dy=(ay-ky)*1.18,d=Math.hypot(dx,dy);
+   if(d<visualClearance){
+     const dir=(dx===0?(ax<.5?-1:1):Math.sign(dx));
+     kx=ax-dir*(visualClearance+.025);
+     ky=ay+(ky<ay?-.065:.065);
+   }
+ }
+ if(out==="save"){
+   // Contact point follows keeper instead of continuing into the net.
+   ax=kx+(ax-kx)*.42;
+   ay=ky+(ay-ky)*.42;
+ }
+ return{
+   outcome:out,
+   ax:Math.max(-.13,Math.min(1.13,ax)),ay:Math.max(-.12,Math.min(1.12,ay)),
+   kx:Math.max(.03,Math.min(.97,kx)),ky:Math.max(.05,Math.min(.95,ky)),
+   originalTargetX:x,originalTargetY:y
+ }
+}
 function ended(){if(S.ta<5||S.tb<5){const ra=5-S.ta,rb=5-S.tb;if(S.a>S.b+rb||S.b>S.a+ra)return true;return false}return S.ta===S.tb&&S.a!==S.b}
 async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;stopTension();setShootEnabled(false);const side=S.side,att=sideTeam(side),def=oppTeam(side),sh=shooter(side),sim=simulate(sh,def.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await scene.animate(sim,att,def);S.shots.push({side,team:att.name,shooter:sh[0],keeper:def.keeper.name,power:S.power,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?sh[0]+" verwandelt!":sim.outcome==="save"?def.keeper.name+" hält!":sim.outcome==="post"?"Pfosten!":"Daneben!";board();if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;
  S.target.set=false;S.target.x=.5;S.target.y=.5;$("#aimValue").textContent="— / —";setShootEnabled(false);
