@@ -47,7 +47,10 @@ class ShootoutScene extends Phaser.Scene{
    this.target=this.add.container(0,0).setDepth(20).setVisible(false);this.drawTarget();
    this.resultText=this.add.text(w/2,h*.105,"",{fontFamily:"Arial Black,Arial",fontSize:56,color:"#ffffff",stroke:"#06101a",strokeThickness:10}).setOrigin(.5).setDepth(40).setAlpha(0);
    this.input.on("pointerdown",p=>{if(S.busy||S.finished)return;if(p.x<this.goal.x||p.x>this.goal.x+this.goal.w||p.y<this.goal.y||p.y>this.goal.y+this.goal.h)return;S.target.x=(p.x-this.goal.x)/this.goal.w;S.target.y=(p.y-this.goal.y)/this.goal.h;S.target.set=true;this.target.setPosition(p.x,p.y).setVisible(true);$("#aimValue").textContent=Math.round(S.target.x*100)+" / "+Math.round((1-S.target.y)*100);$("#shootBtn").disabled=false;tension()});
-   this.scale.on("resize",()=>location.reload());
+   this.scale.on("resize",(gameSize)=>{
+     const w=gameSize.width,h=gameSize.height;
+     this.cameras.resize(w,h);
+   });
  }
  drawGoal(){
    const g=this.add.graphics().setDepth(5),x=this.goal.x,y=this.goal.y,w=this.goal.w,h=this.goal.h;
