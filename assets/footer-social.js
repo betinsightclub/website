@@ -7,6 +7,8 @@
   const FACEBOOK_URL = "https://www.facebook.com/betinsightclub";
   const BLUESKY_URL = "https://bsky.app/profile/betinsight.bsky.social";
   const MINDS_URL = "https://www.minds.com/betinsightclub/";
+  const COMPANY_NAME = "LucMedia LTDA";
+  const COMPANY_CNPJ = "69.449.797/0001-05";
   const SUPPORTED = ["de","en","es","pt","it","fr","nl","zh-tw"];
   const COPY = {
     de:{follow:"Folge uns",youtube:"BetInsight Club auf YouTube öffnen",telegram:"BetInsight Club auf Telegram öffnen",x:"BetInsight Club auf X öffnen",facebook:"BetInsight Club auf Facebook öffnen",bluesky:"BetInsight Club auf Bluesky öffnen",minds:"BetInsight Club auf Minds öffnen"},
@@ -41,6 +43,8 @@
       .betinsight-footer-social-icon{display:block;width:20px;height:20px}
       .betinsight-footer-social-link[data-social="x"]{color:#fff;font:900 17px/1 Arial,Helvetica,sans-serif}
       footer .betinsight-footer-social,.footer .betinsight-footer-social{max-width:100%}
+      .betinsight-footer-company{margin-top:14px;color:#718a96;font-size:11px;line-height:1.6}
+      .betinsight-footer-company a{color:inherit;text-decoration:underline;text-underline-offset:2px}
       @media(max-width:720px){.betinsight-footer-social{justify-content:center}}
       @media(prefers-reduced-motion:reduce){.betinsight-footer-social-link{transition:none}}
     `;
@@ -119,6 +123,40 @@
       || document.querySelector(".footer");
   }
 
+  function ensureCompanyIdentity(){
+    const hosts = document.querySelectorAll("footer, .footer, .imprint");
+    hosts.forEach((host) => {
+      const walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach((node) => {
+        node.nodeValue = node.nodeValue
+          .replaceAll("LucMedia LTDA – em fase de constituição", COMPANY_NAME + " · CNPJ " + COMPANY_CNPJ)
+          .replaceAll("LucMedia LTDA - em fase de constituição", COMPANY_NAME + " · CNPJ " + COMPANY_CNPJ)
+          .replaceAll("BetInsight Ltd.", COMPANY_NAME);
+      });
+    });
+
+    const host = document.querySelector("footer") || document.querySelector(".footer");
+    if (!host || host.textContent.includes(COMPANY_CNPJ)) return;
+
+    const l = lang();
+    const routes = {de:"/de/impressum/",en:"/en/legal-notice/",es:"/es/legal-notice/",pt:"/pt/legal-notice/",it:"/it/legal-notice/",fr:"/fr/legal-notice/"};
+    const labels = {
+      de:"BetInsight ist ein digitales Produkt der LucMedia LTDA",
+      en:"BetInsight is a digital product of LucMedia LTDA",
+      es:"BetInsight es un producto digital de LucMedia LTDA",
+      pt:"BetInsight é um produto digital da LucMedia LTDA",
+      it:"BetInsight è un prodotto digitale di LucMedia LTDA",
+      fr:"BetInsight est un produit numérique de LucMedia LTDA"
+    };
+    const line = document.createElement("div");
+    line.className = "betinsight-footer-company";
+    const legal = routes[l] || "/en/legal-notice/";
+    line.innerHTML = (labels[l] || labels.en) + " · CNPJ " + COMPANY_CNPJ + ' · <a href="' + legal + '">Legal</a>';
+    host.appendChild(line);
+  }
+
   function init(){
     addStyles();
     let wrapper = document.querySelector("[data-betinsight-footer-social]");
@@ -131,6 +169,7 @@
       host.appendChild(wrapper);
     }
     ensureLinks(wrapper);
+    ensureCompanyIdentity();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true});
