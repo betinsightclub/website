@@ -34,48 +34,109 @@ class ShootoutScene extends Phaser.Scene{
  constructor(){super("shootout")}
  create(){
    scene=this;const w=this.scale.width,h=this.scale.height;
-   this.cameras.main.setBackgroundColor("#07101d");
-   this.add.image(w/2,h/2,"stadium").setDisplaySize(w,h).setAlpha(.96);
-   this.add.rectangle(w/2,h*.8,w,h*.42,0x0e6a3a,.65);
-   for(let i=0;i<12;i++)this.add.line(0,0,w*.05+i*w*.09,h*.64,w*.02+i*w*.095,h,0xffffff,.045).setOrigin(0);
-   this.add.ellipse(w/2,h*.86,w*.82,h*.14,0x000000,.25);
-   this.goal={x:w*.22,y:h*.18,w:w*.56,h:h*.42};
+   this.cameras.main.setBackgroundColor("#020914");
+   this.drawArena(w,h);
+   this.goal={x:w*.18,y:h*.17,w:w*.64,h:h*.43};
    this.drawGoal();
-   this.keeperGroup=this.add.container(w/2,h*.56);this.drawKeeper(this.keeperGroup);
-   this.playerGroup=this.add.container(w*.26,h*.83);this.drawPlayer(this.playerGroup);
-   this.ball=this.add.image(w*.36,h*.83,"ball").setDisplaySize(42,42).setDepth(15).setAngle(-8);
-   this.target=this.add.container(0,0).setDepth(20).setVisible(false);this.drawTarget();
-   this.resultText=this.add.text(w/2,h*.105,"",{fontFamily:"Arial Black,Arial",fontSize:56,color:"#ffffff",stroke:"#06101a",strokeThickness:10}).setOrigin(.5).setDepth(40).setAlpha(0);
-   this.input.on("pointerdown",p=>{if(S.busy||S.finished)return;if(p.x<this.goal.x||p.x>this.goal.x+this.goal.w||p.y<this.goal.y||p.y>this.goal.y+this.goal.h)return;S.target.x=(p.x-this.goal.x)/this.goal.w;S.target.y=(p.y-this.goal.y)/this.goal.h;S.target.set=true;this.target.setPosition(p.x,p.y).setVisible(true);$("#aimValue").textContent=Math.round(S.target.x*100)+" / "+Math.round((1-S.target.y)*100);$("#shootBtn").disabled=false;tension()});
-   this.scale.on("resize",(gameSize)=>{
-     const w=gameSize.width,h=gameSize.height;
-     this.cameras.resize(w,h);
+   this.keeperGroup=this.add.container(w/2,h*.565).setDepth(11);this.drawKeeper(this.keeperGroup);
+   this.playerGroup=this.add.container(w*.255,h*.865).setDepth(14);this.drawPlayer(this.playerGroup);
+   this.ball=this.add.image(w*.365,h*.845,"ball").setDisplaySize(44,44).setDepth(16).setAngle(-8);
+   this.ballShadow=this.add.ellipse(w*.365,h*.875,58,15,0x000000,.34).setDepth(13);
+   this.target=this.add.container(0,0).setDepth(21).setVisible(false);this.drawTarget();
+   this.resultText=this.add.text(w/2,h*.105,"",{fontFamily:"Arial Black,Arial",fontSize:58,color:"#ffffff",stroke:"#06101a",strokeThickness:11}).setOrigin(.5).setDepth(40).setAlpha(0);
+   this.turnText=this.add.text(w/2,h*.69,"",{fontFamily:"Arial Black,Arial",fontSize:25,color:"#e9f8ff",stroke:"#03101a",strokeThickness:7,align:"center"}).setOrigin(.5).setDepth(30).setAlpha(0);
+   this.input.on("pointermove",p=>{
+     if(S.busy||S.finished)return;
+     if(p.x<this.goal.x||p.x>this.goal.x+this.goal.w||p.y<this.goal.y||p.y>this.goal.y+this.goal.h)return;
+     if(!S.target.set)this.target.setPosition(p.x,p.y).setVisible(true).setAlpha(.42);
+   });
+   this.input.on("pointerout",()=>{if(!S.target.set)this.target.setVisible(false)});
+   this.input.on("pointerdown",p=>{
+     if(S.busy||S.finished)return;
+     if(p.x<this.goal.x||p.x>this.goal.x+this.goal.w||p.y<this.goal.y||p.y>this.goal.y+this.goal.h)return;
+     S.target.x=(p.x-this.goal.x)/this.goal.w;S.target.y=(p.y-this.goal.y)/this.goal.h;S.target.set=true;
+     this.target.setPosition(p.x,p.y).setVisible(true).setAlpha(1);
+     $("#aimValue").textContent=Math.round(S.target.x*100)+" / "+Math.round((1-S.target.y)*100);
+     $("#shootBtn").disabled=false;$("#commentary").textContent="Ziel gesetzt. Jetzt Schussstärke wählen und SCHIESSEN drücken.";tension()
    });
  }
+ drawArena(w,h){
+   const g=this.add.graphics().setDepth(0);
+   g.fillGradientStyle(0x06111f,0x06111f,0x0a263b,0x0a263b,1);g.fillRect(0,0,w,h);
+   // Stadium roof + floodlight glow
+   g.fillStyle(0x0b2234,.95);g.fillRect(0,h*.03,w,h*.20);
+   g.fillStyle(0x112f45,.9);g.fillTriangle(0,h*.25,w*.18,h*.10,w*.34,h*.25);g.fillTriangle(w,h*.25,w*.82,h*.10,w*.66,h*.25);
+   for(let i=0;i<7;i++){const x=w*(.20+i*.10);g.fillStyle(0xe8fbff,.78);g.fillCircle(x,h*.095,6);g.fillStyle(0x6bdcff,.10);g.fillCircle(x,h*.095,34)}
+   // Crowd tiers
+   g.fillStyle(0x0d2638,1);g.fillRect(0,h*.20,w,h*.28);
+   g.fillStyle(0x18364a,.9);g.fillRect(0,h*.29,w,h*.03);g.fillRect(0,h*.405,w,h*.025);
+   for(let y=h*.225;y<h*.46;y+=13){for(let x=8+(y%26);x<w;x+=18){const colors=[0xe7eef5,0x76b7df,0xf0c85f,0xb54855];g.fillStyle(colors[(x+y)%colors.length],.45);g.fillCircle(x,y,2.2)}}
+   // Pitch with mowing bands and perspective lines
+   g.fillStyle(0x0b713d,1);g.fillRect(0,h*.47,w,h*.53);
+   for(let i=0;i<10;i++){g.fillStyle(i%2?0x0a6738:0x0c7741,.42);g.fillRect(i*w/10,h*.47,w/10,h*.53)}
+   g.lineStyle(2,0xffffff,.19);g.lineBetween(w*.08,h,w*.34,h*.47);g.lineBetween(w*.92,h,w*.66,h*.47);
+   g.strokeEllipse(w/2,h*.84,w*.42,h*.22);g.lineBetween(0,h*.735,w,h*.735);
+   // Perspective shadow behind player
+   this.add.ellipse(w*.42,h*.89,w*.38,h*.075,0x000000,.28).setDepth(2);
+ }
  drawGoal(){
-   const g=this.add.graphics().setDepth(5),x=this.goal.x,y=this.goal.y,w=this.goal.w,h=this.goal.h;
-   g.lineStyle(7,0xf6fbff,1);g.strokeRect(x,y,w,h);g.lineStyle(1,0xd8efff,.18);
-   for(let i=1;i<10;i++)g.lineBetween(x+w*i/10,y,x+w*i/10,y+h);for(let i=1;i<10;i++)g.lineBetween(x,y+h*i/10,x+w,y+h*i/10);
-   g.lineStyle(1,0x76dfff,.12);for(let i=1;i<50;i++)g.lineBetween(x+w*i/50,y,x+w*i/50,y+h);for(let i=1;i<25;i++)g.lineBetween(x,y+h*i/25,x+w,y+h*i/25);
+   const g=this.add.graphics().setDepth(8),x=this.goal.x,y=this.goal.y,w=this.goal.w,h=this.goal.h;
+   // depth frame
+   g.lineStyle(4,0xaebfca,.55);g.lineBetween(x+14,y+13,x+w-14,y+13);g.lineBetween(x+14,y+13,x+3,y+h+19);g.lineBetween(x+w-14,y+13,x+w-3,y+h+19);g.lineBetween(x+3,y+h+19,x+w-3,y+h+19);
+   // net - fine "millimeter paper"
+   g.lineStyle(1,0x8fdff7,.15);
+   for(let i=1;i<50;i++)g.lineBetween(x+w*i/50,y,x+w*i/50,y+h);
+   for(let i=1;i<25;i++)g.lineBetween(x,y+h*i/25,x+w,y+h*i/25);
+   g.lineStyle(1,0xe3f7ff,.24);for(let i=5;i<50;i+=5)g.lineBetween(x+w*i/50,y,x+w*i/50,y+h);for(let i=5;i<25;i+=5)g.lineBetween(x,y+h*i/25,x+w,y+h*i/25);
+   g.lineStyle(8,0xf7fbff,1);g.strokeRect(x,y,w,h);
+   g.lineStyle(2,0x7ce7ff,.35);g.strokeRect(x+5,y+5,w-10,h-10);
  }
  drawTarget(){const g=this.add.graphics();g.lineStyle(2,0x63e5ff,1);g.strokeCircle(0,0,18);g.lineBetween(-27,0,27,0);g.lineBetween(0,-27,0,27);g.strokeCircle(0,0,5)}
- drawKeeper(c){const g=this.add.graphics();g.fillStyle(0xe0b08d);g.fillCircle(0,-82,15);g.fillStyle(0x2f251f);g.fillEllipse(0,-93,29,10);g.fillStyle(0xe9b92f);g.fillRoundedRect(-25,-65,50,67,10);g.fillStyle(0xf8d85e);g.fillRoundedRect(-58,-58,35,12,6);g.fillRoundedRect(23,-58,35,12,6);g.fillStyle(0x182235);g.fillRoundedRect(-24,0,20,58,8);g.fillRoundedRect(4,0,20,58,8);g.fillStyle(0xffffff);g.fillRoundedRect(-66,-61,11,18,5);g.fillRoundedRect(55,-61,11,18,5)}
- drawPlayer(c){const g=this.add.graphics();g.fillStyle(0xc7926d);g.fillCircle(0,-111,15);g.fillStyle(0x2b211d);g.fillEllipse(0,-121,28,9);g.fillStyle(0xdddddd);g.fillRoundedRect(-23,-92,46,67,11);g.fillStyle(0x1a2b42);g.fillRoundedRect(-21,-27,17,71,8);g.fillRoundedRect(4,-27,17,71,8);g.fillStyle(0xc7926d);g.fillRoundedRect(-37,-84,13,55,7);g.fillRoundedRect(24,-84,13,55,7)}
+ drawKeeper(c){const g=this.add.graphics();c.add(g);this.drawColoredKeeper(g,{accent:0xe9b92f})}
+ drawPlayer(c){const g=this.add.graphics();c.add(g);this.drawColoredPlayer(g,{color:0xeeeeee,accent:0x15191f})}
  setColors(att,def){const pg=this.playerGroup.list[0],kg=this.keeperGroup.list[0];if(pg){pg.clear();this.drawColoredPlayer(pg,att)}if(kg){kg.clear();this.drawColoredKeeper(kg,def)}}
- drawColoredPlayer(g,t){g.fillStyle(0xc7926d);g.fillCircle(0,-111,15);g.fillStyle(0x2b211d);g.fillEllipse(0,-121,28,9);g.fillStyle(t.color);g.fillRoundedRect(-23,-92,46,67,11);g.lineStyle(4,t.accent,.9);g.lineBetween(-19,-56,19,-56);g.fillStyle(0x16253c);g.fillRoundedRect(-21,-27,17,71,8);g.fillRoundedRect(4,-27,17,71,8);g.fillStyle(0xc7926d);g.fillRoundedRect(-37,-84,13,55,7);g.fillRoundedRect(24,-84,13,55,7)}
- drawColoredKeeper(g,t){g.fillStyle(0xe0b08d);g.fillCircle(0,-82,15);g.fillStyle(0x2f251f);g.fillEllipse(0,-93,29,10);g.fillStyle(t.accent===0xffffff?0xe9b92f:t.accent);g.fillRoundedRect(-25,-65,50,67,10);g.fillStyle(0xf8d85e);g.fillRoundedRect(-58,-58,35,12,6);g.fillRoundedRect(23,-58,35,12,6);g.fillStyle(0x182235);g.fillRoundedRect(-24,0,20,58,8);g.fillRoundedRect(4,0,20,58,8);g.fillStyle(0xffffff);g.fillRoundedRect(-66,-61,11,18,5);g.fillRoundedRect(55,-61,11,18,5)}
- resetActors(){const w=this.scale.width,h=this.scale.height;this.playerGroup.setPosition(w*.26,h*.83).setRotation(0);this.keeperGroup.setPosition(w/2,h*.56).setRotation(0).setScale(1);this.ball.setPosition(w*.36,h*.83).setDisplaySize(42,42).setAngle(-8).setVisible(true)}
+ drawColoredPlayer(g,t){
+   g.clear();g.lineStyle(2,0x071019,.65);
+   g.fillStyle(0xc99573);g.fillCircle(0,-132,18);g.strokeCircle(0,-132,18);
+   g.fillStyle(0x2a211d);g.fillEllipse(0,-144,35,12);
+   g.fillStyle(t.color);g.fillRoundedRect(-29,-111,58,80,14);g.strokeRoundedRect(-29,-111,58,80,14);
+   g.lineStyle(5,t.accent,.95);g.lineBetween(-24,-72,24,-72);
+   g.fillStyle(0xc99573);g.fillRoundedRect(-47,-104,16,67,8);g.fillRoundedRect(31,-104,16,67,8);
+   g.fillStyle(0x13243b);g.fillRoundedRect(-27,-34,22,86,9);g.fillRoundedRect(5,-34,22,86,9);
+   g.fillStyle(0xeaf1f6);g.fillRoundedRect(-29,40,24,18,5);g.fillRoundedRect(5,40,24,18,5);
+   g.fillStyle(0x111820);g.fillRoundedRect(-31,54,29,10,4);g.fillRoundedRect(2,54,29,10,4);
+ }
+ drawColoredKeeper(g,t){
+   g.clear();g.lineStyle(2,0x071019,.65);
+   g.fillStyle(0xdfaf8a);g.fillCircle(0,-103,18);g.strokeCircle(0,-103,18);
+   g.fillStyle(0x2c231e);g.fillEllipse(0,-115,34,11);
+   const kc=t.accent===0xffffff?0xe9b92f:t.accent;
+   g.fillStyle(kc);g.fillRoundedRect(-31,-81,62,78,14);g.strokeRoundedRect(-31,-81,62,78,14);
+   g.fillStyle(kc);g.fillRoundedRect(-78,-73,48,15,7);g.fillRoundedRect(30,-73,48,15,7);
+   g.fillStyle(0xffffff);g.fillRoundedRect(-88,-77,14,24,6);g.fillRoundedRect(74,-77,14,24,6);
+   g.fillStyle(0x142136);g.fillRoundedRect(-30,-3,24,74,10);g.fillRoundedRect(6,-3,24,74,10);
+   g.fillStyle(0xf2f5f8);g.fillRoundedRect(-31,58,25,15,5);g.fillRoundedRect(6,58,25,15,5);
+ }
+ resetActors(){const w=this.scale.width,h=this.scale.height;
+   this.playerGroup.setPosition(w*.255,h*.865).setRotation(0).setScale(1);
+   this.keeperGroup.setPosition(w/2,h*.565).setRotation(0).setScale(1);
+   this.ball.setPosition(w*.365,h*.845).setDisplaySize(44,44).setAngle(-8).setVisible(true);
+   if(this.ballShadow)this.ballShadow.setPosition(w*.365,h*.875).setVisible(true);
+ }
  async animate(sim,att,def){
    const w=this.scale.width,h=this.scale.height;this.setColors(att,def);this.target.setVisible(false);this.resultText.setAlpha(0);
-   await tween(this,this.playerGroup,{x:w*.34,duration:470,ease:"Cubic.easeInOut"});kickSound();
+   this.turnText.setText("ANLAUF").setAlpha(1).setScale(.9);this.tweens.add({targets:this.turnText,alpha:.15,duration:460});
+   this.tweens.add({targets:this.keeperGroup,scaleX:1.04,scaleY:.96,yoyo:true,repeat:2,duration:120});
+   await tween(this,this.playerGroup,{x:w*.335,y:h*.858,duration:560,ease:"Cubic.easeIn"});
+   this.playerGroup.setRotation(-.035);kickSound();if(this.ballShadow)this.ballShadow.setVisible(false);
    const kx=this.goal.x+this.goal.w*sim.kx,ky=this.goal.y+this.goal.h*sim.ky;
-   this.tweens.add({targets:this.keeperGroup,x:kx,y:ky+45,rotation:(sim.kx<.5?-1:1)*.42,scaleX:1.08,scaleY:.94,duration:410,ease:"Cubic.easeOut"});
+   this.tweens.add({targets:this.keeperGroup,x:kx,y:ky+62,rotation:(sim.kx<.5?-1:1)*.58,scaleX:1.16,scaleY:.90,duration:430,ease:"Cubic.easeOut"});
    const bx=this.goal.x+this.goal.w*sim.ax,by=this.goal.y+this.goal.h*sim.ay;
-   await tween(this,this.ball,{x:bx,y:by,displayWidth:21,displayHeight:21,angle:920,duration:390+(100-S.power)*2,ease:"Cubic.easeOut"});
+   await tween(this,this.ball,{x:bx,y:by,displayWidth:20,displayHeight:20,angle:1080,duration:410+(100-S.power)*2,ease:"Cubic.easeOut"});
    this.showResult(sim.outcome);
    if(sim.outcome==="goal")crowdBurst("goal");else if(sim.outcome==="post"){postSound();crowdBurst("miss")}else crowdBurst("miss");
-   this.cameras.main.shake(sim.outcome==="goal"?120:190,sim.outcome==="save"?.006:.003);
-   await sleep(900);this.resetActors()
+   this.cameras.main.shake(sim.outcome==="save"?190:120,sim.outcome==="save"?.006:.003);
+   await sleep(1150);this.turnText.setAlpha(0);this.resetActors()
  }
  showResult(out){const map={goal:["TOR!","#45ef9b"],save:["PARADE!","#ff7084"],post:["PFOSTEN!","#f7d678"],miss:["DANEBEN!","#ff9477"]},m=map[out];this.resultText.setText(m[0]).setColor(m[1]).setScale(.65).setAlpha(1);this.tweens.add({targets:this.resultText,scale:1,duration:180,ease:"Back.easeOut"});this.time.delayedCall(700,()=>this.tweens.add({targets:this.resultText,alpha:0,duration:180}))}
 }
@@ -83,17 +144,24 @@ function tween(sc,target,props){return new Promise(res=>sc.tweens.add({targets:t
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
 function makeBallTexture(sc){const g=sc.make.graphics({x:0,y:0,add:false});g.fillStyle(0xf8fafb);g.fillCircle(64,64,60);g.lineStyle(3,0x172331,.85);g.strokeCircle(64,64,59);g.fillStyle(0x202a36);const pts=[[64,42],[43,58],[51,84],[77,84],[85,58]];g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.fillPath();g.lineStyle(3,0x5b6672,.65);[[64,42,64,8],[43,58,11,48],[51,84,29,111],[77,84,100,111],[85,58,117,48]].forEach(a=>g.lineBetween(...a));g.generateTexture("ball",128,128);g.destroy()}
-function bootPhaser(){game=new Phaser.Game({type:Phaser.AUTO,parent:"phaserMount",width:960,height:540,transparent:false,scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:{preload(){this.load.image("stadium","/assets/hero-fussball-dunkel.png")},create(){makeBallTexture(this);this.scene.start("shootout")}}});game.scene.add("shootout",ShootoutScene,false)}
+function bootPhaser(){game=new Phaser.Game({type:Phaser.AUTO,parent:"phaserMount",width:960,height:540,transparent:false,scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:{create(){makeBallTexture(this);this.scene.start("shootout")}}});game.scene.add("shootout",ShootoutScene,false)}
 function sideTeam(s){return s==="A"?S.A:S.B}function oppTeam(s){return s==="A"?S.B:S.A}function taken(s){return s==="A"?S.ta:S.tb}function goals(s){return s==="A"?S.a:S.b}
 function shooter(s){const t=sideTeam(s),i=taken(s)%t.shooters.length;return t.shooters[i]}
 function board(){const row=s=>{const t=sideTeam(s),own=S.shots.filter(x=>x.side===s),tk=taken(s),g=goals(s),chips=t.shooters.map((p,i)=>{const sh=own[i],cl=sh?(sh.outcome==="goal"?"good":"bad"):(S.side===s&&i===tk&&!S.sudden&&!S.finished?"now":"");return '<span class="kick '+cl+'"><b>'+p[0].split(" ").slice(-1)[0]+'</b>'+(sh?(sh.outcome==="goal"?"✓":"✕"):"·")+'</span>'}).join("")+own.slice(5).map(sh=>'<span class="kick extra '+(sh.outcome==="goal"?"good":"bad")+'"><b>'+sh.shooter.split(" ").slice(-1)[0]+'</b>'+(sh.outcome==="goal"?"✓":"✕")+'</span>').join("");return '<div class="score-row '+(S.side===s&&!S.finished?"active":"")+'"><div class="score-team">'+t.flag+' '+t.name+'<small>TW: '+t.keeper.name+'</small></div><div class="score-num">'+g+'</div><div class="kick-list">'+chips+'</div></div>'};$("#shootoutBoard").innerHTML=row("A")+row("B")}
-function uiTurn(){board();const t=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(S.side);$("#turnTitle").textContent=t.flag+" "+t.name+" ist am Punkt";$("#turnMeta").textContent=sh[0]+" gegen "+d.keeper.name;$("#shooterName").textContent=sh[0];$("#shooterInfo").textContent=t.name+" · Stärke "+sh[1]+"/25";$("#keeperName").textContent=d.keeper.name;$("#keeperInfo").textContent=d.nation+" · "+d.keeper.club+" · Stärke "+d.keeper.strength+"/25";$("#commentary").textContent="Setze den Zielpunkt im Tor und wähle anschließend deine Schussstärke.";$("#pressureLabel").textContent=S.sudden?"SUDDEN DEATH":(taken(S.side)>=4?"MATCHBALL":"DRUCK");$("#shootBtn").disabled=!S.target.set;scene?.setColors(t,d);tension()}
+function uiTurn(){board();const t=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(S.side);$("#turnTitle").textContent=t.flag+" "+t.name+" ist am Punkt";$("#turnMeta").textContent=sh[0]+" gegen "+d.keeper.name;$("#shooterName").textContent=sh[0];$("#shooterInfo").textContent=t.name+" · Stärke "+sh[1]+"/25";$("#keeperName").textContent=d.keeper.name;$("#keeperInfo").textContent=d.nation+" · "+d.keeper.club+" · Stärke "+d.keeper.strength+"/25";$("#commentary").innerHTML="<b>JETZT: "+sh[0]+"</b><br>Zuerst ins Tor klicken → Zielpunkt setzen → Stärke wählen → SCHIESSEN.";
+ $("#pressureLabel").textContent=S.sudden?"SUDDEN DEATH":(taken(S.side)>=4?"MATCHBALL":"DRUCK");
+ $("#shootBtn").disabled=!S.target.set;
+ if(scene){scene.setColors(t,d);scene.resetActors();scene.target.setVisible(false);scene.turnText.setText("JETZT: "+sh[0]+"\nZIEL IM TOR SETZEN").setAlpha(1).setScale(1);scene.time.delayedCall(1500,()=>scene.tweens.add({targets:scene.turnText,alpha:0,duration:350}))}
+ tension()}
 function gaussian(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
 function simulate(sh,kp){const x=S.target.x,y=S.target.y,p=S.power,ss=sh[1],ks=kp.strength,pn=(p-45)/55,disp=Math.max(.012,.052-(ss-18)*.0035+Math.max(0,pn-.60)*.06);let ax=x+gaussian()*disp,ay=y+gaussian()*disp*.78,out=(ax<0||ax>1||ay<0||ay>1)?"miss":"goal";if(out==="goal"&&(ax<.028||ax>.972||ay<.028)&&Math.random()<.18+.22*pn)out="post";const read=.14+(ks-18)*.018,kx=Math.random()<read?ax:.5+gaussian()*.20,ky=Math.random()<read?ay:.54+gaussian()*.17,dist=Math.hypot(ax-kx,(ay-ky)*1.18),saveRadius=.105+(ks-18)*.0065-(ss-18)*.003-(pn*.027);if(out==="goal"&&dist<saveRadius)out="save";return{outcome:out,ax:Math.max(-.13,Math.min(1.13,ax)),ay:Math.max(-.12,Math.min(1.12,ay)),kx:Math.max(.03,Math.min(.97,kx)),ky:Math.max(.05,Math.min(.95,ky))}}
 function ended(){if(S.ta<5||S.tb<5){const ra=5-S.ta,rb=5-S.tb;if(S.a>S.b+rb||S.b>S.a+ra)return true;return false}return S.ta===S.tb&&S.a!==S.b}
-async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;stopTension();$("#shootBtn").disabled=true;const side=S.side,att=sideTeam(side),def=oppTeam(side),sh=shooter(side),sim=simulate(sh,def.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await scene.animate(sim,att,def);S.shots.push({side,team:att.name,shooter:sh[0],keeper:def.keeper.name,power:S.power,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?sh[0]+" verwandelt!":sim.outcome==="save"?def.keeper.name+" hält!":sim.outcome==="post"?"Pfosten!":"Daneben!";board();if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.target.set=false;S.target.x=.5;S.target.y=.5;$("#aimValue").textContent="50 / 50";scene.target.setVisible(false);S.busy=false;uiTurn()}
+async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;stopTension();$("#shootBtn").disabled=true;const side=S.side,att=sideTeam(side),def=oppTeam(side),sh=shooter(side),sim=simulate(sh,def.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await scene.animate(sim,att,def);S.shots.push({side,team:att.name,shooter:sh[0],keeper:def.keeper.name,power:S.power,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?sh[0]+" verwandelt!":sim.outcome==="save"?def.keeper.name+" hält!":sim.outcome==="post"?"Pfosten!":"Daneben!";board();if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;
+ S.target.set=false;S.target.x=.5;S.target.y=.5;$("#aimValue").textContent="— / —";$("#shootBtn").disabled=true;
+ if(scene)scene.target.setVisible(false);
+ S.busy=false;await sleep(250);uiTurn()}
 function finish(){S.finished=true;stopTension();const win=S.a>S.b?"A":"B",wa=win==="A",w=sideTeam(win);$("#game").classList.add("hidden");$("#result").classList.remove("hidden");$("#winnerCard").innerHTML='<div class="winner-wrap"><div class="winner-team '+(wa?"win":"lose")+'"><div class="flag">'+S.A.flag+'</div><h3>'+S.A.name+'</h3><strong>'+S.a+'</strong><br><span>'+(wa?"SIEGER":"AUSGESCHIEDEN")+'</span></div><div class="winner-vs">:</div><div class="winner-team '+(!wa?"win":"lose")+'"><div class="flag">'+S.B.flag+'</div><h3>'+S.B.name+'</h3><strong>'+S.b+'</strong><br><span>'+(!wa?"SIEGER":"AUSGESCHIEDEN")+'</span></div></div>';$("#shotLog").innerHTML=S.shots.map((x,i)=>'<div class="log-row '+(x.outcome==="goal"?"good":"bad")+'"><span class="mark">'+(x.outcome==="goal"?"✓":"✕")+'</span><div><b>'+(i+1)+'. '+x.shooter+'</b><small>'+x.team+' · gegen '+x.keeper+' · '+x.power+'% Power</small></div><strong>'+(x.outcome==="goal"?"GETROFFEN":x.outcome==="save"?"GEHALTEN":x.outcome==="post"?"PFOSTEN":"DANEBEN")+'</strong></div>').join("");crowdBurst("goal");window.scrollTo({top:$("#result").offsetTop-8,behavior:"smooth"})}
-function start(){S.A=T($("#teamA").value);S.B=T($("#teamB").value);Object.assign(S,{side:"A",a:0,b:0,ta:0,tb:0,shots:[],power:78,busy:false,sudden:false,finished:false});S.target={x:.5,y:.5,set:false};$("#power").value=78;$("#powerValue").textContent="78%";$("#setup").classList.add("hidden");$("#result").classList.add("hidden");$("#game").classList.remove("hidden");if(!game)bootPhaser();else scene?.resetActors();ambience();setTimeout(uiTurn,game?100:700);window.scrollTo({top:$("#game").offsetTop-8,behavior:"smooth"})}
+function start(){S.A=T($("#teamA").value);S.B=T($("#teamB").value);Object.assign(S,{side:"A",a:0,b:0,ta:0,tb:0,shots:[],power:78,busy:false,sudden:false,finished:false});S.target={x:.5,y:.5,set:false};$("#power").value=78;$("#powerValue").textContent="78%";$("#aimValue").textContent="— / —";$("#setup").classList.add("hidden");$("#result").classList.add("hidden");$("#game").classList.remove("hidden");if(!game)bootPhaser();else scene?.resetActors();ambience();setTimeout(uiTurn,game?100:700);window.scrollTo({top:$("#game").offsetTop-8,behavior:"smooth"})}
 $("#power").oninput=e=>{S.power=+e.target.value;$("#powerValue").textContent=S.power+"%";tension()};
 $("#shootBtn").onclick=shootNow;$("#startBtn").onclick=start;$("#rematchBtn").onclick=start;$("#newBtn").onclick=()=>{$("#result").classList.add("hidden");$("#game").classList.add("hidden");$("#setup").classList.remove("hidden");window.scrollTo({top:$("#setup").offsetTop-8,behavior:"smooth"})};
 fillSelectors();
