@@ -70,7 +70,7 @@ class ShootoutScene extends Phaser.Scene{
    // Crowd tiers
    g.fillStyle(0x0d2638,1);g.fillRect(0,h*.20,w,h*.28);
    g.fillStyle(0x18364a,.9);g.fillRect(0,h*.29,w,h*.03);g.fillRect(0,h*.405,w,h*.025);
-   for(let y=h*.225;y<h*.46;y+=13){for(let x=8+(y%26);x<w;x+=18){const colors=[0xe7eef5,0x76b7df,0xf0c85f,0xb54855];g.fillStyle(colors[(x+y)%colors.length],.45);g.fillCircle(x,y,2.2)}}
+   for(let y=h*.225;y<h*.46;y+=13){for(let x=8+(y%26);x<w;x+=18){const colors=[0xe7eef5,0x76b7df,0xf0c85f,0xb54855];g.fillStyle(colors[Math.floor((x+y)/10)%colors.length],.45);g.fillCircle(x,y,2.2)}}
    // Pitch with mowing bands and perspective lines
    g.fillStyle(0x0b713d,1);g.fillRect(0,h*.47,w,h*.53);
    for(let i=0;i<10;i++){g.fillStyle(i%2?0x0a6738:0x0c7741,.42);g.fillRect(i*w/10,h*.47,w/10,h*.53)}
@@ -91,7 +91,7 @@ class ShootoutScene extends Phaser.Scene{
    g.lineStyle(8,0xf7fbff,1);g.strokeRect(x,y,w,h);
    g.lineStyle(2,0x7ce7ff,.35);g.strokeRect(x+5,y+5,w-10,h-10);
  }
- drawTarget(){const g=this.add.graphics();g.lineStyle(2,0x63e5ff,1);g.strokeCircle(0,0,18);g.lineBetween(-27,0,27,0);g.lineBetween(0,-27,0,27);g.strokeCircle(0,0,5)}
+ drawTarget(){const g=this.add.graphics();this.target.add(g);g.lineStyle(2,0x63e5ff,1);g.strokeCircle(0,0,18);g.lineBetween(-27,0,27,0);g.lineBetween(0,-27,0,27);g.strokeCircle(0,0,5);g.fillStyle(0x63e5ff,.9);g.fillCircle(0,0,2.5)}
  drawKeeper(c){const g=this.add.graphics();c.add(g);this.drawColoredKeeper(g,{accent:0xe9b92f})}
  drawPlayer(c){const g=this.add.graphics();c.add(g);this.drawColoredPlayer(g,{color:0xeeeeee,accent:0x15191f})}
  setColors(att,def){const pg=this.playerGroup.list[0],kg=this.keeperGroup.list[0];if(pg){pg.clear();this.drawColoredPlayer(pg,att)}if(kg){kg.clear();this.drawColoredKeeper(kg,def)}}
