@@ -44,6 +44,9 @@
       .betinsight-footer-social-link[data-social="x"]{color:#fff;font:900 17px/1 Arial,Helvetica,sans-serif}
       footer .betinsight-footer-social,.footer .betinsight-footer-social{max-width:100%}
       .betinsight-footer-company{margin-top:14px;color:#718a96;font-size:11px;line-height:1.6}
+      .betinsight-footer-info-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:12px}
+      .betinsight-footer-info-links a{color:#9fb2c2;text-decoration:none}
+      .betinsight-footer-info-links a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
       .betinsight-footer-company a{color:inherit;text-decoration:underline;text-underline-offset:2px}
       @media(max-width:720px){.betinsight-footer-social{justify-content:center}}
       @media(prefers-reduced-motion:reduce){.betinsight-footer-social-link{transition:none}}
@@ -123,6 +126,27 @@
       || document.querySelector(".footer");
   }
 
+  function ensureInfoLinks(){
+    const host = document.querySelector("footer") || document.querySelector(".footer");
+    if (!host || host.querySelector(".betinsight-footer-info-links")) return;
+    const l = lang();
+    const labels = {
+      de:{about:"Was ist BetInsight?",faq:"FAQ"},
+      en:{about:"What is BetInsight?",faq:"FAQ"},
+      es:{about:"¿Qué es BetInsight?",faq:"Preguntas frecuentes"},
+      pt:{about:"O que é a BetInsight?",faq:"Perguntas frequentes"},
+      it:{about:"Che cos'è BetInsight?",faq:"Domande frequenti"},
+      fr:{about:"Qu'est-ce que BetInsight ?",faq:"Questions fréquentes"},
+      nl:{about:"Wat is BetInsight?",faq:"Veelgestelde vragen"},
+      "zh-tw":{about:"什麼是 BetInsight？",faq:"常見問題"}
+    };
+    const c = labels[l] || labels.en;
+    const line = document.createElement("div");
+    line.className = "betinsight-footer-info-links";
+    line.innerHTML = '<a href="/' + l + '/was-ist-betinsight/">' + c.about + '</a><a href="/' + l + '/faq/">' + c.faq + '</a>';
+    host.appendChild(line);
+  }
+
   function ensureCompanyIdentity(){
     const hosts = document.querySelectorAll("footer, .footer, .imprint");
     hosts.forEach((host) => {
@@ -169,6 +193,7 @@
       host.appendChild(wrapper);
     }
     ensureLinks(wrapper);
+    ensureInfoLinks();
     ensureCompanyIdentity();
   }
 
