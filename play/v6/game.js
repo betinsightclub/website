@@ -142,14 +142,63 @@ class ShootoutScene extends Phaser.Scene{
    g.lineStyle(2,0x7ce7ff,.35);g.strokeRect(x+5,y+5,w-10,h-10);
  }
  drawTarget(){const g=this.add.graphics();this.target.add(g);g.lineStyle(2,0x63e5ff,1);g.strokeCircle(0,0,18);g.lineBetween(-27,0,27,0);g.lineBetween(0,-27,0,27);g.strokeCircle(0,0,5);g.fillStyle(0x63e5ff,.9);g.fillCircle(0,0,2.5)}
- drawKeeper(c){this.keeperSprite=this.add.image(0,0,"keeper-ger14").setOrigin(.5,.83).setDisplaySize(154,194).setVisible(true).setAlpha(1);c.add(this.keeperSprite)}
- drawPlayer(c){this.playerSprite=this.add.image(0,0,"player-ger14").setOrigin(.5,.92).setDisplaySize(122,217).setVisible(true).setAlpha(1);c.add(this.playerSprite)}
+ drawKeeper(c){
+   this.keeperSprite=this.add.image(0,0,"keeper-ger14").setOrigin(.5,.83).setDisplaySize(154,194).setVisible(true).setAlpha(1);c.add(this.keeperSprite);
+   this.keeperFace=this.add.image(0,-78,"creator-face-2").setDisplaySize(39,39).setDepth(4);c.add(this.keeperFace)
+ }
+ drawPlayer(c){
+   this.playerSprite=this.add.image(0,0,"player-ger14").setOrigin(.5,.92).setDisplaySize(122,217).setVisible(true).setAlpha(1);c.add(this.playerSprite);
+   this.playerFace=this.add.image(0,-121,"creator-face-1").setDisplaySize(37,37).setDepth(4);c.add(this.playerFace)
+ }
  setColors(att,def){
    if(this.playerSprite)this.playerSprite.setTexture("player-"+att.id).setDisplaySize(122,217);
-   if(this.keeperSprite)this.keeperSprite.setTexture("keeper-"+def.id).setDisplaySize(154,194)
+   if(this.keeperSprite)this.keeperSprite.setTexture("keeper-"+def.id).setDisplaySize(154,194);
+   const pidx=(TEAMS.findIndex(t=>t.id===att.id)%6)+1,kidx=((TEAMS.findIndex(t=>t.id===def.id)+2)%6)+1;
+   if(this.playerFace)this.playerFace.setTexture("creator-face-"+pidx).setDisplaySize(37,37);
+   if(this.keeperFace)this.keeperFace.setTexture("creator-face-"+kidx).setDisplaySize(39,39)
  }
  setActorLabels(shooter,keeper){
    this.playerName?.setText(shooter||"");this.keeperName?.setText(keeper||"")
+ }
+ stopIdleMotion(){
+   if(this.idleTimer){this.idleTimer.remove(false);this.idleTimer=null}
+   if(this.idleTweens){this.idleTweens.forEach(t=>{try{t.stop()}catch(e){}});this.idleTweens=[]}
+ }
+ depthScale(y,minY,maxY,minS=.82,maxS=1.06){
+   const p=Phaser.Math.Clamp((y-minY)/(maxY-minY),0,1);return Phaser.Math.Linear(minS,maxS,p)
+ }
+ startIdleMotion(){
+   this.stopIdleMotion();const w=this.scale.width,h=this.scale.height;this.idleTweens=[];
+   const move=()=>{
+     if(S.busy||S.finished)return;
+     // Shooter: left/right and forward/back in perspective, never colliding with ball.
+     const px=Phaser.Math.Between(Math.round(w*.20),Math.round(w*.31));
+     const py=Phaser.Math.Between(Math.round(h*.79),Math.round(h*.885));
+     const ps=this.depthScale(py,h*.76,h*.90,.86,1.05);
+     const pt=this.tweens.add({targets:this.playerGroup,x:px,y:py,scale:ps,duration:Phaser.Math.Between(700,1100),ease:"Sine.easeInOut"});
+     // Keeper: shuffles along line and slightly changes depth/body readiness.
+     const kx=Phaser.Math.Between(Math.round(w*.43),Math.round(w*.57));
+     const ky=Phaser.Math.Between(Math.round(h*.54),Math.round(h*.575));
+     const kt=this.tweens.add({targets:this.keeperGroup,x:kx,y:ky,scaleX:Phaser.Math.FloatBetween(.96,1.04),scaleY:Phaser.Math.FloatBetween(.96,1.03),duration:Phaser.Math.Between(520,820),ease:"Sine.easeInOut"});
+     if(this.playerName)this.tweens.add({targets:this.playerName,x:px,y:py+h*.065,duration:pt.duration,ease:"Sine.easeInOut"});
+     if(this.keeperName)this.tweens.add({targets:this.keeperName,x:kx,y:ky+h*.04,duration:kt.duration,ease:"Sine.easeInOut"});
+     this.idleTweens=[pt,kt]
+   };
+   move();this.idleTimer=this.time.addEvent({delay:1100,loop:true,callback:move})
+ }
+ async runUp3D(){
+   this.stopIdleMotion();const w=this.scale.width,h=this.scale.height;
+   const bx=w*.365,by=h*.845;
+   const sx=this.playerGroup.x,sy=this.playerGroup.y;
+   // Three-stage curved run-up gives depth: approach diagonally, close on ball, follow through beyond ball.
+   await tween(this,this.playerGroup,{x:Phaser.Math.Linear(sx,bx,.48),y:Phaser.Math.Linear(sy,by,.52),scale:this.depthScale(Phaser.Math.Linear(sy,by,.52),h*.76,h*.90,.86,1.05),duration:230,ease:"Sine.easeIn"});
+   if(this.playerSprite)this.playerSprite.setRotation(-.08);
+   await tween(this,this.playerGroup,{x:bx-18,y:by-8,scale:this.depthScale(by-8,h*.76,h*.90,.86,1.05),duration:230,ease:"Cubic.easeIn"});
+   return {bx,by}
+ }
+ async followThrough3D(){
+   const w=this.scale.width,h=this.scale.height;
+   await tween(this,this.playerGroup,{x:w*.405,y:h*.805,scale:.91,rotation:.045,duration:330,ease:"Quad.easeOut"});
  }
  showLineReplay(sim){
    const w=this.scale.width,h=this.scale.height;
@@ -168,9 +217,9 @@ class ShootoutScene extends Phaser.Scene{
    this.time.delayedCall(850,()=>this.tweens.add({targets:layer,alpha:0,duration:220,onComplete:()=>{layer.destroy(true);if(this.replayLayer===layer)this.replayLayer=null}}));
  } 
  resetActors(){const w=this.scale.width,h=this.scale.height;if(this.replayLayer){this.replayLayer.destroy(true);this.replayLayer=null;}
-   this.playerGroup.setPosition(w*.255,h*.865).setRotation(0).setScale(1);if(this.playerSprite)this.playerSprite.setRotation(0).setScale(1);if(this.playerName)this.playerName.setPosition(w*.255,h*.925).setAlpha(1);
+   this.playerGroup.setPosition(w*.255,h*.865).setRotation(0).setScale(1);if(this.playerSprite)this.playerSprite.setRotation(0).setScale(1);if(this.playerFace)this.playerFace.setRotation(0).setScale(1);if(this.playerName)this.playerName.setPosition(w*.255,h*.925).setAlpha(1);
    if(false&&this.playerParts){this.playerParts.armL.setRotation(.08);this.playerParts.armR.setRotation(-.10);this.playerParts.legL.setRotation(0);this.playerParts.legR.setRotation(0)}
-   this.keeperGroup.setPosition(w/2,h*.565).setRotation(0).setScale(1);if(this.keeperSprite)this.keeperSprite.setRotation(0).setScale(1);if(this.keeperName)this.keeperName.setPosition(w/2,h*.605).setAlpha(1);
+   this.keeperGroup.setPosition(w/2,h*.565).setRotation(0).setScale(1);if(this.keeperSprite)this.keeperSprite.setRotation(0).setScale(1);if(this.keeperFace)this.keeperFace.setRotation(0).setScale(1);if(this.keeperName)this.keeperName.setPosition(w/2,h*.605).setAlpha(1);
    if(false&&this.keeperParts){this.keeperParts.armL.setRotation(-.12);this.keeperParts.armR.setRotation(.12);this.keeperParts.legL.setRotation(.04);this.keeperParts.legR.setRotation(-.04)}
    this.ball.setPosition(w*.365,h*.845).setDisplaySize(44,44).setAngle(-8).setVisible(true);
    if(this.ballShadow)this.ballShadow.setPosition(w*.365,h*.875).setVisible(true);
@@ -185,12 +234,14 @@ class ShootoutScene extends Phaser.Scene{
      this.tweens.add({targets:this.playerParts.legL,rotation:.34,yoyo:true,repeat:2,duration:135});
      this.tweens.add({targets:this.playerParts.legR,rotation:-.42,yoyo:true,repeat:2,duration:135});
    }
-   this.tweens.add({targets:this.playerSprite,rotation:-.08,yoyo:true,repeat:1,duration:180});
-   await tween(this,this.playerGroup,{x:w*.335,y:h*.858,duration:560,ease:"Cubic.easeIn"});
-   if(false&&this.playerParts){this.tweens.add({targets:this.playerParts.legR,rotation:1.0,duration:120,yoyo:true,ease:"Quad.easeOut"});this.tweens.add({targets:this.playerParts.armL,rotation:-.65,duration:150,yoyo:true})}
-   this.playerGroup.setRotation(-.035);if(this.playerSprite)this.playerSprite.setRotation(.13);if(this.playerName)this.playerName.setAlpha(0);kickSound();if(this.ballShadow)this.ballShadow.setVisible(false);
+   this.tweens.add({targets:this.playerSprite,rotation:-.06,yoyo:true,repeat:1,duration:150});
+   await this.runUp3D();
+   this.playerGroup.setRotation(-.035);if(this.playerSprite)this.playerSprite.setRotation(.15);if(this.playerFace)this.playerFace.setRotation(.05);if(this.playerName)this.playerName.setAlpha(0);kickSound();if(this.ballShadow)this.ballShadow.setVisible(false);
+   this.followThrough3D();
 
    const kx=this.goal.x+this.goal.w*sim.kx,ky=this.goal.y+this.goal.h*sim.ky;
+   await sleep(45);
+   this.tweens.add({targets:this.keeperGroup,y:this.keeperGroup.y+7,scaleY:.94,duration:75,yoyo:true,ease:"Quad.easeInOut"});
    this.tweens.add({targets:this.keeperGroup,x:kx,y:ky+62,rotation:(sim.kx<.5?-1:1)*.58,scaleX:1.12,scaleY:.94,duration:430,ease:"Cubic.easeOut"});if(this.keeperName)this.keeperName.setAlpha(0);
    if(false&&this.keeperParts){const dir=sim.kx<.5?-1:1;this.tweens.add({targets:this.keeperParts.armL,rotation:dir<0?-1.05:-.45,duration:260});this.tweens.add({targets:this.keeperParts.armR,rotation:dir>0?1.05:.45,duration:260});this.tweens.add({targets:this.keeperParts.legL,rotation:dir<0?.45:.15,duration:320});this.tweens.add({targets:this.keeperParts.legR,rotation:dir>0?-.45:-.15,duration:320})}
 
@@ -235,7 +286,8 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function makeBallTexture(sc){const g=sc.make.graphics({x:0,y:0,add:false});g.fillStyle(0xf8fafb);g.fillCircle(64,64,60);g.lineStyle(3,0x172331,.85);g.strokeCircle(64,64,59);g.fillStyle(0x202a36);const pts=[[64,42],[43,58],[51,84],[77,84],[85,58]];g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.fillPath();g.lineStyle(3,0x5b6672,.65);[[64,42,64,8],[43,58,11,48],[51,84,29,111],[77,84,100,111],[85,58,117,48]].forEach(a=>g.lineBetween(...a));g.generateTexture("ball",128,128);g.destroy()}
 function bootPhaser(){game=new Phaser.Game({type:Phaser.AUTO,parent:"phaserMount",width:960,height:540,transparent:false,scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:{
  preload(){
-   TEAMS.forEach(t=>{this.load.svg("player-"+t.id,"/play/v6/assets/player-"+t.id+".svg",{width:180,height:320});this.load.svg("keeper-"+t.id,"/play/v6/assets/keeper-"+t.id+".svg",{width:240,height:300})})
+   TEAMS.forEach(t=>{this.load.svg("player-"+t.id,"/play/v6/assets/player-"+t.id+".svg",{width:180,height:320});this.load.svg("keeper-"+t.id,"/play/v6/assets/keeper-"+t.id+".svg",{width:240,height:300})});
+   for(let i=1;i<=6;i++)this.load.image("creator-face-"+i,"https://raw.githubusercontent.com/betinsightclub/profil/main/time-clash/assets/faces/real0"+i+".webp")
  },
  create(){makeBallTexture(this);this.scene.start("shootout")}
 }});game.scene.add("shootout",ShootoutScene,false)}
@@ -245,7 +297,7 @@ function board(){const row=s=>{const t=sideTeam(s),own=S.shots.filter(x=>x.side=
 function uiTurn(){board();const t=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(S.side);$("#turnTitle").textContent=t.flag+" "+t.name+" ist am Punkt";$("#turnMeta").textContent=sh[0]+" gegen "+d.keeper.name;$("#shooterName").textContent=sh[0];$("#shooterInfo").textContent=t.name+" · Stärke "+sh[1]+"/25";$("#keeperName").textContent=d.keeper.name;$("#keeperInfo").textContent=d.nation+" · "+d.keeper.club+" · Stärke "+d.keeper.strength+"/25";$("#commentary").innerHTML="<b>JETZT: "+sh[0]+"</b><br>Zuerst ins Tor klicken → Zielpunkt setzen → Stärke wählen → SCHIESSEN.";
  $("#pressureLabel").textContent=S.sudden?"SUDDEN DEATH":(taken(S.side)>=4?"MATCHBALL":"DRUCK");
  setShootEnabled(S.target.set);
- if(scene){scene.setColors(t,d);scene.setActorLabels(sh[0],d.keeper.name);scene.resetActors();scene.target.setVisible(false);scene.turnText.setText("JETZT: "+sh[0]+"\n1. ZIEL SETZEN  ·  2. POWER  ·  3. SCHIESSEN").setAlpha(1).setScale(1);scene.time.delayedCall(1500,()=>scene.tweens.add({targets:scene.turnText,alpha:0,duration:350}))}
+ if(scene){scene.setColors(t,d);scene.setActorLabels(sh[0],d.keeper.name);scene.resetActors();scene.startIdleMotion();scene.target.setVisible(false);scene.turnText.setText("JETZT: "+sh[0]+"\n1. ZIEL SETZEN  ·  2. POWER  ·  3. SCHIESSEN").setAlpha(1).setScale(1);scene.time.delayedCall(1500,()=>scene.tweens.add({targets:scene.turnText,alpha:0,duration:350}))}
  tension();focusGame()}
 function gaussian(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
 function simulate(sh,kp){
@@ -285,7 +337,7 @@ function simulate(sh,kp){
  }
 }
 function ended(){if(S.ta<5||S.tb<5){const ra=5-S.ta,rb=5-S.tb;if(S.a>S.b+rb||S.b>S.a+ra)return true;return false}return S.ta===S.tb&&S.a!==S.b}
-async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;stopTension();setShootEnabled(false);const side=S.side,att=sideTeam(side),def=oppTeam(side),sh=shooter(side),sim=simulate(sh,def.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await scene.animate(sim,att,def);S.shots.push({side,team:att.name,shooter:sh[0],keeper:def.keeper.name,power:S.power,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?sh[0]+" verwandelt!":sim.outcome==="save"?def.keeper.name+" hält!":sim.outcome==="post"?"Pfosten!":"Daneben!";board();if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;
+async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;stopTension();if(scene)scene.stopIdleMotion();setShootEnabled(false);const side=S.side,att=sideTeam(side),def=oppTeam(side),sh=shooter(side),sim=simulate(sh,def.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await scene.animate(sim,att,def);S.shots.push({side,team:att.name,shooter:sh[0],keeper:def.keeper.name,power:S.power,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?sh[0]+" verwandelt!":sim.outcome==="save"?def.keeper.name+" hält!":sim.outcome==="post"?"Pfosten!":"Daneben!";board();if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;
  S.target.set=false;S.target.x=.5;S.target.y=.5;$("#aimValue").textContent="— / —";setShootEnabled(false);
  if(scene)scene.target.setVisible(false);
  S.busy=false;await sleep(250);uiTurn()}
