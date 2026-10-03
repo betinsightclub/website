@@ -23,12 +23,23 @@
     <p>V15A ergänzt natürliche Ergebnisreaktionen: 20 Varianten für Tor, Parade, Pfosten/Latte und Fehlschuss. Der Keeper fängt gehaltene Bälle zwischen den Händen statt am Körper. Torjubel nutzt keine Selbst-Klatsch-Animation mehr.</p>
   </div>
   <div class="selectors">
-    <label>TEAM A<select id="teamA"></select></label>
+    <label>TEAM A<select id="teamA">
+<option value="ger14">🇩🇪 Deutschland 2014</option>
+<option value="arg22">🇦🇷 Argentinien 2022</option>
+<option value="ita06">🇮🇹 Italien 2006</option>
+<option value="esp10">🇪🇸 Spanien 2010</option>
+</select></label>
     <b>VS</b>
-    <label>TEAM B<select id="teamB"></select></label>
+    <label>TEAM B<select id="teamB">
+<option value="arg22">🇦🇷 Argentinien 2022</option>
+<option value="ger14">🇩🇪 Deutschland 2014</option>
+<option value="ita06">🇮🇹 Italien 2006</option>
+<option value="esp10">🇪🇸 Spanien 2010</option>
+</select></label>
   </div>
   <div id="preview" class="preview"></div>
   <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button>
+<div id="moduleStatus" style="margin-top:10px;text-align:center;font-size:12px;color:#7694aa">3D-Modul wird geladen …</div>
 </section>
 
 <section id="game" class="hidden">
@@ -107,6 +118,28 @@
  </div>
 </div>
 
-<script type="module" src="/play/v15a/game.js?v=1"></script>
+<script>
+(function(){
+ const A=document.getElementById("teamA"),B=document.getElementById("teamB"),P=document.getElementById("preview");
+ function fallbackPreview(){
+   const data={
+    ger14:["🇩🇪 Deutschland 2014","TW: Manuel Neuer · FC Bayern München","Thomas Müller<br>Toni Kroos<br>Bastian Schweinsteiger<br>Mario Götze<br>Miroslav Klose"],
+    arg22:["🇦🇷 Argentinien 2022","TW: Emiliano Martínez · Aston Villa","Lionel Messi<br>Ángel Di María<br>Lautaro Martínez<br>Julián Álvarez<br>Leandro Paredes"],
+    ita06:["🇮🇹 Italien 2006","TW: Gianluigi Buffon · Juventus","Francesco Totti<br>Andrea Pirlo<br>Alessandro Del Piero<br>Daniele De Rossi<br>Marco Materazzi"],
+    esp10:["🇪🇸 Spanien 2010","TW: Iker Casillas · Real Madrid","David Villa<br>Xavi<br>Andrés Iniesta<br>Xabi Alonso<br>Fernando Torres"]
+   };
+   if(!P||!A||!B)return;
+   P.innerHTML=[A.value,B.value].map(id=>'<div><b>'+data[id][0]+'</b><small>'+data[id][1]+'</small><p>'+data[id][2]+'</p></div>').join('');
+ }
+ A&&A.addEventListener("change",fallbackPreview);B&&B.addEventListener("change",fallbackPreview);fallbackPreview();
+})();
+</script>
+<script id="gameModule" type="module" src="/play/v15a/game.js?v=20261003-2"></script>
+<script>
+document.getElementById("gameModule").addEventListener("error",function(){
+ const s=document.getElementById("moduleStatus");
+ if(s){s.textContent="3D-Modul konnte nicht geladen werden – bitte Strg+F5 drücken.";s.style.color="#ff818c";}
+});
+</script>
 <footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V15A reaction baseline: Quaternius Animated Men · CC0 1.0. Eigene finale BetInsight-Spielermodelle ersetzen diesen Prototyp später.</footer></body>
 </html>
