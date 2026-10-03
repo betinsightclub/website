@@ -137,7 +137,18 @@ class World3D{
      }
    }
    const mixer=new THREE.AnimationMixer(rig);
-   root.userData.realRig=rig;root.userData.mixer=mixer;root.userData.clips=model.clips;root.userData.actions={};root.userData.isGLB=true;
+   const bones={};
+   rig.traverse(o=>{
+     if(!o.isBone)return;
+     const n=(o.name||"").toLowerCase().replace(/[_\s-]/g,"");
+     const left=/left|\.l$|l$/.test(n),right=/right|\.r$|r$/.test(n);
+     if(!bones.upperArmL && left && /upperarm|arm/.test(n) && !/fore|lower/.test(n))bones.upperArmL=o;
+     if(!bones.upperArmR && right && /upperarm|arm/.test(n) && !/fore|lower/.test(n))bones.upperArmR=o;
+     if(!bones.foreArmL && left && /forearm|lowerarm/.test(n))bones.foreArmL=o;
+     if(!bones.foreArmR && right && /forearm|lowerarm/.test(n))bones.foreArmR=o;
+     if(!bones.spine && /spine2|spine1|chest/.test(n))bones.spine=o;
+   });
+   root.userData.realRig=rig;root.userData.mixer=mixer;root.userData.clips=model.clips;root.userData.actions={};root.userData.isGLB=true;root.userData.bones=bones;
    this.playRigClip(root,"Idle",{fade:0});
  }
  async installRealPlayers(){
@@ -151,7 +162,7 @@ class World3D{
      this.playRigClip(this.player,"Idle",{fade:0});
      this.playRigClip(this.keeper,"Idle",{fade:0});
      this.realRigReady=true;
-     const el=$("#commentary");if(el)el.textContent="V15: Keeper-State-Machine + GLB-Motion geladen."
+     const el=$("#commentary");if(el)el.textContent="V15: Keeper-State-Machine aktiv · Shuffle, Absprung, Landung und Recovery geladen."
    }catch(err){
      console.error("GLB character load failed; using procedural fallback",err);
      this.realRigReady=false
@@ -218,6 +229,12 @@ class World3D{
    if(this.keeper.userData.isGLB){
      const phase=Math.sin(t*1.55);
      this.playRigClip(this.keeper,Math.abs(phase)>.55?"Walk":"Idle",{fade:.22,speed:.42});
+     const b=this.keeper.userData.bones||{},raise=.16+.08*Math.sin(t*2.05);
+     if(b.upperArmL){b.upperArmL.rotation.z-=raise;b.upperArmL.rotation.x+=.04*Math.sin(t*1.7)}
+     if(b.upperArmR){b.upperArmR.rotation.z+=raise;b.upperArmR.rotation.x-=.04*Math.sin(t*1.7)}
+     if(b.foreArmL)b.foreArmL.rotation.x+=.08+.04*Math.sin(t*1.9);
+     if(b.foreArmR)b.foreArmR.rotation.x+=.08-.04*Math.sin(t*1.9);
+     if(b.spine)b.spine.rotation.x+=.035+.012*Math.sin(t*1.2);
    }
    // Fallback body: slightly bent, hands active.
    if(!this.keeper.userData.isGLB){
