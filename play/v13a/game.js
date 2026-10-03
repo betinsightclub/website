@@ -1,4 +1,6 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js";
+import * as THREE from "https://esm.sh/three@0.152.2";
+import { GLTFLoader } from "https://esm.sh/three@0.152.2/examples/jsm/loaders/GLTFLoader.js";
+import * as SkeletonUtils from "https://esm.sh/three@0.152.2/examples/jsm/utils/SkeletonUtils.js";
 
 const TEAMS=[
 {id:"ger14",name:"Deutschland 2014",nation:"Deutschland",flag:"🇩🇪",shirt:0xf2f2f2,shorts:0x171b22,keeperColor:0xe4b72f,keeper:{name:"Manuel Neuer",club:"FC Bayern München",strength:24},shooters:[["Thomas Müller",24],["Toni Kroos",23],["Bastian Schweinsteiger",23],["Mario Götze",22],["Miroslav Klose",22]]},
@@ -27,10 +29,88 @@ class World3D{
    if(!gl2&&!gl1)throw new Error("WEBGL_NOT_AVAILABLE");
    this.renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:"default",failIfMajorPerformanceCaveat:false});
    this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;el.innerHTML="";el.appendChild(this.renderer.domElement);
-   this.clock=new THREE.Clock();this.anim=[];this.targetMarker=null;this.player=null;this.keeper=null;this.ball=null;this.cameraTarget=new THREE.Vector3(0,1.15,4.2);
+   this.clock=new THREE.Clock();this.anim=[];this.targetMarker=null;this.player=null;this.keeper=null;this.ball=null;this.cameraTarget=new THREE.Vector3(0,1.15,4.2);this.realModel=null;this.prevFrameMs=performance.now();
    this.makeScene();this.resize();addEventListener("resize",()=>this.resize());this.renderer.domElement.addEventListener("pointerdown",e=>this.pickGoal(e));this.loop();
  }
  resize(){const r=this.el.getBoundingClientRect();this.renderer.setSize(r.width,r.height,false);this.camera.aspect=r.width/r.height;this.camera.updateProjectionMatrix()}
+ async loadRealCharacterModel(){
+   if(this.realModel)return this.realModel;
+   const url="https://cdn.jsdelivr.net/gh/kendrekaran/striker-3d@main/assets/player.glb";
+   const loader=new GLTFLoader();
+   const gltf=await loader.loadAsync(url);
+   const clips={};
+   for(const clip of gltf.animations||[]){
+     const key=clip.name.replace(/^HumanArmature\|Man_/,"");
+     clips[key]=clip;
+   }
+   gltf.scene.updateMatrixWorld(true);
+   const box=new THREE.Box3().setFromObject(gltf.scene);
+   const height=Math.max(.001,box.max.y-box.min.y);
+   this.realModel={scene:gltf.scene,clips,sourceHeight:height,sourceMinY:box.min.y};
+   return this.realModel
+ }
+ applyRigKit(root,shirt,shorts,isKeeper=false){
+   root.traverse(o=>{
+     if(!o.isMesh)return;
+     o.castShadow=true;o.receiveShadow=true;
+     const mats=Array.isArray(o.material)?o.material:[o.material];
+     const mapped=mats.map(m=>{
+       const n=(m?.name||"").toLowerCase();
+       const clone=m?.clone?m.clone():new THREE.MeshStandardMaterial({color:0xffffff,roughness:.85});
+       if(n.includes("shirt"))clone.color.setHex(shirt);
+       else if(n.includes("pants"))clone.color.setHex(shorts);
+       else if(n.includes("socks"))clone.color.setHex(isKeeper?0xe8ecef:0xf1f3f4);
+       else if(n.includes("shoes"))clone.color.setHex(0x171b20);
+       return clone
+     });
+     o.material=Array.isArray(o.material)?mapped:mapped[0]
+   })
+ }
+ playRigClip(root,key,{fade=.14,once=false,speed=1}={}){
+   const mixer=root?.userData?.mixer,clips=root?.userData?.clips;if(!mixer||!clips)return;
+   const clip=clips[key]||clips.Idle||Object.values(clips)[0];if(!clip)return;
+   const actions=root.userData.actions||(root.userData.actions={});
+   let action=actions[clip.name];if(!action){action=mixer.clipAction(clip);actions[clip.name]=action}
+   const prev=root.userData.activeAction;
+   if(prev&&prev!==action)prev.fadeOut(fade);
+   action.enabled=true;action.reset();action.setEffectiveTimeScale(speed);action.setEffectiveWeight(1);
+   if(once){action.setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true}else{action.setLoop(THREE.LoopRepeat,Infinity)}
+   action.fadeIn(fade).play();root.userData.activeAction=action
+ }
+ async installRealRig(root,height,shirt,shorts,isKeeper=false){
+   const model=await this.loadRealCharacterModel();
+   const rig=SkeletonUtils.clone(model.scene);
+   // Normalize to actual requested human height and put feet on y=0.
+   const box=new THREE.Box3().setFromObject(rig),h=Math.max(.001,box.max.y-box.min.y),scale=height/h;
+   rig.scale.setScalar(scale);rig.updateMatrixWorld(true);
+   const box2=new THREE.Box3().setFromObject(rig);
+   rig.position.y-=box2.min.y;
+   this.applyRigKit(rig,shirt,shorts,isKeeper);
+   // Hide primitive fallback meshes but keep their groups/joints for existing motion code.
+   root.traverse(o=>{if(o.isMesh)o.visible=false});
+   root.add(rig);
+   rig.traverse(o=>{if(o.isMesh)o.visible=true});
+   const mixer=new THREE.AnimationMixer(rig);
+   root.userData.realRig=rig;root.userData.mixer=mixer;root.userData.clips=model.clips;root.userData.actions={};root.userData.isGLB=true;
+   this.playRigClip(root,"Idle",{fade:0});
+ }
+ async installRealPlayers(){
+   try{
+     const a=S.A||TEAMS[0],d=S.B||TEAMS[1];
+     await Promise.all([
+       this.installRealRig(this.player,1.80,a.shirt,a.shorts,false),
+       this.installRealRig(this.keeper,1.92,d.keeperColor,0x17263a,true)
+     ]);
+     this.setTeams(a,d);
+     this.playRigClip(this.player,"Idle",{fade:0});
+     this.playRigClip(this.keeper,"Idle",{fade:0});
+     this.realRigReady=true;
+     const el=$("#commentary");if(el)el.textContent="V13A: echtes geriggtes GLB-Spielermodell geladen."
+   }catch(err){
+     console.error("GLB character load failed; using procedural fallback",err);
+     this.realRigReady=false
+   }
+ }
  makeScene(){
    const hemi=new THREE.HemisphereLight(0xcdefff,0x193517,1.6);this.scene.add(hemi);
    const sun=new THREE.DirectionalLight(0xffffff,2.2);sun.position.set(-6,12,8);sun.castShadow=true;this.scene.add(sun);
@@ -48,6 +128,7 @@ class World3D{
    this.ball=this.makeBall();this.ball.position.set(0,.11,11);this.scene.add(this.ball);
    this.player=this.makeHuman(1.80,0xf2f2f2,0x171b22,false);this.setHairStyle(this.player,0);this.player.position.set(-1.2,0,12.2);this.player.rotation.y=Math.PI;this.scene.add(this.player);
    this.keeper=this.makeHuman(1.92,0xe4b72f,0x182235,true);this.setHairStyle(this.keeper,10);this.keeper.position.set(0,0,.35);this.keeper.rotation.y=0;this.scene.add(this.keeper);
+   this.installRealPlayers();
    this.updateCameraForPlayer(true);this.startIdle();
  }
  makeBall(){const g=new THREE.Group();const ball=new THREE.Mesh(new THREE.SphereGeometry(.11,28,20),new THREE.MeshStandardMaterial({color:0xf8f8f6,roughness:.5}));ball.castShadow=true;g.add(ball);for(let i=0;i<8;i++){const p=new THREE.Mesh(new THREE.CircleGeometry(.024,5),new THREE.MeshBasicMaterial({color:0x17202b}));p.position.set(Math.sin(i*.78)*.102,Math.cos(i*.78)*.07,Math.cos(i*.78)*.08);p.lookAt(new THREE.Vector3(0,0,0));g.add(p)}return g}
@@ -270,8 +351,8 @@ class World3D{
    const playerStyle=(teamIndex*5+shooterIndex)%11;
    let keeperStyle=(defIndex*5+10)%11;
    if(keeperStyle===playerStyle)keeperStyle=(keeperStyle+1)%11;
-   this.setHairStyle(this.player,playerStyle);this.setFaceStyle(this.player,teamIndex*5+shooterIndex);
-   this.setHairStyle(this.keeper,keeperStyle);this.setFaceStyle(this.keeper,defIndex*5+4);
+   if(!this.player.userData.isGLB){this.setHairStyle(this.player,playerStyle);this.setFaceStyle(this.player,teamIndex*5+shooterIndex)}
+   if(!this.keeper.userData.isGLB){this.setHairStyle(this.keeper,keeperStyle);this.setFaceStyle(this.keeper,defIndex*5+4)}
  }
  setTeams(att,def){
    const recolor=(human,shirt,shorts)=>{
@@ -289,6 +370,8 @@ class World3D{
    };
    recolor(this.player,att.shirt,att.shorts);
    recolor(this.keeper,def.keeperColor,0x17263a);
+   if(this.player.userData.realRig)this.applyRigKit(this.player.userData.realRig,att.shirt,att.shorts,false);
+   if(this.keeper.userData.realRig)this.applyRigKit(this.keeper.userData.realRig,def.keeperColor,0x17263a,true);
  } 
  startIdle(){this.idle=true;this.idleSince=this.clock.getElapsedTime()}
  stopIdle(){this.idle=false}
@@ -300,6 +383,9 @@ class World3D{
  }
  loop(){
    requestAnimationFrame(()=>this.loop());
+   const now=performance.now(),dt=Math.min(.05,(now-this.prevFrameMs)/1000);this.prevFrameMs=now;
+   if(this.player?.userData?.mixer)this.player.userData.mixer.update(dt);
+   if(this.keeper?.userData?.mixer)this.keeper.userData.mixer.update(dt);
    const t=this.clock.getElapsedTime();
    if(this.idle&&!S.busy){
      const idleAge=Math.max(0,t-(this.idleSince||t));
@@ -309,13 +395,15 @@ class World3D{
      this.player.position.y=.012*breathe;
      this.player.scale.setScalar(1+Math.sin(t*.63)*.006);
 
-     // Small natural stance shifts.
-     this.player.armL.rotation.z=-.10+Math.sin(t*.85)*.025;
-     this.player.armR.rotation.z=.10-Math.sin(t*.85)*.025;
-     this.player.armL.userData.fore.rotation.x=.05+Math.sin(t*.72)*.035;
-     this.player.armR.userData.fore.rotation.x=.05-Math.sin(t*.72)*.035;
-     this.player.legL.userData.shin.rotation.x=Math.max(0,Math.sin(t*.7))*.035;
-     this.player.legR.userData.shin.rotation.x=Math.max(0,-Math.sin(t*.7))*.035;
+     // Primitive fallback gets joint motion; GLB uses its real skeleton animation.
+     if(!this.player.userData.isGLB){
+       this.player.armL.rotation.z=-.10+Math.sin(t*.85)*.025;
+       this.player.armR.rotation.z=.10-Math.sin(t*.85)*.025;
+       this.player.armL.userData.fore.rotation.x=.05+Math.sin(t*.72)*.035;
+       this.player.armR.userData.fore.rotation.x=.05-Math.sin(t*.72)*.035;
+       this.player.legL.userData.shin.rotation.x=Math.max(0,Math.sin(t*.7))*.035;
+       this.player.legR.userData.shin.rotation.x=Math.max(0,-Math.sin(t*.7))*.035;
+     }
 
      // After waiting, the player turns partially toward the user so the face becomes visible.
      // The motion is slow and cyclic, like a glance over the shoulder, not a robotic 180-degree spin.
@@ -330,12 +418,9 @@ class World3D{
        headTurn=side*.90*eased;
        // Gesture: one forearm briefly lifts, as if asking "ready?"
        const gesture=Math.max(0,Math.sin(Math.PI*THREE.MathUtils.clamp((phase-2.0)/2.4,0,1)));
-       if(side<0){
-         this.player.armR.rotation.x=-.22*gesture;
-         this.player.armR.userData.fore.rotation.x=.55*gesture;
-       }else{
-         this.player.armL.rotation.x=-.22*gesture;
-         this.player.armL.userData.fore.rotation.x=.55*gesture;
+       if(!this.player.userData.isGLB){
+         if(side<0){this.player.armR.rotation.x=-.22*gesture;this.player.armR.userData.fore.rotation.x=.55*gesture}
+         else{this.player.armL.rotation.x=-.22*gesture;this.player.armL.userData.fore.rotation.x=.55*gesture}
        }
      }
      this.player.rotation.y=Math.PI+bodyTurn;
@@ -347,10 +432,12 @@ class World3D{
 
      this.keeper.position.x=Math.sin(t*1.25)*.52;
      this.keeper.position.z=.35+Math.sin(t*.85)*.08;
-     this.keeper.armL.rotation.z=-.52+Math.sin(t*1.7)*.08;
-     this.keeper.armR.rotation.z=.52-Math.sin(t*1.7)*.08;
-     this.keeper.legL.userData.shin.rotation.x=.10+Math.sin(t*1.6)*.04;
-     this.keeper.legR.userData.shin.rotation.x=.10-Math.sin(t*1.6)*.04;
+     if(!this.keeper.userData.isGLB){
+       this.keeper.armL.rotation.z=-.52+Math.sin(t*1.7)*.08;
+       this.keeper.armR.rotation.z=.52-Math.sin(t*1.7)*.08;
+       this.keeper.legL.userData.shin.rotation.x=.10+Math.sin(t*1.6)*.04;
+       this.keeper.legR.userData.shin.rotation.x=.10-Math.sin(t*1.6)*.04;
+     }
    }
    this.anim=this.anim.filter(a=>{
      const p=Math.min(1,(performance.now()-a.t0)/a.d),e=1-Math.pow(1-p,3);
@@ -362,7 +449,7 @@ class World3D{
  pickGoal(e){if(S.busy||S.finished)return;const r=this.renderer.domElement.getBoundingClientRect(),m=new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1),ray=new THREE.Raycaster();ray.setFromCamera(m,this.camera);const hit=ray.intersectObject(this.hitPlane)[0];if(!hit)return;S.target.x=THREE.MathUtils.clamp(hit.point.x,-3.55,3.55);S.target.y=THREE.MathUtils.clamp(hit.point.y,.08,2.36);S.target.set=true;this.showMarker();$("#aim").textContent=Math.round((S.target.x/7.32+.5)*100)+" / "+Math.round(S.target.y/2.44*100);enableShoot(true);$("#commentary").textContent="Ziel gesetzt. Optional Alt+B für Ballkontakt, dann Power und Schießen."}
  showMarker(){if(this.targetMarker)this.scene.remove(this.targetMarker);const ring=new THREE.Mesh(new THREE.RingGeometry(.12,.16,32),new THREE.MeshBasicMaterial({color:0x62e7ff,side:THREE.DoubleSide}));ring.position.set(S.target.x,S.target.y,.08);this.scene.add(ring);this.targetMarker=ring}
  async shoot(sim){
-   this.stopIdle();this.resetIdlePose();const p0=this.player.position.clone(),approach=new THREE.Vector3(-.28,0,11.30),p2=new THREE.Vector3(.18,0,10.85);
+   this.stopIdle();this.resetIdlePose();this.playRigClip(this.player,"Run",{fade:.10,speed:1.05});const p0=this.player.position.clone(),approach=new THREE.Vector3(-.28,0,11.30),p2=new THREE.Vector3(.18,0,10.85);
    const runDistance=Math.hypot(p0.x-approach.x,p0.z-approach.z);
    const runMs=THREE.MathUtils.clamp(280+runDistance*150,340,1050);
    const p1=new THREE.Vector3(THREE.MathUtils.lerp(p0.x,approach.x,.72),0,THREE.MathUtils.lerp(p0.z,approach.z,.72));
@@ -370,10 +457,12 @@ class World3D{
  this.player.legL.userData.shin.rotation.x=Math.max(0,-Math.sin(e*Math.PI*2))*.75;this.player.legR.userData.shin.rotation.x=Math.max(0,Math.sin(e*Math.PI*2))*.75;
  this.player.armL.rotation.x=-.42*Math.sin(e*Math.PI*2);this.player.armR.rotation.x=.42*Math.sin(e*Math.PI*2);
  this.player.armL.userData.fore.rotation.x=.18+Math.max(0,Math.sin(e*Math.PI*2))*.25;this.player.armR.userData.fore.rotation.x=.18+Math.max(0,-Math.sin(e*Math.PI*2))*.25});
+   this.playRigClip(this.player,"Punch",{fade:.06,once:true,speed:1.25});
    await this.tween(Math.max(150,runMs*.32),e=>{this.player.position.lerpVectors(p1,p2,e);this.player.legR.rotation.x=-1.05*Math.sin(e*Math.PI);
  this.player.legR.userData.shin.rotation.x=1.35*Math.sin(e*Math.PI);
  this.player.legL.rotation.x=.16*Math.sin(e*Math.PI);
  this.player.rotation.y=Math.PI-.12*e});
+   this.playRigClip(this.keeper,"Jump",{fade:.08,once:true,speed:1.15});
    const kp0=this.keeper.position.clone(),kdir=sim.kx>=0?1:-1;this.tween(420,e=>{this.keeper.position.x=THREE.MathUtils.lerp(kp0.x,sim.kx,e);this.keeper.position.y=Math.sin(e*Math.PI)*.35;this.keeper.position.z=THREE.MathUtils.lerp(kp0.z,.2,e);this.keeper.rotation.z=-kdir*.95*e;this.keeper.armL.rotation.z=-.5-kdir*.7*e;this.keeper.armR.rotation.z=.5-kdir*.7*e;
  this.keeper.armL.userData.fore.rotation.z=-kdir*.28*e;this.keeper.armR.userData.fore.rotation.z=-kdir*.28*e;
  this.keeper.legL.rotation.z=-kdir*.18*e;this.keeper.legR.rotation.z=-kdir*.32*e;
@@ -392,7 +481,7 @@ class World3D{
  this.keeper.armL.userData.fore.rotation.set(0,0,0);this.keeper.armR.userData.fore.rotation.set(0,0,0);
  this.keeper.legL.rotation.set(0,0,0);this.keeper.legR.rotation.set(0,0,0);
  this.keeper.legL.userData.shin.rotation.set(0,0,0);this.keeper.legR.userData.shin.rotation.set(0,0,0);
- this.ball.position.set(0,.11,11);this.ball.rotation.set(0,0,0);if(this.targetMarker){this.scene.remove(this.targetMarker);this.targetMarker=null}this.updateCameraForPlayer(true);this.startIdle()}
+ this.ball.position.set(0,.11,11);this.ball.rotation.set(0,0,0);if(this.targetMarker){this.scene.remove(this.targetMarker);this.targetMarker=null}this.playRigClip(this.player,"Idle",{fade:.12});this.playRigClip(this.keeper,"Idle",{fade:.12});this.updateCameraForPlayer(true);this.startIdle()}
 }
 
 function sideTeam(s){return s==="A"?S.A:S.B}function oppTeam(s){return s==="A"?S.B:S.A}function taken(s){return s==="A"?S.ta:S.tb}function goals(s){return s==="A"?S.a:S.b}function shooter(s){const t=sideTeam(s);return t.shooters[taken(s)%t.shooters.length]}
