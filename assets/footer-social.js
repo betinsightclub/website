@@ -127,9 +127,6 @@
   }
 
   function ensureInfoLinks(){
-    const host = document.querySelector("footer") || document.querySelector(".footer");
-    if (!host || host.querySelector(".betinsight-footer-info-links")) return;
-    const l = lang();
     const labels = {
       de:{about:"Was ist BetInsight?",faq:"FAQ"},
       en:{about:"What is BetInsight?",faq:"FAQ"},
@@ -140,11 +137,32 @@
       nl:{about:"Wat is BetInsight?",faq:"Veelgestelde vragen"},
       "zh-tw":{about:"什麼是 BetInsight？",faq:"常見問題"}
     };
-    const c = labels[l] || labels.en;
-    const line = document.createElement("div");
-    line.className = "betinsight-footer-info-links";
-    line.innerHTML = '<a href="/' + l + '/was-ist-betinsight/">' + c.about + '</a><a href="/' + l + '/faq/">' + c.faq + '</a>';
-    host.appendChild(line);
+    const l = lang();
+    const copy = labels[l] || labels.en;
+    const navLinks = document.querySelector(".site-footer .footer-grid > div:nth-child(2) .footer-links")
+      || document.querySelector("footer .footer-links")
+      || document.querySelector("footer");
+
+    if (!navLinks) return;
+
+    let about = navLinks.querySelector('[data-bi-footer-info="about"]');
+    let faq = navLinks.querySelector('[data-bi-footer-info="faq"]');
+
+    if (!about) {
+      about = document.createElement("a");
+      about.dataset.biFooterInfo = "about";
+      navLinks.appendChild(about);
+    }
+    if (!faq) {
+      faq = document.createElement("a");
+      faq.dataset.biFooterInfo = "faq";
+      navLinks.appendChild(faq);
+    }
+
+    about.href = "/" + l + "/was-ist-betinsight/";
+    about.textContent = copy.about;
+    faq.href = "/" + l + "/faq/";
+    faq.textContent = copy.faq;
   }
 
   function ensureCompanyIdentity(){
@@ -199,4 +217,7 @@
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true});
   else init();
+
+  const langObserver = new MutationObserver(() => ensureInfoLinks());
+  langObserver.observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
 })();
