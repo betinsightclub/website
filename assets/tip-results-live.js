@@ -1,5 +1,5 @@
 (()=>{"use strict";
-const URL="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-member-gateway?route=tip-results";
+const URL="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-tips-api?action=results";
 const grid=document.querySelector(".report-grid");if(!grid)return;
 const reportMap={
 "BI-20260826-001536-MAR":"crystal-palace-man-city-28-08-2026/",
