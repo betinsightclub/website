@@ -950,3 +950,4 @@ document.querySelectorAll("[data-move]").forEach(btn=>btn.addEventListener("poin
 }));
 $("#soundBtn").onclick=()=>$("#soundBtn").textContent=$("#soundBtn").textContent.includes("🔇")?"🔊 Sound":"🔇 Sound";
 fill();
+const _ms=document.querySelector("#moduleStatus");if(_ms){_ms.textContent="3D-Modul bereit";_ms.style.color="#63e6a3";}
