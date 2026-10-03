@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#03111f">
+<title>Penalty Clash V6 · BetInsight Play</title>
+<meta name="description" content="BetInsight Penalty Clash V6 – präzises Elfmeterschießen mit zwei Nationalmannschaften, Power-Steuerung, Shootout-Anzeige, Sudden Death und Turnieratmosphäre.">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/play/v6/styles.css?v=1">
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
+</head>
+<body>
+<div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="/play/v4/"><img src="https://raw.githubusercontent.com/betinsightclub/profil/main/logo_betisight.club.png" alt="BetInsight"></a>
+  <div class="top-actions"><a href="/play/v5/">V5</a><button id="soundBtn" type="button">🔊 Stadion</button></div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">BETINSIGHT PLAY · PENALTY CLASH V6</div>
+  <h1>THE SHOOTOUT</h1>
+  <p>Stadionatmosphäre, bessere Spielerfiguren, klarere Animationen und ein Shootout, das sich mehr wie ein echtes Spiel anfühlt.</p>
+</section>
+
+<main>
+<section id="setup" class="panel setup">
+  <div class="panel-head"><div><span>1</span><h2>Nationalmannschaften wählen</h2></div><small>V6 · POLISH</small></div>
+  <div class="team-pickers">
+    <label>TEAM A<select id="teamA"></select></label>
+    <div class="versus">VS</div>
+    <label>TEAM B<select id="teamB"></select></label>
+  </div>
+  <div id="preview" class="preview"></div>
+  <button id="startBtn" class="primary">ELFMETERSCHIESSEN STARTEN</button>
+</section>
+
+<section id="game" class="game hidden">
+  <div id="shootoutBoard" class="shootout-board"></div>
+  <div class="game-grid">
+    <div class="stage-card">
+      <div class="stage-head">
+        <div><b id="turnTitle">Bereit</b><small id="turnMeta">—</small></div>
+        <div id="pressureLabel" class="pressure">DRUCK</div>
+      </div>
+      <div id="phaserMount" class="phaser-mount"></div>
+      <div class="mobile-shotbar">
+        <div class="mobile-power-line"><b>POWER</b><span id="mobilePowerValue">78%</span></div>
+        <input id="mobilePower" type="range" min="45" max="100" value="78">
+        <button id="mobileShootBtn" class="shoot" disabled>⚽ SCHIESSEN</button>
+      </div>
+      <div class="aim-help">Ziel im Tor antippen → Power wählen → SCHIESSEN.</div>
+    </div>
+    <aside class="control-card">
+      <div class="control-block">
+        <span class="mini-label">AKTUELLER SCHÜTZE</span>
+        <strong id="shooterName">—</strong>
+        <small id="shooterInfo">—</small>
+      </div>
+      <div class="control-block">
+        <span class="mini-label">GEGNERISCHER TORWART</span>
+        <strong id="keeperName">—</strong>
+        <small id="keeperInfo">—</small>
+      </div>
+      <div class="control-block">
+        <div class="control-line"><span class="mini-label">ZIEL</span><b id="aimValue">50 / 50</b></div>
+        <div class="micro-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="control-block">
+        <div class="control-line"><span class="mini-label">SCHUSSSTÄRKE</span><b id="powerValue">78%</b></div>
+        <input id="power" type="range" min="45" max="100" value="78">
+        <div class="power-scale"><span>PRÄZISE</span><span>AUSGEWOGEN</span><span>MAX POWER</span></div>
+      </div>
+      <button id="shootBtn" class="shoot" disabled>⚽ SCHIESSEN</button>
+      <div id="commentary" class="commentary">Setze deinen Zielpunkt im Tor.</div>
+    </aside>
+  </div>
+</section>
+
+<section id="result" class="panel result hidden">
+  <div class="panel-head"><div><span>✓</span><h2>Elfmeterschießen beendet</h2></div><small>OFFIZIELLES ERGEBNIS</small></div>
+  <div id="winnerCard"></div>
+  <div id="shotLog" class="shot-log"></div>
+  <div class="result-actions"><button id="rematchBtn">REVANCHE</button><button id="newBtn" class="primary">NEUES DUELL</button></div>
+</section>
+</main>
+
+<footer>BetInsight Play · Penalty Clash V6 · Unterhaltungssimulation · keine Wettprognose</footer>
+</div>
+<script src="/play/v6/game.js?v=1"></script>
+</body>
+</html>
