@@ -55,3 +55,8 @@ footer{text-align:center;color:#58728a;padding:34px 10px;font-size:.76rem}
 @media(max-width:860px){
  .mobile-shotbar{position:sticky;bottom:0;z-index:20;box-shadow:0 -12px 28px #0009}
 }
+
+/* V7 pseudo-3D stage */
+.stage-card{overflow:visible}
+.phaser-mount{background:radial-gradient(circle at 50% 18%,#12324d 0,#071522 45%,#020914 100%)}
+@media(max-width:560px){.phaser-mount{aspect-ratio:4/3}}
