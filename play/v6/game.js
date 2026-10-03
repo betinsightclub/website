@@ -142,8 +142,8 @@ class ShootoutScene extends Phaser.Scene{
    g.lineStyle(2,0x7ce7ff,.35);g.strokeRect(x+5,y+5,w-10,h-10);
  }
  drawTarget(){const g=this.add.graphics();this.target.add(g);g.lineStyle(2,0x63e5ff,1);g.strokeCircle(0,0,18);g.lineBetween(-27,0,27,0);g.lineBetween(0,-27,0,27);g.strokeCircle(0,0,5);g.fillStyle(0x63e5ff,.9);g.fillCircle(0,0,2.5)}
- drawKeeper(c){this.keeperSprite=this.add.image(0,0,"keeper-ger14").setOrigin(.5,.83).setDisplaySize(154,194);c.add(this.keeperSprite)}
- drawPlayer(c){this.playerSprite=this.add.image(0,0,"player-ger14").setOrigin(.5,.92).setDisplaySize(122,217);c.add(this.playerSprite)}
+ drawKeeper(c){this.keeperSprite=this.add.image(0,0,"keeper-ger14").setOrigin(.5,.83).setDisplaySize(154,194).setVisible(true).setAlpha(1);c.add(this.keeperSprite)}
+ drawPlayer(c){this.playerSprite=this.add.image(0,0,"player-ger14").setOrigin(.5,.92).setDisplaySize(122,217).setVisible(true).setAlpha(1);c.add(this.playerSprite)}
  setColors(att,def){
    if(this.playerSprite)this.playerSprite.setTexture("player-"+att.id).setDisplaySize(122,217);
    if(this.keeperSprite)this.keeperSprite.setTexture("keeper-"+def.id).setDisplaySize(154,194)
@@ -235,7 +235,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function makeBallTexture(sc){const g=sc.make.graphics({x:0,y:0,add:false});g.fillStyle(0xf8fafb);g.fillCircle(64,64,60);g.lineStyle(3,0x172331,.85);g.strokeCircle(64,64,59);g.fillStyle(0x202a36);const pts=[[64,42],[43,58],[51,84],[77,84],[85,58]];g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.fillPath();g.lineStyle(3,0x5b6672,.65);[[64,42,64,8],[43,58,11,48],[51,84,29,111],[77,84,100,111],[85,58,117,48]].forEach(a=>g.lineBetween(...a));g.generateTexture("ball",128,128);g.destroy()}
 function bootPhaser(){game=new Phaser.Game({type:Phaser.AUTO,parent:"phaserMount",width:960,height:540,transparent:false,scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:{
  preload(){
-   TEAMS.forEach(t=>{this.load.svg("player-"+t.id,"/play/v6/assets/player-"+t.id+".svg");this.load.svg("keeper-"+t.id,"/play/v6/assets/keeper-"+t.id+".svg")})
+   TEAMS.forEach(t=>{this.load.svg("player-"+t.id,"/play/v6/assets/player-"+t.id+".svg",{width:180,height:320});this.load.svg("keeper-"+t.id,"/play/v6/assets/keeper-"+t.id+".svg",{width:240,height:300})})
  },
  create(){makeBallTexture(this);this.scene.start("shootout")}
 }});game.scene.add("shootout",ShootoutScene,false)}
