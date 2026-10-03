@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#04111d">
 <title>Penalty Clash V8 · Real 3D</title>
 <link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="/play/v6/styles.css?v=8">
+<link rel="stylesheet" href="/play/v6/styles.css?v=20261003-2">
 </head>
 <body>
 <div class="shell">
@@ -37,6 +37,10 @@
     <div class="stage-card">
       <div class="stage-top"><div><b id="turnTitle">Bereit</b><small id="turnMeta">—</small></div><span id="pressure">DRUCK</span></div>
       <div id="stage" class="stage"></div>
+      <div id="renderError" class="render-error hidden">
+        <b>3D-Renderer konnte nicht gestartet werden.</b>
+        <span id="renderErrorText"></span>
+      </div>
       <div class="stage-note">Tor anklicken = Ziel · <kbd>Alt</kbd> + <kbd>B</kbd> = Ballkontakt · Power wählen · Schießen</div>
       <div class="mobile-controls">
         <button id="contactBtnMobile">ALT+B · BALLKONTAKT</button>
@@ -99,6 +103,6 @@
  </div>
 </div>
 
-<script type="module" src="/play/v6/game.js?v=8"></script>
+<script type="module" src="/play/v6/game.js?v=20261003-2"></script>
 </body>
 </html>
