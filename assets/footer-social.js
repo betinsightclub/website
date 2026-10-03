@@ -139,30 +139,33 @@
     };
     const l = lang();
     const copy = labels[l] || labels.en;
-    const navLinks = document.querySelector(".site-footer .footer-grid > div:nth-child(2) .footer-links")
-      || document.querySelector("footer .footer-links")
-      || document.querySelector("footer");
 
-    if (!navLinks) return;
+    const footer = document.querySelector(".site-footer") || document.querySelector("footer") || document.querySelector(".footer");
+    if (!footer) return;
 
-    let about = navLinks.querySelector('[data-bi-footer-info="about"]');
-    let faq = navLinks.querySelector('[data-bi-footer-info="faq"]');
+    /* If the page already contains fixed footer links, only update them.
+       This avoids duplicates on the main language homepages. */
+    let about = footer.querySelector('a[data-route="about"], a[href$="/was-ist-betinsight/"]');
+    let faq = footer.querySelector('a[data-route="faq"], a[href$="/faq/"]');
 
-    if (!about) {
-      about = document.createElement("a");
-      about.dataset.biFooterInfo = "about";
-      navLinks.appendChild(about);
+    if (about || faq) {
+      if (about) {
+        about.href = "/" + l + "/was-ist-betinsight/";
+        about.textContent = copy.about;
+      }
+      if (faq) {
+        faq.href = "/" + l + "/faq/";
+        faq.textContent = copy.faq;
+      }
+      return;
     }
-    if (!faq) {
-      faq = document.createElement("a");
-      faq.dataset.biFooterInfo = "faq";
-      navLinks.appendChild(faq);
-    }
 
-    about.href = "/" + l + "/was-ist-betinsight/";
-    about.textContent = copy.about;
-    faq.href = "/" + l + "/faq/";
-    faq.textContent = copy.faq;
+    /* Lightweight pages without the full navigation get one compact pair. */
+    let host = footer.querySelector(".footer-links") || footer.querySelector(".w") || footer;
+    const line = document.createElement("div");
+    line.className = "betinsight-footer-info-links";
+    line.innerHTML = '<a data-bi-footer-info="about" href="/' + l + '/was-ist-betinsight/">' + copy.about + '</a><a data-bi-footer-info="faq" href="/' + l + '/faq/">' + copy.faq + '</a>';
+    host.appendChild(line);
   }
 
   function ensureCompanyIdentity(){
