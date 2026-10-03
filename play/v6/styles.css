@@ -18,3 +18,6 @@
 .contact-dot{z-index:5}
 kbd{border:1px solid #44627a;background:#0a1d2e;border-radius:5px;padding:1px 5px;box-shadow:inset 0 -2px #0005}
 @media(max-width:680px){.contact-visual{grid-template-columns:1fr}.foot-wrap{height:120px}.foot-leg{height:70px;top:5px;left:calc(50% - 65px)}.foot-shoe{top:60px;left:calc(50% - 80px)}.impact-arrow{top:67px;right:calc(50% - 100px)}}
+
+.render-error{margin:0;border-top:1px solid #7d3440;background:#2b1017;color:#ffdce2;padding:12px 14px;gap:4px;font-size:.82rem}
+.render-error b{color:#ff8798}.render-error span{color:#ffc0ca;line-height:1.45}
