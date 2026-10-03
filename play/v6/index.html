@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#04111d">
 <title>Penalty Clash V8 · Real 3D</title>
 <link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="/play/v6/styles.css?v=20261003-2">
+<link rel="stylesheet" href="/play/v6/styles.css?v=20261003-3">
 </head>
 <body>
 <div class="shell">
@@ -71,7 +71,7 @@
 <div id="contactModal" class="modal hidden">
  <div class="dialog">
    <button id="closeContact" class="close">×</button>
-   <span>BALLKONTAKT · ALT + B</span>
+   <span>BALLKONTAKT · DESKTOP: ALT + B</span>
    <h2>Wo trifft der Fuß den Ball?</h2>
    <p>Wie bei einer Billardkugel: seitlich = Kurve, unten = mehr Auftrieb/Rückspin, oben = stärkerer Dip/Vorwärtsdrall.</p>
    <div class="contact-grid">
@@ -99,10 +99,14 @@
        <div><span>Kontaktqualität</span><b id="quality">100%</b></div>
      </div>
    </div>
-   <div class="dialog-actions"><button id="resetContact">MITTE</button><button id="applyContact" class="primary">ÜBERNEHMEN</button></div>
+   <div class="dialog-actions sticky-contact-actions">
+      <button id="resetContact">MITTE</button>
+      <button id="cancelContact">ABBRECHEN</button>
+      <button id="applyContact" class="primary">✓ KONTAKT ÜBERNEHMEN</button>
+   </div>
  </div>
 </div>
 
-<script type="module" src="/play/v6/game.js?v=20261003-2"></script>
+<script type="module" src="/play/v6/game.js?v=20261003-3"></script>
 </body>
 </html>
