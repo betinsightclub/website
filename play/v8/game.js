@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js";
 
 const TEAMS=[
 {id:"ger14",name:"Deutschland 2014",nation:"Deutschland",flag:"🇩🇪",shirt:0xf2f2f2,shorts:0x171b22,keeperColor:0xe4b72f,keeper:{name:"Manuel Neuer",club:"FC Bayern München",strength:24},shooters:[["Thomas Müller",24],["Toni Kroos",23],["Bastian Schweinsteiger",23],["Mario Götze",22],["Miroslav Klose",22]]},
@@ -20,7 +20,12 @@ class World3D{
  constructor(el){
    this.el=el;this.scene=new THREE.Scene();this.scene.background=new THREE.Color(0x07131f);
    this.camera=new THREE.PerspectiveCamera(44,16/9,.1,100);this.camera.position.set(0,2.55,15.5);this.camera.lookAt(0,1.15,4.2);
-   this.renderer=new THREE.WebGLRenderer({antialias:true});this.renderer.setPixelRatio(Math.min(devicePixelRatio,2));this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;el.innerHTML="";el.appendChild(this.renderer.domElement);
+   const probe=document.createElement("canvas");
+   const gl2=probe.getContext("webgl2",{failIfMajorPerformanceCaveat:false});
+   const gl1=!gl2&&probe.getContext("webgl",{failIfMajorPerformanceCaveat:false});
+   if(!gl2&&!gl1)throw new Error("WEBGL_NOT_AVAILABLE");
+   this.renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:"default",failIfMajorPerformanceCaveat:false});
+   this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;el.innerHTML="";el.appendChild(this.renderer.domElement);
    this.clock=new THREE.Clock();this.anim=[];this.targetMarker=null;this.player=null;this.keeper=null;this.ball=null;
    this.makeScene();this.resize();addEventListener("resize",()=>this.resize());this.renderer.domElement.addEventListener("pointerdown",e=>this.pickGoal(e));this.loop();
  }
@@ -66,7 +71,7 @@ class World3D{
  stopIdle(){this.idle=false}
  loop(){requestAnimationFrame(()=>this.loop());const t=this.clock.getElapsedTime();if(this.idle&&!S.busy){this.player.position.x=-1.2+Math.sin(t*.9)*.28;this.player.position.z=12.15+Math.sin(t*.63)*.35;this.player.scale.setScalar(1+Math.sin(t*.63)*.012);this.player.armL.rotation.z=-.12+Math.sin(t*1.4)*.08;this.player.armR.rotation.z=.12-Math.sin(t*1.4)*.08;this.keeper.position.x=Math.sin(t*1.25)*.52;this.keeper.position.z=.35+Math.sin(t*.85)*.08;this.keeper.armL.rotation.z=-.52+Math.sin(t*1.7)*.08;this.keeper.armR.rotation.z=.52-Math.sin(t*1.7)*.08}this.anim=this.anim.filter(a=>{const p=Math.min(1,(performance.now()-a.t0)/a.d),e=1-Math.pow(1-p,3);a.step(e,p);if(p>=1){a.done?.();return false}return true});this.renderer.render(this.scene,this.camera)}
  tween(d,step){return new Promise(res=>this.anim.push({t0:performance.now(),d,step,done:res}))}
- pickGoal(e){if(S.busy||S.finished)return;const r=this.renderer.domElement.getBoundingClientRect(),m=new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1),ray=new THREE.Raycaster();ray.setFromCamera(m,this.camera);const hit=ray.intersectObject(this.hitPlane)[0];if(!hit)return;S.target.x=THREE.MathUtils.clamp(hit.point.x,-3.55,3.55);S.target.y=THREE.MathUtils.clamp(hit.point.y,.08,2.36);S.target.set=true;this.showMarker();$("#aim").textContent=Math.round((S.target.x/7.32+.5)*100)+" / "+Math.round(S.target.y/2.44*100);enableShoot(true);$("#commentary").textContent="Ziel gesetzt. Optional B für Ballkontakt, dann Power und Schießen."}
+ pickGoal(e){if(S.busy||S.finished)return;const r=this.renderer.domElement.getBoundingClientRect(),m=new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1),ray=new THREE.Raycaster();ray.setFromCamera(m,this.camera);const hit=ray.intersectObject(this.hitPlane)[0];if(!hit)return;S.target.x=THREE.MathUtils.clamp(hit.point.x,-3.55,3.55);S.target.y=THREE.MathUtils.clamp(hit.point.y,.08,2.36);S.target.set=true;this.showMarker();$("#aim").textContent=Math.round((S.target.x/7.32+.5)*100)+" / "+Math.round(S.target.y/2.44*100);enableShoot(true);$("#commentary").textContent="Ziel gesetzt. Optional Alt+B für Ballkontakt, dann Power und Schießen."}
  showMarker(){if(this.targetMarker)this.scene.remove(this.targetMarker);const ring=new THREE.Mesh(new THREE.RingGeometry(.12,.16,32),new THREE.MeshBasicMaterial({color:0x62e7ff,side:THREE.DoubleSide}));ring.position.set(S.target.x,S.target.y,.08);this.scene.add(ring);this.targetMarker=ring}
  async shoot(sim){
    this.stopIdle();const p0=this.player.position.clone(),p1=new THREE.Vector3(-.45,0,11.35),p2=new THREE.Vector3(.18,0,10.85);
@@ -86,16 +91,56 @@ class World3D{
 function sideTeam(s){return s==="A"?S.A:S.B}function oppTeam(s){return s==="A"?S.B:S.A}function taken(s){return s==="A"?S.ta:S.tb}function goals(s){return s==="A"?S.a:S.b}function shooter(s){const t=sideTeam(s);return t.shooters[taken(s)%t.shooters.length]}
 function syncPower(v){S.power=+v;$("#power").value=v;$("#powerMobile").value=v;$("#powerVal").textContent=v+"%";$("#powerMobileVal").textContent=v+"%"}function enableShoot(v){$("#shootBtn").disabled=!v;$("#shootMobile").disabled=!v}
 function board(){const row=s=>{const t=sideTeam(s),own=S.shots.filter(x=>x.side===s),tk=taken(s);return '<div class="score-row '+(S.side===s&&!S.finished?"active":"")+'"><div class="score-team">'+t.flag+" "+t.name+'<small>TW: '+t.keeper.name+'</small></div><div class="score-num">'+goals(s)+'</div><div class="kicks">'+t.shooters.map((p,i)=>{const sh=own[i],cl=sh?(sh.outcome==="goal"?"good":"bad"):(i===tk&&S.side===s?"now":"");return '<span class="kick '+cl+'"><b>'+p[0].split(" ").slice(-1)[0]+'</b>'+(sh?(sh.outcome==="goal"?"✓":"✕"):"·")+'</span>'}).join("")+own.slice(5).map(sh=>'<span class="kick '+(sh.outcome==="goal"?"good":"bad")+'"><b>'+sh.shooter.split(" ").slice(-1)[0]+'</b>'+(sh.outcome==="goal"?"✓":"✕")+"</span>").join("")+"</div></div>"};$("#scoreboard").innerHTML=row("A")+row("B")}
-function ui(){board();const a=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(S.side);$("#turnTitle").textContent=a.flag+" "+a.name+" am Punkt";$("#turnMeta").textContent=sh[0]+" gegen "+d.keeper.name;$("#shooter").textContent=sh[0];$("#shooterMeta").textContent=a.name+" · Stärke "+sh[1]+"/25";$("#keeper").textContent=d.keeper.name;$("#keeperMeta").textContent=d.keeper.club+" · Stärke "+d.keeper.strength+"/25";$("#pressure").textContent=S.sudden?"SUDDEN DEATH":taken(S.side)>=4?"MATCHBALL":"DRUCK";$("#commentary").textContent="Ziel setzen. Mit B kannst du zusätzlich den Ballkontakt bestimmen.";world.setTeams(a,d);world.reset();enableShoot(false);S.target.set=false;$("#aim").textContent="— / —"}
+function ui(){board();const a=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(S.side);$("#turnTitle").textContent=a.flag+" "+a.name+" am Punkt";$("#turnMeta").textContent=sh[0]+" gegen "+d.keeper.name;$("#shooter").textContent=sh[0];$("#shooterMeta").textContent=a.name+" · Stärke "+sh[1]+"/25";$("#keeper").textContent=d.keeper.name;$("#keeperMeta").textContent=d.keeper.club+" · Stärke "+d.keeper.strength+"/25";$("#pressure").textContent=S.sudden?"SUDDEN DEATH":taken(S.side)>=4?"MATCHBALL":"DRUCK";$("#commentary").textContent="Ziel setzen. Mit Alt+B kannst du zusätzlich festlegen, wo der Fuß den Ball trifft.";world.setTeams(a,d);world.reset();enableShoot(false);S.target.set=false;$("#aim").textContent="— / —"}
 function gauss(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
-function simulate(sh,kp){const pn=(S.power-45)/55,ss=sh[1],ks=kp.strength,disp=.14-(ss-18)*.008+Math.max(0,pn-.6)*.11,spinX=S.contact.x*(.9+.8*pn),spinY=S.contact.y*(.7+.6*pn);let ax=S.target.x+gauss()*disp+spinX*.22,ay=S.target.y+gauss()*disp*.7-spinY*.18;let out=(Math.abs(ax)>3.66||ay<0||ay>2.44)?"miss":"goal";if(out==="goal"&&(Math.abs(Math.abs(ax)-3.66)<.08||Math.abs(ay-2.44)<.08)&&Math.random()<.34)out="post";let kx=(Math.random()<(.2+(ks-18)*.025))?ax:gauss()*1.45,ky=.9+Math.random()*1.0,dist=Math.hypot(ax-kx,(ay-ky)*1.25),saveRadius=.68+(ks-18)*.045-(ss-18)*.035-pn*.12;if(out==="goal"&&dist<saveRadius)out="save";if(out==="goal"&&Math.abs(ax-kx)<.45)kx+=ax>=0?-.9:.9;if(out==="save"){ax=kx+(ax-kx)*.3;ay=ky+(ay-ky)*.3}return{outcome:out,ax,ay,kx:THREE.MathUtils.clamp(kx,-3.2,3.2),ky,spinX,spinY,curveX:spinX*.75,curveY:spinY*.38}}
+function simulate(sh,kp){const pn=(S.power-45)/55,ss=sh[1],ks=kp.strength,disp=.14-(ss-18)*.008+Math.max(0,pn-.6)*.11,cp=contactPhysicsPreview(S.contact.x,S.contact.y),spinX=cp.sideSpin,spinY=cp.verticalSpin;let ax=S.target.x+gauss()*disp+spinX*.22,ay=S.target.y+gauss()*disp*.7-spinY*.18;let out=(Math.abs(ax)>3.66||ay<0||ay>2.44)?"miss":"goal";if(out==="goal"&&(Math.abs(Math.abs(ax)-3.66)<.08||Math.abs(ay-2.44)<.08)&&Math.random()<.34)out="post";let kx=(Math.random()<(.2+(ks-18)*.025))?ax:gauss()*1.45,ky=.9+Math.random()*1.0,dist=Math.hypot(ax-kx,(ay-ky)*1.25),saveRadius=.68+(ks-18)*.045-(ss-18)*.035-pn*.12;if(out==="goal"&&dist<saveRadius)out="save";if(out==="goal"&&Math.abs(ax-kx)<.45)kx+=ax>=0?-.9:.9;if(out==="save"){ax=kx+(ax-kx)*.3;ay=ky+(ay-ky)*.3}return{outcome:out,ax,ay,kx:THREE.MathUtils.clamp(kx,-3.2,3.2),ky,spinX,spinY,curveX:spinX*.75,curveY:spinY*.38}}
 function ended(){if(S.ta<5||S.tb<5){const ra=5-S.ta,rb=5-S.tb;return S.a>S.b+rb||S.b>S.a+ra}return S.ta===S.tb&&S.a!==S.b}
 async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],keeper:d.keeper.name,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"PARADE!":sim.outcome==="post"?"PFOSTEN!":"DANEBEN!";board();await new Promise(r=>setTimeout(r,850));if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
 function finish(){S.finished=true;const win=S.a>S.b?"A":"B";$("#game").classList.add("hidden");$("#result").classList.remove("hidden");$("#winner").innerHTML='<div class="winner-wrap"><div class="winner-team '+(win==="A"?"win":"lose")+'"><div>'+S.A.flag+'</div><h3>'+S.A.name+'</h3><strong>'+S.a+'</strong><br><span>'+(win==="A"?"SIEGER":"AUSGESCHIEDEN")+'</span></div><div class="vs">:</div><div class="winner-team '+(win==="B"?"win":"lose")+'"><div>'+S.B.flag+'</div><h3>'+S.B.name+'</h3><strong>'+S.b+'</strong><br><span>'+(win==="B"?"SIEGER":"AUSGESCHIEDEN")+'</span></div></div>';$("#log").innerHTML=S.shots.map((x,i)=>'<div class="log-row '+(x.outcome==="goal"?"good":"bad")+'"><span>'+(x.outcome==="goal"?"✓":"✕")+'</span><div><b>'+(i+1)+". "+x.shooter+'</b><small>'+x.team+" · "+x.power+'% · Kontakt '+(Math.round(x.contactX*100))+"/"+(Math.round(x.contactY*100))+'</small></div><b>'+(x.outcome==="goal"?"GETROFFEN":x.outcome==="save"?"GEHALTEN":x.outcome==="post"?"PFOSTEN":"DANEBEN")+"</b></div>").join("")}
-function start(){S.A=T($("#teamA").value);S.B=T($("#teamB").value);Object.assign(S,{side:"A",a:0,b:0,ta:0,tb:0,shots:[],power:78,busy:false,sudden:false,finished:false});S.target={x:0,y:1.2,set:false};S.contact={x:0,y:0};syncPower(78);$("#setup").classList.add("hidden");$("#result").classList.add("hidden");$("#game").classList.remove("hidden");if(!world)world=new World3D($("#stage"));setTimeout(ui,120)}
+function showRenderError(err){
+ const box=$("#renderError"),txt=$("#renderErrorText");
+ if(box){box.classList.remove("hidden");box.style.display="grid"}
+ const msg=String(err&&err.message||err||"Unbekannter Fehler");
+ if(txt)txt.textContent=msg==="WEBGL_NOT_AVAILABLE"
+   ?"Dein Browser stellt hier aktuell kein WebGL bereit. Unter Linux liegt das meist an deaktivierter Hardwarebeschleunigung oder blockiertem WebGL – nicht an Linux selbst."
+   :"3D-Fehler: "+msg;
+ $("#commentary").textContent="3D konnte nicht initialisiert werden.";
+}
+function clearRenderError(){const box=$("#renderError");if(box){box.classList.add("hidden");box.style.display=""}}
+function start(){S.A=T($("#teamA").value);S.B=T($("#teamB").value);Object.assign(S,{side:"A",a:0,b:0,ta:0,tb:0,shots:[],power:78,busy:false,sudden:false,finished:false});S.target={x:0,y:1.2,set:false};S.contact={x:0,y:0};syncPower(78);$("#setup").classList.add("hidden");$("#result").classList.add("hidden");$("#game").classList.remove("hidden");try{
+   clearRenderError();
+   if(!world)world=new World3D($("#stage"));
+   setTimeout(ui,120);
+ }catch(err){
+   console.error("Penalty Clash 3D init failed",err);
+   showRenderError(err);
+ }}
 $("#startBtn").onclick=start;$("#shootBtn").onclick=shootNow;$("#shootMobile").onclick=shootNow;$("#power").oninput=e=>syncPower(e.target.value);$("#powerMobile").oninput=e=>syncPower(e.target.value);$("#rematch").onclick=start;$("#newMatch").onclick=()=>{$("#result").classList.add("hidden");$("#game").classList.add("hidden");$("#setup").classList.remove("hidden")};
 
-function setContact(x,y){const l=Math.hypot(x,y);if(l>.92){x=x/l*.92;y=y/l*.92}S.contact.x=x;S.contact.y=y;$("#contactDot").style.left=((x+1)*50)+"%";$("#contactDot").style.top=((y+1)*50)+"%";$("#cx").textContent=Math.abs(x)<.12?"MITTE":x<0?"LINKS":"RECHTS";$("#cy").textContent=Math.abs(y)<.12?"MITTE":y<0?"OBEN":"UNTEN";$("#spin").textContent=Math.round(Math.abs(x)*100);$("#flight").textContent=(Math.abs(x)>.18?(x<0?"KURVE LINKS":"KURVE RECHTS"):"GERADE")+(y>.25?" + AUFTRIEB":y<-.25?" + DIP":"");$("#contactLabel").textContent=(Math.abs(x)<.12&&Math.abs(y)<.12)?"MITTE":(x<-.12?"LINKS ":x>.12?"RECHTS ":"")+(y<-.12?"OBEN":y>.12?"UNTEN":"")}
-function openContact(){$("#contactModal").classList.remove("hidden");setContact(S.contact.x,S.contact.y)}function closeContact(){$("#contactModal").classList.add("hidden")}$("#contactBtn").onclick=openContact;$("#contactBtnMobile").onclick=openContact;$("#closeContact").onclick=closeContact;$("#applyContact").onclick=closeContact;$("#resetContact").onclick=()=>setContact(0,0);$("#contactBall").onpointerdown=e=>{const r=e.currentTarget.getBoundingClientRect();setContact(((e.clientX-r.left)/r.width-.5)*2,((e.clientY-r.top)/r.height-.5)*2)};addEventListener("keydown",e=>{if((e.key==="b"||e.key==="B")&&!["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName)){e.preventDefault();openContact()}if(e.key==="Escape")closeContact()});
+function contactPhysicsPreview(x,y){
+  const p=(S.power-45)/55;
+  const sideSpin=x*(0.85+0.75*p);
+  const verticalSpin=y*(0.70+0.60*p);
+  const curveM=sideSpin*(0.42+0.18*p);
+  const liftM=verticalSpin*(0.30+0.15*p);
+  const offCenter=Math.min(1,Math.hypot(x,y));
+  const quality=Math.max(58,Math.round(100-offCenter*28-Math.max(0,p-.72)*12));
+  return{sideSpin,verticalSpin,curveM,liftM,quality}
+}
+function setContact(x,y){
+ const l=Math.hypot(x,y);if(l>.92){x=x/l*.92;y=y/l*.92}
+ S.contact.x=x;S.contact.y=y;
+ $("#contactDot").style.left=((x+1)*50)+"%";$("#contactDot").style.top=((y+1)*50)+"%";
+ $("#cx").textContent=Math.abs(x)<.12?"MITTE":x<0?"LINKS":"RECHTS";
+ $("#cy").textContent=Math.abs(y)<.12?"MITTE":y<0?"OBEN":"UNTEN";
+ const ph=contactPhysicsPreview(x,y);
+ $("#spin").textContent=Math.round(Math.abs(ph.sideSpin)*100);
+ $("#flight").textContent=(Math.abs(x)>.18?(x<0?"KURVE LINKS":"KURVE RECHTS"):"GERADE")+(y>.25?" + AUFTRIEB":y<-.25?" + DIP":"");
+ $("#curve").textContent=(ph.curveM>=0?"+":"")+Math.round(ph.curveM*100)+" cm";
+ $("#lift").textContent=(ph.liftM>=0?"+":"")+Math.round(ph.liftM*100)+" cm";
+ $("#quality").textContent=ph.quality+"%";
+ $("#contactLabel").textContent=(Math.abs(x)<.12&&Math.abs(y)<.12)?"MITTE":(x<-.12?"LINKS ":x>.12?"RECHTS ":"")+(y<-.12?"OBEN":y>.12?"UNTEN":"")
+}
+function openContact(){$("#contactModal").classList.remove("hidden");setContact(S.contact.x,S.contact.y)}function closeContact(){$("#contactModal").classList.add("hidden")}$("#contactBtn").onclick=openContact;$("#contactBtnMobile").onclick=openContact;$("#closeContact").onclick=closeContact;$("#applyContact").onclick=closeContact;$("#resetContact").onclick=()=>setContact(0,0);$("#contactBall").onpointerdown=e=>{const r=e.currentTarget.getBoundingClientRect();setContact(((e.clientX-r.left)/r.width-.5)*2,((e.clientY-r.top)/r.height-.5)*2)};addEventListener("keydown",e=>{if(e.altKey&&(e.key==="b"||e.key==="B")&&!["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName)){e.preventDefault();openContact()}if(e.key==="Escape")closeContact()});
 $("#soundBtn").onclick=()=>$("#soundBtn").textContent=$("#soundBtn").textContent.includes("🔇")?"🔊 Sound":"🔇 Sound";
 fill();
