@@ -43,10 +43,24 @@ class World3D{
      const key=clip.name.replace(/^HumanArmature\|Man_/,"");
      clips[key]=clip;
    }
+   // IMPORTANT: the source armature carries a large internal scale.
+   // Measuring the whole scene with Box3.setFromObject makes the rig appear
+   // ~100x taller than the visible skinned body, which then shrinks our player
+   // to a tiny dot. Measure the actual skinned meshes in bind pose instead.
    gltf.scene.updateMatrixWorld(true);
-   const box=new THREE.Box3().setFromObject(gltf.scene);
-   const height=Math.max(.001,box.max.y-box.min.y);
-   this.realModel={scene:gltf.scene,clips,sourceHeight:height,sourceMinY:box.min.y};
+   const box=new THREE.Box3();box.makeEmpty();
+   const meshBox=new THREE.Box3();
+   gltf.scene.traverse(o=>{
+     if(!o.isSkinnedMesh)return;
+     if(typeof o.computeBoundingBox==="function")o.computeBoundingBox();
+     if(o.boundingBox){
+       meshBox.copy(o.boundingBox).applyMatrix4(o.matrixWorld);
+       box.union(meshBox);
+     }
+   });
+   if(box.isEmpty())box.setFromObject(gltf.scene);
+   const sourceHeight=Math.max(.001,box.max.y-box.min.y);
+   this.realModel={scene:gltf.scene,clips,sourceHeight,sourceMinY:box.min.y};
    return this.realModel
  }
  applyRigKit(root,shirt,shorts,isKeeper=false){
@@ -80,16 +94,40 @@ class World3D{
  async installRealRig(root,height,shirt,shorts,isKeeper=false){
    const model=await this.loadRealCharacterModel();
    const rig=SkeletonUtils.clone(model.scene);
-   // Normalize to actual requested human height and put feet on y=0.
-   const box=new THREE.Box3().setFromObject(rig),h=Math.max(.001,box.max.y-box.min.y),scale=height/h;
-   rig.scale.setScalar(scale);rig.updateMatrixWorld(true);
-   const box2=new THREE.Box3().setFromObject(rig);
-   rig.position.y-=box2.min.y;
+   // Normalize from the measured skinned-body height, not the armature bounds.
+   const scale=height/model.sourceHeight;
+   rig.scale.setScalar(scale);
+   rig.position.y=-model.sourceMinY*scale;
+   rig.updateMatrixWorld(true);
    this.applyRigKit(rig,shirt,shorts,isKeeper);
    // Hide primitive fallback meshes but keep their groups/joints for existing motion code.
    root.traverse(o=>{if(o.isMesh)o.visible=false});
    root.add(rig);
    rig.traverse(o=>{if(o.isMesh)o.visible=true});
+   // Final visual-height sanity pass. This catches GLB exporter/armature quirks.
+   rig.updateMatrixWorld(true);
+   const visualBox=new THREE.Box3();visualBox.makeEmpty();
+   const tempBox=new THREE.Box3();
+   rig.traverse(o=>{
+     if(!o.isSkinnedMesh)return;
+     if(typeof o.computeBoundingBox==="function")o.computeBoundingBox();
+     if(o.boundingBox){tempBox.copy(o.boundingBox).applyMatrix4(o.matrixWorld);visualBox.union(tempBox)}
+   });
+   if(!visualBox.isEmpty()){
+     const vh=visualBox.max.y-visualBox.min.y;
+     if(vh>0.001 && (vh<height*.85 || vh>height*1.15)){
+       const correction=height/vh;
+       rig.scale.multiplyScalar(correction);
+       rig.updateMatrixWorld(true);
+       const corrected=new THREE.Box3();corrected.makeEmpty();
+       rig.traverse(o=>{
+         if(!o.isSkinnedMesh)return;
+         if(typeof o.computeBoundingBox==="function")o.computeBoundingBox();
+         if(o.boundingBox){tempBox.copy(o.boundingBox).applyMatrix4(o.matrixWorld);corrected.union(tempBox)}
+       });
+       if(!corrected.isEmpty())rig.position.y-=corrected.min.y;
+     }
+   }
    const mixer=new THREE.AnimationMixer(rig);
    root.userData.realRig=rig;root.userData.mixer=mixer;root.userData.clips=model.clips;root.userData.actions={};root.userData.isGLB=true;
    this.playRigClip(root,"Idle",{fade:0});
