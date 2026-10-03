@@ -52,33 +52,145 @@ class World3D{
  }
  makeBall(){const g=new THREE.Group();const ball=new THREE.Mesh(new THREE.SphereGeometry(.11,28,20),new THREE.MeshStandardMaterial({color:0xf8f8f6,roughness:.5}));ball.castShadow=true;g.add(ball);for(let i=0;i<8;i++){const p=new THREE.Mesh(new THREE.CircleGeometry(.024,5),new THREE.MeshBasicMaterial({color:0x17202b}));p.position.set(Math.sin(i*.78)*.102,Math.cos(i*.78)*.07,Math.cos(i*.78)*.08);p.lookAt(new THREE.Vector3(0,0,0));g.add(p)}return g}
  makeHuman(height,shirt,shorts,isKeeper){
-   const root=new THREE.Group(),skin=0xc78f6f;
-   const mat=c=>new THREE.MeshStandardMaterial({color:c,roughness:.72});
-   const part=(geo,c)=>{const m=new THREE.Mesh(geo,mat(c));m.castShadow=true;return m};
-   const pelvis=new THREE.Group();pelvis.position.y=height*.53;root.add(pelvis);
-   const torso=part(new THREE.CapsuleGeometry(height*.15,height*.27,5,12),shirt);torso.position.y=height*.16;pelvis.add(torso);
-   const head=part(new THREE.SphereGeometry(height*.105,24,18),skin);head.scale.set(.85,1,.92);head.position.y=height*.43;pelvis.add(head);
-   const hair=part(new THREE.SphereGeometry(height*.108,20,12),0x2a211d);hair.scale.set(.86,.48,.94);hair.position.y=height*.475;pelvis.add(hair);
-   const faceMat=new THREE.MeshBasicMaterial({color:0x3b241d,transparent:true,opacity:.65});const face=new THREE.Mesh(new THREE.CircleGeometry(height*.035,16),faceMat);face.position.set(0,height*.43,height*.096);pelvis.add(face);
-   const mkLimb=(x,y,len,r,c)=>{const pivot=new THREE.Group();pivot.position.set(x,y,0);const limb=part(new THREE.CapsuleGeometry(r,len-r*2,4,10),c);limb.position.y=-len/2;limb.rotation.z=0;pivot.add(limb);pelvis.add(pivot);return pivot};
-   root.armL=mkLimb(-height*.18,height*.30,height*.34,height*.045,skin);root.armR=mkLimb(height*.18,height*.30,height*.34,height*.045,skin);
-   root.legL=mkLimb(-height*.09,0,height*.53,height*.058,shorts);root.legR=mkLimb(height*.09,0,height*.53,height*.058,shorts);
-   if(isKeeper){root.armL.rotation.z=-.48;root.armR.rotation.z=.48}else{root.armL.rotation.z=-.1;root.armR.rotation.z=.1}
-   root.userData.height=height;return root
+   const root=new THREE.Group();
+   const skin=0xc78f6f,skinDark=0x9b664d,hairColor=0x241b18,bootColor=0x10151d,sockColor=0xf0f3f5;
+   const mkMat=(c,r=.68,m=.02)=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m});
+   const part=(geo,c,r=.68)=>{const m=new THREE.Mesh(geo,mkMat(c,r));m.castShadow=true;m.receiveShadow=true;return m};
+
+   // Feet on y=0, total height approximately equals requested player height.
+   const pelvisY=height*.53;
+   const pelvis=new THREE.Group();pelvis.position.y=pelvisY;root.add(pelvis);
+
+   // Pelvis / shorts block
+   const hip=part(new THREE.SphereGeometry(height*.115,20,14),shorts,.82);
+   hip.scale.set(1.35,.72,.82);hip.position.y=-height*.015;pelvis.add(hip);
+
+   // Tapered torso with shoulders
+   const torsoGeo=new THREE.CylinderGeometry(height*.155,height*.125,height*.39,18,1,false);
+   const torso=part(torsoGeo,shirt,.76);torso.position.y=height*.20;torso.scale.z=.72;pelvis.add(torso);
+   const shoulderL=part(new THREE.SphereGeometry(height*.075,16,12),shirt,.76);shoulderL.scale.set(1.0,.92,.9);shoulderL.position.set(-height*.16,height*.34,0);pelvis.add(shoulderL);
+   const shoulderR=shoulderL.clone();shoulderR.material=mkMat(shirt,.76);shoulderR.position.x=height*.16;pelvis.add(shoulderR);
+
+   // Neck
+   const neck=part(new THREE.CylinderGeometry(height*.045,height*.052,height*.075,14),skin,.8);neck.position.y=height*.435;pelvis.add(neck);
+
+   // Head with jaw/chin instead of a simple ball
+   const head=part(new THREE.SphereGeometry(height*.105,28,20),skin,.82);
+   head.scale.set(.86,1.06,.9);head.position.y=height*.535;pelvis.add(head);
+   const jaw=part(new THREE.SphereGeometry(height*.075,22,14),skin,.84);
+   jaw.scale.set(.95,.68,.92);jaw.position.set(0,height*.48,height*.006);pelvis.add(jaw);
+
+   // Ears
+   const earGeo=new THREE.SphereGeometry(height*.022,12,8);
+   const earL=part(earGeo,skin,.84);earL.scale.set(.55,1,.55);earL.position.set(-height*.094,height*.54,0);pelvis.add(earL);
+   const earR=earL.clone();earR.material=mkMat(skin,.84);earR.position.x=height*.094;pelvis.add(earR);
+
+   // Hair cap
+   const hair=part(new THREE.SphereGeometry(height*.108,24,16),hairColor,.9);
+   hair.scale.set(.89,.48,.94);hair.position.y=height*.585;pelvis.add(hair);
+   const hairFront=part(new THREE.BoxGeometry(height*.13,height*.025,height*.045),hairColor,.9);
+   hairFront.position.set(0,height*.565,height*.085);hairFront.rotation.x=-.12;pelvis.add(hairFront);
+
+   // Face details — eyes, brows, nose, mouth
+   const eyeMat=new THREE.MeshBasicMaterial({color:0x171717});
+   const whiteMat=new THREE.MeshBasicMaterial({color:0xf6f7f7});
+   const eyeGeo=new THREE.SphereGeometry(height*.012,12,8);
+   const eyeWhiteGeo=new THREE.SphereGeometry(height*.016,12,8);
+   [-1,1].forEach(side=>{
+     const ew=new THREE.Mesh(eyeWhiteGeo,whiteMat);ew.scale.set(1.15,.7,.45);ew.position.set(side*height*.036,height*.548,height*.092);pelvis.add(ew);
+     const e=new THREE.Mesh(eyeGeo,eyeMat);e.scale.set(.7,.7,.45);e.position.set(side*height*.036,height*.548,height*.105);pelvis.add(e);
+     const brow=part(new THREE.BoxGeometry(height*.047,height*.008,height*.01),hairColor,.9);brow.position.set(side*height*.037,height*.572,height*.104);brow.rotation.z=side*.08;pelvis.add(brow);
+   });
+   const nose=part(new THREE.ConeGeometry(height*.018,height*.045,10),skinDark,.86);nose.rotation.x=Math.PI/2;nose.position.set(0,height*.522,height*.108);pelvis.add(nose);
+   const mouth=new THREE.Mesh(new THREE.TorusGeometry(height*.026,height*.004,8,22,Math.PI),new THREE.MeshBasicMaterial({color:0x6c2e2d}));
+   mouth.rotation.set(Math.PI,0,0);mouth.position.set(0,height*.485,height*.103);pelvis.add(mouth);
+
+   // Segmented arms with elbow joints.
+   function makeArm(side){
+     const shoulder=new THREE.Group();shoulder.position.set(side*height*.18,height*.335,0);pelvis.add(shoulder);
+     const upper=part(new THREE.CapsuleGeometry(height*.038,height*.15,5,10),isKeeper?shirt:skin,.8);
+     upper.position.y=-height*.095;shoulder.add(upper);
+     const elbow=part(new THREE.SphereGeometry(height*.043,14,10),skin,.82);elbow.position.y=-height*.19;shoulder.add(elbow);
+     const forePivot=new THREE.Group();forePivot.position.y=-height*.19;shoulder.add(forePivot);
+     const fore=part(new THREE.CapsuleGeometry(height*.034,height*.145,5,10),skin,.82);fore.position.y=-height*.087;forePivot.add(fore);
+     const hand=part(new THREE.SphereGeometry(height*.045,14,10),isKeeper?0xf5f7f8:skin,.72);hand.scale.set(.75,1.0,.55);hand.position.y=-height*.18;forePivot.add(hand);
+     shoulder.userData.fore=forePivot;
+     return shoulder;
+   }
+   root.armL=makeArm(-1);root.armR=makeArm(1);
+
+   // Segmented legs with knee, socks, boots.
+   function makeLeg(side){
+     const hipPivot=new THREE.Group();hipPivot.position.set(side*height*.085,0,0);pelvis.add(hipPivot);
+     const thigh=part(new THREE.CapsuleGeometry(height*.055,height*.18,5,10),shorts,.82);thigh.position.y=-height*.12;hipPivot.add(thigh);
+     const knee=part(new THREE.SphereGeometry(height*.05,14,10),skin,.83);knee.position.y=-height*.245;hipPivot.add(knee);
+     const shinPivot=new THREE.Group();shinPivot.position.y=-height*.245;hipPivot.add(shinPivot);
+     const shin=part(new THREE.CapsuleGeometry(height*.047,height*.185,5,10),skin,.83);shin.position.y=-height*.115;shinPivot.add(shin);
+     const sock=part(new THREE.CylinderGeometry(height*.048,height*.052,height*.13,14),sockColor,.88);sock.position.y=-height*.24;shinPivot.add(sock);
+     const boot=part(new THREE.BoxGeometry(height*.12,height*.055,height*.23),bootColor,.62);boot.position.set(0,-height*.31,height*.055);boot.rotation.x=.03;shinPivot.add(boot);
+     hipPivot.userData.shin=shinPivot;
+     return hipPivot;
+   }
+   root.legL=makeLeg(-1);root.legR=makeLeg(1);
+
+   // Keeper gloves/cuffs
+   if(isKeeper){
+     root.armL.rotation.z=-.52;root.armR.rotation.z=.52;
+     root.armL.userData.fore.rotation.z=-.08;root.armR.userData.fore.rotation.z=.08;
+   }else{
+     root.armL.rotation.z=-.10;root.armR.rotation.z=.10;
+   }
+
+   // Save references/materials for recoloring and animation.
+   root.userData.height=height;
+   root.userData.torso=torso;root.userData.shoulderL=shoulderL;root.userData.shoulderR=shoulderR;root.userData.hip=hip;
+   root.userData.shirtMat=torso.material;root.userData.shortMat=hip.material;
+   root.userData.isKeeper=isKeeper;
+   return root
  }
  recolorHuman(h,shirt,shorts){h.traverse(o=>{if(o.isMesh&&o.geometry.type.includes("Capsule")){if(o===h.children?.[0])return}})}
- setTeams(att,def){this.player.traverse(o=>{if(o.isMesh&&o.material&&o.geometry.type.includes("Capsule")&&o.parent!==this.player.armL&&o.parent!==this.player.armR&&o.parent!==this.player.legL&&o.parent!==this.player.legR)o.material.color.setHex(att.shirt)});this.player.legL.children[0].material.color.setHex(att.shorts);this.player.legR.children[0].material.color.setHex(att.shorts);this.keeper.traverse(o=>{if(o.isMesh&&o.geometry.type.includes("Capsule")&&o.parent!==this.keeper.legL&&o.parent!==this.keeper.legR)o.material.color.setHex(def.keeperColor)});}
+ setTeams(att,def){
+   const recolor=(human,shirt,shorts)=>{
+     if(human.userData.torso)human.userData.torso.material.color.setHex(shirt);
+     if(human.userData.shoulderL)human.userData.shoulderL.material.color.setHex(shirt);
+     if(human.userData.shoulderR)human.userData.shoulderR.material.color.setHex(shirt);
+     if(human.userData.hip)human.userData.hip.material.color.setHex(shorts);
+     // keeper upper arms use shirt color
+     if(human.userData.isKeeper){
+       human.armL.children[0].material.color.setHex(shirt);
+       human.armR.children[0].material.color.setHex(shirt);
+     }
+     human.legL.children[0].material.color.setHex(shorts);
+     human.legR.children[0].material.color.setHex(shorts);
+   };
+   recolor(this.player,att.shirt,att.shorts);
+   recolor(this.keeper,def.keeperColor,0x17263a);
+ } 
  startIdle(){this.idle=true}
  stopIdle(){this.idle=false}
- loop(){requestAnimationFrame(()=>this.loop());const t=this.clock.getElapsedTime();if(this.idle&&!S.busy){this.player.position.x=-1.2+Math.sin(t*.9)*.28;this.player.position.z=12.15+Math.sin(t*.63)*.35;this.player.scale.setScalar(1+Math.sin(t*.63)*.012);this.player.armL.rotation.z=-.12+Math.sin(t*1.4)*.08;this.player.armR.rotation.z=.12-Math.sin(t*1.4)*.08;this.keeper.position.x=Math.sin(t*1.25)*.52;this.keeper.position.z=.35+Math.sin(t*.85)*.08;this.keeper.armL.rotation.z=-.52+Math.sin(t*1.7)*.08;this.keeper.armR.rotation.z=.52-Math.sin(t*1.7)*.08}this.anim=this.anim.filter(a=>{const p=Math.min(1,(performance.now()-a.t0)/a.d),e=1-Math.pow(1-p,3);a.step(e,p);if(p>=1){a.done?.();return false}return true});this.renderer.render(this.scene,this.camera)}
+ loop(){requestAnimationFrame(()=>this.loop());const t=this.clock.getElapsedTime();if(this.idle&&!S.busy){this.player.position.x=-1.2+Math.sin(t*.9)*.28;this.player.position.z=12.15+Math.sin(t*.63)*.35;this.player.scale.setScalar(1+Math.sin(t*.63)*.012);this.player.armL.rotation.z=-.12+Math.sin(t*1.4)*.08;this.player.armR.rotation.z=.12-Math.sin(t*1.4)*.08;
+ this.player.armL.userData.fore.rotation.x=Math.sin(t*1.25)*.08;this.player.armR.userData.fore.rotation.x=-Math.sin(t*1.25)*.08;
+ this.player.legL.userData.shin.rotation.x=Math.max(0,Math.sin(t*.9))*.08;this.player.legR.userData.shin.rotation.x=Math.max(0,-Math.sin(t*.9))*.08;
+ this.keeper.position.x=Math.sin(t*1.25)*.52;this.keeper.position.z=.35+Math.sin(t*.85)*.08;
+ this.keeper.armL.rotation.z=-.52+Math.sin(t*1.7)*.08;this.keeper.armR.rotation.z=.52-Math.sin(t*1.7)*.08;
+ this.keeper.legL.userData.shin.rotation.x=.10+Math.sin(t*1.6)*.04;this.keeper.legR.userData.shin.rotation.x=.10-Math.sin(t*1.6)*.04}this.anim=this.anim.filter(a=>{const p=Math.min(1,(performance.now()-a.t0)/a.d),e=1-Math.pow(1-p,3);a.step(e,p);if(p>=1){a.done?.();return false}return true});this.renderer.render(this.scene,this.camera)}
  tween(d,step){return new Promise(res=>this.anim.push({t0:performance.now(),d,step,done:res}))}
  pickGoal(e){if(S.busy||S.finished)return;const r=this.renderer.domElement.getBoundingClientRect(),m=new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1),ray=new THREE.Raycaster();ray.setFromCamera(m,this.camera);const hit=ray.intersectObject(this.hitPlane)[0];if(!hit)return;S.target.x=THREE.MathUtils.clamp(hit.point.x,-3.55,3.55);S.target.y=THREE.MathUtils.clamp(hit.point.y,.08,2.36);S.target.set=true;this.showMarker();$("#aim").textContent=Math.round((S.target.x/7.32+.5)*100)+" / "+Math.round(S.target.y/2.44*100);enableShoot(true);$("#commentary").textContent="Ziel gesetzt. Optional Alt+B für Ballkontakt, dann Power und Schießen."}
  showMarker(){if(this.targetMarker)this.scene.remove(this.targetMarker);const ring=new THREE.Mesh(new THREE.RingGeometry(.12,.16,32),new THREE.MeshBasicMaterial({color:0x62e7ff,side:THREE.DoubleSide}));ring.position.set(S.target.x,S.target.y,.08);this.scene.add(ring);this.targetMarker=ring}
  async shoot(sim){
    this.stopIdle();const p0=this.player.position.clone(),p1=new THREE.Vector3(-.45,0,11.35),p2=new THREE.Vector3(.18,0,10.85);
-   await this.tween(360,e=>{this.player.position.lerpVectors(p0,p1,e);this.player.legL.rotation.z=.28*Math.sin(e*Math.PI*2);this.player.legR.rotation.z=-.34*Math.sin(e*Math.PI*2);this.player.armL.rotation.z=-.15-.25*Math.sin(e*Math.PI*2);this.player.armR.rotation.z=.15+.25*Math.sin(e*Math.PI*2)});
-   await this.tween(150,e=>{this.player.position.lerpVectors(p1,p2,e);this.player.legR.rotation.x=-1.15*Math.sin(e*Math.PI);this.player.rotation.y=Math.PI-.12*e});
-   const kp0=this.keeper.position.clone(),kdir=sim.kx>=0?1:-1;this.tween(420,e=>{this.keeper.position.x=THREE.MathUtils.lerp(kp0.x,sim.kx,e);this.keeper.position.y=Math.sin(e*Math.PI)*.35;this.keeper.position.z=THREE.MathUtils.lerp(kp0.z,.2,e);this.keeper.rotation.z=-kdir*.95*e;this.keeper.armL.rotation.z=-.5-kdir*.7*e;this.keeper.armR.rotation.z=.5-kdir*.7*e});
+   await this.tween(360,e=>{this.player.position.lerpVectors(p0,p1,e);this.player.legL.rotation.x=.48*Math.sin(e*Math.PI*2);this.player.legR.rotation.x=-.56*Math.sin(e*Math.PI*2);
+ this.player.legL.userData.shin.rotation.x=Math.max(0,-Math.sin(e*Math.PI*2))*.75;this.player.legR.userData.shin.rotation.x=Math.max(0,Math.sin(e*Math.PI*2))*.75;
+ this.player.armL.rotation.x=-.42*Math.sin(e*Math.PI*2);this.player.armR.rotation.x=.42*Math.sin(e*Math.PI*2);
+ this.player.armL.userData.fore.rotation.x=.18+Math.max(0,Math.sin(e*Math.PI*2))*.25;this.player.armR.userData.fore.rotation.x=.18+Math.max(0,-Math.sin(e*Math.PI*2))*.25});
+   await this.tween(150,e=>{this.player.position.lerpVectors(p1,p2,e);this.player.legR.rotation.x=-1.05*Math.sin(e*Math.PI);
+ this.player.legR.userData.shin.rotation.x=1.35*Math.sin(e*Math.PI);
+ this.player.legL.rotation.x=.16*Math.sin(e*Math.PI);
+ this.player.rotation.y=Math.PI-.12*e});
+   const kp0=this.keeper.position.clone(),kdir=sim.kx>=0?1:-1;this.tween(420,e=>{this.keeper.position.x=THREE.MathUtils.lerp(kp0.x,sim.kx,e);this.keeper.position.y=Math.sin(e*Math.PI)*.35;this.keeper.position.z=THREE.MathUtils.lerp(kp0.z,.2,e);this.keeper.rotation.z=-kdir*.95*e;this.keeper.armL.rotation.z=-.5-kdir*.7*e;this.keeper.armR.rotation.z=.5-kdir*.7*e;
+ this.keeper.armL.userData.fore.rotation.z=-kdir*.28*e;this.keeper.armR.userData.fore.rotation.z=-kdir*.28*e;
+ this.keeper.legL.rotation.z=-kdir*.18*e;this.keeper.legR.rotation.z=-kdir*.32*e;
+ this.keeper.legL.userData.shin.rotation.x=.35*e;this.keeper.legR.userData.shin.rotation.x=.48*e});
    const b0=this.ball.position.clone(),b1=new THREE.Vector3(sim.ax,sim.ay,0),cx=(b0.x+b1.x)/2+sim.curveX,cy=(b0.y+b1.y)/2+sim.curveY,cz=(b0.z+b1.z)/2-1.5;
    await this.tween(460+(100-S.power)*2,(e,p)=>{const u=1-e;this.ball.position.set(u*u*b0.x+2*u*e*cx+e*e*b1.x,u*u*b0.y+2*u*e*cy+e*e*b1.y,u*u*b0.z+2*u*e*cz+e*e*b1.z);this.ball.rotation.x+=.25;this.ball.rotation.y+=.18+Math.abs(sim.spinX)*.05});
    if(sim.outcome==="goal")await this.tween(130,e=>this.ball.position.z=-.7*e);
@@ -86,7 +198,14 @@ class World3D{
    if(sim.outcome==="post"){const q=this.ball.position.clone();await this.tween(220,e=>{this.ball.position.x=q.x-kdir*.9*e;this.ball.position.z=q.z+1.2*e})}
    await this.tween(320,e=>{this.player.position.lerpVectors(p2,new THREE.Vector3(.75,0,10.2),e);this.player.rotation.y=Math.PI-.25*e});
  }
- reset(){this.player.position.set(-1.2,0,12.2);this.player.rotation.set(0,Math.PI,0);this.player.scale.setScalar(1);this.player.armL.rotation.set(0,0,-.1);this.player.armR.rotation.set(0,0,.1);this.player.legL.rotation.set(0,0,0);this.player.legR.rotation.set(0,0,0);this.keeper.position.set(0,0,.35);this.keeper.rotation.set(0,0,0);this.keeper.armL.rotation.set(0,0,-.48);this.keeper.armR.rotation.set(0,0,.48);this.ball.position.set(0,.11,11);this.ball.rotation.set(0,0,0);if(this.targetMarker){this.scene.remove(this.targetMarker);this.targetMarker=null}this.startIdle()}
+ reset(){this.player.position.set(-1.2,0,12.2);this.player.rotation.set(0,Math.PI,0);this.player.scale.setScalar(1);this.player.armL.rotation.set(0,0,-.1);this.player.armR.rotation.set(0,0,.1);this.player.legL.rotation.set(0,0,0);this.player.legR.rotation.set(0,0,0);
+ this.player.legL.userData.shin.rotation.set(0,0,0);this.player.legR.userData.shin.rotation.set(0,0,0);
+ this.player.armL.userData.fore.rotation.set(0,0,0);this.player.armR.userData.fore.rotation.set(0,0,0);
+ this.keeper.position.set(0,0,.35);this.keeper.rotation.set(0,0,0);this.keeper.armL.rotation.set(0,0,-.48);this.keeper.armR.rotation.set(0,0,.48);
+ this.keeper.armL.userData.fore.rotation.set(0,0,0);this.keeper.armR.userData.fore.rotation.set(0,0,0);
+ this.keeper.legL.rotation.set(0,0,0);this.keeper.legR.rotation.set(0,0,0);
+ this.keeper.legL.userData.shin.rotation.set(0,0,0);this.keeper.legR.userData.shin.rotation.set(0,0,0);
+ this.ball.position.set(0,.11,11);this.ball.rotation.set(0,0,0);if(this.targetMarker){this.scene.remove(this.targetMarker);this.targetMarker=null}this.startIdle()}
 }
 
 function sideTeam(s){return s==="A"?S.A:S.B}function oppTeam(s){return s==="A"?S.B:S.A}function taken(s){return s==="A"?S.ta:S.tb}function goals(s){return s==="A"?S.a:S.b}function shooter(s){const t=sideTeam(s);return t.shooters[taken(s)%t.shooters.length]}
