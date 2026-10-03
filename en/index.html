@@ -513,6 +513,8 @@
           <a href="https://betinsight.network/" data-i18n="footerPremiumNetwork">Premium Network</a>
           <a href="https://betinsight.systeme.io/registrierung?ref=POOL" data-i18n="footerRegister">Registrierung</a>
           <a href="https://betinsight.systeme.io/school/course/mitglieder/lecture/9870726" data-i18n="footerLogin">Einloggen</a>
+          <a href="/en/was-ist-betinsight/" class="route-link" data-route="about" data-i18n="footerAbout">What is BetInsight?</a>
+          <a href="/en/faq/" class="route-link" data-route="faq" data-i18n="footerFaq">FAQ</a>
         </div>
       </div>
 
@@ -798,7 +800,16 @@ Object.assign(T.it,{podcastKicker:"NOVITÀ SU BETINSIGHT",podcastTitle:"Ora BetI
 Object.assign(T.nl,{podcastKicker:"NIEUW BIJ BETINSIGHT",podcastTitle:"BetInsight is nu ook te beluisteren.",podcastText:"In onze Duitstalige podcast “Vor dem Anpfiff” leggen we uit wat achter BetInsight zit: Units en bankroll, calculators en tools, statistieken, live webinar en de opbouw van het systeem.",podcastEpisodeLabel:"Aflevering 1:",podcastEpisode:"Wiskunde in plaats van onderbuikgevoel – Wat is BetInsight Club?",podcastLanguage:"Duits",podcastDuration:"Aflevering 1 · ca. 11 minuten",podcastMore:"Meer afleveringen in voorbereiding",podcastPage:"Open podcastpagina",podcastYoutube:"▶ Aflevering 1 op YouTube"});
 Object.assign(T["zh-tw"],{podcastKicker:"BETINSIGHT 新內容",podcastTitle:"現在也可以用聽的了解 BetInsight。",podcastText:"在我們的德語 Podcast「Vor dem Anpfiff」中，我們介紹 BetInsight 背後的概念：Units 與資金管理、計算器與工具、統計、直播研討會，以及整個系統如何建立。",podcastEpisodeLabel:"第 1 集：",podcastEpisode:"用數學取代直覺——BetInsight Club 是什麼？",podcastLanguage:"德語",podcastDuration:"第 1 集 · 約 11 分鐘",podcastMore:"更多集數正在準備中",podcastPage:"開啟 Podcast 頁面",podcastYoutube:"▶ 在 YouTube 收聽第 1 集"});
 
-const routes={calculator:"rechner",stats:"statistik-vorschau","time-clash":"time-clash","time-clash-community":"time-clash/community",events:"events",tips:"tipps",ads:"anzeigen",terms:"agb",imprint:"impressum",privacy:"datenschutz"};
+Object.assign(T.de,{footerAbout:"Was ist BetInsight?",footerFaq:"FAQ"});
+Object.assign(T.en,{footerAbout:"What is BetInsight?",footerFaq:"FAQ"});
+Object.assign(T.es,{footerAbout:"¿Qué es BetInsight?",footerFaq:"Preguntas frecuentes"});
+Object.assign(T.pt,{footerAbout:"O que é a BetInsight?",footerFaq:"Perguntas frequentes"});
+Object.assign(T.it,{footerAbout:"Che cos'è BetInsight?",footerFaq:"Domande frequenti"});
+Object.assign(T.fr,{footerAbout:"Qu'est-ce que BetInsight ?",footerFaq:"Questions fréquentes"});
+Object.assign(T.nl,{footerAbout:"Wat is BetInsight?",footerFaq:"Veelgestelde vragen"});
+Object.assign(T["zh-tw"],{footerAbout:"什麼是 BetInsight？",footerFaq:"常見問題"});
+
+const routes={calculator:"rechner",stats:"statistik-vorschau","time-clash":"time-clash","time-clash-community":"time-clash/community",events:"events",tips:"tipps",ads:"anzeigen",terms:"agb",imprint:"impressum",privacy:"datenschutz",about:"was-ist-betinsight",faq:"faq"};
 function applyLang(lang){
   if(!T[lang]) lang="de";
   document.documentElement.lang=lang;
