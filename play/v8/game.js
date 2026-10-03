@@ -9,6 +9,7 @@ const TEAMS=[
 const $=s=>document.querySelector(s);
 const S={A:null,B:null,side:"A",a:0,b:0,ta:0,tb:0,shots:[],target:{x:0,y:1.2,set:false},contact:{x:0,y:0},power:78,busy:false,sudden:false,finished:false};
 let world=null;
+let contactDraft={x:0,y:0};
 
 function T(id){return TEAMS.find(t=>t.id===id)}
 function fill(){for(const id of ["teamA","teamB"]){$("#"+id).innerHTML=TEAMS.map(t=>'<option value="'+t.id+'">'+t.flag+" "+t.name+"</option>").join("")}$("#teamA").value="ger14";$("#teamB").value="arg22";preview()}
@@ -129,7 +130,7 @@ function contactPhysicsPreview(x,y){
 }
 function setContact(x,y){
  const l=Math.hypot(x,y);if(l>.92){x=x/l*.92;y=y/l*.92}
- S.contact.x=x;S.contact.y=y;
+ contactDraft.x=x;contactDraft.y=y;
  $("#contactDot").style.left=((x+1)*50)+"%";$("#contactDot").style.top=((y+1)*50)+"%";
  $("#cx").textContent=Math.abs(x)<.12?"MITTE":x<0?"LINKS":"RECHTS";
  $("#cy").textContent=Math.abs(y)<.12?"MITTE":y<0?"OBEN":"UNTEN";
@@ -139,8 +140,36 @@ function setContact(x,y){
  $("#curve").textContent=(ph.curveM>=0?"+":"")+Math.round(ph.curveM*100)+" cm";
  $("#lift").textContent=(ph.liftM>=0?"+":"")+Math.round(ph.liftM*100)+" cm";
  $("#quality").textContent=ph.quality+"%";
- $("#contactLabel").textContent=(Math.abs(x)<.12&&Math.abs(y)<.12)?"MITTE":(x<-.12?"LINKS ":x>.12?"RECHTS ":"")+(y<-.12?"OBEN":y>.12?"UNTEN":"")
 }
-function openContact(){$("#contactModal").classList.remove("hidden");setContact(S.contact.x,S.contact.y)}function closeContact(){$("#contactModal").classList.add("hidden")}$("#contactBtn").onclick=openContact;$("#contactBtnMobile").onclick=openContact;$("#closeContact").onclick=closeContact;$("#applyContact").onclick=closeContact;$("#resetContact").onclick=()=>setContact(0,0);$("#contactBall").onpointerdown=e=>{const r=e.currentTarget.getBoundingClientRect();setContact(((e.clientX-r.left)/r.width-.5)*2,((e.clientY-r.top)/r.height-.5)*2)};addEventListener("keydown",e=>{if(e.altKey&&(e.key==="b"||e.key==="B")&&!["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName)){e.preventDefault();openContact()}if(e.key==="Escape")closeContact()});
+function contactLabel(x,y){
+ return (Math.abs(x)<.12&&Math.abs(y)<.12)?"MITTE":(x<-.12?"LINKS ":x>.12?"RECHTS ":"")+(y<-.12?"OBEN":y>.12?"UNTEN":"");
+}
+function openContact(){
+ contactDraft={x:S.contact.x,y:S.contact.y};
+ $("#contactModal").classList.remove("hidden");
+ setContact(contactDraft.x,contactDraft.y);
+}
+function closeContact(){$("#contactModal").classList.add("hidden")}
+function applyContact(){
+ S.contact={x:contactDraft.x,y:contactDraft.y};
+ $("#contactLabel").textContent=contactLabel(S.contact.x,S.contact.y);
+ closeContact();
+ $("#commentary").textContent="Ballkontakt übernommen: "+contactLabel(S.contact.x,S.contact.y)+". Jetzt Ziel/Power prüfen und schießen.";
+}
+function cancelContact(){
+ contactDraft={x:S.contact.x,y:S.contact.y};
+ closeContact();
+}
+$("#contactBtn").onclick=openContact;
+$("#contactBtnMobile").onclick=openContact;
+$("#closeContact").onclick=cancelContact;
+$("#cancelContact").onclick=cancelContact;
+$("#applyContact").onclick=applyContact;
+$("#resetContact").onclick=()=>setContact(0,0);
+$("#contactBall").onpointerdown=e=>{const r=e.currentTarget.getBoundingClientRect();setContact(((e.clientX-r.left)/r.width-.5)*2,((e.clientY-r.top)/r.height-.5)*2)};
+addEventListener("keydown",e=>{
+ if(e.altKey&&(e.key==="b"||e.key==="B")&&!["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName)){e.preventDefault();openContact()}
+ if(e.key==="Escape")cancelContact()
+});
 $("#soundBtn").onclick=()=>$("#soundBtn").textContent=$("#soundBtn").textContent.includes("🔇")?"🔊 Sound":"🔇 Sound";
 fill();
