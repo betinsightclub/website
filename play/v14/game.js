@@ -431,7 +431,7 @@ class World3D{
    );
    const look=new THREE.Vector3(side*.08,1.15,4.0-retreat*.35);
    if(immediate){
-     this.camera.position.copy(desired);this.camera.lookAt(look);return
+     this.camera.position.copy(desired);this.cameraTarget.copy(look);this.camera.lookAt(look);return
    }
    const from=this.camera.position.clone();
    const startTarget=this.cameraTarget?this.cameraTarget.clone():new THREE.Vector3(0,1.15,4.2);
