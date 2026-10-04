@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#04111d">
 <title>Penalty Clash V19 · Real 3D</title>
 <link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="/play/v19/styles.css?v=1">
+<link rel="stylesheet" href="/play/v19/styles.css?v=20261004-1">
 </head>
 <body>
 <div class="shell">
@@ -20,7 +20,7 @@
   <div class="hero">
     <span>BETINSIGHT PLAY</span>
     <h1>REAL 3D SHOOTOUT</h1>
-    <p>V19 testet einen neuen glatteren CC0-Fußballkörper mit echtem separatem Kit-Layer: kurzes Trikot, Shorts, Stutzen und Schuhe liegen als eigene skinned Oberflächen über dem Körper. Keeper, Side-Cam, Goal-Line-Physik und Ergebnisrufe bleiben unverändert.</p>
+    <p>V19 behält bewusst den stabilen geriggten Schützen, verändert aber erstmals die Kleidung als Geometrie: die lange Hose wird optisch zum nackten Bein, darüber liegt eine separate glatte Shorts-Schale. Shading, Stutzen und Schuhmaterial wurden ebenfalls verbessert. Keeper, Side-Cam, Goal-Line-Physik und Ergebnisrufe bleiben unverändert.</p>
   </div>
   <div class="selectors">
     <label>TEAM A<select id="teamA">
@@ -38,7 +38,7 @@
 </select></label>
   </div>
   <div id="preview" class="preview"></div>
-  <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button><div class="kit-note">V19: neuer Fußballkörper · echte Shorts-Layer · Stutzen · Schuhe</div>
+  <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button><div class="kit-note">V19: stabiler Rig-Körper · echte Shorts-Geometrie · Stutzen · Fußballschuhe</div>
 <div id="v19Note" class="kit-note">V19 Techniktest: bitte besonders Körperkante, Shorts, Stutzen und Schuhe beurteilen. Sound bleibt vorerst unverändert.</div><div id="moduleStatus" style="margin-top:10px;text-align:center;font-size:12px;color:#7694aa">3D-Modul wird geladen …</div>
 </section>
 
@@ -135,12 +135,12 @@
  A&&A.addEventListener("change",fallbackPreview);B&&B.addEventListener("change",fallbackPreview);fallbackPreview();
 })();
 </script>
-<script id="gameModule" type="module" src="/play/v19/game.js?v=1"></script>
+<script id="gameModule" type="module" src="/play/v19/game.js?v=20261004-1"></script>
 <script>
 document.getElementById("gameModule").addEventListener("error",function(){
  const s=document.getElementById("moduleStatus");
  if(s){s.textContent="3D-Modul konnte nicht geladen werden – bitte Strg+F5 drücken.";s.style.color="#ff818c";}
 });
 </script>
-<footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V19 player prototype: Quaternius Universal Base Character (CC0) + BetInsight skinned soccer-kit layers. Keeper weiterhin auf stabilem V17C-Rig.</footer></body>
+<footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V19 player prototype: stabiler Quaternius-Rig-Körper (CC0) + separate BetInsight Shorts-Geometrie + geglättete Materialien. Keeper bleibt auf stabilem V17C-Rig.</footer></body>
 </html>
