@@ -193,21 +193,21 @@ class World3D{
 
    const makeHem=(bone,side)=>{
      if(!bone)return null;
-     const g=new THREE.Group();g.name='V20_SHORT_HEM_'+side;
+     const g=new THREE.Group();g.name='V20_SHORT_HEM_'+side;g.scale.setScalar(.01);
      // Thin football-short cuff: close to the thigh, not a bulky shell.
-     const cuff=new THREE.Mesh(new THREE.CylinderGeometry(.108,.113,.072,28,1,false),shortsMat);
+     const cuff=new THREE.Mesh(new THREE.CylinderGeometry(.096,.104,.060,28,1,false),shortsMat);
      cuff.scale.z=.78;cuff.position.y=.145;cuff.castShadow=true;cuff.receiveShadow=true;g.add(cuff);
-     const pipe=new THREE.Mesh(new THREE.TorusGeometry(.109,.0045,8,28),accentMat);
+     const pipe=new THREE.Mesh(new THREE.TorusGeometry(.100,.0038,8,28),accentMat);
      pipe.rotation.x=Math.PI/2;pipe.position.y=.181;pipe.scale.z=.78;g.add(pipe);
      bone.add(g);return g
    };
    const makeBoot=(bone,side)=>{
      if(!bone)return null;
-     const g=new THREE.Group();g.name='V20_BOOT_'+side;
+     const g=new THREE.Group();g.name='V20_BOOT_'+side;g.scale.setScalar(.01);
      // Local +Y follows the foot toward the toe on this rig.
-     const upper=new THREE.Mesh(new THREE.CapsuleGeometry(.052,.095,5,14),bootMat);
+     const upper=new THREE.Mesh(new THREE.CapsuleGeometry(.044,.082,5,14),bootMat);
      upper.position.y=.083;upper.scale.set(1.0,1.05,.70);upper.castShadow=true;g.add(upper);
-     const sole=new THREE.Mesh(new THREE.BoxGeometry(.105,.175,.018),soleMat);
+     const sole=new THREE.Mesh(new THREE.BoxGeometry(.088,.155,.014),soleMat);
      sole.position.set(0,.083,-.045);sole.castShadow=true;g.add(sole);
      bone.add(g);return g
    };
@@ -356,7 +356,7 @@ class World3D{
      this.playRigClip(this.player,"Idle",{fade:0});
      this.playRigClip(this.keeper,"Idle",{fade:0});
      this.realRigReady=true;
-     const el=$("#commentary");if(el)el.textContent="V20A: geschlossene Shorts-Basis + rig-follow Cuffs + Stutzen/Boot-Pass geladen."
+     const el=$("#commentary");if(el)el.textContent="V20A.2: Armature-Scale korrigiert · Shorts-Cuffs/Boots in echter Spielergröße geladen."
    }catch(err){
      console.error("GLB character load failed; using procedural fallback",err);
      this.realRigReady=false
