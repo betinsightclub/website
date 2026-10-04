@@ -997,15 +997,20 @@ function simulate(sh,kp){
   }else if(out==="goal"&&Math.abs(rawX-kx)<.36){
     kx+=rawX>=0?-.72:.72;
   }
-  return{outcome:out,ax:rawX,ay:rawY,kx,ky,contactZ,saveType,spinX,spinY,curveX:spinX*.75,curveY:spinY*.38}
+  let frameType=null;
+  if(out==="post"){
+    const topGap=Math.abs(rawY-2.44),sideGap=Math.abs(Math.abs(rawX)-3.66);
+    frameType=topGap<=sideGap?"crossbar":"post";
+  }
+  return{outcome:out,frameType,ax:rawX,ay:rawY,kx,ky,contactZ,saveType,spinX,spinY,curveX:spinX*.75,curveY:spinY*.38}
 }
 function ended(){if(S.ta<5||S.tb<5){const ra=5-S.ta,rb=5-S.tb;return S.a>S.b+rb||S.b>S.a+ra}return S.ta===S.tb&&S.a!==S.b}
-function showOutcomeCallout(outcome){
+function showOutcomeCallout(outcome,frameType=null){
  const el=$("#outcomeCallout");if(!el)return;
  const map={
    goal:["TOR!","goal"],
    save:["GEHALTEN!","save"],
-   post:["PFOSTEN / LATTE!","post"],
+   post:[frameType==="crossbar"?"LATTE!":"PFOSTEN!","post"],
    miss:["DANEBEN!","miss"]
  };
  const [label,cls]=map[outcome]||["",""];
@@ -1015,7 +1020,7 @@ function showOutcomeCallout(outcome){
  clearTimeout(showOutcomeCallout._t);
  showOutcomeCallout._t=setTimeout(()=>el.classList.add("hidden"),1500);
 }
-async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],keeper:d.keeper.name,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?"PFOSTEN / LATTE!":"DANEBEN!";showOutcomeCallout(sim.outcome);board();await new Promise(r=>setTimeout(r,850));if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
+async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],keeper:d.keeper.name,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType);board();await new Promise(r=>setTimeout(r,850));if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
 function finish(){S.finished=true;const win=S.a>S.b?"A":"B";$("#game").classList.add("hidden");$("#result").classList.remove("hidden");$("#winner").innerHTML='<div class="winner-wrap"><div class="winner-team '+(win==="A"?"win":"lose")+'"><div>'+S.A.flag+'</div><h3>'+S.A.name+'</h3><strong>'+S.a+'</strong><br><span>'+(win==="A"?"SIEGER":"AUSGESCHIEDEN")+'</span></div><div class="vs">:</div><div class="winner-team '+(win==="B"?"win":"lose")+'"><div>'+S.B.flag+'</div><h3>'+S.B.name+'</h3><strong>'+S.b+'</strong><br><span>'+(win==="B"?"SIEGER":"AUSGESCHIEDEN")+'</span></div></div>';$("#log").innerHTML=S.shots.map((x,i)=>'<div class="log-row '+(x.outcome==="goal"?"good":"bad")+'"><span>'+(x.outcome==="goal"?"✓":"✕")+'</span><div><b>'+(i+1)+". "+x.shooter+'</b><small>'+x.team+" · "+x.power+'% · Kontakt '+(Math.round(x.contactX*100))+"/"+(Math.round(x.contactY*100))+'</small></div><b>'+(x.outcome==="goal"?"GETROFFEN":x.outcome==="save"?"GEHALTEN":x.outcome==="post"?"PFOSTEN":"DANEBEN")+"</b></div>").join("")}
 function showRenderError(err){
  const box=$("#renderError"),txt=$("#renderErrorText");
