@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#04111d">
+<title>Penalty Clash V21 · Real 3D</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/play/v21/styles.css?v=20261005-1">
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+  <a class="brand" href="/play/v20c/">← V20C</a>
+  <div class="title"><b>PENALTY CLASH V21</b><span>20 STADIEN · MATCH AMBIENTE</span></div>
+  <button id="soundBtn">🔇 Sound</button>
+</header>
+
+<section id="setup" class="panel setup">
+  <div class="hero">
+    <span>BETINSIGHT PLAY</span>
+    <h1>REAL 3D SHOOTOUT</h1>
+    <p>V21 übernimmt V20C vollständig und ergänzt vor dem Anpfiff die Wahl aus 20 TIME-CLASH-Stadien. Das gewählte Stadion erscheint im Match als visuelles Ambiente hinter der 3D-Elfmeter-Szene; die Stadionwahl verändert die Simulation nicht.</p>
+  </div>
+  <div class="selectors">
+    <label>TEAM A<select id="teamA">
+<option value="ger14">🇩🇪 Deutschland 2014</option>
+<option value="arg22">🇦🇷 Argentinien 2022</option>
+<option value="ita06">🇮🇹 Italien 2006</option>
+<option value="esp10">🇪🇸 Spanien 2010</option>
+</select></label>
+    <b>VS</b>
+    <label>TEAM B<select id="teamB">
+<option value="arg22">🇦🇷 Argentinien 2022</option>
+<option value="ger14">🇩🇪 Deutschland 2014</option>
+<option value="ita06">🇮🇹 Italien 2006</option>
+<option value="esp10">🇪🇸 Spanien 2010</option>
+</select></label>
+  </div>
+  <div id="preview" class="preview"></div>
+  <section class="stadium-picker" aria-labelledby="stadiumPickerTitle">
+    <div class="stadium-picker-head">
+      <div>
+        <span>SPIELORT · 20 TIME-CLASH-STADIEN</span>
+        <h3 id="stadiumPickerTitle">Stadion auswählen</h3>
+      </div>
+      <b id="stadiumSelectedLabel">Aurelia Olympic Park · Rome</b>
+    </div>
+    <div id="stadiumGrid" class="stadium-grid" role="listbox" aria-label="Stadion auswählen"></div>
+  </section>
+  <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button><div class="kit-note">V21: V20C unverändert + 20 wählbare Stadien als Match-Ambiente</div><div id="moduleStatus" style="margin-top:10px;text-align:center;font-size:12px;color:#7694aa">3D-Modul wird geladen …</div>
+</section>
+
+<section id="game" class="hidden">
+  <div id="scoreboard" class="scoreboard"></div>
+  <div class="game-grid">
+    <div class="stage-card">
+      <div class="stage-top"><div><b id="turnTitle">Bereit</b><small id="turnMeta">—</small></div><div class="stage-top-right"><span id="stadiumMatchBadge" class="stadium-match-badge">🏟️ Aurelia Olympic Park · Rome</span><span id="pressure">DRUCK</span></div></div>
+      <div id="stage" class="stage"></div><div id="outcomeCallout" class="outcome-callout hidden" aria-live="polite"></div>
+<div id="sideCamBadge" class="sidecam-badge hidden">SIDE CAM · RECHTE TORSEITE</div>
+      <div id="renderError" class="render-error hidden">
+        <b>3D-Renderer konnte nicht gestartet werden.</b>
+        <span id="renderErrorText"></span>
+      </div>
+      <div class="stage-note"><b>POSITION:</b> <kbd>←</kbd><kbd>→</kbd> max. 2 m · <kbd>↑</kbd> bis zum Ball · <kbd>↓</kbd> max. 5 m zurück · <kbd>Alt</kbd>+<kbd>B</kbd> Ballkontakt<br><span id="positionReadout">Position wird angezeigt</span></div><div class="move-pad"><button data-move="forward">↑</button><div><button data-move="left">←</button><button data-move="back">↓</button><button data-move="right">→</button></div></div>
+      <div class="mobile-controls">
+        <button id="contactBtnMobile">ALT+B · BALLKONTAKT</button>
+        <div><b>POWER</b><span id="powerMobileVal">78%</span></div>
+        <input id="powerMobile" type="range" min="45" max="100" value="78">
+        <button id="shootMobile" class="primary" disabled>⚽ SCHIESSEN</button>
+      </div>
+    </div>
+    <aside class="controls">
+      <div class="box"><span>SCHÜTZE</span><b id="shooter">—</b><small id="shooterMeta">—</small></div>
+      <div class="box"><span>TORWART</span><b id="keeper">—</b><small id="keeperMeta">—</small></div>
+      <div class="box"><span>ZIEL</span><b id="aim">— / —</b></div>
+      <div class="box"><span>BALLKONTAKT</span><b id="contactLabel">MITTE</b><button id="contactBtn">ALT+B · EINSTELLEN</button></div>
+      <div class="box"><div class="row"><span>POWER</span><b id="powerVal">78%</b></div><input id="power" type="range" min="45" max="100" value="78"></div>
+      <button id="shootBtn" class="primary shoot" disabled>⚽ SCHIESSEN</button>
+      <div id="commentary" class="commentary">Setze zuerst das Ziel.</div>
+    </aside>
+  </div>
+</section>
+
+<section id="result" class="panel hidden">
+  <div id="winner"></div>
+  <div id="log" class="log"></div>
+  <div class="actions"><button id="rematch">REVANCHE</button><button id="newMatch" class="primary">NEUES DUELL</button></div>
+</section>
+</div>
+
+<div id="contactModal" class="modal hidden">
+ <div class="dialog dialog-v20c">
+   <button id="closeContact" class="close">×</button>
+   <span>BALLKONTAKT · DESKTOP: ALT + B</span>
+   <h2>Wo trifft der Fuß den Ball?</h2>
+   <p>Wie bei einer Billardkugel: seitlich = Kurve, unten = mehr Auftrieb/Rückspin, oben = stärkerer Dip/Vorwärtsdrall.</p>
+
+   <div class="contact-grid contact-grid-v20c">
+     <section class="contact-foot-panel" aria-label="Schussfuß">
+       <div class="foot-label-v20c">SCHUSSFUSS</div>
+       <div class="foot-wrap-v20c" aria-hidden="true">
+         <svg class="boot-svg-v20c" viewBox="0 0 300 250">
+           <defs>
+             <linearGradient id="v20cSock" x1="0" y1="0" x2="1" y2="1">
+               <stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe8ef"/><stop offset="1" stop-color="#a7bac8"/>
+             </linearGradient>
+             <linearGradient id="v20cBoot" x1=".1" y1=".05" x2=".9" y2=".9">
+               <stop offset="0" stop-color="#334c61"/><stop offset=".36" stop-color="#142a3a"/><stop offset=".75" stop-color="#07131e"/><stop offset="1" stop-color="#02070d"/>
+             </linearGradient>
+             <linearGradient id="v20cPanel" x1="0" y1="0" x2="1" y2="1">
+               <stop offset="0" stop-color="#246a8d"/><stop offset="1" stop-color="#0a3148"/>
+             </linearGradient>
+             <filter id="v20cBootShadow" x="-30%" y="-30%" width="170%" height="190%">
+               <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#000" flood-opacity=".55"/>
+             </filter>
+           </defs>
+           <ellipse cx="153" cy="220" rx="102" ry="12" fill="#36d8ff" opacity=".12"/>
+           <path d="M84 12 C103 8 128 10 140 16 L136 96 C126 105 99 106 82 96 Z" fill="url(#v20cSock)"/>
+           <path d="M84 31 H137 M83 45 H136 M82 59 H136" stroke="#8ea4b3" stroke-width="2" opacity=".4"/>
+           <path d="M83 91 C101 100 121 102 137 95 L144 117 C121 128 94 124 76 112 Z" fill="#d19a78"/>
+           <path d="M73 108 C88 99 119 99 145 109 C169 118 181 136 201 147 C222 159 259 164 275 177 C284 184 282 198 271 205 C248 218 204 217 166 214 L96 210 C72 208 53 195 49 178 C45 157 55 124 73 108 Z" fill="url(#v20cBoot)" filter="url(#v20cBootShadow)"/>
+           <path d="M60 127 C69 113 83 106 95 108 L88 202 C71 199 58 191 52 178 C47 163 51 143 60 127 Z" fill="#0c1d29"/>
+           <path d="M111 121 C141 120 166 137 185 153 C169 163 148 175 132 190 C111 178 95 163 84 146 C89 134 98 126 111 121 Z" fill="url(#v20cPanel)" opacity=".8"/>
+           <g stroke="#dbe8ef" stroke-width="3" stroke-linecap="round" opacity=".95">
+             <path d="M111 126 L150 140"/><path d="M106 138 L145 152"/><path d="M102 150 L139 163"/><path d="M100 161 L134 173"/>
+           </g>
+           <path d="M98 136 C126 150 151 168 174 189" fill="none" stroke="#54e3ff" stroke-width="5" stroke-linecap="round" opacity=".88"/>
+           <path d="M55 197 C91 209 124 206 164 211 C205 215 248 214 273 204 L270 216 C241 229 202 228 161 225 L91 220 C73 219 60 213 55 207 Z" fill="#122430"/>
+           <g fill="#d3e1e8">
+             <path d="M78 217 h16 l-2 15 c-1 6-10 6-11 0 Z"/><path d="M125 221 h15 l-2 14 c-1 6-9 6-10 0 Z"/>
+             <path d="M188 223 h15 l-2 13 c-1 6-9 6-10 0 Z"/><path d="M238 219 h15 l-2 13 c-1 6-9 6-10 0 Z"/>
+           </g>
+           <circle cx="274" cy="182" r="14" fill="#f4c55e" opacity=".12"/><circle cx="274" cy="182" r="5" fill="#ffd96f"/>
+         </svg>
+         <div class="impact-arrow-v20c">→</div>
+       </div>
+     </section>
+
+     <section class="contact-ball-panel">
+       <div class="ball-axis-label ball-axis-top">OBEN <span>↑</span></div>
+       <div class="ball-axis-label ball-axis-left"><span>←</span> LINKS</div>
+       <div class="ball-axis-label ball-axis-right">RECHTS <span>→</span></div>
+       <div class="ball-axis-label ball-axis-bottom"><span>↓</span> UNTEN</div>
+
+       <div id="contactBall" class="contact-ball contact-ball-v20c" aria-label="Ballkontakt wählen">
+         <svg class="match-ball-svg" viewBox="0 0 400 400" aria-hidden="true">
+           <defs>
+             <radialGradient id="v20cBallBase" cx="31%" cy="24%" r="74%">
+               <stop offset="0" stop-color="#ffffff"/><stop offset=".34" stop-color="#f1f4f5"/><stop offset=".67" stop-color="#d5dde1"/><stop offset=".88" stop-color="#aab5bc"/><stop offset="1" stop-color="#737f87"/>
+             </radialGradient>
+             <clipPath id="v20cBallClip"><circle cx="200" cy="200" r="177"/></clipPath>
+             <filter id="v20cBallShadow" x="-25%" y="-25%" width="150%" height="165%">
+               <feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#000" flood-opacity=".46"/>
+             </filter>
+             <filter id="v20cLeather" x="-10%" y="-10%" width="120%" height="120%">
+               <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="noise"/>
+               <feColorMatrix in="noise" type="saturate" values="0" result="gray"/>
+               <feComponentTransfer in="gray" result="faint"><feFuncA type="table" tableValues="0 .075"/></feComponentTransfer>
+               <feBlend in="SourceGraphic" in2="faint" mode="multiply"/>
+             </filter>
+           </defs>
+
+           <circle cx="200" cy="200" r="177" fill="url(#v20cBallBase)" stroke="#f9fdff" stroke-width="5" filter="url(#v20cBallShadow)"/>
+           <g clip-path="url(#v20cBallClip)" filter="url(#v20cLeather)">
+             <circle cx="38" cy="200" r="126" fill="#168cff" opacity=".32"/>
+             <circle cx="362" cy="200" r="126" fill="#ff5448" opacity=".32"/>
+             <circle cx="200" cy="32" r="112" fill="#43df70" opacity=".30"/>
+             <circle cx="200" cy="368" r="116" fill="#f2b625" opacity=".35"/>
+
+             <g fill="none" stroke="#59656d" stroke-width="4" opacity=".92">
+               <path d="M200 106 L251 143 L232 203 L168 203 L149 143 Z"/>
+               <path d="M149 143 L98 115 L65 164 L104 215 L168 203"/>
+               <path d="M251 143 L302 115 L335 164 L296 215 L232 203"/>
+               <path d="M168 203 L104 215 L116 278 L175 305 L212 251 Z"/>
+               <path d="M232 203 L296 215 L284 278 L225 305 L188 251 Z"/>
+               <path d="M175 305 L153 352 L200 377 L247 352 L225 305"/>
+               <path d="M98 115 L122 62 L184 49 L200 106"/>
+               <path d="M302 115 L278 62 L216 49 L200 106"/>
+             </g>
+
+             <g fill="none" stroke="#7f8c93" stroke-width="2" opacity=".35">
+               <path d="M65 164 C113 176 139 175 168 203"/>
+               <path d="M335 164 C287 176 261 175 232 203"/>
+               <path d="M116 278 C149 259 171 252 188 251"/>
+               <path d="M284 278 C251 259 229 252 212 251"/>
+             </g>
+
+             <line x1="200" y1="30" x2="200" y2="370" stroke="#f7fbff" stroke-width="2" stroke-dasharray="7 7" opacity=".8"/>
+             <line x1="30" y1="200" x2="370" y2="200" stroke="#f7fbff" stroke-width="2" stroke-dasharray="7 7" opacity=".8"/>
+             <circle cx="200" cy="200" r="112" fill="none" stroke="#f7fbff" stroke-width="1.5" stroke-dasharray="5 8" opacity=".38"/>
+           </g>
+           <ellipse cx="145" cy="93" rx="54" ry="88" fill="#ffffff" opacity=".14" transform="rotate(24 145 93)"/>
+         </svg>
+         <div id="contactDot" class="contact-dot contact-dot-v20c"></div>
+       </div>
+
+       <div class="contact-zone-legend">
+         <span class="zone-blue">LINKS-DRALL</span>
+         <span class="zone-green">OBEN / DIP</span>
+         <span class="zone-red">RECHTS-DRALL</span>
+         <span class="zone-gold">UNTEN / AUFTRIEB</span>
+       </div>
+       <div class="impact-caption impact-caption-v20c">Klicke direkt auf den gewünschten Treffpunkt.</div>
+     </section>
+
+     <aside class="readout readout-v20c">
+       <div><span>↔ &nbsp; SEITLICH</span><b id="cx">MITTE</b></div>
+       <div><span>↕ &nbsp; VERTIKAL</span><b id="cy">MITTE</b></div>
+       <div><span>◎ &nbsp; SEITENSPIN</span><b id="spin">0</b></div>
+       <div><span>↗ &nbsp; FLUG</span><b id="flight">GERADE</b></div>
+       <div><span>↔ &nbsp; SEITENABWEICHUNG</span><b id="curve">0 cm</b></div>
+       <div><span>↕ &nbsp; HÖHENÄNDERUNG</span><b id="lift">0 cm</b></div>
+       <div><span>◉ &nbsp; KONTAKTQUALITÄT</span><b id="quality">100%</b></div>
+     </aside>
+   </div>
+
+   <div class="dialog-actions dialog-actions-v20c">
+      <button id="resetContact">MITTE</button>
+      <button id="cancelContact">ABBRECHEN</button>
+      <button id="applyContact" class="primary">✓ KONTAKT ÜBERNEHMEN</button>
+   </div>
+ </div>
+</div>
+<script>
+(function(){
+ const A=document.getElementById("teamA"),B=document.getElementById("teamB"),P=document.getElementById("preview");
+ function fallbackPreview(){
+   const data={
+    ger14:["🇩🇪 Deutschland 2014","TW: Manuel Neuer · FC Bayern München","Thomas Müller<br>Toni Kroos<br>Bastian Schweinsteiger<br>Mario Götze<br>Miroslav Klose"],
+    arg22:["🇦🇷 Argentinien 2022","TW: Emiliano Martínez · Aston Villa","Lionel Messi<br>Ángel Di María<br>Lautaro Martínez<br>Julián Álvarez<br>Leandro Paredes"],
+    ita06:["🇮🇹 Italien 2006","TW: Gianluigi Buffon · Juventus","Francesco Totti<br>Andrea Pirlo<br>Alessandro Del Piero<br>Daniele De Rossi<br>Marco Materazzi"],
+    esp10:["🇪🇸 Spanien 2010","TW: Iker Casillas · Real Madrid","David Villa<br>Xavi<br>Andrés Iniesta<br>Xabi Alonso<br>Fernando Torres"]
+   };
+   if(!P||!A||!B)return;
+   P.innerHTML=[A.value,B.value].map(id=>'<div><b>'+data[id][0]+'</b><small>'+data[id][1]+'</small><p>'+data[id][2]+'</p></div>').join('');
+ }
+ A&&A.addEventListener("change",fallbackPreview);B&&B.addEventListener("change",fallbackPreview);fallbackPreview();
+})();
+</script>
+<script id="gameModule" type="module" src="/play/v21/game.js?v=20261005-1"></script>
+<script>
+document.getElementById("gameModule").addEventListener("error",function(){
+ const s=document.getElementById("moduleStatus");
+ if(s){s.textContent="3D-Modul konnte nicht geladen werden – bitte Strg+F5 drücken.";s.style.color="#ff818c";}
+});
+</script>
+<footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V21: V20C stable gameplay + 20 TIME-CLASH-Stadien als wählbares Match-Ambiente.</footer></body>
+</html>
