@@ -157,25 +157,25 @@ class World3D{
    mat.name=slotName;mat.roughness=.86;mat.metalness=.005;mat.flatShading=false;
    geometry?.computeBoundingBox?.();
    const box=geometry?.boundingBox;
-   const minY=box?.min.y??0,maxY=box?.max.y??1;
+   const minZ=box?.min.z??0,maxZ=box?.max.z??1;
    const skin=new THREE.Color(this.v20SkinColor||0xc98f70);
    const shorts=new THREE.Color(kit.shorts);
    mat.onBeforeCompile=shader=>{
-     shader.uniforms.uV20MinY={value:minY};
-     shader.uniforms.uV20MaxY={value:maxY};
+     shader.uniforms.uV20MinZ={value:minZ};
+     shader.uniforms.uV20MaxZ={value:maxZ};
      shader.uniforms.uV20Skin={value:skin};
      shader.uniforms.uV20Shorts={value:shorts};
      shader.vertexShader=shader.vertexShader
        .replace('#include <common>','#include <common>\nvarying vec3 vV20BindPos;')
        .replace('#include <begin_vertex>','#include <begin_vertex>\nvV20BindPos = position;');
      shader.fragmentShader=shader.fragmentShader
-       .replace('#include <common>','#include <common>\nvarying vec3 vV20BindPos;\nuniform float uV20MinY;\nuniform float uV20MaxY;\nuniform vec3 uV20Skin;\nuniform vec3 uV20Shorts;')
+       .replace('#include <common>','#include <common>\nvarying vec3 vV20BindPos;\nuniform float uV20MinZ;\nuniform float uV20MaxZ;\nuniform vec3 uV20Skin;\nuniform vec3 uV20Shorts;')
        .replace('#include <color_fragment>',
          '#include <color_fragment>\n'+
-         'float ny=clamp((vV20BindPos.y-uV20MinY)/max(0.0001,uV20MaxY-uV20MinY),0.0,1.0);\n'+
+         'float nz=clamp((vV20BindPos.z-uV20MinZ)/max(0.0001,uV20MaxZ-uV20MinZ),0.0,1.0);\n'+
          '// The original long-pants mesh stays closed, so hip/butt can never open.\n'+
          '// Only the upper-thigh zone reads as shorts; lower leg reads as skin.\n'+
-         'float shortMask=smoothstep(0.405,0.445,ny);\n'+
+         'float shortMask=step(0.585,nz);\n'+
          'diffuseColor.rgb=mix(uV20Skin,uV20Shorts,shortMask);'
        );
    };
@@ -342,7 +342,7 @@ class World3D{
      if(!bones.spine && /spine2|spine1|chest/.test(n))bones.spine=o;
    });
    root.userData.realRig=rig;root.userData.mixer=mixer;root.userData.clips=model.clips;root.userData.actions={};root.userData.isGLB=true;root.userData.bones=bones;
-   if(!isKeeper)this.buildV20RigKit(root,bones,team,height,false);
+   // V20A.3 uses only the source skinned mesh for field-player clothing.
    this.playRigClip(root,"Idle",{fade:0});
  }
  async installRealPlayers(){
@@ -356,7 +356,7 @@ class World3D{
      this.playRigClip(this.player,"Idle",{fade:0});
      this.playRigClip(this.keeper,"Idle",{fade:0});
      this.realRigReady=true;
-     const el=$("#commentary");if(el)el.textContent="V20A.2: Armature-Scale korrigiert · Shorts-Cuffs/Boots in echter Spielergröße geladen."
+     const el=$("#commentary");if(el)el.textContent="V20A.3: Shorts-Zone entlang der echten Modell-Höhenachse geladen."
    }catch(err){
      console.error("GLB character load failed; using procedural fallback",err);
      this.realRigReady=false
@@ -883,7 +883,7 @@ class World3D{
    recolor(this.player,att.shirt,att.shorts);
    recolor(this.keeper,def.keeperColor,0x17263a);
    if(this.player.userData.realRig)this.applyRigKit(this.player.userData.realRig,att,false);
-   this.updateV20RigKit(this.player,att);
+   // V20A.3 no add-on lower-body meshes.
    if(this.keeper.userData.realRig)this.applyRigKit(this.keeper.userData.realRig,def,true);
  } 
  startIdle(){this.idle=true;this.idleSince=this.clock.getElapsedTime()}
