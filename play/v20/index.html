@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#04111d">
+<title>Penalty Clash V20A · Real 3D</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/play/v20/styles.css?v=1">
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+  <a class="brand" href="/play/v17c/">← V17C</a><a class="brand" href="/play/v19/" style="margin-left:12px;color:#f4c55e;font-weight:900">V19 TESTEN →</a><a class="brand" href="/play/v18/" style="margin-left:12px;color:#f4c55e;font-weight:900">V18 TESTEN →</a><a class="brand" href="/play/v17b/" style="margin-left:12px;color:#f4c55e;font-weight:900">V17B TESTEN →</a>
+  <div class="title"><b>PENALTY CLASH V20A</b><span>REAL SHORTS RIG + CLEAN LOWER BODY</span></div>
+  <button id="soundBtn">🔇 Sound</button>
+</header>
+
+<section id="setup" class="panel setup">
+  <div class="hero">
+    <span>BETINSIGHT PLAY</span>
+    <h1>REAL 3D SHOOTOUT</h1>
+    <p>V20A behält den stabilen geriggten Schützen, ersetzt aber den V19-Pampers-Ansatz vollständig. Die Grundhose wird zonal als geschlossene Shorts-/Beinbasis behandelt; leichte Hosenbein-Cuffs folgen direkt den Oberschenkelknochen. Stutzen, Schuhe, Keeper, Side-Cam, Goal-Line-Physik und Ergebnisrufe bleiben erhalten.</p>
+  </div>
+  <div class="selectors">
+    <label>TEAM A<select id="teamA">
+<option value="ger14">🇩🇪 Deutschland 2014</option>
+<option value="arg22">🇦🇷 Argentinien 2022</option>
+<option value="ita06">🇮🇹 Italien 2006</option>
+<option value="esp10">🇪🇸 Spanien 2010</option>
+</select></label>
+    <b>VS</b>
+    <label>TEAM B<select id="teamB">
+<option value="arg22">🇦🇷 Argentinien 2022</option>
+<option value="ger14">🇩🇪 Deutschland 2014</option>
+<option value="ita06">🇮🇹 Italien 2006</option>
+<option value="esp10">🇪🇸 Spanien 2010</option>
+</select></label>
+  </div>
+  <div id="preview" class="preview"></div>
+  <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button><div class="kit-note">V20A: echte Shorts-Zonen · Oberschenkel-Cuffs am Rig · saubere Beine</div>
+<div id="v20Note" class="kit-note">V20A: keine V19-Shorts-Schale mehr. Bitte beim Anlauf besonders Hüfte, Gesäß, Hosenbeine, Stutzen und Schuhe prüfen.</div><div id="moduleStatus" style="margin-top:10px;text-align:center;font-size:12px;color:#7694aa">3D-Modul wird geladen …</div>
+</section>
+
+<section id="game" class="hidden">
+  <div id="scoreboard" class="scoreboard"></div>
+  <div class="game-grid">
+    <div class="stage-card">
+      <div class="stage-top"><div><b id="turnTitle">Bereit</b><small id="turnMeta">—</small></div><span id="pressure">DRUCK</span></div>
+      <div id="stage" class="stage"></div><div id="outcomeCallout" class="outcome-callout hidden" aria-live="polite"></div>
+<div id="sideCamBadge" class="sidecam-badge hidden">SIDE CAM · RECHTE TORSEITE</div>
+      <div id="renderError" class="render-error hidden">
+        <b>3D-Renderer konnte nicht gestartet werden.</b>
+        <span id="renderErrorText"></span>
+      </div>
+      <div class="stage-note"><b>POSITION:</b> <kbd>←</kbd><kbd>→</kbd> max. 2 m · <kbd>↑</kbd> bis zum Ball · <kbd>↓</kbd> max. 5 m zurück · <kbd>Alt</kbd>+<kbd>B</kbd> Ballkontakt<br><span id="positionReadout">Position wird angezeigt</span></div><div class="move-pad"><button data-move="forward">↑</button><div><button data-move="left">←</button><button data-move="back">↓</button><button data-move="right">→</button></div></div>
+      <div class="mobile-controls">
+        <button id="contactBtnMobile">ALT+B · BALLKONTAKT</button>
+        <div><b>POWER</b><span id="powerMobileVal">78%</span></div>
+        <input id="powerMobile" type="range" min="45" max="100" value="78">
+        <button id="shootMobile" class="primary" disabled>⚽ SCHIESSEN</button>
+      </div>
+    </div>
+    <aside class="controls">
+      <div class="box"><span>SCHÜTZE</span><b id="shooter">—</b><small id="shooterMeta">—</small></div>
+      <div class="box"><span>TORWART</span><b id="keeper">—</b><small id="keeperMeta">—</small></div>
+      <div class="box"><span>ZIEL</span><b id="aim">— / —</b></div>
+      <div class="box"><span>BALLKONTAKT</span><b id="contactLabel">MITTE</b><button id="contactBtn">ALT+B · EINSTELLEN</button></div>
+      <div class="box"><div class="row"><span>POWER</span><b id="powerVal">78%</b></div><input id="power" type="range" min="45" max="100" value="78"></div>
+      <button id="shootBtn" class="primary shoot" disabled>⚽ SCHIESSEN</button>
+      <div id="commentary" class="commentary">Setze zuerst das Ziel.</div>
+    </aside>
+  </div>
+</section>
+
+<section id="result" class="panel hidden">
+  <div id="winner"></div>
+  <div id="log" class="log"></div>
+  <div class="actions"><button id="rematch">REVANCHE</button><button id="newMatch" class="primary">NEUES DUELL</button></div>
+</section>
+</div>
+
+<div id="contactModal" class="modal hidden">
+ <div class="dialog">
+   <button id="closeContact" class="close">×</button>
+   <span>BALLKONTAKT · DESKTOP: ALT + B</span>
+   <h2>Wo trifft der Fuß den Ball?</h2>
+   <p>Wie bei einer Billardkugel: seitlich = Kurve, unten = mehr Auftrieb/Rückspin, oben = stärkerer Dip/Vorwärtsdrall.</p>
+   <div class="contact-grid">
+     <div class="contact-visual">
+       <div class="foot-wrap" aria-hidden="true">
+         <div class="foot-leg"></div>
+         <div class="foot-shoe">
+           <div class="stud s1"></div><div class="stud s2"></div><div class="stud s3"></div>
+         </div>
+         <div class="impact-arrow">→</div>
+       </div>
+       <div id="contactBall" class="contact-ball" aria-label="Ballkontakt wählen">
+         <div class="ball-panel p1"></div><div class="ball-panel p2"></div><div class="ball-panel p3"></div>
+         <div id="contactDot" class="contact-dot"></div>
+       </div>
+       <div class="impact-caption">Klicke auf den Punkt, an dem der Fuß den Ball trifft.</div>
+     </div>
+     <div class="readout">
+       <div><span>Horizontal</span><b id="cx">MITTE</b></div>
+       <div><span>Vertikal</span><b id="cy">MITTE</b></div>
+       <div><span>Seitenspin</span><b id="spin">0</b></div>
+       <div><span>Flug</span><b id="flight">GERADE</b></div>
+       <div><span>Kurve</span><b id="curve">0 cm</b></div>
+       <div><span>Höhenänderung</span><b id="lift">0 cm</b></div>
+       <div><span>Kontaktqualität</span><b id="quality">100%</b></div>
+     </div>
+   </div>
+   <div class="dialog-actions sticky-contact-actions">
+      <button id="resetContact">MITTE</button>
+      <button id="cancelContact">ABBRECHEN</button>
+      <button id="applyContact" class="primary">✓ KONTAKT ÜBERNEHMEN</button>
+   </div>
+ </div>
+</div>
+
+<script>
+(function(){
+ const A=document.getElementById("teamA"),B=document.getElementById("teamB"),P=document.getElementById("preview");
+ function fallbackPreview(){
+   const data={
+    ger14:["🇩🇪 Deutschland 2014","TW: Manuel Neuer · FC Bayern München","Thomas Müller<br>Toni Kroos<br>Bastian Schweinsteiger<br>Mario Götze<br>Miroslav Klose"],
+    arg22:["🇦🇷 Argentinien 2022","TW: Emiliano Martínez · Aston Villa","Lionel Messi<br>Ángel Di María<br>Lautaro Martínez<br>Julián Álvarez<br>Leandro Paredes"],
+    ita06:["🇮🇹 Italien 2006","TW: Gianluigi Buffon · Juventus","Francesco Totti<br>Andrea Pirlo<br>Alessandro Del Piero<br>Daniele De Rossi<br>Marco Materazzi"],
+    esp10:["🇪🇸 Spanien 2010","TW: Iker Casillas · Real Madrid","David Villa<br>Xavi<br>Andrés Iniesta<br>Xabi Alonso<br>Fernando Torres"]
+   };
+   if(!P||!A||!B)return;
+   P.innerHTML=[A.value,B.value].map(id=>'<div><b>'+data[id][0]+'</b><small>'+data[id][1]+'</small><p>'+data[id][2]+'</p></div>').join('');
+ }
+ A&&A.addEventListener("change",fallbackPreview);B&&B.addEventListener("change",fallbackPreview);fallbackPreview();
+})();
+</script>
+<script id="gameModule" type="module" src="/play/v20/game.js?v=1"></script>
+<script>
+document.getElementById("gameModule").addEventListener("error",function(){
+ const s=document.getElementById("moduleStatus");
+ if(s){s.textContent="3D-Modul konnte nicht geladen werden – bitte Strg+F5 drücken.";s.style.color="#ff818c";}
+});
+</script>
+<footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V20A stable-rig prototype: Quaternius Animated Men · CC0 1.0 · BetInsight Shorts-/Sock-/Boot-Materialpass.</footer></body>
+</html>
