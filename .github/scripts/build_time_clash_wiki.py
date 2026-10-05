@@ -57,7 +57,12 @@ def sitemap(pairs):
     p=ROOT/"sitemap.xml";txt=p.read_text(encoding="utf-8")
     a="<!-- TIME CLASH WIKI AUTO START -->";b="<!-- TIME CLASH WIKI AUTO END -->"
     if a in txt and b in txt: txt=txt[:txt.index(a)]+txt[txt.index(b)+len(b):]
-    urls=[("https://betinsight.club/de/wiki/",datetime.now(timezone.utc).date().isoformat()),("https://betinsight.club/de/wiki/time-clash/",datetime.now(timezone.utc).date().isoformat())]
+    today=datetime.now(timezone.utc).date().isoformat()
+    langs=["de","en","es","fr","it","pt","nl","zh-tw"]
+    urls=[]
+    for lang in langs:
+        urls.append((f"https://betinsight.club/{lang}/wiki/",today))
+        urls.append((f"https://betinsight.club/{lang}/wiki/time-clash/",today))
     urls += [(f'https://betinsight.club/de/wiki/time-clash/{x["pair_slug"]}/',iso(x["last_played_at"])) for x in pairs]
     block=a+"\n"+"\n".join(f'  <url><loc>{xu.escape(u)}</loc><lastmod>{lm}</lastmod><xhtml:link rel="alternate" hreflang="de" href="{xu.escape(u)}" /><xhtml:link rel="alternate" hreflang="x-default" href="{xu.escape(u)}" /></url>' for u,lm in urls)+"\n"+b
     txt=txt.replace("</urlset>",block+"\n</urlset>")
@@ -66,11 +71,9 @@ def sitemap(pairs):
 def main():
     data=fetch(); pairs=data.get("pairs",[])
     OUT.mkdir(parents=True,exist_ok=True)
-    (OUT/"index.html").write_text(overview(pairs,data.get("total_real_series",0)),encoding="utf-8")
     for p in pairs:
         dest=OUT/p["pair_slug"];dest.mkdir(parents=True,exist_ok=True)
         (dest/"index.html").write_text(detail(p),encoding="utf-8")
-    wiki_home(len(pairs),data.get("total_real_series",0))
     sitemap(pairs)
     print(f'Built {len(pairs)} TIME CLASH wiki pairings from {data.get("total_real_series",0)} completed real-team series.')
 
