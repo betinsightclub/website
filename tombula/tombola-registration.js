@@ -1,5 +1,5 @@
 (()=>{
-  const WEBHOOK='https://hook.eu1.make.com/avimc6q8t6qxb79cuiako2xya1ow3oyx';
+  const WEBHOOK='https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-tombola-api';
   const ADMIN='tombola-ui-v2';
   const STORE='betinsightTombolaRound';
   const LINK_PREFIX='betinsight-gluecksbringer-';
