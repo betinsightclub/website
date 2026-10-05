@@ -224,3 +224,5 @@
   const langObserver = new MutationObserver(() => ensureInfoLinks());
   langObserver.observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
 })();
+/* BetInsight Football Wiki enhancements */
+if(location.pathname.includes("/wiki/")){const s=document.createElement("script");s.src="https://betinsight.club/assets/time-clash-wiki-ui.js?v=20261006-1";s.defer=true;document.head.appendChild(s);}
