@@ -71,6 +71,53 @@ function applyStadiumVars(el,s){
   el.style.setProperty("--stadium-img",v["--stadium-img"]);
   el.style.setProperty("--stadium-x",v["--stadium-x"]);
 }
+
+const STADIUM_BACKDROP_CACHE=new Map();
+let stadiumBackdropRequest=0;
+function buildSharpStadiumBackdrop(s){
+  if(STADIUM_BACKDROP_CACHE.has(s.id))return STADIUM_BACKDROP_CACHE.get(s.id);
+  const job=new Promise(resolve=>{
+    const img=new Image();
+    img.decoding="async";
+    img.onload=()=>{
+      try{
+        const cols=5,sw=Math.floor(img.naturalWidth/cols),sh=img.naturalHeight,sx=s.col*sw;
+        const targetW=1600,targetH=Math.round(targetW*(sh/sw));
+        const canvas=document.createElement("canvas");
+        canvas.width=targetW;canvas.height=targetH;
+        const ctx=canvas.getContext("2d",{willReadFrequently:true});
+        if(!ctx){resolve(null);return}
+        ctx.imageSmoothingEnabled=true;
+        ctx.imageSmoothingQuality="high";
+        ctx.drawImage(img,sx,0,sw,sh,0,0,targetW,targetH);
+
+        // Mild unsharp mask. It cannot invent detail, but it removes much of the soft
+        // browser-scaling look from the current TIME CLASH preview atlas.
+        const frame=ctx.getImageData(0,0,targetW,targetH);
+        const d=frame.data,src=new Uint8ClampedArray(d),stride=targetW*4,a=.14;
+        for(let y=1;y<targetH-1;y++){
+          let i=(y*targetW+1)*4;
+          for(let x=1;x<targetW-1;x++,i+=4){
+            for(let ch=0;ch<3;ch++){
+              const p=i+ch;
+              const v=src[p]*(1+4*a)-a*(src[p-4]+src[p+4]+src[p-stride]+src[p+stride]);
+              d[p]=v<0?0:v>255?255:v;
+            }
+          }
+        }
+        ctx.putImageData(frame,0,0);
+        resolve(canvas.toDataURL("image/webp",.92));
+      }catch(err){
+        console.warn("V21 stadium upscale failed",err);
+        resolve(null);
+      }
+    };
+    img.onerror=()=>resolve(null);
+    img.src="/play/v21/stadium-row"+s.row+".webp?build=20261005-2";
+  });
+  STADIUM_BACKDROP_CACHE.set(s.id,job);
+  return job;
+}
 function renderStadiumGrid(){
  const grid=document.querySelector("#stadiumGrid");if(!grid)return;
  grid.innerHTML=STADIUMS.map(s=>
@@ -100,13 +147,26 @@ function selectStadium(id,rerender=true){
 function applyStadiumAmbience(){
  const s=stadiumById(S.stadiumId||selectedStadiumId);
  const stage=document.querySelector("#stage");
- if(stage){stage.classList.add("v21-stadium");applyStadiumVars(stage,s)}
+ const request=++stadiumBackdropRequest;
+ if(stage){
+   stage.classList.add("v21-stadium");
+   stage.classList.remove("v21-stadium-sharp");
+   applyStadiumVars(stage,s);
+ }
  const badge=document.querySelector("#stadiumMatchBadge");
  if(badge)badge.textContent="🏟️ "+s.name+" · "+s.city;
  if(world&&world.renderer){
    world.scene.background=null;
    world.renderer.setClearColor(0x07131f,0);
  }
+ buildSharpStadiumBackdrop(s).then(url=>{
+   if(!url||request!==stadiumBackdropRequest||!stage)return;
+   const active=stadiumById(S.stadiumId||selectedStadiumId);
+   if(active.id!==s.id)return;
+   stage.style.setProperty("--stadium-img",'url("'+url+'")');
+   stage.style.setProperty("--stadium-x","center");
+   stage.classList.add("v21-stadium-sharp");
+ });
 }
 
 const $=s=>document.querySelector(s);
@@ -486,6 +546,8 @@ class World3D{
      this.updateSideCamera();
      const iw=Math.max(220,Math.floor(w*.31)),ih=Math.floor(iw*9/16);
      const margin=14,x=w-iw-margin,y=h-ih-margin;
+     const previousClearColor=this.renderer.getClearColor(new THREE.Color()).clone();
+     const previousClearAlpha=this.renderer.getClearAlpha();
      this.renderer.setScissorTest(true);
      this.renderer.setScissor(x,y,iw,ih);
      this.renderer.setViewport(x,y,iw,ih);
@@ -493,7 +555,7 @@ class World3D{
      this.renderer.clearDepth();
      this.renderer.render(this.scene,this.sideCamera);
      this.renderer.setScissorTest(false);
-     this.renderer.setClearColor(0x07131f,1);
+     this.renderer.setClearColor(previousClearColor,previousClearAlpha);
    }
  }
  prepareStadiumEnvironment(){
@@ -1111,7 +1173,7 @@ class World3D{
 function sideTeam(s){return s==="A"?S.A:S.B}function oppTeam(s){return s==="A"?S.B:S.A}function taken(s){return s==="A"?S.ta:S.tb}function goals(s){return s==="A"?S.a:S.b}function shooter(s){const t=sideTeam(s);return t.shooters[taken(s)%t.shooters.length]}
 function syncPower(v){S.power=+v;$("#power").value=v;$("#powerMobile").value=v;$("#powerVal").textContent=v+"%";$("#powerMobileVal").textContent=v+"%"}function enableShoot(v){$("#shootBtn").disabled=!v;$("#shootMobile").disabled=!v}
 function board(){const row=s=>{const t=sideTeam(s),own=S.shots.filter(x=>x.side===s),tk=taken(s);return '<div class="score-row '+(S.side===s&&!S.finished?"active":"")+'"><div class="score-team">'+t.flag+" "+t.name+'<small>TW: '+t.keeper.name+'</small></div><div class="score-num">'+goals(s)+'</div><div class="kicks">'+t.shooters.map((p,i)=>{const sh=own[i],cl=sh?(sh.outcome==="goal"?"good":"bad"):(i===tk&&S.side===s?"now":"");return '<span class="kick '+cl+'"><b>'+p[0].split(" ").slice(-1)[0]+'</b>'+(sh?(sh.outcome==="goal"?"✓":"✕"):"·")+'</span>'}).join("")+own.slice(5).map(sh=>'<span class="kick '+(sh.outcome==="goal"?"good":"bad")+'"><b>'+sh.shooter.split(" ").slice(-1)[0]+'</b>'+(sh.outcome==="goal"?"✓":"✕")+"</span>").join("")+"</div></div>"};$("#scoreboard").innerHTML=row("A")+row("B")}
-function ui(){const oc=$("#outcomeCallout");if(oc)oc.classList.add("hidden");S.playerPos={x:-1.2,z:12.2};board();const a=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(S.side);$("#turnTitle").textContent=a.flag+" "+a.name+" am Punkt";$("#turnMeta").textContent=sh[0]+" gegen "+d.keeper.name;$("#shooter").textContent=sh[0];$("#shooterMeta").textContent=a.name+" · Stärke "+sh[1]+"/25";$("#keeper").textContent=d.keeper.name;$("#keeperMeta").textContent=d.keeper.club+" · Stärke "+d.keeper.strength+"/25";$("#pressure").textContent=S.sudden?"SUDDEN DEATH":taken(S.side)>=4?"MATCHBALL":"DRUCK";$("#commentary").textContent="Ziel setzen. Mit Alt+B kannst du zusätzlich festlegen, wo der Fuß den Ball trifft.";world.setTeams(a,d);world.applyHairForTurn(a,d,taken(S.side)%10);world.reset();world.updatePositionReadout();enableShoot(false);S.target.set=false;$("#aim").textContent="— / —"}
+function ui(){const oc=$("#outcomeCallout");if(oc)oc.classList.add("hidden");S.playerPos={x:-1.2,z:12.2};board();const a=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(S.side);$("#turnTitle").textContent=a.flag+" "+a.name+" am Punkt";$("#turnMeta").textContent=sh[0]+" gegen "+d.keeper.name;$("#shooter").textContent=sh[0];$("#shooterMeta").textContent=a.name+" · Stärke "+sh[1]+"/25";$("#keeper").textContent=d.keeper.name;$("#keeperMeta").textContent=d.keeper.club+" · Stärke "+d.keeper.strength+"/25";$("#pressure").textContent=S.sudden?"SUDDEN DEATH":taken(S.side)>=4?"MATCHBALL":"DRUCK";$("#commentary").textContent="Ziel setzen. Mit Alt+B kannst du zusätzlich festlegen, wo der Fuß den Ball trifft.";world.setTeams(a,d);world.applyHairForTurn(a,d,taken(S.side)%10);world.reset();applyStadiumAmbience();world.updatePositionReadout();enableShoot(false);S.target.set=false;$("#aim").textContent="— / —"}
 function gauss(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
 function simulate(sh,kp){
   const pn=(S.power-45)/55,ss=sh[1],ks=kp.strength;
