@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded",async()=>{try{
  enhanceSelector(data,"");enhanceSelector(data,"detail");
  if(location.pathname.includes("/wiki/time-clash/konstellation/")){
    const pairSlug=new URLSearchParams(location.search).get("pair")||"";
-   if(pairSlug){const pr=await fetch(API+"?pair="+encodeURIComponent(pairSlug),{cache:"no-store"}),pd=await pr.json();if(pr.ok&&pd.pair)addGames(pd.pair)}
+   const pair=(data.pairs||[]).find(p=>p.pair_slug===pairSlug);if(pair)addGames(pair)
  }
 }catch(e){console.warn("Wiki UI",e)}});
 })();
