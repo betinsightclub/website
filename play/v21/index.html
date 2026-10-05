@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#04111d">
 <title>Penalty Clash V21 · Real 3D</title>
 <link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="/play/v21/styles.css?v=20261005-1">
+<link rel="stylesheet" href="/play/v21/styles.css?v=20261005-2">
 </head>
 <body>
 <div class="shell">
@@ -48,7 +48,7 @@
     </div>
     <div id="stadiumGrid" class="stadium-grid" role="listbox" aria-label="Stadion auswählen"></div>
   </section>
-  <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button><div class="kit-note">V21: V20C unverändert + 20 wählbare Stadien als Match-Ambiente</div><div id="moduleStatus" style="margin-top:10px;text-align:center;font-size:12px;color:#7694aa">3D-Modul wird geladen …</div>
+  <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button><div class="kit-note">V21 Build 2: Stadionkulisse bleibt über alle Schüsse erhalten · Schärfepass aktiv</div><div id="moduleStatus" style="margin-top:10px;text-align:center;font-size:12px;color:#7694aa">3D-Modul wird geladen …</div>
 </section>
 
 <section id="game" class="hidden">
@@ -238,12 +238,12 @@
  A&&A.addEventListener("change",fallbackPreview);B&&B.addEventListener("change",fallbackPreview);fallbackPreview();
 })();
 </script>
-<script id="gameModule" type="module" src="/play/v21/game.js?v=20261005-1"></script>
+<script id="gameModule" type="module" src="/play/v21/game.js?v=20261005-2"></script>
 <script>
 document.getElementById("gameModule").addEventListener("error",function(){
  const s=document.getElementById("moduleStatus");
  if(s){s.textContent="3D-Modul konnte nicht geladen werden – bitte Strg+F5 drücken.";s.style.color="#ff818c";}
 });
 </script>
-<footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V21: V20C stable gameplay + 20 TIME-CLASH-Stadien als wählbares Match-Ambiente.</footer></body>
+<footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V21 Build 2: persistente Stadionkulisse + Schärfepass · V20C-Spielphysik unverändert.</footer></body>
 </html>
