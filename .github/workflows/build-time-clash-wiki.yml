@@ -1,0 +1,41 @@
+name: Build TIME CLASH Wiki
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: time-clash-wiki
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build Wiki from completed TIME CLASH series
+        run: python .github/scripts/build_time_clash_wiki.py
+      - name: Validate sitemap
+        run: python - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse("sitemap.xml")
+          print("sitemap.xml OK")
+          PY
+      - name: Commit generated Wiki updates
+        run: |
+          git config user.name "betinsight-wiki-bot"
+          git config user.email "actions@github.com"
+          git add de/wiki sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No Wiki changes."
+          else
+            git commit -m "Auto-update TIME CLASH Football Wiki"
+            git push
+          fi
