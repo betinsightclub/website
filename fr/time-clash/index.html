@@ -135,6 +135,29 @@ function fill(side){
 function renderActiveTeams(){conflictChoices={};if(!chosenA&&!chosenB)return;$("#teamsPanel").classList.remove("placeholder");mark($("#markA"),TA,kindAActive);mark($("#scoreMarkA"),TA,kindAActive);mark($("#markB"),TB,kindBActive);mark($("#scoreMarkB"),TB,kindBActive);$("#nameA").textContent=$("#scoreNameA").textContent=localTeamName(TA.name).toUpperCase();$("#metaA").textContent=chosenA?(kindAActive==="myclub"?levelLabel(memberProgress?.index||0):kindAActive==="community"?"BETINSIGHT COMMUNITY":"✓"):"—";$("#nameB").textContent=$("#scoreNameB").textContent=localTeamName(TB.name).toUpperCase();$("#metaB").textContent=chosenB?(kindBActive==="myclub"?levelLabel(memberProgress?.index||0):kindBActive==="community"?"BETINSIGHT COMMUNITY":"✓"):"—";if(chosenA){$("#pickI").textContent=localTeamName(TA.name);$("#pickI").disabled=false}else $("#pickI").disabled=true;if(chosenB){$("#pickS").textContent=localTeamName(TB.name);$("#pickS").disabled=false}else $("#pickS").disabled=true;conflicts()}
 function updateTeams(){kindAActive=$("#typeA").value;kindBActive=$("#typeB").value;activeMode="public";TA=parseTeam($("#teamA").value||"Italien 2006|🇮🇹|82");TB=parseTeam($("#teamB").value||"Spanien 2026|🇪🇸|83");renderActiveTeams()}
 ["A","B"].forEach(s=>{$("#type"+s).onchange=()=>{if(s==="A")chosenA=true;else chosenB=true;fill(s)};$("#group"+s).onchange=()=>{if(s==="A")chosenA=true;else chosenB=true;fill(s);relabelSelector(s)};$("#team"+s).onchange=()=>{if(s==="A")chosenA=true;else chosenB=true;relabelSelector(s);updateTeams()}});$("#typeA").value="nation";$("#typeB").value="nation";fill("A");fill("B");
+function applyWikiDiscoverPrefill(){
+  try{
+    const qp=new URLSearchParams(location.search),qa=qp.get("discoverA")||"",qb=qp.get("discoverB")||"",ql=Number(qp.get("discoverLen")||0);
+    function setSide(side,name){
+      if(!name)return false;
+      for(const type of ["nation","club"]){
+        const groups=catalog[type]||{};
+        for(const group of Object.keys(groups)){
+          const raw=(groups[group]||[]).find(v=>parseTeam(v).name===name);
+          if(raw){
+            $("#type"+side).value=type;fill(side);$("#group"+side).value=group;fill(side);$("#team"+side).value=raw;
+            if(side==="A")chosenA=true;else chosenB=true;relabelSelector(side);return true;
+          }
+        }
+      }
+      return false;
+    }
+    const okA=setSide("A",qa),okB=setSide("B",qb);if(okA||okB)updateTeams();
+    if([1,3,5,10].includes(ql)){const btn=document.querySelector('[data-len="'+ql+'"]');if(btn)btn.click()}
+    if(okA&&okB){$("#next").textContent="TIME CLASH Wiki: Diese Konstellation ist zur ersten vollständigen Simulation vorausgewählt."}
+  }catch(e){}
+}
+setTimeout(applyWikiDiscoverPrefill,0);
 $("#loadLeagueMatch").onclick=()=>{if(!memberClub)return;let opponent=$("#memberOpponent").value,meta=allCommunityClubs.find(x=>x.club_name===opponent);if(!meta)return;let ownPlayers=Array.isArray(memberClub.players)?memberClub.players:[],oppPlayers=Array.isArray(meta.players)?meta.players:[],ownSum=ownPlayers.slice(0,11).reduce((s,p)=>s+Number(p.strength||0),0),oppSum=oppPlayers.slice(0,11).reduce((s,p)=>s+Number(p.strength||0),0);TA=parseTeam(memberClub.club_name+"|🛡️|"+ratingFromStrength(ownSum));TB=parseTeam(meta.club_name+"|🛡️|"+ratingFromStrength(oppSum));kindAActive="myclub";kindBActive="community";activeMode="member";chosenA=chosenB=true;renderActiveTeams();$("#next").textContent="Duel de ligue chargé :"+" "+memberClub.club_name+" – "+opponent+". "+"La sélection supérieure des équipes réelles reste inchangée."};
 $("#eliteVsSelected").onclick=()=>{if(!memberProgress?.elite)return;let realType=$("#typeB").value,realValue=$("#teamB").value;if(!["nation","club"].includes(realType)||!realValue){realType="nation";realValue=(catalog.nation[Object.keys(catalog.nation)[0]]||[])[0]||"Italien 2006 · Weltmeister|🇮🇹|84"}let ownPlayers=Array.isArray(memberClub?.players)?memberClub.players:[],ownSum=ownPlayers.slice(0,11).reduce((s,p)=>s+Number(p.strength||0),0);TA=parseTeam(memberClub.club_name+"|🛡️|"+ratingFromStrength(ownSum));TB=parseTeam(realValue);kindAActive="myclub";kindBActive=realType;activeMode="elite";chosenA=chosenB=true;renderActiveTeams();$("#next").textContent="Crossover Élite chargé. Ton club affronte l’équipe réelle/historique B choisie en haut. La sélection supérieure reste inchangée."};
 loadCommunityClubs();initMemberAccess();
