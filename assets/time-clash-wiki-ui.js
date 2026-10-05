@@ -54,12 +54,13 @@ function addGames(pair){
  html+='</div></section>';
  app.insertAdjacentHTML("beforeend",html);
 }
-document.addEventListener("DOMContentLoaded",async()=>{try{
+const initWikiUi=async()=>{try{
  const r=await fetch(API,{cache:"no-store"}),data=await r.json();if(!r.ok)return;
  enhanceSelector(data,"");enhanceSelector(data,"detail");
  if(location.pathname.includes("/wiki/time-clash/konstellation/")){
    const pairSlug=new URLSearchParams(location.search).get("pair")||"";
    const pair=(data.pairs||[]).find(p=>p.pair_slug===pairSlug);if(pair)addGames(pair)
  }
-}catch(e){console.warn("Wiki UI",e)}});
+}catch(e){console.warn("Wiki UI",e)}};
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initWikiUi,{once:true});else initWikiUi();
 })();
