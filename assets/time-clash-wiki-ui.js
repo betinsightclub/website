@@ -23,20 +23,36 @@ function enhanceSelector(data,prefix){
  const b=document.getElementById(prefix+"B")||document.getElementById("teamB");
  const len=document.getElementById(prefix+"Len")||document.getElementById("seriesLen");
  const go=document.getElementById(prefix==="detail"?"detailGo":"openPair");
+ const reset=document.getElementById(prefix==="detail"?"detailReset":"resetSearch");
  const box=document.getElementById(prefix==="detail"?"detailResults":"pairGrid");
- if(!a||!b||!go)return;
+ if(!a||!b||!go||!box)return;
  const names=(Array.isArray(data.all_teams)&&data.all_teams.length?data.all_teams:[...new Set((data.pairs||[]).flatMap(p=>[p.team_left,p.team_right]))]).slice().sort((x,y)=>x.localeCompare(y));
  for(const s of [a,b]){
    const first=s.options[0]?s.options[0].outerHTML:'<option value=""></option>';
    s.innerHTML=first+names.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join("");
  }
- go.addEventListener("click",e=>{
-   const av=a.value,bv=b.value;if(!av||!bv||av===bv)return;
+ const showExact=()=>{
+   const av=a.value,bv=b.value;
+   if(!av||!bv||av===bv)return false;
+   const p=findPair(data.pairs||[],av,bv);
+   if(p){
+     box.innerHTML='<article class="paircard" style="grid-column:1/-1"><div class="ey">'+esc(T.series)+'</div><h2>'+esc(p.team_left)+' vs. '+esc(p.team_right)+'</h2><p>'+p.total_series+' · '+p.total_games+'</p><div class="searchactions"><a class="btn primary" href="/'+lang+'/wiki/time-clash/konstellation/?pair='+encodeURIComponent(p.pair_slug)+'">'+esc(T.full)+'</a></div></article>';
+   }else{
+     renderFirst(box,av,bv,len?.value||5);
+   }
+   return true;
+ };
+ a.onchange=showExact;
+ b.onchange=showExact;
+ if(len)len.onchange=()=>{if(a.value&&b.value)showExact()};
+ go.onclick=e=>{
    e.preventDefault();e.stopImmediatePropagation();
+   const av=a.value,bv=b.value;if(!av||!bv||av===bv)return;
    const p=findPair(data.pairs||[],av,bv);
    if(p)location.href="/"+lang+"/wiki/time-clash/konstellation/?pair="+encodeURIComponent(p.pair_slug);
    else renderFirst(box,av,bv,len?.value||5);
- },true);
+ };
+ if(reset)reset.onclick=()=>{if(q)q.value="";a.value="";b.value="";if(len)len.value="";location.reload()};
 }
 function addGames(pair){
  const app=document.getElementById("app");if(!app||document.getElementById("wikiAllGames"))return;
