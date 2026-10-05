@@ -47,7 +47,7 @@ try{
  const wikiSlug=s=>wikiFold(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,170);
  const wl=wikiKey(x.team_a).localeCompare(wikiKey(x.team_b))<=0?x.team_a:x.team_b,wr=wl===x.team_a?x.team_b:x.team_a;
  const ps=wikiSlug(wl+"-vs-"+wr),wa=document.getElementById("wikiConstellationLink");
- fetch("https://lszlaglwlixejzytrurg.supabase.co/functions/v1/time-clash-wiki?pair="+encodeURIComponent(ps),{cache:"no-store"}).then(r=>{if(r.ok&&wa){wa.href="/de/wiki/time-clash/konstellation/?pair="+encodeURIComponent(ps);wa.classList.remove("hidden")}}).catch(()=>{});
+ fetch("https://lszlaglwlixejzytrurg.supabase.co/functions/v1/time-clash-wiki?pair="+encodeURIComponent(ps),{cache:"no-store"}).then(r=>{if(r.ok&&wa){wa.href="/en/wiki/time-clash/konstellation/?pair="+encodeURIComponent(ps);wa.classList.remove("hidden")}}).catch(()=>{});
 }catch(e){}
 document.title=x.team_a+" vs. "+x.team_b+" – TIME CLASH | BetInsight";document.getElementById("metaDesc").content=x.team_a+" vs. "+x.team_b+" · TIME CLASH";
 const ctx=(x.report_summary?.context||[]).map(p=>"<p>"+esc(p)+"</p>").join("");
