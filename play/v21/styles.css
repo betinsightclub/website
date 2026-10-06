@@ -442,18 +442,19 @@ kbd{border:1px solid #44627a;background:#0a1d2e;border-radius:5px;padding:1px 5p
 }
 
 
-/* V21 build 20261005-2: persistent + sharpened single-stadium backdrop */
+
+
+/* V21 build 20261006-1: native TIME CLASH HQ stadium rendering */
 .stage.v21-stadium{
   isolation:isolate;
-  background-color:#03101a;
+  background-color:#06131c;
   image-rendering:auto;
-}
-.stage.v21-stadium-sharp{
-  background-size:100% 100%,cover;
-  background-position:center,center;
 }
 .stage.v21-stadium canvas{
   position:relative;
   z-index:1;
   background:transparent!important;
+}
+.stage.v21-timeclash-hq{
+  background-color:#06131c;
 }
