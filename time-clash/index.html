@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TIME CLASH | BetInsight Club</title>
+  <meta name="robots" content="index,follow">
+  <script>
+    (function () {
+      var supported = {
+        de: "/de/time-clash/",
+        en: "/en/time-clash/",
+        es: "/es/time-clash/",
+        pt: "/pt/time-clash/",
+        it: "/it/time-clash/",
+        fr: "/fr/time-clash/",
+        nl: "/nl/time-clash/",
+        "zh-tw": "/zh-tw/time-clash/"
+      };
+      var raw = (navigator.language || "en").toLowerCase();
+      var exact = supported[raw];
+      var base = raw.split("-")[0];
+      var target = exact || supported[base] || supported.en;
+      window.location.replace(target + window.location.search + window.location.hash);
+    }());
+  </script>
+</head>
+<body>
+  <p>Redirecting to TIME CLASH…</p>
+  <p><a href="/en/time-clash/">Continue to TIME CLASH</a></p>
+</body>
+</html>
