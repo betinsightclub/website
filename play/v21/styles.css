@@ -458,3 +458,24 @@ kbd{border:1px solid #44627a;background:#0a1d2e;border-radius:5px;padding:1px 5p
 .stage.v21-timeclash-hq{
   background-color:#06131c;
 }
+
+
+/* V21 build 20261006-3: clip one HQ atlas tile so neighbouring stadium rows never bleed in */
+.stage.v21-stadium{
+  overflow:hidden;
+  background-color:#06131c;
+}
+.v21-stadium-backdrop{
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+  image-rendering:auto;
+  filter:saturate(1.04) contrast(1.02);
+  transform:translateZ(0);
+}
+.stage.v21-stadium canvas{
+  position:relative;
+  z-index:1;
+  background:transparent!important;
+}
