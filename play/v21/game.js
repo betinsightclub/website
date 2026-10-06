@@ -72,53 +72,60 @@ function applyStadiumVars(el,s){
   el.style.setProperty("--stadium-x",v["--stadium-x"]);
 }
 
-const STADIUM_BACKDROP_CACHE=new Map();
-let stadiumBackdropRequest=0;
-function buildSharpStadiumBackdrop(s){
-  if(STADIUM_BACKDROP_CACHE.has(s.id))return STADIUM_BACKDROP_CACHE.get(s.id);
-  const job=new Promise(resolve=>{
+const TIMECLASH_HQ_STADIUM_SPRITE="https://app.betinsight.club/time-clash/assets/stadiums/timeclash_stadiums_hq_v2.webp?v=20260930hq3";
+const TIMECLASH_HQ_ORDER=[
+  "koenigsbogen-arena","atlantic-riviera-stadium","sapphire-bay-arena","solaris-dome",
+  "arena-verdanza","aurora-steps-stadium","aurelia-olympic-park","desert-crown-stadium",
+  "redstone-athletic-park","emerald-ring-stadium","highland-gate-arena","horizon-pulse-arena",
+  "northgate-bowl","arena-do-horizonte","estadio-sierra-alta","bastion-21",
+  "ironbridge-ground","fjordlight-park","estadio-del-mar-norte","titan-forge-arena"
+];
+let stadiumSpriteReady=null;
+function loadTimeClashStadiumSprite(){
+  if(stadiumSpriteReady)return stadiumSpriteReady;
+  stadiumSpriteReady=new Promise((resolve,reject)=>{
     const img=new Image();
     img.decoding="async";
-    img.onload=()=>{
-      try{
-        const cols=5,sw=Math.floor(img.naturalWidth/cols),sh=img.naturalHeight,sx=s.col*sw;
-        const targetW=1600,targetH=Math.round(targetW*(sh/sw));
-        const canvas=document.createElement("canvas");
-        canvas.width=targetW;canvas.height=targetH;
-        const ctx=canvas.getContext("2d",{willReadFrequently:true});
-        if(!ctx){resolve(null);return}
-        ctx.imageSmoothingEnabled=true;
-        ctx.imageSmoothingQuality="high";
-        ctx.drawImage(img,sx,0,sw,sh,0,0,targetW,targetH);
-
-        // Mild unsharp mask. It cannot invent detail, but it removes much of the soft
-        // browser-scaling look from the current TIME CLASH preview atlas.
-        const frame=ctx.getImageData(0,0,targetW,targetH);
-        const d=frame.data,src=new Uint8ClampedArray(d),stride=targetW*4,a=.14;
-        for(let y=1;y<targetH-1;y++){
-          let i=(y*targetW+1)*4;
-          for(let x=1;x<targetW-1;x++,i+=4){
-            for(let ch=0;ch<3;ch++){
-              const p=i+ch;
-              const v=src[p]*(1+4*a)-a*(src[p-4]+src[p+4]+src[p-stride]+src[p+stride]);
-              d[p]=v<0?0:v>255?255:v;
-            }
-          }
-        }
-        ctx.putImageData(frame,0,0);
-        resolve(canvas.toDataURL("image/webp",.92));
-      }catch(err){
-        console.warn("V21 stadium upscale failed",err);
-        resolve(null);
-      }
-    };
-    img.onerror=()=>resolve(null);
-    img.src="/play/v21/stadium-row"+s.row+".webp?build=20261005-2";
+    img.onload=()=>resolve(TIMECLASH_HQ_STADIUM_SPRITE);
+    img.onerror=()=>reject(new Error("TIME CLASH HQ stadium sprite could not be loaded."));
+    img.src=TIMECLASH_HQ_STADIUM_SPRITE;
   });
-  STADIUM_BACKDROP_CACHE.set(s.id,job);
-  return job;
+  return stadiumSpriteReady;
 }
-function renderStadiumGrid(){
+function timeClashStadiumCell(st){
+  const idx=TIMECLASH_HQ_ORDER.indexOf(st?.id);
+  return idx<0?{col:0,row:0}:{col:idx%4,row:Math.floor(idx/4)};
+}
+function paintTimeClashStadium(el,sprite,st,overlay="",focusY=.72){
+  if(!el||!sprite||!st)return;
+  const cell=timeClashStadiumCell(st);
+  const rect=el.getBoundingClientRect();
+  const cw=Math.max(1,rect.width||el.clientWidth||1),ch=Math.max(1,rect.height||el.clientHeight||1);
+  const tileW=800,tileH=450,spriteCols=4,spriteRows=5;
+
+  // Exact TIME CLASH sharpness rule:
+  // never enlarge an 800x450 stadium tile beyond native size.
+  const scale=Math.min(1,Math.max(cw/tileW,ch/tileH));
+  const sw=tileW*scale,sh=tileH*scale;
+  const cropX=(cw-sw)*.5;
+  const cropY=(ch-sh)*(ch>=sh?.5:Math.max(0,Math.min(1,focusY)));
+  const posX=cropX-cell.col*sw,posY=cropY-cell.row*sh;
+
+  el.style.backgroundColor="#06131c";
+  if(overlay){
+    el.style.backgroundImage=overlay+',url("'+sprite+'")';
+    el.style.backgroundSize='100% 100%,'+(spriteCols*sw)+'px '+(spriteRows*sh)+'px';
+    el.style.backgroundPosition='center,'+posX+'px '+posY+'px';
+    el.style.backgroundRepeat='no-repeat,no-repeat';
+  }else{
+    el.style.backgroundImage='url("'+sprite+'")';
+    el.style.backgroundSize=(spriteCols*sw)+'px '+(spriteRows*sh)+'px';
+    el.style.backgroundPosition=posX+'px '+posY+'px';
+    el.style.backgroundRepeat='no-repeat';
+  }
+}
+
+function renderStadiumGrid(){function renderStadiumGrid(){
  const grid=document.querySelector("#stadiumGrid");if(!grid)return;
  grid.innerHTML=STADIUMS.map(s=>
    '<button type="button" class="stadium-card'+(s.id===selectedStadiumId?' selected':'')+'" data-stadium="'+s.id+'" role="option" aria-selected="'+(s.id===selectedStadiumId?'true':'false')+'">'+
@@ -147,10 +154,10 @@ function selectStadium(id,rerender=true){
 function applyStadiumAmbience(){
  const s=stadiumById(S.stadiumId||selectedStadiumId);
  const stage=document.querySelector("#stage");
- const request=++stadiumBackdropRequest;
  if(stage){
    stage.classList.add("v21-stadium");
    stage.classList.remove("v21-stadium-sharp");
+   // Temporary visual fallback while the HQ TIME CLASH sprite loads.
    applyStadiumVars(stage,s);
  }
  const badge=document.querySelector("#stadiumMatchBadge");
@@ -159,13 +166,19 @@ function applyStadiumAmbience(){
    world.scene.background=null;
    world.renderer.setClearColor(0x07131f,0);
  }
- buildSharpStadiumBackdrop(s).then(url=>{
-   if(!url||request!==stadiumBackdropRequest||!stage)return;
+ loadTimeClashStadiumSprite().then(sprite=>{
    const active=stadiumById(S.stadiumId||selectedStadiumId);
-   if(active.id!==s.id)return;
-   stage.style.setProperty("--stadium-img",'url("'+url+'")');
-   stage.style.setProperty("--stadium-x","center");
-   stage.classList.add("v21-stadium-sharp");
+   if(!stage||active.id!==s.id)return;
+   paintTimeClashStadium(
+     stage,
+     sprite,
+     s,
+     'linear-gradient(180deg,rgba(0,12,18,.03),rgba(0,12,18,.30))',
+     .72
+   );
+   stage.classList.add("v21-timeclash-hq");
+ }).catch(err=>{
+   console.warn("V21 HQ stadium fallback active",err);
  });
 }
 
@@ -173,6 +186,13 @@ const $=s=>document.querySelector(s);
 const S={A:null,B:null,stadiumId:"aurelia-olympic-park",side:"A",a:0,b:0,ta:0,tb:0,shots:[],target:{x:0,y:1.2,set:false},contact:{x:0,y:0},power:78,busy:false,sudden:false,finished:false,playerPos:{x:-1.2,z:12.2}};
 let world=null;
 let contactDraft={x:0,y:0};
+let stadiumResizeTimer=null;
+addEventListener("resize",()=>{
+  clearTimeout(stadiumResizeTimer);
+  stadiumResizeTimer=setTimeout(()=>{
+    if(!document.querySelector("#game")?.classList.contains("hidden"))applyStadiumAmbience();
+  },120);
+});
 
 function T(id){return TEAMS.find(t=>t.id===id)}
 function fill(){for(const id of ["teamA","teamB"]){$("#"+id).innerHTML=TEAMS.map(t=>'<option value="'+t.id+'">'+t.flag+" "+t.name+"</option>").join("")}$("#teamA").value="ger14";$("#teamB").value="arg22";preview();renderStadiumGrid()}
