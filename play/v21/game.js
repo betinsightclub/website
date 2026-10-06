@@ -96,6 +96,16 @@ function timeClashStadiumCell(st){
   const idx=TIMECLASH_HQ_ORDER.indexOf(st?.id);
   return idx<0?{col:0,row:0}:{col:idx%4,row:Math.floor(idx/4)};
 }
+function ensureTimeClashBackdrop(el){
+  let layer=el.querySelector(":scope > .v21-stadium-backdrop");
+  if(!layer){
+    layer=document.createElement("div");
+    layer.className="v21-stadium-backdrop";
+    layer.setAttribute("aria-hidden","true");
+    el.prepend(layer);
+  }
+  return layer;
+}
 function paintTimeClashStadium(el,sprite,st,overlay="",focusY=.72){
   if(!el||!sprite||!st)return;
   const cell=timeClashStadiumCell(st);
@@ -103,26 +113,40 @@ function paintTimeClashStadium(el,sprite,st,overlay="",focusY=.72){
   const cw=Math.max(1,rect.width||el.clientWidth||1),ch=Math.max(1,rect.height||el.clientHeight||1);
   const tileW=800,tileH=450,spriteCols=4,spriteRows=5;
 
-  // Exact TIME CLASH sharpness rule:
-  // never enlarge an 800x450 stadium tile beyond native size.
+  // Keep the exact TIME CLASH sharpness rule: never upscale a tile beyond 800x450.
   const scale=Math.min(1,Math.max(cw/tileW,ch/tileH));
   const sw=tileW*scale,sh=tileH*scale;
-  const cropX=(cw-sw)*.5;
-  const cropY=(ch-sh)*(ch>=sh?.5:Math.max(0,Math.min(1,focusY)));
-  const posX=cropX-cell.col*sw,posY=cropY-cell.row*sh;
+  const left=(cw-sw)*.5;
+  const top=(ch-sh)*(ch>=sh?.5:Math.max(0,Math.min(1,focusY)));
 
-  el.style.backgroundColor="#06131c";
+  // Important for the penalty view: the HQ atlas is painted inside a tile-sized,
+  // clipped child layer. This prevents the previous/next atlas row from bleeding
+  // into the top or bottom of the stadium view.
+  const layer=ensureTimeClashBackdrop(el);
+  layer.style.left=left+"px";
+  layer.style.top=top+"px";
+  layer.style.width=sw+"px";
+  layer.style.height=sh+"px";
+  layer.style.backgroundColor="#06131c";
+
+  const tileX=-cell.col*sw,tileY=-cell.row*sh;
   if(overlay){
-    el.style.backgroundImage=overlay+',url("'+sprite+'")';
-    el.style.backgroundSize='100% 100%,'+(spriteCols*sw)+'px '+(spriteRows*sh)+'px';
-    el.style.backgroundPosition='center,'+posX+'px '+posY+'px';
-    el.style.backgroundRepeat='no-repeat,no-repeat';
+    layer.style.backgroundImage=overlay+',url("'+sprite+'")';
+    layer.style.backgroundSize='100% 100%,'+(spriteCols*sw)+'px '+(spriteRows*sh)+'px';
+    layer.style.backgroundPosition='center,'+tileX+'px '+tileY+'px';
+    layer.style.backgroundRepeat='no-repeat,no-repeat';
   }else{
-    el.style.backgroundImage='url("'+sprite+'")';
-    el.style.backgroundSize=(spriteCols*sw)+'px '+(spriteRows*sh)+'px';
-    el.style.backgroundPosition=posX+'px '+posY+'px';
-    el.style.backgroundRepeat='no-repeat';
+    layer.style.backgroundImage='url("'+sprite+'")';
+    layer.style.backgroundSize=(spriteCols*sw)+'px '+(spriteRows*sh)+'px';
+    layer.style.backgroundPosition=tileX+'px '+tileY+'px';
+    layer.style.backgroundRepeat='no-repeat';
   }
+
+  // Once HQ is ready, do not leave the low-res preview atlas behind it.
+  el.style.backgroundImage="none";
+  el.style.backgroundPosition="";
+  el.style.backgroundSize="";
+  el.style.backgroundRepeat="";
 }
 
 function renderStadiumGrid(){
