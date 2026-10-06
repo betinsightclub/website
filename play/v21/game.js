@@ -125,7 +125,7 @@ function paintTimeClashStadium(el,sprite,st,overlay="",focusY=.72){
   }
 }
 
-function renderStadiumGrid(){function renderStadiumGrid(){
+function renderStadiumGrid(){
  const grid=document.querySelector("#stadiumGrid");if(!grid)return;
  grid.innerHTML=STADIUMS.map(s=>
    '<button type="button" class="stadium-card'+(s.id===selectedStadiumId?' selected':'')+'" data-stadium="'+s.id+'" role="option" aria-selected="'+(s.id===selectedStadiumId?'true':'false')+'">'+
