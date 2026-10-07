@@ -20,10 +20,11 @@ for(const lang of languages){
   requireIn(html,'data-lang-extra="nl"',"language menu "+path);
   requireIn(html,'data-lang-extra="zh-tw"',"language menu "+path);
   requireIn(html,'tc-mobile-layout-fix-20260930',"mobile guard "+path);
-  requireIn(html,'tc-hero-exact-app-sync-20261007',"hero app sync "+path);
+  requireIn(html,'tc-hero-app-visual-parity-v2-20261007',"hero app visual parity "+path);
   requireIn(html,'images.unsplash.com/photo-1765130729366-b54d7b2c8ea2',"stadium hero background "+path);
-  requireIn(html,'box-shadow:inset 0 -80px 90px #020d14,0 28px 80px #000a',"app hero shadow "+path);
-  requireIn(html,'radial-gradient(ellipse at 50% 13%,#00111deb 0 14%,#00111db8 28%,transparent 55%),linear-gradient(180deg,#00111db8 0%,#00111d8f 42%,#00111dd8 100%)',"app hero overlay "+path);
+  requireIn(html,'box-shadow:inset 0 0 110px rgba(2,13,20,.42),0 28px 80px #000a',"app-like hero shadow "+path);
+  requireIn(html,'linear-gradient(rgba(0,17,29,.52),rgba(0,17,29,.52))',"uniform full hero overlay "+path);
+  requireIn(html,'.hero:before{content:none!important;display:none!important}',"no hard pseudo overlay "+path);
   requireIn(html,'<div class="heroBrandLine" aria-label="BetInsight Match Lab">',"app hero brand line "+path);
   requireIn(html,'time-clash-wordmark-clean-1024.png',"hero wordmark "+path);
   forbid(html,'time-clash-hero-cinematic.webp',"retired baked German hero "+path);
