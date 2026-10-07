@@ -48,7 +48,7 @@
   <footer><div class="wrap">© 2026 BetInsight Club · Webinar-Aufzeichnung</div></footer>
   <script>
   (async function(){
-    const WEBHOOK='https://hook.eu1.make.com/ze9eo9dyv4f1obetqyo9alqnlial18j7',KEY='betinsight_ref_code',DEFAULT='POOL',ACCESS='betinsight_replay_access';
+    const WEBHOOK='https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-webinar-api',KEY='betinsight_ref_code',DEFAULT='POOL',ACCESS='betinsight_replay_access';
     const clean=v=>{if(!v)return'';v=String(v).trim();return /^[A-Za-z0-9_-]{2,50}$/.test(v)?v:''};
     const params=new URLSearchParams(location.search),fromUrl=clean(params.get('ref')||params.get('ref_code'));
     if(fromUrl&&fromUrl!==DEFAULT){try{localStorage.setItem(KEY,fromUrl)}catch(e){};document.cookie='betinsight_ref_code='+encodeURIComponent(fromUrl)+';path=/;max-age=7776000;SameSite=Lax'}
