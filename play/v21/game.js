@@ -1285,7 +1285,7 @@ function showOutcomeCallout(outcome,frameType=null){
  clearTimeout(showOutcomeCallout._t);
  showOutcomeCallout._t=setTimeout(()=>el.classList.add("hidden"),1500);
 }
-async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],keeper:d.keeper.name,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType);board();await new Promise(r=>setTimeout(r,850));if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
+async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],keeper:d.keeper.name,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});resetContactAfterShot();if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType);board();await new Promise(r=>setTimeout(r,850));if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
 function finish(){S.finished=true;const win=S.a>S.b?"A":"B";$("#game").classList.add("hidden");$("#result").classList.remove("hidden");$("#winner").innerHTML='<div class="winner-wrap"><div class="winner-team '+(win==="A"?"win":"lose")+'"><div>'+S.A.flag+'</div><h3>'+S.A.name+'</h3><strong>'+S.a+'</strong><br><span>'+(win==="A"?"SIEGER":"AUSGESCHIEDEN")+'</span></div><div class="vs">:</div><div class="winner-team '+(win==="B"?"win":"lose")+'"><div>'+S.B.flag+'</div><h3>'+S.B.name+'</h3><strong>'+S.b+'</strong><br><span>'+(win==="B"?"SIEGER":"AUSGESCHIEDEN")+'</span></div></div>';$("#log").innerHTML=S.shots.map((x,i)=>'<div class="log-row '+(x.outcome==="goal"?"good":"bad")+'"><span>'+(x.outcome==="goal"?"✓":"✕")+'</span><div><b>'+(i+1)+". "+x.shooter+'</b><small>'+x.team+" · "+x.power+'% · Kontakt '+(Math.round(x.contactX*100))+"/"+(Math.round(x.contactY*100))+'</small></div><b>'+(x.outcome==="goal"?"GETROFFEN":x.outcome==="save"?"GEHALTEN":x.outcome==="post"?"PFOSTEN":"DANEBEN")+"</b></div>").join("")}
 function showRenderError(err){
  const box=$("#renderError"),txt=$("#renderErrorText");
@@ -1334,7 +1334,15 @@ function setContact(x,y){
 function contactLabel(x,y){
  return (Math.abs(x)<.12&&Math.abs(y)<.12)?"MITTE":(x<-.12?"LINKS ":x>.12?"RECHTS ":"")+(y<-.12?"OBEN":y>.12?"UNTEN":"");
 }
+function resetContactAfterShot(){
+ S.contact={x:0,y:0};
+ contactDraft={x:0,y:0};
+ const label=$("#contactLabel");if(label)label.textContent="MITTE";
+ const modal=$("#contactModal");
+ if(modal&&!modal.classList.contains("hidden"))setContact(0,0);
+}
 function openContact(){
+ if(S.busy||S.finished)return;
  contactDraft={x:S.contact.x,y:S.contact.y};
  $("#contactModal").classList.remove("hidden");
  setContact(contactDraft.x,contactDraft.y);
@@ -1344,7 +1352,7 @@ function applyContact(){
  S.contact={x:contactDraft.x,y:contactDraft.y};
  $("#contactLabel").textContent=contactLabel(S.contact.x,S.contact.y);
  closeContact();
- $("#commentary").textContent="Ballkontakt übernommen: "+contactLabel(S.contact.x,S.contact.y)+". Jetzt Ziel/Power prüfen und schießen.";
+ $("#commentary").textContent="Ballkontakt übernommen: "+contactLabel(S.contact.x,S.contact.y)+". Gilt nur für diesen Schuss.";
 }
 function cancelContact(){
  contactDraft={x:S.contact.x,y:S.contact.y};
@@ -1377,6 +1385,5 @@ document.querySelectorAll("[data-move]").forEach(btn=>btn.addEventListener("poin
  if(d==="forward")world.movePlayer(0,-MOVE_STEP);
  if(d==="back")world.movePlayer(0,MOVE_STEP);
 }));
-$("#soundBtn").onclick=()=>$("#soundBtn").textContent=$("#soundBtn").textContent.includes("🔇")?"🔊 Sound":"🔇 Sound";
 fill();
 const _ms=document.querySelector("#moduleStatus");if(_ms){_ms.textContent="3D-Modul bereit · 20 Stadien geladen";_ms.style.color="#63e6a3";}
