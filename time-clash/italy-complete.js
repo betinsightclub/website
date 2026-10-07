@@ -42,8 +42,7 @@ for(const [team,names] of Object.entries(SQUADS)){
     const idx=findExisting(old,name,used);
     if(idx>=0){
       used.add(idx);
-      const p={...old[idx],name,squadIndex:i};
-      if(i>=11)p.starter=false;
+      const p={...old[idx],name,squadIndex:i,starter:false};
       return p;
     }
     return {id:slug(name),name,impact:3,strength:18,squadIndex:i,starter:false,source:team==="Inter Milan 2025/26"?"inter-official-2025-26":"historical-season-roster"};
@@ -51,7 +50,7 @@ for(const [team,names] of Object.entries(SQUADS)){
 }
 window.TC_COACH_DB=Object.assign(window.TC_COACH_DB||{},COACHES);
 window.TC_ITALY_ROSTER_AUDIT={
-  version:"2026-10-07-2",
+  version:"2026-10-07-3",
   sourceCurrent:"FC Internazionale official",
   seasons:Object.keys(SQUADS).length,
   historicalSeasons:25,
