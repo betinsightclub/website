@@ -2,7 +2,7 @@ import * as THREE from "https://esm.sh/three@0.152.2";
 import { GLTFLoader } from "https://esm.sh/three@0.152.2/examples/jsm/loaders/GLTFLoader.js";
 import * as SkeletonUtils from "https://esm.sh/three@0.152.2/examples/jsm/utils/SkeletonUtils.js";
 
-const TEAMS=[
+let TEAMS=[
 {id:"ger14",name:"Deutschland 2014",nation:"Deutschland",flag:"🇩🇪",shirt:0xf2f2f2,shorts:0x171b22,keeperColor:0xe4b72f,keeper:{name:"Manuel Neuer",club:"FC Bayern München",strength:24},shooters:[["Thomas Müller",24],["Toni Kroos",23],["Bastian Schweinsteiger",23],["Mario Götze",22],["Miroslav Klose",22]]},
 {id:"arg22",name:"Argentinien 2022",nation:"Argentinien",flag:"🇦🇷",shirt:0x79cfee,shorts:0xffffff,keeperColor:0x2b7b45,keeper:{name:"Emiliano Martínez",club:"Aston Villa",strength:23},shooters:[["Lionel Messi",23],["Ángel Di María",20],["Lautaro Martínez",20],["Julián Álvarez",19],["Leandro Paredes",21]]},
 {id:"ita06",name:"Italien 2006",nation:"Italien",flag:"🇮🇹",shirt:0x1558b0,shorts:0xffffff,keeperColor:0xd29f2c,keeper:{name:"Gianluigi Buffon",club:"Juventus",strength:23},shooters:[["Francesco Totti",20],["Andrea Pirlo",20],["Alessandro Del Piero",22],["Daniele De Rossi",17],["Marco Materazzi",19]]},
@@ -207,6 +207,9 @@ function applyStadiumAmbience(){
 }
 
 const $=s=>document.querySelector(s);
+const BRIDGE_MODE=new URLSearchParams(location.search).get("bridge")==="1";
+const TRUSTED_BRIDGE_ORIGINS=new Set(["https://app.betinsight.club","https://betinsight.club","https://www.betinsight.club"]);
+let bridgeParentOrigin="",bridgeContext=null;
 const S={A:null,B:null,stadiumId:"aurelia-olympic-park",side:"A",a:0,b:0,ta:0,tb:0,shots:[],target:{x:0,y:1.2,set:false},contact:{x:0,y:0},power:78,busy:false,sudden:false,finished:false,playerPos:{x:-1.2,z:12.2}};
 let world=null;
 let contactDraft={x:0,y:0};
@@ -219,7 +222,7 @@ addEventListener("resize",()=>{
 });
 
 function T(id){return TEAMS.find(t=>t.id===id)}
-function fill(){for(const id of ["teamA","teamB"]){$("#"+id).innerHTML=TEAMS.map(t=>'<option value="'+t.id+'">'+t.flag+" "+t.name+"</option>").join("")}$("#teamA").value="ger14";$("#teamB").value="arg22";preview();renderStadiumGrid()}
+function fill(){for(const id of ["teamA","teamB"]){$("#"+id).innerHTML=TEAMS.map(t=>'<option value="'+t.id+'">'+t.flag+" "+t.name+"</option>").join("")}const a=TEAMS[0]?.id||"",b=TEAMS[1]?.id||a;if($("#teamA"))$("#teamA").value=a;if($("#teamB"))$("#teamB").value=b;preview();renderStadiumGrid()}
 function preview(){const a=T($("#teamA").value),b=T($("#teamB").value);$("#preview").innerHTML=[a,b].map(t=>'<div><b>'+t.flag+" "+t.name+'</b><small>TW: '+t.keeper.name+" · "+t.keeper.club+'</small><p>'+t.shooters.map((p,i)=>(i+1)+". "+p[0]).join("<br>")+"</p></div>").join("")}
 $("#teamA").onchange=()=>{if($("#teamA").value===$("#teamB").value)$("#teamB").value=TEAMS.find(t=>t.id!==$("#teamA").value).id;preview()};
 $("#teamB").onchange=()=>{if($("#teamA").value===$("#teamB").value)$("#teamA").value=TEAMS.find(t=>t.id!==$("#teamB").value).id;preview()};
@@ -1216,7 +1219,7 @@ class World3D{
 
 function sideTeam(s){return s==="A"?S.A:S.B}function oppTeam(s){return s==="A"?S.B:S.A}function taken(s){return s==="A"?S.ta:S.tb}function goals(s){return s==="A"?S.a:S.b}function shooter(s){const t=sideTeam(s);return t.shooters[taken(s)%t.shooters.length]}
 function syncPower(v){S.power=+v;$("#power").value=v;$("#powerMobile").value=v;$("#powerVal").textContent=v+"%";$("#powerMobileVal").textContent=v+"%"}function enableShoot(v){$("#shootBtn").disabled=!v;$("#shootMobile").disabled=!v}
-function board(){const row=s=>{const t=sideTeam(s),own=S.shots.filter(x=>x.side===s),tk=taken(s);return '<div class="score-row '+(S.side===s&&!S.finished?"active":"")+'"><div class="score-team">'+t.flag+" "+t.name+'<small>TW: '+t.keeper.name+'</small></div><div class="score-num">'+goals(s)+'</div><div class="kicks">'+t.shooters.map((p,i)=>{const sh=own[i],cl=sh?(sh.outcome==="goal"?"good":"bad"):(i===tk&&S.side===s?"now":"");return '<span class="kick '+cl+'"><b>'+p[0].split(" ").slice(-1)[0]+'</b>'+(sh?(sh.outcome==="goal"?"✓":"✕"):"·")+'</span>'}).join("")+own.slice(5).map(sh=>'<span class="kick '+(sh.outcome==="goal"?"good":"bad")+'"><b>'+sh.shooter.split(" ").slice(-1)[0]+'</b>'+(sh.outcome==="goal"?"✓":"✕")+"</span>").join("")+"</div></div>"};$("#scoreboard").innerHTML=row("A")+row("B")}
+function board(){const row=s=>{const t=sideTeam(s),own=S.shots.filter(x=>x.side===s),tk=taken(s),base=t.shooters.slice(0,5);return '<div class="score-row '+(S.side===s&&!S.finished?"active":"")+'"><div class="score-team">'+t.flag+" "+t.name+'<small>TW: '+t.keeper.name+'</small></div><div class="score-num">'+goals(s)+'</div><div class="kicks">'+base.map((p,i)=>{const sh=own[i],cl=sh?(sh.outcome==="goal"?"good":"bad"):(i===tk&&S.side===s?"now":"");return '<span class="kick '+cl+'"><b>'+p[0].split(" ").slice(-1)[0]+'</b>'+(sh?(sh.outcome==="goal"?"✓":"✕"):"·")+'</span>'}).join("")+own.slice(5).map(sh=>'<span class="kick '+(sh.outcome==="goal"?"good":"bad")+'"><b>'+sh.shooter.split(" ").slice(-1)[0]+'</b>'+(sh.outcome==="goal"?"✓":"✕")+"</span>").join("")+"</div></div>"};$("#scoreboard").innerHTML=row("A")+row("B")}
 function ui(){const oc=$("#outcomeCallout");if(oc)oc.classList.add("hidden");S.playerPos={x:-1.2,z:12.2};board();const a=sideTeam(S.side),d=oppTeam(S.side),sh=shooter(S.side);$("#turnTitle").textContent=a.flag+" "+a.name+" am Punkt";$("#turnMeta").textContent=sh[0]+" gegen "+d.keeper.name;$("#shooter").textContent=sh[0];$("#shooterMeta").textContent=a.name+" · Stärke "+sh[1]+"/25";$("#keeper").textContent=d.keeper.name;$("#keeperMeta").textContent=d.keeper.club+" · Stärke "+d.keeper.strength+"/25";$("#pressure").textContent=S.sudden?"SUDDEN DEATH":taken(S.side)>=4?"MATCHBALL":"DRUCK";$("#commentary").textContent="Ziel setzen. Mit Alt+B kannst du zusätzlich festlegen, wo der Fuß den Ball trifft.";world.setTeams(a,d);world.applyHairForTurn(a,d,taken(S.side)%10);world.reset();applyStadiumAmbience();world.updatePositionReadout();enableShoot(false);S.target.set=false;$("#aim").textContent="— / —"}
 function gauss(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
 function simulate(sh,kp){
@@ -1285,8 +1288,15 @@ function showOutcomeCallout(outcome,frameType=null){
  clearTimeout(showOutcomeCallout._t);
  showOutcomeCallout._t=setTimeout(()=>el.classList.add("hidden"),1500);
 }
-async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],keeper:d.keeper.name,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});resetContactAfterShot();if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType);board();await new Promise(r=>setTimeout(r,850));if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
-function finish(){S.finished=true;const win=S.a>S.b?"A":"B";$("#game").classList.add("hidden");$("#result").classList.remove("hidden");$("#winner").innerHTML='<div class="winner-wrap"><div class="winner-team '+(win==="A"?"win":"lose")+'"><div>'+S.A.flag+'</div><h3>'+S.A.name+'</h3><strong>'+S.a+'</strong><br><span>'+(win==="A"?"SIEGER":"AUSGESCHIEDEN")+'</span></div><div class="vs">:</div><div class="winner-team '+(win==="B"?"win":"lose")+'"><div>'+S.B.flag+'</div><h3>'+S.B.name+'</h3><strong>'+S.b+'</strong><br><span>'+(win==="B"?"SIEGER":"AUSGESCHIEDEN")+'</span></div></div>';$("#log").innerHTML=S.shots.map((x,i)=>'<div class="log-row '+(x.outcome==="goal"?"good":"bad")+'"><span>'+(x.outcome==="goal"?"✓":"✕")+'</span><div><b>'+(i+1)+". "+x.shooter+'</b><small>'+x.team+" · "+x.power+'% · Kontakt '+(Math.round(x.contactX*100))+"/"+(Math.round(x.contactY*100))+'</small></div><b>'+(x.outcome==="goal"?"GETROFFEN":x.outcome==="save"?"GEHALTEN":x.outcome==="post"?"PFOSTEN":"DANEBEN")+"</b></div>").join("")}
+async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],shooterId:sh[2]||null,keeper:d.keeper.name,keeperId:d.keeper.id||null,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});resetContactAfterShot();if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType);board();await new Promise(r=>setTimeout(r,850));if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
+function bridgeResultPayload(win){
+ return{protocol:"betinsight-penalty-v1",context_id:bridgeContext?.context_id||null,reason:bridgeContext?.reason||"direct",language:bridgeContext?.language||"de",stadium_id:S.stadiumId,winner_side:win,winner:win==="A"?S.A.name:S.B.name,team_a:S.A.name,team_b:S.B.name,penalties_a:S.a,penalties_b:S.b,shots:S.shots.map((x,i)=>({order:i+1,side:x.side,team:x.team,shooter:x.shooter,shooter_id:x.shooterId||null,keeper:x.keeper,keeper_id:x.keeperId||null,outcome:x.outcome,frame_type:x.frameType||null,power:x.power,contact_x:x.contactX,contact_y:x.contactY}))}
+}
+function sendBridgeResult(win){
+ if(!BRIDGE_MODE||!bridgeParentOrigin||!window.parent||window.parent===window)return;
+ window.parent.postMessage({type:"betinsight:penalty-result",payload:bridgeResultPayload(win)},bridgeParentOrigin);
+}
+function finish(){S.finished=true;const win=S.a>S.b?"A":"B";sendBridgeResult(win);$("#game").classList.add("hidden");$("#result").classList.remove("hidden");$("#winner").innerHTML='<div class="winner-wrap"><div class="winner-team '+(win==="A"?"win":"lose")+'"><div>'+S.A.flag+'</div><h3>'+S.A.name+'</h3><strong>'+S.a+'</strong><br><span>'+(win==="A"?"SIEGER":"AUSGESCHIEDEN")+'</span></div><div class="vs">:</div><div class="winner-team '+(win==="B"?"win":"lose")+'"><div>'+S.B.flag+'</div><h3>'+S.B.name+'</h3><strong>'+S.b+'</strong><br><span>'+(win==="B"?"SIEGER":"AUSGESCHIEDEN")+'</span></div></div>';$("#log").innerHTML=S.shots.map((x,i)=>'<div class="log-row '+(x.outcome==="goal"?"good":"bad")+'"><span>'+(x.outcome==="goal"?"✓":"✕")+'</span><div><b>'+(i+1)+". "+x.shooter+'</b><small>'+x.team+" · "+x.power+'% · Kontakt '+(Math.round(x.contactX*100))+"/"+(Math.round(x.contactY*100))+'</small></div><b>'+(x.outcome==="goal"?"GETROFFEN":x.outcome==="save"?"GEHALTEN":x.outcome==="post"?"PFOSTEN":"DANEBEN")+"</b></div>").join("")}
 function showRenderError(err){
  const box=$("#renderError"),txt=$("#renderErrorText");
  if(box){box.classList.remove("hidden");box.style.display="grid"}
@@ -1306,7 +1316,44 @@ function start(){S.A=T($("#teamA").value);S.B=T($("#teamB").value);S.stadiumId=s
    console.error("Penalty Clash 3D init failed",err);
    showRenderError(err);
  }}
-$("#startBtn").onclick=start;$("#shootBtn").onclick=shootNow;$("#shootMobile").onclick=shootNow;$("#power").oninput=e=>syncPower(e.target.value);$("#powerMobile").oninput=e=>syncPower(e.target.value);$("#rematch").onclick=start;$("#newMatch").onclick=()=>{$("#result").classList.add("hidden");$("#game").classList.add("hidden");$("#setup").classList.remove("hidden");renderStadiumGrid()};
+function bridgeColor(v,fallback){
+ if(typeof v==="number"&&Number.isFinite(v))return v;
+ let s=String(v||"").trim().replace("#","");
+ return /^[0-9a-f]{6}$/i.test(s)?parseInt(s,16):fallback;
+}
+function bridgeTeam(src,id,fallbackFlag,fallbackShirt){
+ const shooters=Array.isArray(src?.shooters)?src.shooters.map((p,i)=>[String(p?.name||p?.[0]||("Spieler "+(i+1))),Math.max(1,Math.min(25,Number(p?.strength||p?.[1]||12))),p?.id||p?.[2]||null]):[];
+ const keeper=src?.keeper||{};
+ return{id,name:String(src?.name||id),nation:String(src?.nation||src?.name||id),flag:String(src?.flag||fallbackFlag),shirt:bridgeColor(src?.shirt,fallbackShirt),shorts:bridgeColor(src?.shorts,0x17202b),keeperColor:bridgeColor(src?.keeperColor,0x2c8a54),keeper:{id:keeper.id||null,name:String(keeper.name||"Torwart"),club:String(keeper.club||src?.name||"TIME CLASH"),strength:Math.max(1,Math.min(25,Number(keeper.strength||12)))},shooters:shooters.length?shooters:[["Schütze 1",12,null],["Schütze 2",12,null],["Schütze 3",12,null],["Schütze 4",12,null],["Schütze 5",12,null]]}
+}
+function applyBridgePayload(payload){
+ if(!payload||payload.protocol!=="betinsight-penalty-v1"||!payload.team_a||!payload.team_b)return false;
+ bridgeContext=payload;
+ TEAMS=[bridgeTeam(payload.team_a,"tc-a","⚽",0xf2f2f2),bridgeTeam(payload.team_b,"tc-b","⚽",0x244f9e)];
+ selectedStadiumId=stadiumById(payload.stadium_id).id;
+ fill();
+ selectStadium(selectedStadiumId);
+ const title=document.querySelector(".title span");if(title)title.textContent="TIME CLASH · SHOOTOUT";
+ const note=$("#moduleStatus");if(note){note.textContent="TIME-CLASH-KADER ÜBERNOMMEN · "+TEAMS[0].name+" vs. "+TEAMS[1].name;note.style.color="#63e6a3"}
+ const back=$("#newMatch");if(back){back.textContent="← ZURÜCK ZU TIME CLASH";back.onclick=()=>window.parent.postMessage({type:"betinsight:penalty-close"},bridgeParentOrigin||"*")}
+ start();
+ return true;
+}
+function notifyBridgeReady(){
+ if(!BRIDGE_MODE||!window.parent||window.parent===window)return;
+ window.parent.postMessage({type:"betinsight:penalty-ready",version:"v21-p1"},"*");
+}
+if(BRIDGE_MODE){
+ document.documentElement.classList.add("penalty-bridge-mode");
+ addEventListener("message",e=>{
+   if(!TRUSTED_BRIDGE_ORIGINS.has(e.origin)||e.data?.type!=="betinsight:penalty-init")return;
+   bridgeParentOrigin=e.origin;
+   applyBridgePayload(e.data.payload);
+ });
+ setTimeout(notifyBridgeReady,0);setTimeout(notifyBridgeReady,500);setTimeout(notifyBridgeReady,1400);
+}
+
+$("#startBtn").onclick=start;$("#shootBtn").onclick=shootNow;$("#shootMobile").onclick=shootNow;$("#power").oninput=e=>syncPower(e.target.value);$("#powerMobile").oninput=e=>syncPower(e.target.value);$("#rematch").onclick=start;if(!BRIDGE_MODE)$("#newMatch").onclick=()=>{$("#result").classList.add("hidden");$("#game").classList.add("hidden");$("#setup").classList.remove("hidden");renderStadiumGrid()};
 
 function contactPhysicsPreview(x,y){
   const p=(S.power-45)/55;
