@@ -20,7 +20,9 @@ for(const lang of languages){
   requireIn(html,'data-lang-extra="nl"',"language menu "+path);
   requireIn(html,'data-lang-extra="zh-tw"',"language menu "+path);
   requireIn(html,'tc-mobile-layout-fix-20260930',"mobile guard "+path);
-  requireIn(html,'time-clash-hero-cinematic.webp',"hero "+path);
+  requireIn(html,'hero-fussball-dunkel.png',"hero background "+path);
+  requireIn(html,'time-clash-wordmark-clean-1024.png',"hero wordmark "+path);
+  forbid(html,'time-clash-hero-cinematic.webp',"baked German hero slogan "+path);
   requireIn(html,'/time-clash/rosters-all.js?v=20260930-1',"roster cache-bust "+path);
   requireIn(html,'function rosterReady(side){return startingLineup(side).length>=11}',"roster readiness "+path);
   forbid(html,'for(let i=own.length;i<17',"generic roster padding "+path);
