@@ -244,8 +244,10 @@ async function syncMusicToWebinar(){
     const phase=playlistPhase(cycle,targetPhase);
 
     // Zyklus: Lied 1 -> 2s Pause -> Lied 2 -> 2s Pause.
-    // Der Einstiegspunkt wird aus der Restzeit bis 20:00 berechnet.
-    // Am Webinarbeginn endet Lied 2 exakt; danach startet sofort das Video.
+    // Nur beim ersten Start wird aus der Restzeit bis 20:00 der passende
+    // Einstiegspunkt berechnet. Danach laufen beide Titel vollständig:
+    // Titelende -> 2s Stille -> nächster Titel immer ab 0:00.
+    // Am Webinarbeginn beendet der exakte Start-Timer die Musik und startet das Video.
     if(phase<d1){
       trackIndex=0;
       audio1.currentTime=Math.min(phase,Math.max(0,d1-.02));
@@ -274,12 +276,41 @@ async function syncMusicToWebinar(){
   }
 }
 
+async function playTrackFromStart(index){
+  if(!musicActive||switched)return;
+  clearGapTimer();
+  trackIndex=index;
+  const track=tracks[trackIndex];
+  tracks.forEach((t,i)=>{
+    if(i!==trackIndex)t.pause();
+  });
+  try{track.currentTime=0}catch(e){}
+  try{
+    await track.play();
+    btn.textContent='⏸ Musik pausieren';
+  }catch(e){
+    musicActive=false;
+    btn.textContent='▶ Musik starten';
+  }
+}
+
+function scheduleCleanNextTrack(finishedIndex){
+  if(!musicActive||switched||finishedIndex!==trackIndex)return;
+  clearGapTimer();
+  const nextIndex=(finishedIndex+1)%tracks.length;
+
+  // Immer echte 2 Sekunden Stille zwischen den Liedern.
+  // Danach beginnt das nächste Lied garantiert bei 0:00.
+  gapTimer=setTimeout(async()=>{
+    gapTimer=null;
+    if(!musicActive||switched)return;
+    await playTrackFromStart(nextIndex);
+  },MUSIC_GAP*1000);
+}
+
 tracks.forEach((track,index)=>{
   track.addEventListener('ended',()=>{
-    if(!musicActive||switched||index!==trackIndex)return;
-    // Bei jedem Titelende neu an der absoluten Webinarzeit ausrichten.
-    // So sammelt sich über viele Schleifen kein Timer-Drift an.
-    syncMusicToWebinar();
+    scheduleCleanNextTrack(index);
   });
 });
 
