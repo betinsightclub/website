@@ -101,7 +101,7 @@
       showState('🟢 Neuer Teilnahmelink erstellt','open');
     }catch(e){
       showState('🔴 Teilnahmelink konnte nicht erstellt werden','error');
-    }finally{setBusy(false);render()}
+    }finally{setBusy(false)}
   });
 
   openBtn.addEventListener('click',()=>{
@@ -149,7 +149,7 @@
       if(lastNames.length<2)alert('Anmeldung geschlossen. Es wurden '+lastNames.length+' Teilnehmer übernommen. Für die Ziehung werden mindestens zwei Teilnehmer benötigt.');
     }catch(e){
       showState('🔴 Anmeldung konnte nicht geschlossen werden','error');
-    }finally{setBusy(false);render()}
+    }finally{setBusy(false)}
   });
 
   link.addEventListener('click',()=>{try{link.focus();link.select()}catch(e){}});
