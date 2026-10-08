@@ -27,7 +27,7 @@
   async function api(data,timeout=6500){
     const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),timeout);
     try{
-      const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:new URLSearchParams(data),cache:'no-store',signal:ctl.signal});
+      const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:new URLSearchParams(data),cache:'no-store',signal:ctl.signal,referrer:location.origin+'/tombula/',referrerPolicy:'unsafe-url'});
       const txt=await res.text();
       if(!res.ok)throw new Error('HTTP '+res.status);
       try{return JSON.parse(txt)}catch(e){throw new Error('Keine gültige Antwort')}
