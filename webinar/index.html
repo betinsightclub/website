@@ -21,7 +21,7 @@
     *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#03131c;color:#fff}
     body{min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;padding:20px;background:linear-gradient(rgba(2,14,22,.50),rgba(2,14,22,.80)),url('/assets/stadion-community.webp') center/cover no-repeat}
     body:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(0,200,255,.13),transparent 42%);pointer-events:none}
-    .wrap{position:relative;z-index:1;width:min(1180px,94vw);text-align:center}.brandRow{display:grid;grid-template-columns:minmax(150px,1fr) minmax(280px,1.5fr) minmax(150px,1fr);align-items:center;gap:clamp(12px,2.4vw,34px);margin:0 auto 14px;max-width:1080px}.brandCell{display:flex;align-items:center;justify-content:center;min-width:0}.brandCell img{display:block;max-width:100%;height:auto;filter:drop-shadow(0 10px 28px rgba(0,0,0,.55))}.brand-time img{width:min(300px,25vw)}.brand-club img{width:min(440px,38vw)}.brand-network img{width:min(300px,25vw)}
+    .wrap{position:relative;z-index:1;width:min(1180px,94vw);text-align:center}.brandBlock{max-width:900px;margin:0 auto 14px}.brandCell{display:flex;align-items:center;justify-content:center;min-width:0}.brandCell img{display:block;max-width:100%;height:auto;filter:drop-shadow(0 10px 28px rgba(0,0,0,.55))}.brand-main{margin:0 auto 2px}.brand-main img{width:min(470px,48vw)}.brandSubRow{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(70px,10vw,150px);max-width:760px;margin:0 auto}.brand-time{justify-content:flex-end}.brand-network{justify-content:flex-start}.brand-time img{width:min(245px,24vw)}.brand-network img{width:min(225px,22vw)}
     .panel{background:rgba(3,25,37,.60);border:1px solid rgba(70,211,255,.42);border-radius:30px;padding:clamp(24px,4vw,48px);backdrop-filter:blur(7px);box-shadow:0 28px 80px rgba(0,0,0,.5)}
     .live{display:inline-block;padding:8px 15px;border-radius:999px;background:rgba(255,65,76,.16);border:1px solid rgba(255,91,102,.5);font-weight:900;letter-spacing:.06em}
     h1{font-size:clamp(34px,5.5vw,72px);margin:17px 0 8px;line-height:1.02;text-shadow:0 5px 22px rgba(0,0,0,.55)}.start{font-size:clamp(18px,2.2vw,27px);color:#d0ebf6;margin:0 0 24px}
@@ -30,15 +30,17 @@
     #status{margin:24px 0 16px;font-size:clamp(20px,2.5vw,31px);font-weight:900;color:#5bf0ae}.music{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
     button{border:0;border-radius:14px;padding:13px 22px;font-size:16px;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(90deg,#159fee,#00c9ff);box-shadow:0 10px 24px rgba(0,177,255,.24)}button:disabled{opacity:.7;cursor:wait}
     #videoStage{display:none;position:relative;z-index:2;width:min(1280px,96vw);text-align:center}#trailer{display:block;width:100%;max-height:88vh;border-radius:24px;background:#000;box-shadow:0 28px 80px rgba(0,0,0,.65)}#videoMessage{margin:12px 0 0;font-weight:800}.soundBtn{display:none;margin:12px auto 0}
-    @media(max-width:700px){body{overflow:auto;padding:14px 0}.brandRow{grid-template-columns:1fr 1.35fr 1fr;gap:7px;margin-bottom:10px}.brand-time img{width:100%;max-width:165px}.brand-club img{width:100%;max-width:250px}.brand-network img{width:100%;max-width:165px}.count{grid-template-columns:repeat(2,1fr)}.panel{border-radius:22px}#trailer{border-radius:14px}}
+    @media(max-width:700px){body{overflow:auto;padding:14px 0}.brandBlock{margin-bottom:10px}.brand-main img{width:min(290px,72vw)}.brandSubRow{gap:24px;max-width:92vw}.brand-time img{width:min(150px,39vw)}.brand-network img{width:min(140px,36vw)}.count{grid-template-columns:repeat(2,1fr)}.panel{border-radius:22px}#trailer{border-radius:14px}}
   </style>
 </head>
 <body>
   <main class="wrap" id="countdownStage">
-    <div class="brandRow" aria-label="BetInsight Marken">
-      <div class="brandCell brand-time"><img src="/webinar/assets/time-clash-logo.webp" alt="TIME CLASH by BetInsight Club"></div>
-      <div class="brandCell brand-club"><img src="/webinar/assets/betinsight-club-logo.webp" alt="BetInsight Club"></div>
-      <div class="brandCell brand-network"><img src="/webinar/assets/betinsight-network-logo.webp" alt="BetInsight Network"></div>
+    <div class="brandBlock" aria-label="BetInsight Marken">
+      <div class="brandCell brand-main"><img src="/webinar/assets/betinsight-club-logo.webp" alt="BetInsight Club"></div>
+      <div class="brandSubRow">
+        <div class="brandCell brand-time"><img src="/webinar/assets/time-clash-logo.webp" alt="TIME CLASH by BetInsight Club"></div>
+        <div class="brandCell brand-network"><img src="/webinar/assets/betinsight-network-logo.webp" alt="BetInsight Network"></div>
+      </div>
     </div>
     <section class="panel">
       <div class="live">🔴 LIVE-WEBINAR</div>
@@ -81,6 +83,7 @@ let exactStartTimer=null;
 let musicActive=false;
 let trackIndex=0;
 let gapTimer=null;
+const MUSIC_GAP=2;
 const pad=n=>String(n).padStart(2,'0');
 tracks.forEach(t=>t.volume=.38);
 
@@ -143,49 +146,106 @@ function stopMusic(reset=false){
   btn.textContent='▶ Musik starten';
 }
 
-async function playCurrentTrack(){
-  if(!musicActive||switched)return;
-  const current=tracks[trackIndex];
+function pauseMusic(){
+  musicActive=false;
+  clearGapTimer();
+  tracks.forEach(t=>t.pause());
+  btn.textContent='▶ Musik starten';
+}
+
+function waitForTrackMetadata(track){
+  if(Number.isFinite(track.duration)&&track.duration>0)return Promise.resolve(track.duration);
+  return new Promise((resolve,reject)=>{
+    const done=()=>{
+      cleanup();
+      Number.isFinite(track.duration)&&track.duration>0?resolve(track.duration):reject(new Error('Audiodauer nicht verfügbar'));
+    };
+    const fail=()=>{cleanup();reject(new Error('Audiodauer nicht verfügbar'))};
+    const cleanup=()=>{
+      track.removeEventListener('loadedmetadata',done);
+      track.removeEventListener('durationchange',done);
+      track.removeEventListener('error',fail);
+      clearTimeout(timeout);
+    };
+    const timeout=setTimeout(fail,7000);
+    track.addEventListener('loadedmetadata',done,{once:true});
+    track.addEventListener('durationchange',done,{once:true});
+    track.addEventListener('error',fail,{once:true});
+    track.load();
+  });
+}
+
+async function getPlaylistDurations(){
+  const [d1,d2]=await Promise.all(tracks.map(waitForTrackMetadata));
+  return {d1,d2,cycle:d1+MUSIC_GAP+d2+MUSIC_GAP};
+}
+
+function playlistPhase(cycle){
+  const remaining=Math.max(0,(webinarStart-Date.now())/1000);
+  return ((cycle-(remaining%cycle))%cycle+cycle)%cycle;
+}
+
+async function syncMusicToWebinar(){
+  if(switched)return;
+  const remaining=(webinarStart-Date.now())/1000;
+  if(remaining<=0){await startTrailer();return}
+
+  btn.disabled=true;
+  btn.textContent='⏳ Musik wird synchronisiert …';
+
   try{
-    await current.play();
+    const {d1,d2,cycle}=await getPlaylistDurations();
+    if(!musicActive)return;
+
+    clearGapTimer();
+    tracks.forEach(t=>t.pause());
+
+    const phase=playlistPhase(cycle);
+
+    // Zyklus: Lied 1 -> 2s Pause -> Lied 2 -> 2s Pause.
+    // Der Einstiegspunkt wird aus der Restzeit bis 20:00 berechnet,
+    // damit eine Zyklusgrenze exakt auf den Webinarbeginn fällt.
+    if(phase<d1){
+      trackIndex=0;
+      audio1.currentTime=Math.min(phase,Math.max(0,d1-.02));
+      await audio1.play();
+    }else if(phase<d1+MUSIC_GAP){
+      trackIndex=1;
+      const wait=(d1+MUSIC_GAP-phase)*1000;
+      gapTimer=setTimeout(()=>{if(musicActive&&!switched)syncMusicToWebinar()},Math.max(0,wait));
+    }else if(phase<d1+MUSIC_GAP+d2){
+      trackIndex=1;
+      const pos=phase-d1-MUSIC_GAP;
+      audio2.currentTime=Math.min(pos,Math.max(0,d2-.02));
+      await audio2.play();
+    }else{
+      trackIndex=0;
+      const wait=(cycle-phase)*1000;
+      gapTimer=setTimeout(()=>{if(musicActive&&!switched)syncMusicToWebinar()},Math.max(0,wait));
+    }
+
     btn.textContent='⏸ Musik pausieren';
   }catch(e){
     musicActive=false;
     btn.textContent='▶ Musik starten';
+  }finally{
+    btn.disabled=false;
   }
-}
-
-function scheduleNextTrack(){
-  if(!musicActive||switched)return;
-  clearGapTimer();
-  trackIndex=(trackIndex+1)%tracks.length;
-  btn.textContent='⏸ Musik pausieren';
-  gapTimer=setTimeout(async()=>{
-    gapTimer=null;
-    if(!musicActive||switched)return;
-    try{tracks[trackIndex].currentTime=0}catch(e){}
-    await playCurrentTrack();
-  },2000);
 }
 
 tracks.forEach((track,index)=>{
   track.addEventListener('ended',()=>{
-    if(index!==trackIndex||!musicActive||switched)return;
-    scheduleNextTrack();
+    if(!musicActive||switched||index!==trackIndex)return;
+    // Bei jedem Titelende neu an der absoluten Webinarzeit ausrichten.
+    // So sammelt sich über viele Schleifen kein Timer-Drift an.
+    syncMusicToWebinar();
   });
 });
 
 async function startMusic(){
   if(switched)return;
   musicActive=true;
-  await playCurrentTrack();
-}
-
-function pauseMusic(){
-  musicActive=false;
-  clearGapTimer();
-  tracks.forEach(t=>t.pause());
-  btn.textContent='▶ Musik starten';
+  await syncMusicToWebinar();
 }
 
 async function ensureTrailerPlaying(){
