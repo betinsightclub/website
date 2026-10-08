@@ -124,7 +124,7 @@
       showState('🟠 Anmeldestand konnte nicht abgerufen werden','warn');
     }finally{
       countBtn.textContent='👥 Anmeldestand abrufen';
-      setBusy(false);render();
+      setBusy(false);
     }
   });
 
