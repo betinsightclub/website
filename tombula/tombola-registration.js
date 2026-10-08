@@ -11,6 +11,8 @@
   if(!panel||!state||!count||!nameList||!link||!magic||!newLinkBtn||!openBtn||!countBtn||!closeBtn||!names||!apply)return;
 
   let round=null,busy=false,lastNames=[];
+  let syncBusy=false;
+  const AUTO_REFRESH_MS=12000;
   const ADMIN_KEY_STORE='betinsightTombolaAdminSession';
   let adminKey='';
   try{adminKey=sessionStorage.getItem(ADMIN_KEY_STORE)||''}catch(e){}
@@ -100,14 +102,30 @@
     return round;
   }
 
+  function syncWheel(list){
+    if(typeof window.betinsightTombolaReplaceParticipants!=='function')return false;
+    const current=String(names.value||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+    if(current.length===list.length&&current.every((x,i)=>x===list[i]))return true;
+    return window.betinsightTombolaReplaceParticipants(list)===true;
+  }
+
   async function getCount(){
     if(!round||round.status!=='open')return [];
     const data=await api({action:'list',admin:ADMIN,slug:round.slug});
-    lastNames=normalizeRows(data);
-    round.count=lastNames.length;
-    round.names=[...lastNames];
+    const updated=normalizeRows(data);
+    lastNames=updated;
+    round.count=updated.length;
+    round.names=[...updated];
     save();render();
-    return lastNames;
+    syncWheel(updated);
+    return updated;
+  }
+
+  async function autoRefresh(){
+    if(syncBusy||busy||!round||round.status!=='open'||document.hidden)return;
+    syncBusy=true;
+    try{await getCount()}catch(e){console.warn('Tombola live sync failed',e?.message||e)}
+    finally{syncBusy=false}
   }
 
   newLinkBtn.addEventListener('click',async()=>{
@@ -166,9 +184,7 @@
       save();
 
       names.value=lastNames.join('\n');
-      const synced=typeof window.betinsightTombolaReplaceParticipants==='function'
-        ? window.betinsightTombolaReplaceParticipants(lastNames)
-        : (lastNames.length>=2 ? (apply.click(),Number(document.getElementById('count')?.textContent)===lastNames.length) : false);
+      const synced=syncWheel(lastNames);
       render();
       showState(synced
         ? '🔒 Anmeldung geschlossen · '+lastNames.length+' Teilnehmer im Glücksrad'
@@ -181,4 +197,8 @@
 
   link.addEventListener('click',()=>{try{link.focus();link.select()}catch(e){}});
   restore();render();
+  if(round?.status==='closed'&&Array.isArray(round.names))syncWheel(round.names);
+  if(round?.status==='open')autoRefresh();
+  window.setInterval(autoRefresh,AUTO_REFRESH_MS);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)autoRefresh()});
 })();
