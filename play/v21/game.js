@@ -1288,15 +1288,30 @@ function showOutcomeCallout(outcome,frameType=null){
  clearTimeout(showOutcomeCallout._t);
  showOutcomeCallout._t=setTimeout(()=>el.classList.add("hidden"),1500);
 }
-async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],shooterId:sh[2]||null,keeper:d.keeper.name,keeperId:d.keeper.id||null,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});resetContactAfterShot();if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType);board();await new Promise(r=>setTimeout(r,850));if(ended()){finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
+async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],shooterId:sh[2]||null,keeper:d.keeper.name,keeperId:d.keeper.id||null,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});resetContactAfterShot();if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType);board();await new Promise(r=>setTimeout(r,850));if(ended()){await finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
 function bridgeResultPayload(win){
  return{protocol:"betinsight-penalty-v1",context_id:bridgeContext?.context_id||null,reason:bridgeContext?.reason||"direct",language:bridgeContext?.language||"de",stadium_id:S.stadiumId,winner_side:win,winner:win==="A"?S.A.name:S.B.name,team_a:S.A.name,team_b:S.B.name,penalties_a:S.a,penalties_b:S.b,shots:S.shots.map((x,i)=>({order:i+1,side:x.side,team:x.team,shooter:x.shooter,shooter_id:x.shooterId||null,keeper:x.keeper,keeper_id:x.keeperId||null,outcome:x.outcome,frame_type:x.frameType||null,power:x.power,contact_x:x.contactX,contact_y:x.contactY}))}
 }
-function sendBridgeResult(win){
- if(!BRIDGE_MODE||!bridgeParentOrigin||!window.parent||window.parent===window)return;
- window.parent.postMessage({type:"betinsight:penalty-result",payload:bridgeResultPayload(win)},bridgeParentOrigin);
+const SHOOTOUT_API="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/time-clash-shootout";
+const PENALTY_BUILD="20261008-p6";
+async function persistBridgeResult(win){
+ if(!BRIDGE_MODE)return {ok:false,skipped:true};
+ const payload={...bridgeResultPayload(win),client_version:PENALTY_BUILD,version:PENALTY_BUILD};
+ try{
+  const res=await fetch(SHOOTOUT_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload),cache:"no-store"});
+  const data=await res.json().catch(()=>({}));
+  if(!res.ok||data.ok!==true)throw new Error(data.error||("HTTP "+res.status));
+  return {ok:true,data};
+ }catch(err){
+  console.error("Shootout save failed",err);
+  return {ok:false,error:String(err?.message||err||"SAVE_FAILED")};
+ }
 }
-function finish(){S.finished=true;const win=S.a>S.b?"A":"B";sendBridgeResult(win);$("#game").classList.add("hidden");$("#result").classList.remove("hidden");$("#winner").innerHTML='<div class="winner-wrap"><div class="winner-team '+(win==="A"?"win":"lose")+'"><div>'+S.A.flag+'</div><h3>'+S.A.name+'</h3><strong>'+S.a+'</strong><br><span>'+(win==="A"?"SIEGER":"AUSGESCHIEDEN")+'</span></div><div class="vs">:</div><div class="winner-team '+(win==="B"?"win":"lose")+'"><div>'+S.B.flag+'</div><h3>'+S.B.name+'</h3><strong>'+S.b+'</strong><br><span>'+(win==="B"?"SIEGER":"AUSGESCHIEDEN")+'</span></div></div>';$("#log").innerHTML=S.shots.map((x,i)=>'<div class="log-row '+(x.outcome==="goal"?"good":"bad")+'"><span>'+(x.outcome==="goal"?"✓":"✕")+'</span><div><b>'+(i+1)+". "+x.shooter+'</b><small>'+x.team+" · "+x.power+'% · Kontakt '+(Math.round(x.contactX*100))+"/"+(Math.round(x.contactY*100))+'</small></div><b>'+(x.outcome==="goal"?"GETROFFEN":x.outcome==="save"?"GEHALTEN":x.outcome==="post"?"PFOSTEN":"DANEBEN")+"</b></div>").join("")}
+function sendBridgeResult(win,storage=null){
+ if(!BRIDGE_MODE||!bridgeParentOrigin||!window.parent||window.parent===window)return;
+ window.parent.postMessage({type:"betinsight:penalty-result",payload:{...bridgeResultPayload(win),storage}},bridgeParentOrigin);
+}
+async function finish(){S.finished=true;const win=S.a>S.b?"A":"B";const storage=await persistBridgeResult(win);sendBridgeResult(win,storage);$("#game").classList.add("hidden");$("#result").classList.remove("hidden");const saveNote=BRIDGE_MODE?'<div style="margin:0 0 14px;padding:10px 12px;border-radius:10px;border:1px solid '+(storage.ok?'#2b8f70':'#a84c55')+';background:'+(storage.ok?'#073528':'#40151b')+';font-weight:900;text-align:center">'+(storage.ok?'✓ SUPABASE GESPEICHERT · SHOOTOUT-STATISTIK AKTUALISIERT':'⚠ NICHT DAUERHAFT GESPEICHERT · '+String(storage.error||'Fehler'))+' · BUILD 20261008-P6</div>':'';$("#winner").innerHTML=saveNote+'<div class="winner-wrap"><div class="winner-team '+(win==="A"?"win":"lose")+'"><div>'+S.A.flag+'</div><h3>'+S.A.name+'</h3><strong>'+S.a+'</strong><br><span>'+(win==="A"?"SIEGER":"AUSGESCHIEDEN")+'</span></div><div class="vs">:</div><div class="winner-team '+(win==="B"?"win":"lose")+'"><div>'+S.B.flag+'</div><h3>'+S.B.name+'</h3><strong>'+S.b+'</strong><br><span>'+(win==="B"?"SIEGER":"AUSGESCHIEDEN")+'</span></div></div>';$("#log").innerHTML=S.shots.map((x,i)=>'<div class="log-row '+(x.outcome==="goal"?"good":"bad")+'"><span>'+(x.outcome==="goal"?"✓":"✕")+'</span><div><b>'+(i+1)+". "+x.shooter+'</b><small>'+x.team+" · "+x.power+'% · Kontakt '+(Math.round(x.contactX*100))+"/"+(Math.round(x.contactY*100))+'</small></div><b>'+(x.outcome==="goal"?"GETROFFEN":x.outcome==="save"?"GEHALTEN":x.outcome==="post"?"PFOSTEN":"DANEBEN")+"</b></div>").join("")}
 function showRenderError(err){
  const box=$("#renderError"),txt=$("#renderErrorText");
  if(box){box.classList.remove("hidden");box.style.display="grid"}
@@ -1333,7 +1348,7 @@ function applyBridgePayload(payload){
  selectedStadiumId=stadiumById(payload.stadium_id).id;
  fill();
  selectStadium(selectedStadiumId);
- const title=document.querySelector(".title span");if(title)title.textContent="TIME CLASH · SHOOTOUT";
+ const title=document.querySelector(".title span");if(title)title.textContent="TIME CLASH · SHOOTOUT · BUILD 20261008-P6";
  const note=$("#moduleStatus");if(note){note.textContent="TIME-CLASH-KADER ÜBERNOMMEN · "+TEAMS[0].name+" vs. "+TEAMS[1].name;note.style.color="#63e6a3"}
  const back=$("#newMatch");if(back){back.textContent="← ZURÜCK ZU TIME CLASH";back.onclick=()=>window.parent.postMessage({type:"betinsight:penalty-close"},bridgeParentOrigin||"*")}
  start();
@@ -1341,7 +1356,7 @@ function applyBridgePayload(payload){
 }
 function notifyBridgeReady(){
  if(!BRIDGE_MODE||!window.parent||window.parent===window)return;
- window.parent.postMessage({type:"betinsight:penalty-ready",version:"v21-p1"},"*");
+ window.parent.postMessage({type:"betinsight:penalty-ready",version:"20261008-p6"},"*");
 }
 if(BRIDGE_MODE){
  document.documentElement.classList.add("penalty-bridge-mode");

@@ -6,13 +6,13 @@
 <meta name="theme-color" content="#04111d">
 <title>Penalty Clash V21 · Release Candidate</title>
 <link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="/play/v21/styles.css?v=20261007-p1">
+<link rel="stylesheet" href="/play/v21/styles.css?v=20261008-p6">
 </head>
 <body>
 <div class="shell">
 <header class="topbar">
   <a class="brand" href="/play/v20c/">← V20C</a>
-  <div class="title"><b>PENALTY CLASH V21</b><span>20 STADIEN · MATCH AMBIENTE</span></div>
+  <div class="title"><b>PENALTY CLASH V21</b><span>BUILD 20261008-P6 · 20 STADIEN · MATCH AMBIENTE</span></div>
   <span class="topbar-spacer" aria-hidden="true"></span>
 </header>
 
@@ -48,7 +48,7 @@
     </div>
     <div id="stadiumGrid" class="stadium-grid" role="listbox" aria-label="Stadion auswählen"></div>
   </section>
-  <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button><div class="kit-note">V21 P1: TIME-CLASH-BRIDGE · KADER-HANDOFF · RESULT-HANDOFF</div><div id="moduleStatus" style="margin-top:10px;text-align:center;font-size:12px;color:#7694aa">3D-Modul wird geladen …</div>
+  <button id="startBtn" class="primary">3D-SHOOTOUT STARTEN</button><div class="kit-note">V21 P2 · BUILD 20261008-P6 · SUPABASE SHOOTOUT STATS</div><div id="moduleStatus" style="margin-top:10px;text-align:center;font-size:12px;color:#7694aa">3D-Modul wird geladen …</div>
 </section>
 
 <section id="game" class="hidden">
@@ -246,12 +246,12 @@
  A&&A.addEventListener("change",fallbackPreview);B&&B.addEventListener("change",fallbackPreview);fallbackPreview();
 })();
 </script>
-<script id="gameModule" type="module" src="/play/v21/game.js?v=20261007-p1"></script>
+<script id="gameModule" type="module" src="/play/v21/game.js?v=20261008-p6"></script>
 <script>
 document.getElementById("gameModule").addEventListener("error",function(){
  const s=document.getElementById("moduleStatus");
  if(s){s.textContent="3D-Modul konnte nicht geladen werden – bitte Strg+F5 drücken.";s.style.color="#ff818c";}
 });
 </script>
-<footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V21 P1: TIME-CLASH-BRIDGE aktiv · externe Kader + Shootout-Ergebnisrückgabe · Spielphysik unverändert.</footer></body>
+<footer style="max-width:1400px;margin:8px auto 22px;text-align:center;color:#627d92;font:12px system-ui">V21 P2 · BUILD 20261008-P6 · TIME-CLASH-BRIDGE + dauerhafte Shootout-Speicherung · Spielphysik unverändert.</footer></body>
 </html>
