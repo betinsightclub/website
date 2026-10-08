@@ -11,6 +11,17 @@
   if(!panel||!state||!count||!nameList||!link||!magic||!newLinkBtn||!openBtn||!countBtn||!closeBtn||!names||!apply)return;
 
   let round=null,busy=false,lastNames=[];
+  const ADMIN_KEY_STORE='betinsightTombolaAdminSession';
+  let adminKey='';
+  try{adminKey=sessionStorage.getItem(ADMIN_KEY_STORE)||''}catch(e){}
+  function ensureAdminKey(){
+    if(adminKey)return adminKey;
+    const entered=window.prompt('BetInsight Tombola – Admin-Code eingeben (einmal pro Browsersitzung):');
+    if(!entered)throw new Error('Admin-Code fehlt');
+    adminKey=entered.trim();
+    try{sessionStorage.setItem(ADMIN_KEY_STORE,adminKey)}catch(e){}
+    return adminKey;
+  }
 
   function rand(max){
     if(max<=1)return 0;
@@ -27,10 +38,22 @@
   async function api(data,timeout=6500){
     const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),timeout);
     try{
-      const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:new URLSearchParams(data),cache:'no-store',signal:ctl.signal,referrer:location.origin+'/tombula/',referrerPolicy:'unsafe-url'});
+      const payload={...data};
+      if(['create','list','close'].includes(String(payload.action)))payload.admin_key=ensureAdminKey();
+      const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:new URLSearchParams(payload),cache:'no-store',signal:ctl.signal});
       const txt=await res.text();
-      if(!res.ok)throw new Error('HTTP '+res.status);
-      try{return JSON.parse(txt)}catch(e){throw new Error('Keine gültige Antwort')}
+      let result;
+      try{result=JSON.parse(txt)}catch(e){throw new Error('Ungültige Serverantwort')}
+      if(!res.ok||result?.ok===false){
+        const error=String(result?.error||('HTTP '+res.status));
+        if(error==='ADMIN_ACCESS_REQUIRED'){
+          adminKey='';
+          try{sessionStorage.removeItem(ADMIN_KEY_STORE)}catch(e){}
+          throw new Error('Admin-Code ungültig oder Zugriff verweigert. Bitte erneut versuchen.');
+        }
+        throw new Error(error);
+      }
+      return result;
     }finally{clearTimeout(timer)}
   }
 
