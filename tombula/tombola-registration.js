@@ -96,6 +96,7 @@
     const r=await api({action:'create',admin:ADMIN,slug:next.slug,zauberwort:next.magic});
     if(!r||r.ok!==true)throw new Error('create failed');
     round=next;lastNames=[];save();render();
+    if(typeof window.betinsightTombolaReplaceParticipants==='function')window.betinsightTombolaReplaceParticipants([]);
     return round;
   }
 
@@ -165,10 +166,13 @@
       save();
 
       names.value=lastNames.join('\n');
-      if(lastNames.length>=2)apply.click();
-
+      const synced=typeof window.betinsightTombolaReplaceParticipants==='function'
+        ? window.betinsightTombolaReplaceParticipants(lastNames)
+        : (lastNames.length>=2 ? (apply.click(),Number(document.getElementById('count')?.textContent)===lastNames.length) : false);
       render();
-      showState('🔒 Anmeldung geschlossen · '+lastNames.length+' Teilnehmer übernommen','closed');
+      showState(synced
+        ? '🔒 Anmeldung geschlossen · '+lastNames.length+' Teilnehmer im Glücksrad'
+        : '🟠 Anmeldung geschlossen. Die Übernahme ins Glücksrad muss noch geprüft werden.',synced?'closed':'warn');
       if(lastNames.length<2)alert('Anmeldung geschlossen. Es wurden '+lastNames.length+' Teilnehmer übernommen. Für die Ziehung werden mindestens zwei Teilnehmer benötigt.');
     }catch(e){
       showState('🔴 Anmeldung konnte nicht geschlossen werden','error');
