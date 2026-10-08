@@ -124,7 +124,7 @@
       await createRound();
       showState('🟢 Neuer Teilnahmelink erstellt','open');
     }catch(e){
-      showState('🔴 Teilnahmelink konnte nicht erstellt werden','error');
+      showState('🔴 Link konnte nicht erstellt werden: '+(e?.message||'Serverfehler'),'error');
     }finally{setBusy(false)}
   });
 
@@ -145,7 +145,7 @@
       const list=await getCount();
       showState('🟢 Anmeldung geöffnet · '+list.length+' Teilnehmer','open');
     }catch(e){
-      showState('🟠 Anmeldestand konnte nicht abgerufen werden','warn');
+      showState('🟠 Anmeldestand: '+(e?.message||'Serverfehler'),'warn');
     }finally{
       countBtn.textContent='👥 Anmeldestand abrufen';
       setBusy(false);
@@ -175,7 +175,7 @@
         : '🟠 Anmeldung geschlossen. Die Übernahme ins Glücksrad muss noch geprüft werden.',synced?'closed':'warn');
       if(lastNames.length<2)alert('Anmeldung geschlossen. Es wurden '+lastNames.length+' Teilnehmer übernommen. Für die Ziehung werden mindestens zwei Teilnehmer benötigt.');
     }catch(e){
-      showState('🔴 Anmeldung konnte nicht geschlossen werden','error');
+      showState('🔴 Anmeldung schließen: '+(e?.message||'Serverfehler'),'error');
     }finally{setBusy(false)}
   });
 
