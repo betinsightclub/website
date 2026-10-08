@@ -55,10 +55,7 @@
       <div id="status">Wir freuen uns auf dich</div>
       <div class="music"><button id="musicBtn" type="button">▶ Musik starten</button></div>
       <audio id="bgMusic1" preload="metadata" src="/BetInsight%20(7).mp3"></audio>
-      <audio id="bgMusic2" preload="metadata">
-        <source src="/Time%20Clash(1).mp3" type="audio/mpeg">
-        <source src="/BetInsight%20(7).mp3" type="audio/mpeg">
-      </audio>
+      <audio id="bgMusic2" preload="metadata"></audio>
     </section>
   </main>
 
@@ -76,6 +73,14 @@ const d=document.getElementById('days'),h=document.getElementById('hours'),m=doc
 const startText=document.getElementById('startText');
 const countdownStage=document.getElementById('countdownStage'),videoStage=document.getElementById('videoStage'),video=document.getElementById('trailer'),soundBtn=document.getElementById('soundBtn');
 const audio1=document.getElementById('bgMusic1'),audio2=document.getElementById('bgMusic2'),tracks=[audio1,audio2],btn=document.getElementById('musicBtn');
+const TIME_CLASH_PARTS=[
+  '/webinar/audio/time-clash-00.bin',
+  '/webinar/audio/time-clash-01.bin',
+  '/webinar/audio/time-clash-02.bin',
+  '/webinar/audio/time-clash-03.bin',
+  '/webinar/audio/time-clash-04.bin',
+  '/webinar/audio/time-clash-05.bin'
+];
 let switched=false;
 let soundAttempted=false;
 let webinarStart=0;
@@ -83,6 +88,8 @@ let exactStartTimer=null;
 let musicActive=false;
 let trackIndex=0;
 let gapTimer=null;
+let timeClashAudioUrl=null;
+let timeClashAudioPromise=null;
 const MUSIC_GAP=2;
 const pad=n=>String(n).padStart(2,'0');
 tracks.forEach(t=>t.volume=.38);
@@ -153,6 +160,38 @@ function pauseMusic(){
   btn.textContent='▶ Musik starten';
 }
 
+async function prepareTimeClashAudio(){
+  if(audio2.dataset.hqReady==='1'&&audio2.src)return;
+  if(timeClashAudioPromise)return timeClashAudioPromise;
+
+  timeClashAudioPromise=(async()=>{
+    try{
+      const parts=await Promise.all(TIME_CLASH_PARTS.map(async url=>{
+        const response=await fetch(url,{cache:'force-cache'});
+        if(!response.ok)throw new Error('TIME CLASH Audio konnte nicht geladen werden');
+        return response.arrayBuffer();
+      }));
+      const blob=new Blob(parts,{type:'audio/mpeg'});
+      timeClashAudioUrl=URL.createObjectURL(blob);
+      audio2.src=timeClashAudioUrl;
+      audio2.dataset.hqReady='1';
+      audio2.load();
+    }catch(e){
+      // Nur als Notfallreserve: die Seite bleibt funktionsfähig, falls ein Chunk
+      // einmal nicht ausgeliefert werden kann.
+      audio2.src='/Time%20Clash(1).mp3';
+      audio2.dataset.hqReady='fallback';
+      audio2.load();
+    }
+  })();
+
+  return timeClashAudioPromise;
+}
+
+window.addEventListener('beforeunload',()=>{
+  if(timeClashAudioUrl)URL.revokeObjectURL(timeClashAudioUrl);
+});
+
 function waitForTrackMetadata(track){
   if(Number.isFinite(track.duration)&&track.duration>0)return Promise.resolve(track.duration);
   return new Promise((resolve,reject)=>{
@@ -176,13 +215,14 @@ function waitForTrackMetadata(track){
 }
 
 async function getPlaylistDurations(){
+  await prepareTimeClashAudio();
   const [d1,d2]=await Promise.all(tracks.map(waitForTrackMetadata));
   return {d1,d2,cycle:d1+MUSIC_GAP+d2+MUSIC_GAP};
 }
 
-function playlistPhase(cycle){
+function playlistPhase(cycle,targetPhase){
   const remaining=Math.max(0,(webinarStart-Date.now())/1000);
-  return ((cycle-(remaining%cycle))%cycle+cycle)%cycle;
+  return ((targetPhase-(remaining%cycle))%cycle+cycle)%cycle;
 }
 
 async function syncMusicToWebinar(){
@@ -200,11 +240,12 @@ async function syncMusicToWebinar(){
     clearGapTimer();
     tracks.forEach(t=>t.pause());
 
-    const phase=playlistPhase(cycle);
+    const targetPhase=d1+MUSIC_GAP+d2; // Ende von Lied 2 liegt exakt auf 20:00 Uhr
+    const phase=playlistPhase(cycle,targetPhase);
 
     // Zyklus: Lied 1 -> 2s Pause -> Lied 2 -> 2s Pause.
-    // Der Einstiegspunkt wird aus der Restzeit bis 20:00 berechnet,
-    // damit eine Zyklusgrenze exakt auf den Webinarbeginn fällt.
+    // Der Einstiegspunkt wird aus der Restzeit bis 20:00 berechnet.
+    // Am Webinarbeginn endet Lied 2 exakt; danach startet sofort das Video.
     if(phase<d1){
       trackIndex=0;
       audio1.currentTime=Math.min(phase,Math.max(0,d1-.02));
@@ -297,6 +338,10 @@ updateStartLabel();
 scheduleExactStart();
 tick();
 setInterval(tick,250);
+
+// Hochwertige Originalfassung im Hintergrund vorbereiten, damit der Klick
+// auf "Musik starten" möglichst ohne Wartezeit synchron einsteigen kann.
+setTimeout(()=>prepareTimeClashAudio().catch(()=>{}),300);
 
 btn.addEventListener('click',async()=>{
   if(musicActive){
