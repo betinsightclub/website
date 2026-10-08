@@ -21,24 +21,24 @@
     *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#03131c;color:#fff}
     body{min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;padding:20px;background:linear-gradient(rgba(2,14,22,.50),rgba(2,14,22,.80)),url('/assets/stadion-community.webp') center/cover no-repeat}
     body:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(0,200,255,.13),transparent 42%);pointer-events:none}
-    .wrap{position:relative;z-index:1;width:min(1180px,94vw);text-align:center}.brandRow{display:grid;grid-template-columns:minmax(150px,1fr) minmax(280px,1.5fr) minmax(150px,1fr);align-items:center;gap:clamp(12px,2.4vw,34px);margin:0 auto 14px;max-width:1080px}.brandCell{display:flex;align-items:center;justify-content:center;min-width:0}.brandCell img{display:block;max-width:100%;height:auto;filter:drop-shadow(0 10px 28px rgba(0,0,0,.55))}.brand-time img{width:min(285px,24vw)}.brand-club img{width:min(390px,35vw)}.brand-network img{width:min(285px,24vw);transform:scale(1.22)}
+    .wrap{position:relative;z-index:1;width:min(1180px,94vw);text-align:center}.brandRow{display:grid;grid-template-columns:minmax(150px,1fr) minmax(280px,1.5fr) minmax(150px,1fr);align-items:center;gap:clamp(12px,2.4vw,34px);margin:0 auto 14px;max-width:1080px}.brandCell{display:flex;align-items:center;justify-content:center;min-width:0}.brandCell img{display:block;max-width:100%;height:auto;filter:drop-shadow(0 10px 28px rgba(0,0,0,.55))}.brand-time img{width:min(300px,25vw)}.brand-club img{width:min(440px,38vw)}.brand-network img{width:min(300px,25vw)}
     .panel{background:rgba(3,25,37,.60);border:1px solid rgba(70,211,255,.42);border-radius:30px;padding:clamp(24px,4vw,48px);backdrop-filter:blur(7px);box-shadow:0 28px 80px rgba(0,0,0,.5)}
     .live{display:inline-block;padding:8px 15px;border-radius:999px;background:rgba(255,65,76,.16);border:1px solid rgba(255,91,102,.5);font-weight:900;letter-spacing:.06em}
     h1{font-size:clamp(34px,5.5vw,72px);margin:17px 0 8px;line-height:1.02;text-shadow:0 5px 22px rgba(0,0,0,.55)}.start{font-size:clamp(18px,2.2vw,27px);color:#d0ebf6;margin:0 0 24px}
     .count{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:940px;margin:0 auto}.box{padding:clamp(15px,2.6vw,28px) 8px;border-radius:20px;background:linear-gradient(180deg,rgba(10,84,108,.92),rgba(4,43,59,.92));border:1px solid rgba(73,213,255,.48);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 12px 28px rgba(0,0,0,.22)}
     .num{display:block;font-size:clamp(38px,7vw,88px);font-weight:900;line-height:1}.lbl{display:block;margin-top:8px;color:#bfe5f2;font-weight:800;font-size:clamp(11px,1.4vw,16px);text-transform:uppercase;letter-spacing:.08em}
     #status{margin:24px 0 16px;font-size:clamp(20px,2.5vw,31px);font-weight:900;color:#5bf0ae}.music{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
-    button{border:0;border-radius:14px;padding:13px 22px;font-size:16px;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(90deg,#159fee,#00c9ff);box-shadow:0 10px 24px rgba(0,177,255,.24)}button:disabled{opacity:.7;cursor:wait}.hint{font-size:12px;color:#a8cbd9;margin-top:9px}
+    button{border:0;border-radius:14px;padding:13px 22px;font-size:16px;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(90deg,#159fee,#00c9ff);box-shadow:0 10px 24px rgba(0,177,255,.24)}button:disabled{opacity:.7;cursor:wait}
     #videoStage{display:none;position:relative;z-index:2;width:min(1280px,96vw);text-align:center}#trailer{display:block;width:100%;max-height:88vh;border-radius:24px;background:#000;box-shadow:0 28px 80px rgba(0,0,0,.65)}#videoMessage{margin:12px 0 0;font-weight:800}.soundBtn{display:none;margin:12px auto 0}
-    @media(max-width:700px){body{overflow:auto;padding:14px 0}.brandRow{grid-template-columns:1fr 1.35fr 1fr;gap:7px;margin-bottom:10px}.brand-time img{width:100%;max-width:180px}.brand-club img{width:100%;max-width:245px}.brand-network img{width:100%;max-width:180px;transform:scale(1.18)}.count{grid-template-columns:repeat(2,1fr)}.panel{border-radius:22px}#trailer{border-radius:14px}}
+    @media(max-width:700px){body{overflow:auto;padding:14px 0}.brandRow{grid-template-columns:1fr 1.35fr 1fr;gap:7px;margin-bottom:10px}.brand-time img{width:100%;max-width:165px}.brand-club img{width:100%;max-width:250px}.brand-network img{width:100%;max-width:165px}.count{grid-template-columns:repeat(2,1fr)}.panel{border-radius:22px}#trailer{border-radius:14px}}
   </style>
 </head>
 <body>
   <main class="wrap" id="countdownStage">
     <div class="brandRow" aria-label="BetInsight Marken">
-      <div class="brandCell brand-time"><img src="https://app.betinsight.club/time-clash/assets/branding/time-clash-wordmark-clean-1024.png" alt="TIME CLASH by BetInsight Club"></div>
-      <div class="brandCell brand-club"><img src="/assets/betinsight-logo.png" alt="BetInsight Club"></div>
-      <div class="brandCell brand-network"><img src="https://betinsight.network/betinsight.network.png" alt="BetInsight Network"></div>
+      <div class="brandCell brand-time"><img src="/webinar/assets/time-clash-logo.webp" alt="TIME CLASH by BetInsight Club"></div>
+      <div class="brandCell brand-club"><img src="/webinar/assets/betinsight-club-logo.webp" alt="BetInsight Club"></div>
+      <div class="brandCell brand-network"><img src="/webinar/assets/betinsight-network-logo.webp" alt="BetInsight Network"></div>
     </div>
     <section class="panel">
       <div class="live">🔴 LIVE-WEBINAR</div>
