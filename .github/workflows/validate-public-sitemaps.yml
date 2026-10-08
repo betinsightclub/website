@@ -1,0 +1,74 @@
+name: Validate public SEO sitemaps
+
+on:
+  push:
+    paths:
+      - 'sitemap.xml'
+      - 'sitemap-time-clash.xml'
+      - 'robots.txt'
+      - 'de/time-clash/index.html'
+      - 'en/time-clash/index.html'
+      - 'es/time-clash/index.html'
+      - 'pt/time-clash/index.html'
+      - 'it/time-clash/index.html'
+      - 'fr/time-clash/index.html'
+      - 'de/time-clash/italien-2006-vs-spanien-2026/index.html'
+      - 'play/index.html'
+      - '.github/workflows/validate-public-sitemaps.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate sitemap XML, public pages, and robots.txt
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import xml.etree.ElementTree as ET
+          from urllib.parse import urlsplit
+
+          root = pathlib.Path(".")
+          ns = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+          def urls(filename):
+              doc = ET.parse(root / filename)
+              assert doc.getroot().tag == ns + "urlset", filename
+              result = []
+              for entry in doc.getroot().findall(ns + "url"):
+                  loc = entry.find(ns + "loc")
+                  assert loc is not None and loc.text, filename
+                  result.append(loc.text.strip())
+              assert len(result) == len(set(result)), f"Duplicate URL in {filename}"
+              return result
+
+          main = set(urls("sitemap.xml"))
+          mini = urls("sitemap-time-clash.xml")
+          expected = {
+              *(f"https://betinsight.club/{language}/time-clash/" for language in ("de","en","es","pt","it","fr")),
+              "https://betinsight.club/de/time-clash/italien-2006-vs-spanien-2026/",
+              "https://betinsight.club/play/",
+          }
+          assert set(mini) == expected, "Unexpected mini-sitemap contents"
+          assert expected <= main, "TIME CLASH URL missing from main sitemap"
+          robots = (root / "robots.txt").read_text(encoding="utf-8")
+          for filename in ("sitemap.xml", "sitemap-time-clash.xml"):
+              assert "Sitemap: https://betinsight.club/" + filename in robots
+          for url in mini:
+              p = urlsplit(url)
+              assert p.scheme == "https" and p.netloc == "betinsight.club"
+              page = root / p.path.lstrip("/") / "index.html"
+              assert page.is_file(), f"Missing public page: {page}"
+              content = page.read_text(encoding="utf-8")
+              head = content.split("</head>", 1)[0].lower()
+              assert "noindex" not in head, f"Index excluded: {page}"
+              assert 'rel="canonical"' in head, f"Missing canonical: {page}"
+          sitemap_text = (root / "sitemap.xml").read_text(encoding="utf-8")
+          assert "<!-- TIME CLASH WIKI AUTO START -->" in sitemap_text
+          assert "<!-- TIME CLASH WIKI AUTO END -->" in sitemap_text
+          print(f"OK: {len(main)} unique main URLs, {len(mini)} public TIME CLASH URLs; both sitemaps valid.")
+          PY
