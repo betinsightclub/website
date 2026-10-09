@@ -135,6 +135,7 @@ def report_html(item,image_url,page_url):
       "image":{"@type":"ImageObject","contentUrl":image_url,"width":1200,"height":630,
                "caption":alt,"name":f"{item['match']} {item['score']} – BetInsight {term}"}
     }
+    jsonld=json.dumps(structured,ensure_ascii=False).replace("<","\\u003c")
     events="\n".join("<li><strong>"+esc(e["minute"])+"</strong>"+esc(e["text"])+"</li>" for e in item["legs"][0]["key_events"])
     original=DOMAIN+"/de/tipps/bericht/?id="+item["tipp_id"]
     content=f"""<!doctype html>
@@ -159,7 +160,7 @@ def report_html(item,image_url,page_url):
 <meta name="twitter:description" content="{esc(meta)}">
 <meta name="twitter:image" content="{esc(image_url)}">
 <meta name="twitter:image:alt" content="{esc(alt)}">
-<script type="application/ld+json">{json.dumps(structured,ensure_ascii=False).replace("<","\\u003c")}</script>
+<script type="application/ld+json">{jsonld}</script>
 <style>{CSS}</style></head><body>
 <main><header><a href="{DOMAIN}/">betInsight.club</a><span class="crumb"><a href="{DOMAIN}/de/tipps/">Tipps</a> / Ergebnisbericht</span></header>
 <article><figure class="hero" style="margin:0"><img src="{esc(image_url)}" width="1200" height="630" alt="{esc(alt)}" fetchpriority="high"></figure>
