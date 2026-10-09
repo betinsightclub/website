@@ -1,0 +1,65 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20261002-145749-MAR",
+  "match_date": "2026-10-02",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "CD Eldense",
+  "away": "Real Oviedo",
+  "match": "CD Eldense – Real Oviedo",
+  "score": "4:1",
+  "market": "CD Eldense – Draw No Bet",
+  "odds": 1.75,
+  "units": 4,
+  "league": "LaLiga Hypermotion",
+  "verified_source": "Official LALIGA / home club game records",
+  "source_url": "https://www.laliga.com/en-DE/match/temporada-2026-2027-laliga-hypermotion-cd-eldense-real-oviedo-8",
+  "leg_status": "WON",
+  "source_checked_at": "2026-10-10",
+  "legs": [
+    {
+      "home": "CD Eldense",
+      "away": "Real Oviedo",
+      "score": "4:1",
+      "status": "FT",
+      "market_label": "CD Eldense – Draw No Bet",
+      "selection_outcome": "WON",
+      "key_events": [
+        {
+          "minute": "1′",
+          "text": "Alberto Reina bringt Oviedo früh mit 0:1 in Führung.",
+          "text_en": "Alberto Reina opens the scoring for Oviedo."
+        },
+        {
+          "minute": "56′",
+          "text": "R. López gleicht per Strafstoß zum 1:1 aus.",
+          "text_en": "R. López converts a penalty to equalise."
+        },
+        {
+          "minute": "68′",
+          "text": "Fidel trifft ebenfalls per Elfmeter zum 2:1 für Eldense.",
+          "text_en": "Fidel scores a penalty to put Eldense ahead."
+        },
+        {
+          "minute": "90′",
+          "text": "Olabarrieta erhöht auf 3:1.",
+          "text_en": "Olabarrieta extends the lead to 3–1."
+        },
+        {
+          "minute": "90.+5′",
+          "text": "Rastrojo stellt den 4:1-Endstand her.",
+          "text_en": "Rastrojo makes it 4–1 in stoppage time."
+        }
+      ],
+      "narrative_de": "Nach gerade einer Minute lag Eldense gegen Oviedo mit 0:1 zurück. Die Partie kippte in der zweiten Halbzeit: R. López verwandelte in der 56. Minute einen Strafstoß zum Ausgleich, Fidel traf in der 68. Minute ebenfalls vom Punkt zum 2:1. Späte Treffer von Olabarrieta und Rastrojo erhöhten auf 4:1. Der BetInsight-Tipp lautete „CD Eldense – Draw No Bet“: Bei einem Sieg gewinnt diese Auswahl, bei einem Remis würde lediglich der Einsatz zurückgezahlt. Durch den klaren 4:1-Heimsieg war die Auswahl erfolgreich.",
+      "narrative_en": "Eldense conceded in the opening minute, then turned the match around with second-half penalties from R. López (56') and Fidel (68'). Olabarrieta and Rastrojo added late goals to seal a 4–1 home victory. The Eldense Draw No Bet selection therefore won outright; a draw would merely have voided it.",
+      "source_url": "https://www.laliga.com/en-DE/match/temporada-2026-2027-laliga-hypermotion-cd-eldense-real-oviedo-8",
+      "source_label": "Offizieller Spielbericht / LaLiga"
+    }
+  ],
+  "summary_de": "Aus einem 0:1 wurde ein 4:1. Eldense gewann tatsächlich, deshalb war die Draw-No-Bet-Auswahl richtig.",
+  "summary_en": "Eldense turned an early 0–1 deficit into a 4–1 victory, winning the Draw No Bet selection.",
+  "note_de": "Nachträgliche Analyse eines zuvor veröffentlichten Tipps. Wettstatus, ursprünglicher Tipp und Quote stammen aus dem bestätigten BetInsight-Master-Backoffice. Tore und Ereignisse aus dem offiziellen Spielbericht. Keine nachträgliche Vorhersage.",
+  "note_en": "Post-match analysis of a previously published selection. Settlement and original selection are from confirmed BetInsight data. Football events are from the official match report."
+}
