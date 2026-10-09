@@ -30,6 +30,15 @@ CYAN=(52,188,253,255)
 GREEN=(64,246,139,255)
 RED=(255,67,116,255)
 
+IMAGE_COPY={
+    "de":{"type":"EINZEL-TIPP  /  SPIELBERICHT","won":"GEWONNEN","lost":"LEIDER VERLOREN","versus":"VS  ","unit":"UNITS","odds":"QUOTE","footer":"Echte Spiele  •  Echte Analysen  •  Ehrliche Ergebnisse","yes":"WON","no":"LOST"},
+    "en":{"type":"SINGLE TIP  /  MATCH REVIEW","won":"WON","lost":"LOST","versus":"VS  ","unit":"UNITS","odds":"ODDS","footer":"Real Matches  •  Real Analysis  •  Honest Results","yes":"WON","no":"LOST"},
+    "es":{"type":"APUESTA SIMPLE  /  ANÁLISIS","won":"GANADO","lost":"PERDIDO","versus":"VS  ","unit":"UNITS","odds":"CUOTA","footer":"Partidos reales  •  Análisis reales  •  Resultados honestos","yes":"GANADO","no":"PERDIDO"},
+    "pt":{"type":"PALPITE ÚNICO  /  ANÁLISE","won":"GANHO","lost":"PERDIDO","versus":"X  ","unit":"UNITS","odds":"ODD","footer":"Jogos reais  •  Análises reais  •  Resultados honestos","yes":"GANHO","no":"PERDIDO"},
+    "it":{"type":"SINGOLA  /  ANALISI PARTITA","won":"VINTO","lost":"PERSO","versus":"VS  ","unit":"UNITS","odds":"QUOTA","footer":"Partite vere  •  Analisi vere  •  Risultati onesti","yes":"VINTO","no":"PERSO"},
+    "fr":{"type":"PARI SIMPLE  /  ANALYSE","won":"GAGNÉ","lost":"PERDU","versus":"VS  ","unit":"UNITS","odds":"COTE","footer":"Matchs réels  •  Analyses réelles  •  Résultats honnêtes","yes":"GAGNÉ","no":"PERDU"},
+}
+
 def clean(value):
     return str(value or "").strip()
 
@@ -61,7 +70,8 @@ def valid(item):
     if not item["source_url"].startswith("https://"):raise ValueError("Missing source")
     assert len(item["legs"])==1 and item["legs"][0]["key_events"]
 
-def image_for(item):
+def image_for(item, lang='de'):
+    copy=IMAGE_COPY[lang]
     im=Image.open(TEMPLATE).convert("RGBA")
     if im.width<1000 or im.height<500:raise RuntimeError("Invalid original master dimensions")
     # ImageOps.fit preserves the user's design as closely as possible.
@@ -79,22 +89,22 @@ def image_for(item):
     x=63
     ok=item["outcome"]=="WON"
     accent=GREEN if ok else RED
-    status=("GEWONNEN" if ok else "LEIDER VERLOREN")
-    d.text((x,156),"EINZEL-TIPP  /  SPIELBERICHT",font=font(20),fill=LIGHT,stroke_width=0)
+    status=(copy["won"] if ok else copy["lost"])
+    d.text((x,156),copy["type"],font=font(20),fill=LIGHT,stroke_width=0)
     d.text((x,192),status,font=fit_font(d,status,715,58),fill=WHITE,stroke_width=2,stroke_fill=(4,16,33,255))
     d.rounded_rectangle((x,262,744,268),radius=2,fill=accent)
     d.text((x,287),item["home"].upper(),font=fit_font(d,item["home"].upper(),670,36),fill=WHITE,stroke_width=1,stroke_fill=(0,6,18,255))
-    d.text((x,337),"VS  "+item["away"].upper(),font=fit_font(d,"VS  "+item["away"].upper(),670,33),fill=LIGHT,stroke_width=1,stroke_fill=(0,6,18,255))
+    d.text((x,337),copy["versus"]+item["away"].upper(),font=fit_font(d,"VS  "+item["away"].upper(),670,33),fill=LIGHT,stroke_width=1,stroke_fill=(0,6,18,255))
     d.text((x,389),item["score"],font=font(76),fill=WHITE,stroke_width=2,stroke_fill=(0,6,18,255))
-    badge="WON" if ok else "LOST"
+    badge=copy["yes"] if ok else copy["no"]
     bx=335
     d.rounded_rectangle((bx,412,bx+166,468),radius=13,fill=(1,26,35,235),outline=accent,width=4)
     d.text((bx+83,440),badge,anchor="mm",font=font(35),fill=accent)
     d.rounded_rectangle((x,504,750,510),radius=2,fill=(32,174,242,255))
     date=dt.date.fromisoformat(item["match_date"]).strftime("%d.%m.%Y")
-    footer=f"{date}   •   {item['units']:g} UNITS   •   QUOTE {str(item['odds']).replace('.',',')}"
+    footer=f"{date}   •   {item['units']:g} {copy['unit']}   •   {copy['odds']} {str(item['odds']).replace('.',',')}"
     d.text((x,525),footer,font=fit_font(d,footer,710,22,18),fill=WHITE)
-    d.text((x,565),"Echte Spiele  •  Echte Analysen  •  Ehrliche Ergebnisse",font=fit_font(d,"Echte Spiele  •  Echte Analysen  •  Ehrliche Ergebnisse",705,19,16,bold=False),fill=LIGHT)
+    d.text((x,565),copy["footer"],font=fit_font(d,copy["footer"],705,19,16,bold=False),fill=LIGHT)
     return canvas
 
 CSS=r"""
