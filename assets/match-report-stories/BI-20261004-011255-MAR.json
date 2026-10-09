@@ -1,0 +1,60 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20261004-011255-MAR",
+  "match_date": "2026-10-04",
+  "kind": "single",
+  "outcome": "LOST",
+  "status": "VERLOREN",
+  "home": "UD Las Palmas",
+  "away": "Real Valladolid CF",
+  "match": "UD Las Palmas – Real Valladolid CF",
+  "score": "2:2",
+  "market": "Las Palmas gewinnt (1X2)",
+  "odds": 2.3,
+  "units": 3,
+  "league": "LaLiga Hypermotion",
+  "verified_source": "Official LALIGA / home club game records",
+  "source_url": "https://www.laliga.com/es-FR/partido/temporada-2026-2027-laliga-hypermotion-ud-las-palmas-real-valladolid-cf-8",
+  "leg_status": "LOST",
+  "source_checked_at": "2026-10-10",
+  "legs": [
+    {
+      "home": "UD Las Palmas",
+      "away": "Real Valladolid CF",
+      "score": "2:2",
+      "status": "FT",
+      "market_label": "Las Palmas gewinnt (1X2)",
+      "selection_outcome": "LOST",
+      "key_events": [
+        {
+          "minute": "5′",
+          "text": "Pezzolesi bringt Las Palmas mit 1:0 in Führung.",
+          "text_en": "Pezzolesi scores the opener for Las Palmas."
+        },
+        {
+          "minute": "10′",
+          "text": "Latasa erzielt für Valladolid den Ausgleich zum 1:1.",
+          "text_en": "Latasa equalises for Valladolid."
+        },
+        {
+          "minute": "26′",
+          "text": "J. Ponceau bringt Valladolid mit 1:2 nach vorne.",
+          "text_en": "J. Ponceau puts Valladolid 2–1 ahead."
+        },
+        {
+          "minute": "54′",
+          "text": "Elias gleicht für Las Palmas zum 2:2 aus.",
+          "text_en": "Elias levels the game at 2–2."
+        }
+      ],
+      "narrative_de": "Las Palmas erwischte mit dem Führungstreffer von Pezzolesi in der 5. Minute einen schnellen Start. Valladolid reagierte aber sofort: Latasa traf in der 10. Minute zum Ausgleich, Ponceau drehte das Spiel in der 26. Minute sogar auf 1:2. In der 54. Minute rettete Elias Las Palmas zumindest noch ein 2:2. Für den BetInsight-Tipp auf einen Las-Palmas-Sieg fehlte der entscheidende dritte Treffer. Der bestätigte Verlust ist damit unmittelbar aus dem tatsächlichen Spielverlauf erklärbar.",
+      "narrative_en": "Las Palmas took an early lead through Pezzolesi after five minutes, but Latasa equalised on 10 minutes and Ponceau gave Valladolid the lead on 26. Elias restored parity on 54 minutes, leaving the score at 2–2. The selected home win never materialised, so the BetInsight 1X2 selection lost.",
+      "source_url": "https://www.laliga.com/es-FR/partido/temporada-2026-2027-laliga-hypermotion-ud-las-palmas-real-valladolid-cf-8",
+      "source_label": "Offizieller Spielbericht / LaLiga"
+    }
+  ],
+  "summary_de": "Frühe Führung, Rückstand und noch ein Ausgleich: Trotz zweier Las-Palmas-Tore blieb es beim 2:2. Ein Heimsieg trat nicht ein.",
+  "summary_en": "Despite scoring twice, Las Palmas drew 2–2; the home-win selection failed.",
+  "note_de": "Nachträgliche Analyse eines zuvor veröffentlichten Tipps. Wettstatus, ursprünglicher Tipp und Quote stammen aus dem bestätigten BetInsight-Master-Backoffice. Tore und Ereignisse aus dem offiziellen Spielbericht. Keine nachträgliche Vorhersage.",
+  "note_en": "Post-match analysis of a previously published selection. Settlement and original selection are from confirmed BetInsight data. Football events are from the official match report."
+}
