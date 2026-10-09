@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "checked_at": "2026-10-09T22:04:57.687921+00:00",
+  "checks": [
+    "javascript_syntax",
+    "approved_full_resolution_logo",
+    "licensed_ball_photo",
+    "both_combination_legs",
+    "six_languages"
+  ],
+  "note": "This validates repository assets and JavaScript syntax, not end-to-end live browser rendering or API-Football credentials."
+}
