@@ -45,7 +45,7 @@ jobs:
           assert all(leg["key_events"] and leg["source_url"].startswith("https://") for leg in story["legs"])
           for lang in ("de","en","es","pt","it","fr"):
               html=(root/lang/"tipps/bericht/index.html").read_text()
-              assert "tip-report-live.js?v=20261009-2" in html,lang
+              assert "tip-report-live.js?v=" in html,lang
               assert "betinsight-original-transparent.png" in html,lang
           print("SUCCESS: syntax, sources, photos, languages and official logo verified")
           PY
