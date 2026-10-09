@@ -174,7 +174,9 @@
       "es",
       "pt",
       "it",
-      "fr"
+      "fr",
+      "nl",
+      "zh"
     ],
     "locale_code": {
       "de": "de-DE",
@@ -182,9 +184,11 @@
       "es": "es-ES",
       "pt": "pt-PT",
       "it": "it-IT",
-      "fr": "fr-FR"
+      "fr": "fr-FR",
+      "nl": "nl-NL",
+      "zh": "zh-Hant-TW"
     },
-    "note": "NL/ZH are NOT currently supported on tip-report pages. Expand only after dedicated UI+editorial+OG implementations.",
+    "note": "Matches the eight languages shown on BetInsight home: DE EN PT-PT ES FR IT NL and Traditional Chinese (Taiwan 🇹🇼 繁中).",
     "per_tip_required": [
       "unique indexable HTML route per locale",
       "translated title/description, match narrative, key events and market labels",
@@ -194,7 +198,7 @@
       "same original statistical report in that language with same values and formulas",
       "official source link, evidence and transparency disclaimer"
     ],
-    "batch_gate": "exactly 5 confirmed tip IDs x 6 languages = 30 indexable HTML pages and 30 individual localized image files; CI fails hard on any missing output; no partial block release",
+    "batch_gate": "5 confirmed tips x 8 languages = 40 indexable pages and 40 image files; fail incomplete builds",
     "no_fake_translation": "Do not substitute German or English reports for Spanish/Portuguese/Italian/French; preserve actual names, events, scores, original odds, units and game selection.",
     "portuguese_policy": {
       "mandatory": true,
@@ -218,6 +222,23 @@
       "external_share": "Do NOT redirect external Flipboard/Facebook/crawler visitors away from language specified in shared URL."
     },
     "visual_rule": "Every status badge must be precisely centered in its colored frame with >14px horizontal safety padding; verified in all six languages; no translated text crossing borders.",
-    "image_version_rule": "Use distinct versioned image URLs when changing the image to bypass social media caches."
+    "image_version_rule": "Use distinct versioned image URLs when changing the image to bypass social media caches.",
+    "language_consistency": "Each language needs translated statistics, historic source tip, final result, match event highlights, own social image, bidirectional hreflang, and unchanged master statistics. Dutch and Traditional Chinese must not fall back to English.",
+    "chinese": {
+      "label": "繁中",
+      "variant": "Traditional Chinese",
+      "script": "Hant",
+      "region": "TW",
+      "locale": "zh-Hant-TW",
+      "og_locale": "zh_TW",
+      "flag": "🇹🇼",
+      "route": "/zh/",
+      "forbidden": [
+        "简体中文",
+        "简中",
+        "zh-CN",
+        "🇨🇳"
+      ]
+    }
   }
 }
