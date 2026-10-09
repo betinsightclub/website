@@ -52,6 +52,15 @@ jobs:
               assert '<link rel="canonical"' in t and 'application/ld+json' in t,id
               assert 'Spielverlauf und Höhepunkte' in t and 'Warum ' in t,id
               assert 'offizieller Spielbericht / LaLiga' in t,id
+              assert 'data-report-embedded="1"' in t,id
+              assert 'tip-report-live.js?v=' in t,id
+              assert 'Ursprüngliche vollständige Auswertung' in t,id
+              old=(root/'assets/tip-report-live.js').read_text()
+              for label in ['Veröffentlichter Tipp','Ergebnis und Wertung','Endstand und Nachweis','Auswirkung auf die 1.000-€-Statistik','Bestätigt']:
+                  assert label in old,(id,label)
+              for marker in ['function calculate(rows,id)','calc.fixedTotal','calc.compoundTotal','data-report-embedded','data-verified-final-score']:
+                  assert marker in old,(id,marker)
+
               print('VALID:',id,str(page))
           PY
           git diff --check
