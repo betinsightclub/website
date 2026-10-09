@@ -1,0 +1,69 @@
+{
+  "standard": "BetInsight Social Preview v1",
+  "date": "2026-10-09",
+  "scope": [
+    "tip result pages",
+    "football analyses",
+    "advertisement documentation",
+    "TIME CLASH highlights"
+  ],
+  "approved_brand_assets": {
+    "betinsight": {
+      "repository": "betinsightclub/website",
+      "path": "assets/betinsight-logo.png",
+      "website_url": "https://betinsight.club/assets/betinsight-logo.png",
+      "rule": "Use the unchanged existing logo file; do not redraw, restyle or invent a replacement."
+    },
+    "betinsight_fullsize_reference": {
+      "repository": "betinsightclub/profil",
+      "path": "logo_betisight.club.png",
+      "rule": "Reference candidate for larger layouts; verify visually against the approved brand before choosing it."
+    },
+    "time_clash": {
+      "repository": "betinsightclub/profil",
+      "path": "time-clash/assets/branding/time-clash-wordmark-clean-1024.png",
+      "approved_git_blob": "8edfe5aa4a6022ec509f0486f01cda6ddde932f9",
+      "rule": "Approved clean 1024px wordmark. Keep pixels untouched; downscale only. Follow time-clash/assets/branding/README.md and time-clash-branding-guard.yml."
+    },
+    "time_clash_seal": {
+      "repository": "betinsightclub/profil",
+      "path": "time-clash/assets/branding/time-clash-seal-stamp.png",
+      "rule": "Secondary element only, not a substitute for the approved TIME CLASH wordmark."
+    }
+  },
+  "image_policy": {
+    "aspect_ratio": "1200x630",
+    "image_format": [
+      "PNG",
+      "JPG"
+    ],
+    "must_have": [
+      "unique image URL per item",
+      "og:image",
+      "twitter:image",
+      "og:title",
+      "og:description",
+      "og:url"
+    ],
+    "no_fabricated_match_statistics": true,
+    "no_publishing_test_or_unconfirmed_tip_results": true,
+    "social_cache_note": "Use distinct image filenames per post and per meaningful revision."
+  },
+  "workflows": {
+    "INSERAT + URL": {
+      "meaning": "Review the already published external ad/post, create accurate DE + target-language documentation on BetInsight website, create its own OG preview from the approved brand assets, insert metadata and UTM attribution, test page and preview. Do not claim publication until GitHub deployment is verified.",
+      "input_required": "External ad/post URL."
+    },
+    "master_result_confirmation": {
+      "desired_trigger": "After authorized Master Backoffice confirmation of WON/LOST/VOID, generate matching public preview, update localized article, preserve audit history; never before final confirmation.",
+      "status": "NOT YET AUTOMATED: current database RPC writes betinsight_tip_results/history but does not trigger static-page or image generation."
+    }
+  },
+  "pilot": {
+    "flipboard_share": "https://flip.it/0.zhyl",
+    "context": "Initial Flipboard BetInsight magazine item linked to English Crystal Palace vs Manchester City tip review",
+    "source_page": "https://betinsight.club/en/tipps/crystal-palace-man-city-28-08-2026/",
+    "source_status": "GitHub page verified; flip.it shortlink destination not independently resolvable from connector."
+  },
+  "status": "Brand paths and operating rule documented in the GitHub repository; fully automatic social-image generation/publication is a separate implementation task."
+}
