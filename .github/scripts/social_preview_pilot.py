@@ -9,11 +9,11 @@ import html
 import re
 
 ROOT = Path(__file__).resolve().parents[2]
-ASSET = ROOT / "assets" / "betinsight-logo.png"
-OUT = ROOT / "assets" / "og" / "flipboard-crystal-palace-man-city-2026-10-09-v2.jpg"
+ASSET = ROOT / "assets" / "brand" / "betinsight-original-transparent.png"
+OUT = ROOT / "assets" / "og" / "flipboard-crystal-palace-man-city-2026-10-09-v3.jpg"
 SOURCE = "https://betinsight.club/en/tipps/crystal-palace-man-city-28-08-2026/"
 SHARE = "https://flip.it/0.zhyl"
-OG = "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09-v2.jpg"
+OG = "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09-v3.jpg"
 SLUG = "flipboard-crystal-palace-man-city-2026-10-09"
 UTM = SOURCE + "?utm_source=flipboard&utm_medium=organic_social&utm_campaign=football_analysis_202610&utm_content=palace_city_review"
 
@@ -34,7 +34,7 @@ def render():
     """
     from PIL import ImageOps, ImageFilter, ImageEnhance
     assert ASSET.is_file(), "Approved original GitHub BetInsight logo missing"
-    bg_asset = ROOT / "assets" / "hero-fussball-dunkel.png"
+    bg_asset = ROOT / "assets" / "brand" / "result-ball-field-photo.jpg"
     assert bg_asset.is_file(), "Approved football image missing"
     w, h = 1200, 630
     original = Image.open(bg_asset).convert("RGB")
@@ -152,6 +152,7 @@ def update_source():
     allowed = (
         "https://betinsight.club/assets/hero-fussball-dunkel.png",
         "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09.jpg",
+        "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09-v2.jpg",
         OG,
     )
     og_match = re.search(r'<meta property="og:image" content="([^"]+)">', text)
