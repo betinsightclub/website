@@ -1,0 +1,75 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20261009-172442-MAR",
+  "match_date": "2026-10-09",
+  "kind": "combination",
+  "verified_at": "2026-10-09",
+  "legs": [
+    {
+      "id": "dortmund-bremen-2026-10-09",
+      "home": "Borussia Dortmund",
+      "away": "Werder Bremen",
+      "score": "2:2",
+      "status": "FT",
+      "market_label": "1X2: Borussia Dortmund gewinnt",
+      "selection_outcome": "LOST",
+      "key_events": [
+        {
+          "minute": "80′",
+          "team": "Borussia Dortmund",
+          "text": "Daniel Svensson trifft zum 1:0."
+        },
+        {
+          "minute": "85′",
+          "team": "Borussia Dortmund",
+          "text": "Nico Schlotterbeck erhöht auf 2:0."
+        },
+        {
+          "minute": "88′",
+          "team": "Werder Bremen",
+          "text": "Ludovit Reis verkürzt auf 2:1."
+        },
+        {
+          "minute": "90.+2′",
+          "team": "Werder Bremen",
+          "text": "Niclas Füllkrug erzielt den 2:2-Ausgleich."
+        }
+      ],
+      "narrative_de": "Dortmund führte nach zwei späten Treffern in der 80. und 85. Minute schon mit 2:0. Doch Bremen drehte die entscheidende Tendenz in den Schlussminuten: Reis traf in der 88. Minute, Füllkrug glich in der Nachspielzeit aus. Die auf Dortmund-Sieg gesetzte Auswahl war dadurch verloren.",
+      "narrative_en": "Dortmund went 2–0 ahead through two late goals, but Bremen came back spectacularly: Reis scored in the 88th minute and Füllkrug equalised in stoppage time. The Dortmund win selection therefore failed.",
+      "source_label": "Bundesliga – offizieller Spielbericht",
+      "source_url": "https://www.bundesliga.com/de/bundesliga/news/borussia-dortmund-sv-werder-bremen-spieltag-5-spielbericht-highlights-39474"
+    },
+    {
+      "id": "malaga-espanyol-2026-10-09",
+      "home": "Málaga",
+      "away": "Espanyol",
+      "score": "1:1",
+      "status": "FT",
+      "market_label": "Doppelte Chance X2: Unentschieden oder Espanyol gewinnt",
+      "selection_outcome": "WON",
+      "key_events": [
+        {
+          "minute": "13′",
+          "team": "Espanyol",
+          "text": "Bryan Zaragoza bringt Espanyol in Führung."
+        },
+        {
+          "minute": "90.+3′",
+          "team": "Málaga",
+          "text": "Adrián Niño gleicht in der Nachspielzeit zum 1:1 aus."
+        }
+      ],
+      "narrative_de": "Espanyol ging früh in Führung und musste in der Nachspielzeit den Ausgleich hinnehmen. Das 1:1 reichte dennoch für die Auswahl X2 (Unentschieden oder Espanyol-Sieg). Dieser Bestandteil der Kombiwette war erfolgreich.",
+      "narrative_en": "Espanyol scored early and conceded an equaliser in stoppage time. However, the 1–1 draw still satisfied the X2 double-chance selection, so this leg was successful.",
+      "source_label": "Europa Press – Spielzusammenfassung",
+      "source_url": "https://www.europapress.es/deportes/estadisticas-deportivas/noticia-malaga-espanyol-resumen-goles-resultado-partido-hoy-20261009225712.html"
+    }
+  ],
+  "outcome": "LOST",
+  "summary_de": "Die Kombiwette wurde insgesamt verloren: Málaga – Espanyol erfüllte X2, aber Dortmunds 2:0-Führung wurde durch zwei späte Gegentore zum 2:2. Bei einer Kombination müssen beide Auswahlen richtig sein.",
+  "summary_en": "The combination was lost overall: Espanyol X2 succeeded, but Dortmund's 2–0 lead turned into a 2–2 draw after two late goals. Both selections must win for a two-leg combination to pay out.",
+  "note_de": "Die Darstellung basiert auf dokumentierten öffentlichen Spielberichten. Sie ändert keine Einträge im Master-Backoffice und stellt keine nachträgliche Vorhersage dar.",
+  "note_en": "This review is based on published match reports. It does not change the Master Backoffice result or imply a pre-match prediction.",
+  "data_origin": "Verified public sources. Manual first pilot; automatic API enrichment not yet active."
+}
