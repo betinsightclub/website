@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mandatory 6-language, all-or-nothing BetInsight result-review publishing.
+"""Mandatory 8-language, all-or-nothing BetInsight result-review publishing.
 
 One original user-uploaded background containing original brand logo;
 unique localized overlay and EXIF image per report; independently indexable
@@ -16,7 +16,7 @@ from PIL import Image
 from publish_result_report_batch import (ROOT,DOMAIN,BATCH,CSS,IMAGE_W,IMAGE_H,
                                          image_for,export_image,valid,clean)
 
-LANGS=("de","en","es","pt","it","fr")
+LANGS=("de","en","es","pt","it","fr","nl","zh")
 LABELS={
 "de":dict(native="Deutsch",page_title="Tippauswertung und Spielbericht",title="BetInsight-Spielbericht",tip="Veröffentlichter Tipp",original="Ursprünglicher vollständiger Bericht und Statistik",origin_desc="Die Originaldaten bleiben vollständig erhalten: Tipp, Quote, Units, Ergebniswertung, Nachweis, Bestätigung und die 1.000-€-Statistik mit und ohne Zinseszins.",loading="Ursprünglicher Bericht wird geladen …",original_tip="Ursprüngliche Auswahl",highlights="Spielverlauf und Höhepunkte",outcome="Warum wurde der Tipp so gewertet?",source="Offizielle Spielquelle",note="Dies ist die nachträgliche Auswertung eines bereits veröffentlichten Tipps. Die ursprünglichen Buchungen und Statistikberechnungen wurden nicht verändert.",win="Gewonnen",lost="Verloren",odds="Quote",units="Units",market="Markt",date="Datum",back="Weitere Tipps",og_foot="Echte Spiele · Echte Analysen · Ehrliche Ergebnisse",original_link="Originalbericht öffnen",read="Nachträgliche Tippauswertung",source_line="Der bestätigte Tipp und die Wertung stammen aus dem BetInsight-Master-Backoffice. Spielereignisse stammen aus der unten verlinkten Quelle."),
 "en":dict(native="English",page_title="Tip result and match review",title="BetInsight Match Review",tip="Published selection",original="Full original report and statistics",origin_desc="All original details remain intact: selection, odds, units, grading, evidence, confirmation and the €1,000 statistics with and without compounding.",loading="Loading original report …",original_tip="Original selection",highlights="Match timeline and key moments",outcome="Why was this selection graded this way?",source="Official match source",note="This is a retrospective review of an earlier published selection. Original bookings and statistics have not been modified.",win="Won",lost="Lost",odds="Odds",units="Units",market="Market",date="Date",back="More tips",og_foot="Real Matches · Real Analysis · Honest Results",original_link="Open original report",read="Post-match review",source_line="The selection and grading are taken from BetInsight's confirmed Master Backoffice. Match events come from the linked source."),
@@ -24,12 +24,15 @@ LABELS={
 "pt":dict(native="Português (Portugal)",page_title="Resultado e análise do prognóstico",title="Análise BetInsight",tip="Prognóstico publicado",original="Relatório original completo e estatísticas",origin_desc="Mantêm-se todos os dados originais: prognóstico, cotação, units, resultado, comprovativos, confirmação e estatísticas de 1 000 € com e sem capitalização.",loading="A carregar o relatório original …",original_tip="Seleção original",highlights="Decorrer do jogo e momentos decisivos",outcome="Porque foi o prognóstico avaliado desta forma?",source="Fonte oficial do jogo",note="Análise posterior a um prognóstico publicado antes do jogo. Os registos e cálculos estatísticos originais não foram alterados.",win="Ganho",lost="Perdido",odds="Cotação",units="Units",market="Mercado",date="Data",back="Mais prognósticos",og_foot="Jogos reais · Análises reais · Resultados transparentes",original_link="Abrir relatório original",read="Análise após o jogo",source_line="O prognóstico e o resultado foram confirmados no Master Backoffice da BetInsight. Os acontecimentos do jogo provêm da fonte indicada."),
 "it":dict(native="Italiano",page_title="Risultato e analisi del pronostico",title="Analisi partita BetInsight",tip="Pronostico pubblicato",original="Report originale completo e statistiche",origin_desc="Restano tutti i dati originali: pronostico, quota, units, valutazione, prove, conferma e statistiche su € 1.000 con e senza interesse composto.",loading="Caricamento del report originale …",original_tip="Selezione originale",highlights="Svolgimento e momenti decisivi",outcome="Perché il pronostico è stato valutato così?",source="Fonte ufficiale della partita",note="Analisi successiva di un pronostico pubblicato prima della gara. I dati e i calcoli statistici originali non sono stati modificati.",win="Vinto",lost="Perso",odds="Quota",units="Units",market="Mercato",date="Data",back="Altri pronostici",og_foot="Partite vere · Analisi vere · Risultati onesti",original_link="Apri report originale",read="Analisi dopo la partita",source_line="Pronostico e valutazione provengono dal Master Backoffice BetInsight confermato. Gli eventi derivano dalla fonte collegata."),
 "fr":dict(native="Français",page_title="Résultat et analyse du pronostic",title="Analyse de match BetInsight",tip="Pronostic publié",original="Rapport original intégral et statistiques",origin_desc="Les données d'origine restent intactes : choix, cote, units, résultat, justificatifs, confirmation et statistiques sur 1 000 € avec et sans intérêts composés.",loading="Chargement du rapport original …",original_tip="Choix initial",highlights="Déroulement du match et temps forts",outcome="Pourquoi le pronostic a-t-il été ainsi évalué ?",source="Source officielle du match",note="Analyse rétrospective d'un pronostic publié avant la rencontre. Les enregistrements et calculs statistiques d'origine n'ont pas été modifiés.",win="Gagné",lost="Perdu",odds="Cote",units="Units",market="Marché",date="Date",back="Autres pronostics",og_foot="Matchs réels · Analyses réelles · Résultats honnêtes",original_link="Ouvrir le rapport original",read="Analyse après le match",source_line="Le choix et son résultat proviennent du Master Backoffice BetInsight confirmé. Les événements viennent de la source liée."),
+
+"nl":dict(native="Nederlands",page_title="Resultaat en wedstrijdanalyse",title="BetInsight-wedstrijdanalyse",tip="Gepubliceerde voorspelling",original="Volledig oorspronkelijk rapport en statistieken",origin_desc="De oorspronkelijke selectie, quote, Units, beoordeling, bewijs, bevestiging en beide berekeningen voor € 1.000 blijven ongewijzigd.",loading="Oorspronkelijk rapport wordt geladen …",original_tip="Oorspronkelijke selectie",highlights="Wedstrijdverloop en beslissende momenten",outcome="Waarom kreeg de voorspelling deze beoordeling?",source="Officiële wedstrijdbron",note="Dit is een analyse achteraf van een eerder gepubliceerde voorspelling. De oorspronkelijke registraties en statistieken zijn niet aangepast.",win="Gewonnen",lost="Verloren",odds="Quote",units="Units",market="Markt",date="Datum",back="Meer voorspellingen",og_foot="Echte wedstrijden · Echte analyses · Eerlijke resultaten",original_link="Oorspronkelijk rapport openen",read="Analyse na afloop",source_line="De voorspelling en uitkomst komen uit het bevestigde BetInsight Master Backoffice. De wedstrijdevenementen zijn afkomstig uit de vermelde bron."),
+"zh":dict(native="繁體中文",page_title="投注結果及賽後分析",title="BetInsight 賽後分析",tip="賽前公布的預測",original="原始完整報告與統計",origin_desc="原始預測、賠率、單位、結果判定、證明、確認資料，以及以1,000歐元計算的固定與複利統計，均保持不變。",loading="正在載入原始報告……",original_tip="原始投注選擇",highlights="比賽過程與關鍵時刻",outcome="為什麼這項投注如此判定？",source="官方賽事資料來源",note="這是對賽前發布預測的賽後回顧，未修改原有投注紀錄或統計計算。",win="獲勝",lost="失敗",odds="賠率",units="單位",market="投注類型",date="日期",back="更多預測",og_foot="真實賽事 · 真實分析 · 公開透明的結果",original_link="查看原始報告",read="賽後回顧",source_line="預測與判定來自BetInsight主後台的已確認紀錄，賽事資料取自下方連結的公開來源。"),
 }
 OG={
-"de":"de_DE","en":"en_GB","es":"es_ES","pt":"pt_PT","it":"it_IT","fr":"fr_FR"
+"de":"de_DE","en":"en_GB","es":"es_ES","pt":"pt_PT","it":"it_IT","fr":"fr_FR","nl":"nl_NL","zh":"zh_TW"
 }
-HREF={"de":"de-DE","en":"en-GB","es":"es-ES","pt":"pt-PT","it":"it-IT","fr":"fr-FR"}
-SOURCE_LABEL={"de":"LaLiga / offizieller Spielbericht","en":"LaLiga / official match report","es":"LaLiga / crónica oficial del partido","pt":"LaLiga / relato oficial do jogo","it":"LaLiga / resoconto ufficiale","fr":"LaLiga / compte rendu officiel"}
+HREF={"de":"de-DE","en":"en-GB","es":"es-ES","pt":"pt-PT","it":"it-IT","fr":"fr-FR","nl":"nl-NL","zh":"zh-Hant-TW"}
+SOURCE_LABEL={"de":"LaLiga / offizieller Spielbericht","en":"LaLiga / official match report","es":"LaLiga / crónica oficial del partido","pt":"LaLiga / relato oficial do jogo","it":"LaLiga / resoconto ufficiale","fr":"LaLiga / compte rendu officiel","nl":"LaLiga / officieel wedstrijdverslag","zh":"LaLiga／官方比賽報告"}
 
 def esc(x):
     return html.escape(str(x or ""),quote=True)
@@ -56,7 +59,7 @@ def prepare(item,id,lang,translations):
 
 def make_page(item,id,lang,tr,imgurl):
     L=LABELS[lang]
-    html_lang=HREF[lang] if lang=="pt" else lang
+    html_lang=HREF[lang] if lang in ("pt","zh") else lang
     won=item["outcome"]=="WON"
     term=L["win"] if won else L["lost"]
     original=f"{DOMAIN}/{lang}/tipps/bericht/?id={id}"
@@ -180,14 +183,14 @@ def main():
                 assert v.size==(1200,630)
                 assert v.getexif().get(270)
             markup=destination.read_text(encoding="utf-8")
-            assert image_url in markup and f'<html lang="{HREF[lang] if lang=="pt" else lang}">' in markup
+            assert image_url in markup and f'<html lang="{HREF[lang] if lang in ("pt","zh") else lang}">' in markup
             assert "data-report-embedded" in markup
             assert len(re.findall(r'link rel="alternate" hreflang=',markup))==7
             assert 'application/ld+json' in markup
             assert all(t in markup for t in ["og:image","twitter:image","rel=\"canonical\""])
             count+=1
             print(json.dumps({"lang":lang,"id":id,"page":url,"image":image_url,"verified":True},ensure_ascii=False))
-    assert count==30, count
+    assert count==40, count
     out=ROOT/"docs"/"result-report-batches"/"block-001-i18n-build.json"
     out.write_text(json.dumps({"languages":list(LANGS),"tip_count":len(ids),
        "page_count":count,"image_count":count,"all_original_statistical_components_preserved":True,
