@@ -2,7 +2,7 @@
   "use strict";
 
   const SUPPORTED = ["de","en","es","pt","it","fr"];
-  const FLAGS = {de:"🇩🇪",en:"🇬🇧",es:"🇪🇸",pt:"🇧🇷",it:"🇮🇹",fr:"🇫🇷"};
+  const FLAGS = {de:"🇩🇪",en:"🇬🇧",es:"🇪🇸",pt:"🇵🇹",it:"🇮🇹",fr:"🇫🇷"};
   const LANGUAGE_KEY = "betinsight_language";
   const REF_STORAGE_KEY = "betinsight_ref_code";
   const DEFAULT_REF_CODE = "POOL";
@@ -11,7 +11,7 @@
     de:{label:"Themen",season:"Saison 2026/27",football:"Fußballtipps",over:"Über 2,5 Tore",winner:"Sieger",acca:"Kombi"},
     en:{label:"Topics",season:"2026/27 season",football:"Football tips",over:"Over 2.5 goals",winner:"Match winner",acca:"Accumulator"},
     es:{label:"Temas",season:"Temporada 2026/27",football:"Pronósticos de fútbol",over:"Más de 2,5 goles",winner:"Ganador del partido",acca:"Combinada"},
-    pt:{label:"Temas",season:"Temporada 2026/27",football:"Palpites de futebol",over:"Mais de 2,5 gols",winner:"Vencedor da partida",acca:"Combinada"},
+    pt:{label:"Temas",season:"Época 2026/27",football:"Prognósticos de futebol",over:"Mais de 2,5 golos",winner:"Vencedor do jogo",acca:"Múltipla"},
     it:{label:"Temi",season:"Stagione 2026/27",football:"Pronostici calcio",over:"Over 2,5 gol",winner:"Vincente partita",acca:"Multipla"},
     fr:{label:"Thèmes",season:"Saison 2026/27",football:"Pronostics football",over:"Plus de 2,5 buts",winner:"Vainqueur du match",acca:"Combiné"}
   };
@@ -20,7 +20,7 @@
     de:{aria:"Tipps und Statistik",tips:"Tippauswertungen",stats:"Statistik & Verlauf",preview:"Vorschau"},
     en:{aria:"Tips and statistics",tips:"Tip reviews",stats:"Statistics & Performance",preview:"Preview"},
     es:{aria:"Pronósticos y estadísticas",tips:"Revisiones de pronósticos",stats:"Estadísticas y evolución",preview:"Vista previa"},
-    pt:{aria:"Palpites e estatísticas",tips:"Avaliações de palpites",stats:"Estatísticas e evolução",preview:"Prévia"},
+    pt:{aria:"Prognósticos e estatísticas",tips:"Análises de prognósticos",stats:"Estatísticas e evolução",preview:"Pré-visualização"},
     it:{aria:"Pronostici e statistiche",tips:"Valutazioni dei pronostici",stats:"Statistiche e andamento",preview:"Anteprima"},
     fr:{aria:"Pronostics et statistiques",tips:"Bilans des pronostics",stats:"Statistiques et évolution",preview:"Aperçu"}
   };
