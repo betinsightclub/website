@@ -99,7 +99,7 @@ def image_for(item, lang='de'):
     badge=copy["yes"] if ok else copy["no"]
     bx=335
     d.rounded_rectangle((bx,412,bx+166,468),radius=13,fill=(1,26,35,235),outline=accent,width=4)
-    d.text((bx+83,440),badge,anchor="mm",font=font(35),fill=accent)
+    d.text((bx+83,440),badge,anchor="mm",font=fit_font(d,badge,145,35,22),fill=accent)
     d.rounded_rectangle((x,504,750,510),radius=2,fill=(32,174,242,255))
     date=dt.date.fromisoformat(item["match_date"]).strftime("%d.%m.%Y")
     footer=f"{date}   •   {item['units']:g} {copy['unit']}   •   {copy['odds']} {str(item['odds']).replace('.',',')}"
