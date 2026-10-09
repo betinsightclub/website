@@ -29,6 +29,7 @@ OG={
 "de":"de_DE","en":"en_GB","es":"es_ES","pt":"pt_BR","it":"it_IT","fr":"fr_FR"
 }
 HREF={"de":"de-DE","en":"en-GB","es":"es-ES","pt":"pt-BR","it":"it-IT","fr":"fr-FR"}
+SOURCE_LABEL={"de":"LaLiga / offizieller Spielbericht","en":"LaLiga / official match report","es":"LaLiga / crónica oficial del partido","pt":"LaLiga / relatório oficial da partida","it":"LaLiga / resoconto ufficiale","fr":"LaLiga / compte rendu officiel"}
 
 def esc(x):
     return html.escape(str(x or ""),quote=True)
@@ -140,7 +141,7 @@ def make_page(item,id,lang,tr,imgurl):
 <ul class="timeline">{timeline}</ul>
 <p>{esc(tr['narrative'])}</p>
 <div class="conclusion"><h2>{esc(L['outcome'])}</h2><p>{esc(tr['summary'])}</p></div>
-<p class="source">{esc(L['source'])}: <a href="{esc(item['source_url'])}" target="_blank" rel="noopener noreferrer">LaLiga / official club match report ↗</a></p>
+<p class="source">{esc(L['source'])}: <a href="{esc(item['source_url'])}" target="_blank" rel="noopener noreferrer">{esc(SOURCE_LABEL[lang])} ↗</a></p>
 <p class="source">{esc(L['source_line'])}</p>
 <p class="note">{esc(L['note'])}</p></section>
 <nav><a href="{esc(original)}">{esc(L['original_link'])} ↗</a><a href="{DOMAIN}/{lang}/tipps/">{esc(L['back'])} ↗</a></nav>
