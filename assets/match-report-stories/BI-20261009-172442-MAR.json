@@ -17,22 +17,26 @@
         {
           "minute": "80′",
           "team": "Borussia Dortmund",
-          "text": "Daniel Svensson trifft zum 1:0."
+          "text": "Daniel Svensson trifft zum 1:0.",
+          "text_en": "Daniel Svensson puts Dortmund 1–0 ahead."
         },
         {
           "minute": "85′",
           "team": "Borussia Dortmund",
-          "text": "Nico Schlotterbeck erhöht auf 2:0."
+          "text": "Nico Schlotterbeck erhöht auf 2:0.",
+          "text_en": "Nico Schlotterbeck doubles Dortmund's lead to 2–0."
         },
         {
           "minute": "88′",
           "team": "Werder Bremen",
-          "text": "Ludovit Reis verkürzt auf 2:1."
+          "text": "Ludovit Reis verkürzt auf 2:1.",
+          "text_en": "Ludovit Reis pulls one back for Bremen, 2–1."
         },
         {
           "minute": "90.+2′",
           "team": "Werder Bremen",
-          "text": "Niclas Füllkrug erzielt den 2:2-Ausgleich."
+          "text": "Niclas Füllkrug erzielt den 2:2-Ausgleich.",
+          "text_en": "Niclas Füllkrug scores a 90+2 equaliser, 2–2."
         }
       ],
       "narrative_de": "Dortmund führte nach zwei späten Treffern in der 80. und 85. Minute schon mit 2:0. Doch Bremen drehte die entscheidende Tendenz in den Schlussminuten: Reis traf in der 88. Minute, Füllkrug glich in der Nachspielzeit aus. Die auf Dortmund-Sieg gesetzte Auswahl war dadurch verloren.",
@@ -52,12 +56,14 @@
         {
           "minute": "13′",
           "team": "Espanyol",
-          "text": "Bryan Zaragoza bringt Espanyol in Führung."
+          "text": "Bryan Zaragoza bringt Espanyol in Führung.",
+          "text_en": "Bryan Zaragoza gives Espanyol an early lead."
         },
         {
           "minute": "90.+3′",
           "team": "Málaga",
-          "text": "Adrián Niño gleicht in der Nachspielzeit zum 1:1 aus."
+          "text": "Adrián Niño gleicht in der Nachspielzeit zum 1:1 aus.",
+          "text_en": "Adrián Niño equalises for Málaga in stoppage time."
         }
       ],
       "narrative_de": "Espanyol ging früh in Führung und musste in der Nachspielzeit den Ausgleich hinnehmen. Das 1:1 reichte dennoch für die Auswahl X2 (Unentschieden oder Espanyol-Sieg). Dieser Bestandteil der Kombiwette war erfolgreich.",
