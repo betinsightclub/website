@@ -27,9 +27,26 @@ def main():
     im=Image.open(BytesIO(raw)).convert("RGBA")
     if im.size[0]<700 or im.size[1]<150:
         raise RuntimeError("Approved source logo unexpectedly small")
-    bbox=im.getchannel("A").getbbox()
-    if not bbox:
-        raise RuntimeError("Approved source is fully transparent")
+    # Original transparent file contains scattered almost invisible pixels around
+    # a much smaller actual wordmark. Alpha.getbbox() consequently selects the
+    # entire 1536×1024 canvas and makes the brand appear tiny on social cards.
+    # Crop ONLY outside the actual readable artwork, keeping all logo pixels
+    # intact inside the crop. Projected opaque pixel counts reject stray noise.
+    alpha=im.getchannel("A")
+    w,h=im.size
+    mask=list(alpha.point(lambda a: 1 if a>=70 else 0).getdata())
+    row_counts=[sum(mask[y*w:(y+1)*w]) for y in range(h)]
+    col_counts=[0]*w
+    for y in range(h):
+        for x in range(w):
+            col_counts[x]+=mask[y*w+x]
+    rows=[y for y,count in enumerate(row_counts) if count>=max(6,w//200)]
+    cols=[x for x,count in enumerate(col_counts) if count>=max(5,h//200)]
+    if not rows or not cols:
+        raise RuntimeError("Cannot identify visible original logo safely")
+    margin=24
+    bbox=(max(0,min(cols)-margin),max(0,min(rows)-margin),
+          min(w,max(cols)+margin+1),min(h,max(rows)+margin+1))
     cropped=im.crop(bbox)
     # Do not distort the typography or introduce colored backgrounds.
     ORIGINAL.parent.mkdir(parents=True,exist_ok=True)
@@ -53,6 +70,7 @@ def main():
       "approved_original_git_blob":EXPECTED_SHA,
       "source_dimensions":im.size,
       "cropped_dimensions":cropped.size,
+      "artwork_crop_bbox":bbox,
       "transparent_background":True,
       "modifications":"Only invisible alpha padding was cropped; RGB, font and brand content unchanged",
     }
