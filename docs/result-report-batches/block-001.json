@@ -40,5 +40,10 @@
     "hreflang": true,
     "proof_link": true
   },
-  "release_gate": "ALL six languages must publish successfully and show the same original BetInsight confirmed tip/statistics; no missing or German fallback allowed in localized SEO pages"
+  "release_gate": "ALL six languages must publish successfully and show the same original BetInsight confirmed tip/statistics; no missing or German fallback allowed in localized SEO pages",
+  "portuguese_locale": "pt-PT",
+  "portuguese_variant": "Português de Portugal, nunca português do Brasil",
+  "visual_QA": "Centered badge text in all six languages, particularly ES PERDIDO and PT PERDIDO; frame not overlapped",
+  "navigation_QA": "Homepage language preference controls internal routing; remove second selector from result articles; crawler share URL locale remains unchanged.",
+  "latest_image_version": 2
 }
