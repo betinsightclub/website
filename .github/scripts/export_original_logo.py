@@ -11,7 +11,8 @@ root = Path(__file__).resolve().parents[2]
 src = root / "assets" / "betinsight-logo.png"
 assert src.is_file(), "Original BetInsight logo missing"
 img = Image.open(src).convert("RGBA")
-img.thumbnail((285,160),Image.Resampling.LANCZOS)
+img.thumbnail((255,144),Image.Resampling.LANCZOS)
+img = img.quantize(colors=64,method=Image.Quantize.FASTOCTREE,dither=Image.Dither.NONE)
 b = BytesIO()
 img.save(b,format="PNG",optimize=True)
 dest = root / "docs" / "official_logo_small.base64.txt"
