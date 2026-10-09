@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/export-original-logo.yml'
+      - '.github/scripts/export_original_logo.py'
   workflow_dispatch:
 
 permissions:
