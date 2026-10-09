@@ -40,13 +40,13 @@ function resultCover(r){
     "BI-20260925-185756-MAR"
   ]);
   const id=String(r.tipp_id||"").trim();
-  if(lang==="de"&&reviewedIDs.has(id)){
-    const img="/assets/og/"+id.toLowerCase()+"-de-v1.jpg";
-    const destination="/de/tipps/ergebnis/"+encodeURIComponent(id)+"/";
+  if(reviewedIDs.has(id)){
+    const img="/assets/og/"+id.toLowerCase()+"-"+lang+"-v1.jpg";
+    const destination="/"+lang+"/tipps/ergebnis/"+encodeURIComponent(id)+"/";
     const alt="BetInsight Ergebnisbild "+String(r.spiel||"")+" – "+(won?"Tipp gewonnen":"Tipp verloren");
     return '<section class="wrap reviewed-poster">'+
-      '<a href="'+destination+'" title="Spielbericht mit SEO-Vorschau öffnen"><img src="'+img+'" alt="'+esc(alt)+'" width="1200" height="630" loading="eager" decoding="async"></a>'+
-      '<div class="reviewed-poster-link"><a href="'+destination+'">Ausführlichen Spielbericht mit Höhepunkten öffnen →</a></div>'+
+      '<a href="'+destination+'" title="BetInsight verified report / Bericht öffnen"><img src="'+img+'" alt="'+esc(alt)+'" width="1200" height="630" loading="eager" decoding="async"></a>'+
+      '<div class="reviewed-poster-link"><a href="'+destination+'">'+esc(({de:"Ausführlichen Spielbericht mit Höhepunkten öffnen",en:"Read the full match review and highlights",es:"Ver el análisis completo y los momentos destacados",pt:"Ler a análise completa e os principais lances",it:"Leggi l'analisi completa e i momenti decisivi",fr:"Lire l'analyse et les temps forts"})[lang]||"Read match review")+' →</a></div>'+
       '</section><div class="wrap result-context"><h1>'+esc(r.spiel||"")+'</h1><p>'+esc(L.lead)+'</p><div class="meta"><span>'+esc(L.tipper)+': '+esc(tipper(r)||"—")+'</span><span>'+esc(status)+'</span></div></div>';
   }
 
