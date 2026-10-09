@@ -56,6 +56,7 @@ def prepare(item,id,lang,translations):
 
 def make_page(item,id,lang,tr,imgurl):
     L=LABELS[lang]
+    html_lang=HREF[lang] if lang=="pt" else lang
     won=item["outcome"]=="WON"
     term=L["win"] if won else L["lost"]
     original=f"{DOMAIN}/{lang}/tipps/bericht/?id={id}"
@@ -83,7 +84,7 @@ def make_page(item,id,lang,tr,imgurl):
     share=f"{L['title']} | {item['home']} – {item['away']} | {item['score']} | {term}"
     price=str(item["odds"]).replace(".",",")
     return f"""<!doctype html>
-<html lang="{lang}"><head>
+<html lang="{html_lang}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(seo_title)}</title>
 <meta name="description" content="{esc(description)}">
