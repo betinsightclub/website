@@ -52,7 +52,7 @@ jobs:
           assert '(?:de|en|es|pt|it|fr)' in old
           for id in ids:
               for lang in langs:
-                  photo=root/'assets/og'/(id.lower()+f'-{lang}-v1.jpg')
+                  photo=root/'assets/og'/(id.lower()+f'-{lang}-v2.jpg')
                   page=root/lang/'tipps/ergebnis'/id/'index.html'
                   assert photo.exists() and photo.stat().st_size>15000,photo
                   with Image.open(photo) as im:
@@ -61,8 +61,21 @@ jobs:
                   html=page.read_text(encoding='utf8')
                   assert f'<html lang="{lang}">' in html,(lang,id)
                   assert f'/{lang}/tipps/ergebnis/{id}/' in html,(lang,id)
-                  assert f'{id.lower()}-{lang}-v1.jpg' in html,(lang,id)
+                  assert f'{id.lower()}-{lang}-v2.jpg' in html,(lang,id)
                   assert html.count('rel="alternate" hreflang=')==7,(lang,id)
+                  # Portuguese means Portugal in every result, never Brazil.
+                  assert 'pt-BR' not in html and 'pt_BR' not in html,(id,lang)
+                  assert 'Português (Brasil)' not in html,(id,lang)
+                  assert 'nav class="languages"' not in html,(id,lang)
+                  assert 'result-report-locale.js?' in html,(id,lang)
+                  assert 'hreflang="pt-PT"' in html,(id,lang)
+                  if lang=='pt':
+                      assert '<meta property="og:locale" content="pt_PT">' in html,id
+                      assert 'Prognóstico' in html or 'prognóstico' in html,id
+                  source=(root/'.github/scripts/publish_result_report_batch.py').read_text()
+                  for guard in ['bounds=d.textbbox', 'px+bounds[0]>=bx+17', 'px+bounds[2]<=bx+bw-17']:
+                      assert guard in source,(id,guard)
+
                   assert 'data-report-embedded="1"' in html,(lang,id)
                   assert 'tip-report-live.js?v=' in html,(lang,id)
                   assert all(x in html for x in ['og:image','twitter:image','rel="canonical"','application/ld+json']),id
@@ -80,7 +93,7 @@ jobs:
           set -euo pipefail
           git config user.name "BetInsight Editorial"
           git config user.email "actions@github.com"
-          git add de/tipps/ergebnis/ en/tipps/ergebnis/ es/tipps/ergebnis/ pt/tipps/ergebnis/ it/tipps/ergebnis/ fr/tipps/ergebnis/ assets/og/bi-*-v1.jpg docs/result-report-batches/block-001-i18n-build.json
+          git add de/tipps/ergebnis/ en/tipps/ergebnis/ es/tipps/ergebnis/ pt/tipps/ergebnis/ it/tipps/ergebnis/ fr/tipps/ergebnis/ assets/og/bi-*-v2.jpg docs/result-report-batches/block-001-i18n-build.json
           if git diff --cached --quiet; then
             echo "Batch 001 already published."
             exit 0
