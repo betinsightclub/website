@@ -179,7 +179,7 @@ def main():
                 assert v.size==(1200,630)
                 assert v.getexif().get(270)
             markup=destination.read_text(encoding="utf-8")
-            assert image_url in markup and f'<html lang="{lang}">' in markup
+            assert image_url in markup and f'<html lang="{HREF[lang] if lang=="pt" else lang}">' in markup
             assert "data-report-embedded" in markup
             assert len(re.findall(r'link rel="alternate" hreflang=',markup))==7
             assert 'application/ld+json' in markup
