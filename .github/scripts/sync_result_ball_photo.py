@@ -17,6 +17,10 @@ if im.width<900 or im.height<500:
 out=root/"assets"/"brand"/"result-ball-field-photo.jpg"
 out.parent.mkdir(exist_ok=True,parents=True)
 im.save(out,format="JPEG",quality=91,optimize=True,subsampling=0)
+thumb=im.copy()
+thumb.thumbnail((330,500),Image.Resampling.LANCZOS)
+thumb.save(root/"assets"/"brand"/"result-photo-inspection.jpg",format="JPEG",quality=73,optimize=True)
+
 meta={"photo":"A close up of a soccer ball on a field","photographer":"Max Titov",
       "source":"https://unsplash.com/photos/a-close-up-of-a-soccer-ball-on-a-field-gYFOFUnSBF0",
       "license":"https://unsplash.com/license","license_type":"Unsplash License",
