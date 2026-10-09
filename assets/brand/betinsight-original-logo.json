@@ -8,8 +8,14 @@
     1024
   ],
   "cropped_dimensions": [
-    1511,
-    1024
+    1059,
+    299
+  ],
+  "artwork_crop_bbox": [
+    218,
+    343,
+    1277,
+    642
   ],
   "transparent_background": true,
   "modifications": "Only invisible alpha padding was cropped; RGB, font and brand content unchanged"
