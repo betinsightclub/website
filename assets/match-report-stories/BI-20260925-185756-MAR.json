@@ -1,0 +1,55 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260925-185756-MAR",
+  "match_date": "2026-09-25",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "Girona FC",
+  "away": "Albacete BP",
+  "match": "Girona FC – Albacete BP",
+  "score": "2:0",
+  "market": "Girona FC gewinnt (1X2)",
+  "odds": 1.56,
+  "units": 4,
+  "league": "LaLiga Hypermotion",
+  "verified_source": "Official LALIGA / home club game records",
+  "source_url": "https://www.gironafc.cat/en/matches/season-2026-2027-laliga-hypermotion-7-girona-fc-vs-albacete-bp-3371",
+  "leg_status": "WON",
+  "source_checked_at": "2026-10-10",
+  "legs": [
+    {
+      "home": "Girona FC",
+      "away": "Albacete BP",
+      "score": "2:0",
+      "status": "FT",
+      "market_label": "Girona FC gewinnt (1X2)",
+      "selection_outcome": "WON",
+      "key_events": [
+        {
+          "minute": "5′",
+          "text": "Abel Ruiz trifft früh zur 1:0-Führung für Girona.",
+          "text_en": "Abel Ruiz scores an early opener for Girona."
+        },
+        {
+          "minute": "42′",
+          "text": "Donny van de Beek erzielt das 2:0 noch vor der Pause.",
+          "text_en": "Donny van de Beek doubles Girona's lead before half-time."
+        },
+        {
+          "minute": "90′",
+          "text": "Girona bringt die 2:0-Führung bis zum Abpfiff über die Zeit.",
+          "text_en": "Girona sees out the 2–0 victory."
+        }
+      ],
+      "narrative_de": "Der Heimsieg wurde bereits in der ersten Hälfte vorbereitet: Abel Ruiz brachte Girona früh in Führung, Donny van de Beek erhöhte noch vor dem Pausenpfiff auf 2:0. Albacete kam zwar zu eigenen Abschlüssen, erzielte aber keinen Treffer. Girona verteidigte den Zwei-Tore-Vorsprung bis zum Abpfiff. Für die von BetInsight veröffentlichte 1X2-Auswahl auf Girona-Sieg genügte genau dieser Endstand, weshalb der Tipp mit Quote 1,56 gewonnen wurde.",
+      "narrative_en": "Abel Ruiz gave Girona an early lead and Donny van de Beek doubled it before half-time. Albacete had attempts of their own but failed to score. Girona held on for a 2–0 victory, confirming the BetInsight home-win selection at odds of 1.56.",
+      "source_url": "https://www.gironafc.cat/en/matches/season-2026-2027-laliga-hypermotion-7-girona-fc-vs-albacete-bp-3371",
+      "source_label": "Offizieller Spielbericht / LaLiga"
+    }
+  ],
+  "summary_de": "Zwei Tore vor der Pause, anschließend kein Gegentreffer: Girona gewann 2:0, damit war der Tipp richtig.",
+  "summary_en": "Two first-half goals and a clean sheet secured the 2–0 home win and a successful Girona selection.",
+  "note_de": "Nachträgliche Analyse eines zuvor veröffentlichten Tipps. Wettstatus, ursprünglicher Tipp und Quote stammen aus dem bestätigten BetInsight-Master-Backoffice. Tore und Ereignisse aus dem offiziellen Spielbericht. Keine nachträgliche Vorhersage.",
+  "note_en": "Post-match analysis of a previously published selection. Settlement and original selection are from confirmed BetInsight data. Football events are from the official match report."
+}
