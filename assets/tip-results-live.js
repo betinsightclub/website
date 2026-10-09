@@ -21,7 +21,7 @@ const C={
 de:{odds:"Quote",units:"Units",score:"Endstand",won:"Gewonnen",lost:"Verloren",read:"Auswertung lesen →"},
 en:{odds:"Odds",units:"Units",score:"Final score",won:"Won",lost:"Lost",read:"Read review →"},
 es:{odds:"Cuota",units:"Units",score:"Resultado final",won:"Ganado",lost:"Perdido",read:"Leer análisis →"},
-pt:{odds:"Odd",units:"Units",score:"Placar final",won:"Ganho",lost:"Perdido",read:"Ler análise →"},
+pt:{odds:"Cotação",units:"Units",score:"Resultado final",won:"Ganho",lost:"Perdido",read:"Ler a análise →"},
 it:{odds:"Quota",units:"Units",score:"Risultato finale",won:"Vinto",lost:"Perso",read:"Leggi analisi →"},
 fr:{odds:"Cote",units:"Units",score:"Score final",won:"Gagné",lost:"Perdu",read:"Lire le bilan →"}
 }[lang]||{odds:"Quote",units:"Units",score:"Endstand",won:"Gewonnen",lost:"Verloren",read:"Auswertung lesen →"};
