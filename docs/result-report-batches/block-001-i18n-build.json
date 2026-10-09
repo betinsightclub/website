@@ -1,0 +1,15 @@
+{
+  "languages": [
+    "de",
+    "en",
+    "es",
+    "pt",
+    "it",
+    "fr"
+  ],
+  "tip_count": 5,
+  "page_count": 30,
+  "image_count": 30,
+  "all_original_statistical_components_preserved": true,
+  "original_tip_data_mutated": false
+}
