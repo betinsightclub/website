@@ -1,0 +1,36 @@
+name: BetInsight Original Transparent Logo
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/sync_original_betinsight_logo.py'
+      - '.github/workflows/sync-original-betinsight-logo.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: betinsight-original-logo
+  cancel-in-progress: false
+jobs:
+  copy-logo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check 'Pillow>=10,<13'
+      - name: Verify and copy approved ORIGINAL logo from BetInsight GitHub
+        run: python .github/scripts/sync_original_betinsight_logo.py
+      - name: Commit exact original and lossless transparent crop
+        run: |
+          set -euo pipefail
+          git config user.name 'BetInsight Brand Assets'
+          git config user.email 'actions@github.com'
+          git add assets/brand/betinsight-original-source.png assets/brand/betinsight-original-transparent.png assets/brand/betinsight-original-logo.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'brand: mirror approved transparent logo without AI alterations'
+            git push
+          else
+            echo 'Original transparent logo already current.'
+          fi
