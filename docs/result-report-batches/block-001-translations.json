@@ -1,0 +1,324 @@
+{
+  "schema": "betinsight_result_editorial_translations_v1",
+  "languages": [
+    "en",
+    "es",
+    "pt",
+    "it",
+    "fr"
+  ],
+  "tip_count": 5,
+  "approved_source": "Five confirmed BetInsight tip results and their documented official-source match event timelines; translations preserve original event order and minute/score facts.",
+  "items": {
+    "BI-20261004-011406-MAR": {
+      "en": {
+        "market": "Mallorca to win (1X2)",
+        "headline": "Girona vs Mallorca: 0–0 and the away-win selection loses",
+        "summary": "The 0–0 draw was insufficient for the Mallorca away-win selection (1X2). A win was required, so the bet lost.",
+        "narrative": "Mallorca needed an away victory for the published 1X2 selection to win. The match instead finished goalless. According to the official statistics, Girona recorded 16 attempts and five on target, while Mallorca had nine attempts but none on target. Late Girona pressure did not change the score. Mallorca held on for a point rather than the win needed to settle the BetInsight selection.",
+        "events": [
+          "Alberto Moreno of Mallorca receives a yellow card.",
+          "A goalless first half ends 0–0.",
+          "Fran Beltrán has an attempt for Girona but the score stays level.",
+          "A late Bryan Gil attempt is saved as Girona presses forward."
+        ]
+      },
+      "es": {
+        "market": "Victoria del Mallorca (1X2)",
+        "headline": "Girona – Mallorca: el 0:0 hace perder el pronóstico visitante",
+        "summary": "El empate 0:0 no servía para la apuesta 1X2 a favor del Mallorca: era imprescindible ganar.",
+        "narrative": "Para acertar el pronóstico publicado, el Mallorca debía ganar a domicilio. El partido terminó sin goles. Según las estadísticas oficiales, el Girona registró 16 remates, cinco a puerta; el Mallorca, nueve remates y ninguno entre los tres palos. Ni siquiera la presión final del Girona alteró el marcador. El punto conseguido por el Mallorca no bastó para que la selección 1X2 resultara ganadora.",
+        "events": [
+          "Alberto Moreno, del Mallorca, recibe una tarjeta amarilla.",
+          "El primer tiempo termina sin goles: 0:0.",
+          "Fran Beltrán remata para el Girona, sin modificar el marcador.",
+          "Bryan Gil prueba suerte al final, pero su disparo es detenido."
+        ]
+      },
+      "pt": {
+        "market": "Vitória do Mallorca (1X2)",
+        "headline": "Girona x Mallorca: empate em 0 a 0 faz a aposta perder",
+        "summary": "O empate em 0 a 0 não atende à seleção 1X2 de vitória do Mallorca: era necessário vencer.",
+        "narrative": "A seleção publicada exigia uma vitória do Mallorca fora de casa. O confronto terminou sem gols. Segundo as estatísticas oficiais, o Girona finalizou 16 vezes, cinco no alvo, enquanto o Mallorca somou nove finalizações, nenhuma no gol. A pressão do Girona no fim não alterou o placar. O Mallorca garantiu um ponto, mas não a vitória necessária para validar o palpite da BetInsight.",
+        "events": [
+          "Alberto Moreno, do Mallorca, recebe cartão amarelo.",
+          "O primeiro tempo termina sem gols: 0 a 0.",
+          "Fran Beltrán finaliza pelo Girona, mas o placar não muda.",
+          "No fim, Bryan Gil tem uma finalização defendida."
+        ]
+      },
+      "it": {
+        "market": "Vittoria Mallorca (1X2)",
+        "headline": "Girona–Mallorca 0-0: la scelta sulla vittoria ospite perde",
+        "summary": "Lo 0-0 non è sufficiente per la selezione 1X2 sulla vittoria del Mallorca: serviva vincere.",
+        "narrative": "Per far vincere la selezione 1X2 pubblicata, il Mallorca doveva imporsi in trasferta. Invece la partita è terminata senza reti. Secondo le statistiche ufficiali, il Girona ha totalizzato 16 tiri, cinque nello specchio; il Mallorca nove tentativi, nessuno in porta. La pressione finale del Girona non ha cambiato lo 0-0. Il punto ottenuto dal Mallorca non era sufficiente a rendere vincente il pronostico BetInsight.",
+        "events": [
+          "Ammonizione per Alberto Moreno del Mallorca.",
+          "Il primo tempo termina senza gol, sullo 0-0.",
+          "Fran Beltrán ci prova per il Girona, ma il punteggio non cambia.",
+          "Un tentativo finale di Bryan Gil viene parato."
+        ]
+      },
+      "fr": {
+        "market": "Victoire de Majorque (1X2)",
+        "headline": "Gérone–Majorque 0-0 : le pronostic victoire de Majorque perd",
+        "summary": "Le 0-0 ne suffisait pas pour le choix 1X2 en faveur d'une victoire de Majorque : il fallait gagner.",
+        "narrative": "Pour valider le choix 1X2 publié, Majorque devait s'imposer à l'extérieur. La rencontre s'est finalement soldée par un 0-0. Selon les statistiques officielles, Gérone a tenté 16 tirs dont cinq cadrés, contre neuf tentatives et aucun tir cadré pour Majorque. La pression de Gérone en fin de match n'a rien changé. Majorque repart avec un point, mais sans la victoire nécessaire au pronostic BetInsight.",
+        "events": [
+          "Alberto Moreno (Majorque) reçoit un carton jaune.",
+          "La première période s'achève sans but : 0-0.",
+          "Fran Beltrán tente sa chance pour Gérone, sans marquer.",
+          "Une tentative tardive de Bryan Gil est arrêtée."
+        ]
+      }
+    },
+    "BI-20261004-011255-MAR": {
+      "en": {
+        "market": "Las Palmas to win (1X2)",
+        "headline": "Las Palmas vs Valladolid ends 2–2: home-win selection loses",
+        "summary": "Las Palmas scored twice but drew 2–2. The selected home victory did not occur.",
+        "narrative": "Las Palmas took the lead through Pezzolesi after five minutes, but Latasa equalised in the tenth minute. J. Ponceau turned the contest in Valladolid's favour on 26 minutes. Elias made it 2–2 for Las Palmas after 54 minutes. Neither side found a winner, which is why the published BetInsight 1X2 home-win selection was graded as lost.",
+        "events": [
+          "Pezzolesi opens the scoring for Las Palmas, 1–0.",
+          "Latasa equalises for Valladolid, 1–1.",
+          "J. Ponceau turns the match around for Valladolid, 1–2.",
+          "Elias brings Las Palmas back to 2–2."
+        ]
+      },
+      "es": {
+        "market": "Victoria de Las Palmas (1X2)",
+        "headline": "Las Palmas–Valladolid 2:2: falla la apuesta por el triunfo local",
+        "summary": "Las Palmas marcó dos veces, pero empató 2:2. No se produjo la victoria local seleccionada.",
+        "narrative": "Las Palmas se adelantó por medio de Pezzolesi en el minuto 5. Latasa empató apenas cinco minutos después y J. Ponceau dio la vuelta al resultado en el minuto 26. Elias igualó el marcador para Las Palmas en el 54, pero el gol de la victoria nunca llegó. Por eso, la selección 1X2 al triunfo de Las Palmas terminó siendo perdedora.",
+        "events": [
+          "Pezzolesi adelanta a Las Palmas, 1:0.",
+          "Latasa empata para el Valladolid, 1:1.",
+          "J. Ponceau remonta para el Valladolid, 1:2.",
+          "Elias marca el empate definitivo de Las Palmas, 2:2."
+        ]
+      },
+      "pt": {
+        "market": "Vitória do Las Palmas (1X2)",
+        "headline": "Las Palmas x Valladolid termina 2 a 2: palpite mandante perdido",
+        "summary": "O Las Palmas marcou duas vezes, mas empatou em 2 a 2 e não conquistou a vitória exigida.",
+        "narrative": "Pezzolesi colocou o Las Palmas na frente logo aos cinco minutos, mas Latasa empatou aos dez. Aos 26 minutos, J. Ponceau virou a partida para o Valladolid. Elias deixou tudo igual aos 54 minutos. Como o Las Palmas não voltou a marcar, a seleção 1X2 para uma vitória dos mandantes foi perdida.",
+        "events": [
+          "Pezzolesi abre o placar para o Las Palmas, 1 a 0.",
+          "Latasa empata para o Valladolid, 1 a 1.",
+          "J. Ponceau vira para o Valladolid, 2 a 1.",
+          "Elias empata para o Las Palmas, 2 a 2."
+        ]
+      },
+      "it": {
+        "market": "Vittoria Las Palmas (1X2)",
+        "headline": "Las Palmas–Valladolid 2-2: pronostico sulla vittoria interna perso",
+        "summary": "Il Las Palmas ha segnato due volte ma ha pareggiato 2-2: la vittoria prevista non è arrivata.",
+        "narrative": "Pezzolesi ha portato avanti il Las Palmas al 5', ma Latasa ha pareggiato già al 10'. Al 26' J. Ponceau ha ribaltato la gara per il Valladolid. Elias ha firmato il 2-2 al 54', senza però completare una nuova rimonta. Il risultato è un pareggio, quindi la selezione BetInsight 1X2 sulla vittoria del Las Palmas è risultata perdente.",
+        "events": [
+          "Pezzolesi segna l'1-0 per il Las Palmas.",
+          "Latasa pareggia per il Valladolid: 1-1.",
+          "J. Ponceau porta avanti il Valladolid, 1-2.",
+          "Elias firma il 2-2 del Las Palmas."
+        ]
+      },
+      "fr": {
+        "market": "Victoire de Las Palmas (1X2)",
+        "headline": "Las Palmas–Valladolid 2-2 : le choix victoire à domicile est perdu",
+        "summary": "Malgré deux buts inscrits, Las Palmas a concédé le nul 2-2 et n'a pas gagné.",
+        "narrative": "Pezzolesi a ouvert le score dès la 5e minute pour Las Palmas. Latasa a égalisé cinq minutes plus tard, puis J. Ponceau a donné l'avantage à Valladolid à la 26e. Elias a ramené Las Palmas à 2-2 à la 54e, sans que le but de la victoire ne suive. Le pari BetInsight 1X2 sur une victoire de Las Palmas est donc perdu.",
+        "events": [
+          "Pezzolesi ouvre le score pour Las Palmas, 1-0.",
+          "Latasa égalise pour Valladolid, 1-1.",
+          "J. Ponceau donne l'avantage à Valladolid, 1-2.",
+          "Elias égalise pour Las Palmas, 2-2."
+        ]
+      }
+    },
+    "BI-20261002-145749-MAR": {
+      "en": {
+        "market": "Eldense – Draw No Bet",
+        "headline": "Eldense beats Oviedo 4–1: Draw No Bet selection wins",
+        "summary": "Eldense overturned a 0–1 deficit and won 4–1. The Draw No Bet home selection was successful.",
+        "narrative": "Oviedo scored after just one minute through Alberto Reina, but Eldense recovered in the second half. R. López equalised with a penalty in the 56th minute and Fidel scored another penalty in the 68th to turn the match around. Late goals from Olabarrieta and Rastrojo completed a 4–1 win. Draw No Bet pays out on a victory and refunds the stake on a draw; this match was an outright winning selection.",
+        "events": [
+          "Alberto Reina gives Oviedo an early 0–1 lead.",
+          "R. López equalises from the penalty spot, 1–1.",
+          "Fidel scores another penalty to put Eldense 2–1 up.",
+          "Olabarrieta makes it 3–1.",
+          "Rastrojo completes the 4–1 scoreline in stoppage time."
+        ]
+      },
+      "es": {
+        "market": "Eldense, empate no válido (Draw No Bet)",
+        "headline": "Eldense–Oviedo 4:1: acierto del pronóstico con empate no válido",
+        "summary": "Eldense remontó del 0:1 al 4:1, por lo que acertó la selección de victoria sin empate.",
+        "narrative": "Alberto Reina puso al Oviedo por delante en el primer minuto. El Eldense reaccionó tras el descanso: R. López empató de penalti en el 56 y Fidel culminó la remontada, también de penalti, en el 68. Olabarrieta y Rastrojo ampliaron el marcador hasta el 4:1. El mercado Draw No Bet devuelve la apuesta si hay empate, pero aquí el Eldense ganó y el pronóstico resultó acertado.",
+        "events": [
+          "Alberto Reina adelanta pronto al Oviedo, 0:1.",
+          "R. López empata de penalti, 1:1.",
+          "Fidel convierte otro penalti y pone al Eldense 2:1.",
+          "Olabarrieta marca el 3:1.",
+          "Rastrojo fija el 4:1 en el tiempo añadido."
+        ]
+      },
+      "pt": {
+        "market": "Eldense – Empate Anula Aposta",
+        "headline": "Eldense vence Oviedo por 4 a 1: palpite Draw No Bet ganho",
+        "summary": "O Eldense virou o placar de 0 a 1 para 4 a 1, validando a seleção Empate Anula Aposta.",
+        "narrative": "Alberto Reina colocou o Oviedo na frente ainda no primeiro minuto. Na segunda etapa, o Eldense reagiu: R. López empatou de pênalti aos 56 minutos e Fidel virou também de pênalti aos 68. Olabarrieta e Rastrojo marcaram os gols finais do 4 a 1. No mercado Empate Anula Aposta, o empate devolveria a aposta; como o Eldense venceu, o palpite foi ganho.",
+        "events": [
+          "Alberto Reina abre o placar para o Oviedo, 0 a 1.",
+          "R. López empata de pênalti, 1 a 1.",
+          "Fidel converte outro pênalti e vira para 2 a 1.",
+          "Olabarrieta amplia para 3 a 1.",
+          "Rastrojo fecha o placar em 4 a 1 nos acréscimos."
+        ]
+      },
+      "it": {
+        "market": "Eldense – Draw No Bet (pareggio rimborsato)",
+        "headline": "Eldense–Oviedo 4-1: pronostico Draw No Bet vincente",
+        "summary": "L'Eldense ha ribaltato lo 0-1 iniziale e vinto 4-1, centrando la selezione Draw No Bet.",
+        "narrative": "L'Oviedo è andato avanti dopo un solo minuto con Alberto Reina. Nella ripresa l'Eldense ha reagito: R. López ha pareggiato su rigore al 56', Fidel ha segnato un altro rigore al 68' per il sorpasso. Olabarrieta e Rastrojo hanno poi arrotondato sul 4-1. Nel mercato Draw No Bet il pareggio comporta il rimborso; qui la vittoria dell'Eldense ha reso vincente la selezione.",
+        "events": [
+          "Alberto Reina porta subito avanti l'Oviedo, 0-1.",
+          "R. López pareggia su rigore, 1-1.",
+          "Fidel segna un secondo rigore e porta l'Eldense sul 2-1.",
+          "Olabarrieta realizza il 3-1.",
+          "Rastrojo fissa il risultato sul 4-1 nel recupero."
+        ]
+      },
+      "fr": {
+        "market": "Eldense – Remboursé si nul (Draw No Bet)",
+        "headline": "Eldense–Oviedo 4-1 : le choix Draw No Bet est gagnant",
+        "summary": "Eldense a renversé un score de 0-1 pour s'imposer 4-1 : le pari Draw No Bet est gagné.",
+        "narrative": "Oviedo a pris l'avantage dès la première minute grâce à Alberto Reina. En seconde période, Eldense a réagi : R. López a égalisé sur penalty à la 56e, puis Fidel a donné l'avantage à Eldense sur un deuxième penalty à la 68e. Olabarrieta et Rastrojo ont porté le score à 4-1. Un nul aurait remboursé la mise en Draw No Bet ; la victoire d'Eldense rend le pronostic gagnant.",
+        "events": [
+          "Alberto Reina ouvre le score pour Oviedo, 0-1.",
+          "R. López égalise sur penalty, 1-1.",
+          "Fidel marque sur penalty et porte Eldense à 2-1.",
+          "Olabarrieta inscrit le 3-1.",
+          "Rastrojo marque le 4-1 pendant le temps additionnel."
+        ]
+      }
+    },
+    "BI-20260927-040207-MAR": {
+      "en": {
+        "market": "Real Valladolid to win (1X2)",
+        "headline": "Valladolid overturns Córdoba 3–1: home-win selection wins",
+        "summary": "Valladolid recovered from an early own-goal deficit to win 3–1 and validate the home-win selection.",
+        "narrative": "An own goal by Miguel Rubio gave Córdoba a fourth-minute lead. Arnu equalised for Valladolid in the 38th minute and Víctor Jr completed the turnaround after half-time. Barberà added a third on 73 minutes. The comeback secured a 3–1 home victory and the published Valladolid 1X2 selection at odds of 2.46 won.",
+        "events": [
+          "Miguel Rubio's own goal gives Córdoba a 0–1 lead.",
+          "Arnu equalises for Valladolid, 1–1.",
+          "Víctor Jr turns it around, 2–1.",
+          "Barberà makes it 3–1."
+        ]
+      },
+      "es": {
+        "market": "Victoria del Real Valladolid (1X2)",
+        "headline": "Valladolid remonta al Córdoba 3:1: pronóstico local acertado",
+        "summary": "El Valladolid superó un autogol tempranero y ganó 3:1, acertando la selección de victoria local.",
+        "narrative": "Un autogol de Miguel Rubio puso al Córdoba por delante en el minuto 4. Arnu empató para el Valladolid en el 38. Tras el descanso, Víctor Jr culminó la remontada y Barberà estableció el 3:1 en el minuto 73. La victoria en casa confirmó el pronóstico 1X2 de Valladolid publicado por BetInsight con cuota 2,46.",
+        "events": [
+          "Un autogol de Miguel Rubio adelanta al Córdoba, 0:1.",
+          "Arnu empata para el Valladolid, 1:1.",
+          "Víctor Jr completa la remontada, 2:1.",
+          "Barberà marca el definitivo 3:1."
+        ]
+      },
+      "pt": {
+        "market": "Vitória do Real Valladolid (1X2)",
+        "headline": "Valladolid vira sobre o Córdoba por 3 a 1: palpite ganho",
+        "summary": "O Valladolid superou um gol contra no início e venceu por 3 a 1, confirmando a aposta no mandante.",
+        "narrative": "Um gol contra de Miguel Rubio colocou o Córdoba na frente aos quatro minutos. Arnu empatou para o Valladolid aos 38, e Víctor Jr completou a virada após o intervalo. Barberà fez o terceiro gol aos 73 minutos. A vitória por 3 a 1 confirmou o palpite 1X2 no Valladolid, com odd 2,46.",
+        "events": [
+          "Gol contra de Miguel Rubio coloca o Córdoba na frente, 0 a 1.",
+          "Arnu empata para o Valladolid, 1 a 1.",
+          "Víctor Jr vira o placar para 2 a 1.",
+          "Barberà amplia para 3 a 1."
+        ]
+      },
+      "it": {
+        "market": "Vittoria Real Valladolid (1X2)",
+        "headline": "Valladolid–Córdoba 3-1: rimonta e pronostico vincente",
+        "summary": "Il Valladolid ha recuperato dallo svantaggio iniziale e vinto 3-1: selezione sulla vittoria interna centrata.",
+        "narrative": "Un'autorete di Miguel Rubio ha portato avanti il Córdoba al 4'. Arnu ha pareggiato al 38' per il Valladolid, poi Víctor Jr ha completato la rimonta nella ripresa. Barberà ha firmato il 3-1 al 73'. Il successo casalingo ha reso vincente la selezione BetInsight 1X2 sul Valladolid a quota 2,46.",
+        "events": [
+          "Autogol di Miguel Rubio: Córdoba avanti 0-1.",
+          "Arnu pareggia per il Valladolid, 1-1.",
+          "Víctor Jr completa il sorpasso, 2-1.",
+          "Barberà segna il definitivo 3-1."
+        ]
+      },
+      "fr": {
+        "market": "Victoire du Real Valladolid (1X2)",
+        "headline": "Valladolid renverse Córdoba 3-1 : le choix à domicile gagne",
+        "summary": "Mené sur un but contre son camp, Valladolid a finalement gagné 3-1 et validé la victoire à domicile.",
+        "narrative": "Un but contre son camp de Miguel Rubio a donné l'avantage à Córdoba dès la 4e minute. Arnu a égalisé pour Valladolid à la 38e. Après la pause, Víctor Jr a achevé la remontée et Barberà a inscrit le 3-1 à la 73e. Ce succès à domicile confirme le choix 1X2 Valladolid de BetInsight, proposé à la cote de 2,46.",
+        "events": [
+          "But contre son camp de Miguel Rubio : Córdoba mène 0-1.",
+          "Arnu égalise pour Valladolid, 1-1.",
+          "Víctor Jr donne l'avantage à Valladolid, 2-1.",
+          "Barberà inscrit le 3-1."
+        ]
+      }
+    },
+    "BI-20260925-185756-MAR": {
+      "en": {
+        "market": "Girona FC to win (1X2)",
+        "headline": "Girona beats Albacete 2–0: home-win selection wins",
+        "summary": "Two first-half goals and a clean sheet secured Girona's 2–0 win and the successful home-win selection.",
+        "narrative": "Abel Ruiz put Girona ahead in the fifth minute and Donny van de Beek added a second before half-time. Albacete created opportunities but failed to score. Girona maintained the two-goal advantage until full time. The published BetInsight home-win selection at odds of 1.56 therefore succeeded.",
+        "events": [
+          "Abel Ruiz gives Girona an early 1–0 lead.",
+          "Donny van de Beek doubles Girona's lead before half-time.",
+          "Girona protects its 2–0 lead through full time."
+        ]
+      },
+      "es": {
+        "market": "Victoria del Girona FC (1X2)",
+        "headline": "Girona–Albacete 2:0: pronóstico por el triunfo local acertado",
+        "summary": "Dos goles en el primer tiempo y la portería a cero dieron al Girona el 2:0 y la apuesta ganadora.",
+        "narrative": "Abel Ruiz adelantó al Girona en el minuto 5 y Donny van de Beek amplió la ventaja antes del descanso. El Albacete tuvo oportunidades, pero no marcó. El Girona defendió el 2:0 hasta el final. De este modo, la selección de victoria local publicada por BetInsight con cuota 1,56 fue acertada.",
+        "events": [
+          "Abel Ruiz adelanta al Girona, 1:0.",
+          "Donny van de Beek amplía a 2:0 antes del descanso.",
+          "El Girona conserva el 2:0 hasta el final."
+        ]
+      },
+      "pt": {
+        "market": "Vitória do Girona FC (1X2)",
+        "headline": "Girona vence Albacete por 2 a 0: palpite mandante ganho",
+        "summary": "Dois gols antes do intervalo e nenhum sofrido garantiram a vitória por 2 a 0 do Girona.",
+        "narrative": "Abel Ruiz colocou o Girona na frente aos cinco minutos. Donny van de Beek ampliou antes do intervalo. O Albacete teve oportunidades, mas não conseguiu marcar. O Girona manteve o 2 a 0 até o fim, garantindo o acerto do palpite 1X2 em sua vitória, com odd 1,56.",
+        "events": [
+          "Abel Ruiz abre o placar para o Girona, 1 a 0.",
+          "Donny van de Beek amplia para 2 a 0 antes do intervalo.",
+          "O Girona segura o resultado de 2 a 0 até o apito final."
+        ]
+      },
+      "it": {
+        "market": "Vittoria Girona FC (1X2)",
+        "headline": "Girona–Albacete 2-0: pronostico sulla vittoria interna centrato",
+        "summary": "Due reti nel primo tempo e nessun gol subito hanno dato al Girona la vittoria per 2-0.",
+        "narrative": "Abel Ruiz ha portato avanti il Girona al 5', mentre Donny van de Beek ha raddoppiato prima dell'intervallo. L'Albacete ha creato alcune occasioni senza segnare. Il Girona ha difeso il 2-0 fino alla fine. La selezione BetInsight sulla vittoria casalinga, a quota 1,56, è risultata vincente.",
+        "events": [
+          "Abel Ruiz porta il Girona in vantaggio, 1-0.",
+          "Donny van de Beek firma il 2-0 prima della pausa.",
+          "Il Girona conserva il 2-0 fino al fischio finale."
+        ]
+      },
+      "fr": {
+        "market": "Victoire du Girona FC (1X2)",
+        "headline": "Gérone–Albacete 2-0 : le choix victoire à domicile est gagnant",
+        "summary": "Deux buts en première période et aucun but encaissé permettent à Gérone de gagner 2-0.",
+        "narrative": "Abel Ruiz a ouvert le score pour Gérone dès la 5e minute. Donny van de Beek a doublé la mise avant la pause. Albacete s'est procuré des occasions, mais n'a pas marqué. Gérone a conservé son avance de 2-0 jusqu'au coup de sifflet final, validant le choix de victoire à domicile proposé à la cote de 1,56.",
+        "events": [
+          "Abel Ruiz ouvre le score pour Gérone, 1-0.",
+          "Donny van de Beek double la mise avant la mi-temps.",
+          "Gérone conserve son avantage de 2-0 jusqu'à la fin."
+        ]
+      }
+    }
+  }
+}
