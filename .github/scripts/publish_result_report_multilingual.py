@@ -144,20 +144,7 @@ def make_page(item,id,lang,tr,imgurl):
 <p class="note">{esc(L['note'])}</p></section>
 <nav><a href="{esc(original)}">{esc(L['original_link'])} ↗</a><a href="{DOMAIN}/{lang}/tipps/">{esc(L['back'])} ↗</a></nav>
 </article><p class="footer">{esc(L['og_foot'])}</p></main>
-<script>
-/* Homepage locale is authoritative for INTERNAL site navigation only.
-   Direct language-specific share links stay in the language of their URL. */
-(function(){try{
-  var preferred=localStorage.getItem("betinsight_language");
-  var valid=["de","en","es","pt","it","fr"];
-  if(!valid.includes(preferred)||preferred==="{lang}"||!document.referrer)return;
-  var from=new URL(document.referrer),current=new URL(location.href);
-  if(from.origin!==current.origin)return;
-  if(!from.pathname.startsWith("/"+preferred+"/"))return;
-  current.pathname=current.pathname.replace(/^\/(de|en|es|pt|it|fr)\//,"/"+preferred+"/");
-  if(current.href!==location.href)location.replace(current.href);
-}catch(e){}})();
-</script>
+<script defer src="/assets/result-report-locale.js?v=20261010-1"></script>
 <script defer src="/assets/tip-report-live.js?v=20261010-5"></script>
 </body></html>"""
 
