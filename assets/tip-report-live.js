@@ -24,8 +24,61 @@ const tipper=r=>String(r.tippgeber||r.admin_name||"").trim()||(String(r.tipp_id|
 function validRows(rows){return rows.filter(r=>r&&r.qualitaetsrelevant==="JA"&&r.sichtbar_fuer_teilnehmer==="JA"&&(r.ergebnis_status==="GEWONNEN"||r.ergebnis_status==="VERLOREN")&&dnum(r.spiel_datum)>=20260828&&num(r.preis_units)>0).sort((a,b)=>dnum(a.spiel_datum)-dnum(b.spiel_datum)||String(a.bestaetigt_am||"").localeCompare(String(b.bestaetigt_am||"")))}
 function calculate(rows,id){let bf=1000,gf=1000,bc=1000,gc=1000,hit=null;for(const r of rows){const q=num(r.quote),u=num(r.preis_units),won=r.ergebnis_status==="GEWONNEN",who=tipper(r),frank=/frank/i.test(who)||String(r.tipp_id||"").includes("-FRA");const fd=won?u*10*(q-1):-u*10;if(frank)gf+=fd;else bf+=fd;const base=frank?gc:bc,stake=base*(u/100),cd=won?stake*(q-1):-stake;if(frank)gc+=cd;else bc+=cd;const fixedTotal=1000+(bf-1000)+(gf-1000),compoundTotal=1000+(bc-1000)+(gc-1000);if(String(r.tipp_id)===String(id))hit={fd,cd,fixedTotal,compoundTotal}}return hit}
 function setMeta(r){document.title=(r.spiel||"BetInsight")+" – "+(r.ergebnis_status==="GEWONNEN"?L.won:L.lost)+" | BetInsight";const desc=document.querySelector('meta[name="description"]');if(desc)desc.setAttribute("content",L.metaDesc+" "+String(r.spiel||""));let can=document.querySelector('link[rel="canonical"]');if(!can){can=document.createElement("link");can.rel="canonical";document.head.appendChild(can)}can.href=location.origin+location.pathname+"?id="+encodeURIComponent(String(r.tipp_id||""))}
-function render(r,calc){const won=r.ergebnis_status==="GEWONNEN",status=won?L.won:L.lost,score=String(r.endergebnis||"").trim(),who=tipper(r)||"—",confirmed=String(r.bestaetigt_am||"").trim();setMeta(r);root.innerHTML='<section class="hero"><div class="wrap"><div class="eyebrow">'+esc(L.ey)+'</div><h1>'+esc(r.spiel||"")+'</h1><p class="lead">'+esc(L.lead)+'</p><div class="meta"><span>'+esc(r.liga||r.sportart||"")+'</span><span>'+esc(r.spiel_datum||"")+'</span><span>'+esc(L.tipper)+': '+esc(who)+'</span><span class="'+(won?"result-win":"result-loss")+'">'+esc(status)+'</span></div></div></section><div class="wrap layout"><article class="article"><h2>'+esc(L.published)+'</h2><p>'+esc(L.publishedCopy)+'</p><div class="tipbox"><strong>'+esc(r.tipp||r.markt||"")+'</strong><div class="tipmeta"><div><span>'+esc(L.odds)+'</span><b>'+esc(r.quote||"")+'</b></div><div><span>'+esc(L.units)+'</span><b>'+esc(r.preis_units||"")+'</b></div><div><span>'+esc(L.market)+'</span><b>'+esc(r.markt||"")+'</b></div></div></div><h2>'+esc(L.outcome)+'</h2><div class="outcome '+(won?"":"loss")+'"><p>'+(won?esc(L.outWon):esc(L.outLost))+'</p></div><h2>'+esc(L.scoreTitle)+'</h2><p>'+esc(score?L.scoreKnown:L.scoreMissing)+(score?' <strong>'+esc(score)+'</strong>.':'')+'</p><h2>'+esc(L.impact)+'</h2><p>'+esc(L.impactCopy)+'</p><div class="stats-grid"><div class="stat-card"><span>'+esc(L.fixed)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(delta(calc.fd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.fixedTotal))+'</b></div><div class="stat-card"><span>'+esc(L.compound)+'</span><b class="'+(calc.cd>=0?"pos":"neg")+'">'+esc(delta(calc.cd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.compoundTotal))+'</b></div></div><h2>'+esc(L.confirmed)+'</h2><p>'+esc(L.reportAuto)+(confirmed?' · '+esc(confirmed):'')+'</p><div class="note">'+esc(L.note)+'</div></article><aside class="sidebar"><div class="sidecard"><h3>'+esc(L.sidebarTitle)+'</h3><p>'+esc(L.sidebarCopy)+'</p><a class="sidebtn" href="../">'+esc(L.sidebarBtn)+'</a><a class="sidebtn secondary" href="../../statistik-vorschau/">'+esc(L.statsBtn)+'</a></div><div class="sidecard"><h3>BetInsight.club</h3><a class="sidebtn secondary" href="../../">'+esc(L.home)+'</a></div></aside></div>'}
+
+function resultCover(r){
+  const won=r.ergebnis_status==="GEWONNEN";
+  const status=won?L.won:L.lost;
+  const result=String(r.endergebnis||"").trim();
+  // The cover is a responsive design with the unmodified, verified corporate
+  // logo. No generated logos, invented goals, or external club trademarks.
+  return '<section class="result-cover wrap '+(won?'is-won':'is-lost')+'">'+
+    '<div class="result-cover-photo" aria-hidden="true"></div>'+
+    '<div class="result-cover-content">'+
+    '<img class="result-cover-brand" loading="eager" decoding="async" src="/assets/brand/betinsight-original-transparent.png" alt="BetInsight.club – Original-Logo">'+
+    '<div class="result-cover-overline">'+esc(L.ey)+'</div>'+
+    '<h1>'+esc(r.spiel||"")+'</h1>'+
+    (result?'<div class="result-cover-score">'+esc(result)+'</div>':'')+
+    '<div class="result-cover-footer"><span class="result-cover-status">'+esc(status)+'</span><span>'+esc(r.spiel_datum||"")+'</span><span>'+esc(r.liga||r.sportart||"")+'</span></div>'+
+    '</div></section>'+
+    '<div class="wrap result-context"><p>'+esc(L.lead)+'</p><div class="meta"><span>'+esc(L.tipper)+': '+esc(tipper(r)||"—")+'</span><span>'+esc(status)+'</span></div></div>';
+}
+function storyHTML(story){
+  if(!story||!Array.isArray(story.legs)||!story.legs.length)return "";
+  const de=lang==="de",hdr=de?"Tatsächlicher Spielverlauf & entscheidende Szenen":"Match timeline & decisive moments";
+  const resultLabel=(v)=>v==="WON"?(de?"Auswahl richtig":"Selection won"):(v==="LOST"?(de?"Auswahl falsch":"Selection lost"):(de?"Auswertung offen":"Unverified"));
+  const legs=story.legs.map((leg,i)=>{
+    const title=String(leg.home||"")+" – "+String(leg.away||"");
+    const narrative=de?leg.narrative_de:leg.narrative_en;
+    const items=(Array.isArray(leg.key_events)?leg.key_events:[]).slice(0,14).map(ev=>
+      '<li><strong>'+esc(ev.minute||"")+'</strong> '+esc(ev.text||"")+'</li>').join("");
+    const source=String(leg.source_url||"");
+    const isTrusted=/^https:\/\/[a-z0-9.-]+\//i.test(source);
+    return '<section class="story-leg"><div class="story-leg-header"><span class="story-leg-num">'+(i+1)+'</span><h3>'+esc(title)+'</h3><strong>'+esc(leg.score||"")+'</strong></div>'+
+      '<p class="story-leg-market">'+esc(leg.market_label||"")+' · '+esc(resultLabel(leg.selection_outcome))+'</p>'+
+      '<ul class="story-events">'+items+'</ul>'+
+      '<p>'+esc(narrative||"")+'</p>'+
+      (isTrusted?'<p class="story-source"><a target="_blank" rel="noopener noreferrer" href="'+esc(source)+'">'+esc(leg.source_label||"Quelle")+' ↗</a></p>':'')+
+      '</section>';
+  }).join("");
+  const conclusion=de?story.summary_de:story.summary_en;
+  const note=de?story.note_de:story.note_en;
+  return '<section class="story"><div class="story-head"><span>BETINSIGHT · '+esc(de?"SPIELANALYSE":"MATCH ANALYSIS")+'</span><h2>'+esc(hdr)+'</h2></div>'+
+    legs+'<div class="story-summary"><h3>'+esc(de?"BetInsight-Fazit":"BetInsight conclusion")+'</h3><p>'+esc(conclusion||"")+'</p></div>'+
+    '<p class="story-footnote">'+esc(note||"")+'</p></section>';
+}
+function loadStory(r){
+  const slot=root.querySelector("[data-story-slot]");
+  if(!slot)return;
+  const id=String(r.tipp_id||"").trim();
+  if(!/^[A-Za-z0-9_-]{7,90}$/.test(id))return;
+  fetch("/assets/match-report-stories/"+encodeURIComponent(id)+".json",{cache:"no-store"})
+    .then(v=>v.ok?v.json():null).then(story=>{
+      if(story&&story.tipp_id===id&&root.contains(slot))slot.innerHTML=storyHTML(story);
+    }).catch(()=>{});
+}
+
+function render(r,calc){const won=r.ergebnis_status==="GEWONNEN",status=won?L.won:L.lost,score=String(r.endergebnis||"").trim(),who=tipper(r)||"—",confirmed=String(r.bestaetigt_am||"").trim();setMeta(r);root.innerHTML=resultCover(r)+'<div class="wrap layout"><article class="article"><h2>'+esc(L.published)+'</h2><p>'+esc(L.publishedCopy)+'</p><div class="tipbox"><strong>'+esc(r.tipp||r.markt||"")+'</strong><div class="tipmeta"><div><span>'+esc(L.odds)+'</span><b>'+esc(r.quote||"")+'</b></div><div><span>'+esc(L.units)+'</span><b>'+esc(r.preis_units||"")+'</b></div><div><span>'+esc(L.market)+'</span><b>'+esc(r.markt||"")+'</b></div></div></div><h2>'+esc(L.outcome)+'</h2><div class="outcome '+(won?"":"loss")+'"><p>'+(won?esc(L.outWon):esc(L.outLost))+'</p></div><div data-story-slot></div><h2>'+esc(L.scoreTitle)+'</h2><p>'+esc(score?L.scoreKnown:L.scoreMissing)+(score?' <strong>'+esc(score)+'</strong>.':'')+'</p><h2>'+esc(L.impact)+'</h2><p>'+esc(L.impactCopy)+'</p><div class="stats-grid"><div class="stat-card"><span>'+esc(L.fixed)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(delta(calc.fd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.fixedTotal))+'</b></div><div class="stat-card"><span>'+esc(L.compound)+'</span><b class="'+(calc.cd>=0?"pos":"neg")+'">'+esc(delta(calc.cd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.compoundTotal))+'</b></div></div><h2>'+esc(L.confirmed)+'</h2><p>'+esc(L.reportAuto)+(confirmed?' · '+esc(confirmed):'')+'</p><div class="note">'+esc(L.note)+'</div></article><aside class="sidebar"><div class="sidecard"><h3>'+esc(L.sidebarTitle)+'</h3><p>'+esc(L.sidebarCopy)+'</p><a class="sidebtn" href="../">'+esc(L.sidebarBtn)+'</a><a class="sidebtn secondary" href="../../statistik-vorschau/">'+esc(L.statsBtn)+'</a></div><div class="sidecard"><h3>BetInsight.club</h3><a class="sidebtn secondary" href="../../">'+esc(L.home)+'</a></div></aside></div>'}
 const id=new URLSearchParams(location.search).get("id");
 if(!id){root.innerHTML='<div class="wrap" style="padding:70px 0"><p class="lead">'+esc(L.error)+'</p></div>';return}
-fetch(API,{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject(new Error("HTTP"))).then(all=>{if(!Array.isArray(all))throw new Error("DATA");const rows=validRows(all),r=rows.find(x=>String(x.tipp_id)===String(id));if(!r)throw new Error("NOT_FOUND");const calc=calculate(rows,id);if(!calc)throw new Error("CALC");render(r,calc)}).catch(()=>{root.innerHTML='<div class="wrap" style="padding:70px 0"><p class="lead">'+esc(L.error)+'</p></div>'});
+fetch(API,{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject(new Error("HTTP"))).then(all=>{if(!Array.isArray(all))throw new Error("DATA");const rows=validRows(all),r=rows.find(x=>String(x.tipp_id)===String(id));if(!r)throw new Error("NOT_FOUND");const calc=calculate(rows,id);if(!calc)throw new Error("CALC");render(r,calc);loadStory(r)}).catch(()=>{root.innerHTML='<div class="wrap" style="padding:70px 0"><p class="lead">'+esc(L.error)+'</p></div>'});
 })();
