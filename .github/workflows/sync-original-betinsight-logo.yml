@@ -27,7 +27,7 @@ jobs:
           set -euo pipefail
           git config user.name 'BetInsight Brand Assets'
           git config user.email 'actions@github.com'
-          git add assets/brand/betinsight-original-source.png assets/brand/betinsight-original-transparent.png assets/brand/betinsight-original-logo.json docs/brand-original-logo-preview.base64.txt
+          git add assets/brand/betinsight-original-source.png assets/brand/betinsight-original-transparent.png assets/brand/betinsight-original-logo.json assets/brand/betinsight-logo-review-thumb.png docs/brand-original-logo-preview.base64.txt
           if ! git diff --cached --quiet; then
             git commit -m 'brand: mirror approved transparent logo without AI alterations'
             git push
