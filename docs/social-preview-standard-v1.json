@@ -180,7 +180,7 @@
       "de": "de-DE",
       "en": "en-GB",
       "es": "es-ES",
-      "pt": "pt-BR",
+      "pt": "pt-PT",
       "it": "it-IT",
       "fr": "fr-FR"
     },
@@ -195,6 +195,29 @@
       "official source link, evidence and transparency disclaimer"
     ],
     "batch_gate": "exactly 5 confirmed tip IDs x 6 languages = 30 indexable HTML pages and 30 individual localized image files; CI fails hard on any missing output; no partial block release",
-    "no_fake_translation": "Do not substitute German or English reports for Spanish/Portuguese/Italian/French; preserve actual names, events, scores, original odds, units and game selection."
+    "no_fake_translation": "Do not substitute German or English reports for Spanish/Portuguese/Italian/French; preserve actual names, events, scores, original odds, units and game selection.",
+    "portuguese_policy": {
+      "mandatory": true,
+      "variant": "European Portuguese (Portugal)",
+      "locale": "pt-PT",
+      "og_locale": "pt_PT",
+      "flag": "🇵🇹",
+      "forbidden": [
+        "pt-BR",
+        "pt_BR",
+        "Português (Brasil)",
+        "Brazilian Portuguese",
+        "🇧🇷"
+      ],
+      "text_rule": "Native European Portuguese vocabulary, grammar and conventions in image, match commentary, original result report, headings, buttons and SEO.",
+      "hard_gate": "CI must fail when any published PT report uses pt-BR or Portuguese (Brasil). No Brazil flag as language marker."
+    },
+    "navigation_rule": {
+      "homepage_selection": "Use persistent betinsight_language locale from main site for INTERNAL navigation.",
+      "result_pages": "No duplicate language switch on SEO result pages; keep six unique paths /de/,/en/,/es/,/pt/,/it/,/fr/ and hreflang in head.",
+      "external_share": "Do NOT redirect external Flipboard/Facebook/crawler visitors away from language specified in shared URL."
+    },
+    "visual_rule": "Every status badge must be precisely centered in its colored frame with >14px horizontal safety padding; verified in all six languages; no translated text crossing borders.",
+    "image_version_rule": "Use distinct versioned image URLs when changing the image to bypass social media caches."
   }
 }
