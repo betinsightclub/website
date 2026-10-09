@@ -5,6 +5,8 @@ on:
     paths:
       - ".github/workflows/publish-result-report-batch.yml"
       - ".github/scripts/publish_result_report_batch.py"
+      - ".github/scripts/publish_result_report_multilingual.py"
+      - "docs/result-report-batches/block-001-translations.json"
       - ".github/scripts/result_image_metadata.py"
       - "docs/result-report-batches/block-001.json"
   workflow_dispatch:
@@ -28,48 +30,57 @@ jobs:
           set -euo pipefail
           test -s assets/templates/betinsight-result-master-blanko.png
           test -s docs/result-report-batches/block-001.json
-          python -m py_compile .github/scripts/result_image_metadata.py .github/scripts/publish_result_report_batch.py
-      - name: Generate five verified covers and crawlable SEO articles
-        run: python .github/scripts/publish_result_report_batch.py
-      - name: Verify exactly five unique previews and HTML files
+          python -m py_compile .github/scripts/result_image_metadata.py .github/scripts/publish_result_report_batch.py .github/scripts/publish_result_report_multilingual.py
+      - name: Generate all six languages of five verified covers and crawlable SEO articles
+        run: python .github/scripts/publish_result_report_multilingual.py
+      - name: Verify all 30 localized HTML reports and 30 JPG images, all original statistics preserved
         run: |
           python - <<'PY'
-          import json,pathlib
+          import json,pathlib,re
           from PIL import Image
           root=pathlib.Path('.')
           batch=json.loads((root/'docs/result-report-batches/block-001.json').read_text())
           ids=batch['tip_ids']
+          langs=batch['required_languages']
           assert len(ids)==5 and len(set(ids))==5
+          assert langs==['de','en','es','pt','it','fr']
+          old=(root/'assets/tip-report-live.js').read_text()
+          for label in ['Veröffentlichter Tipp','Ergebnis und Wertung','Endstand und Nachweis','Auswirkung auf die 1.000-€-Statistik','Bestätigt']:
+              assert label in old,label
+          for marker in ['function calculate(rows,id)','calc.fixedTotal','calc.compoundTotal','data-report-embedded','data-verified-final-score']:
+              assert marker in old,marker
+          assert '(?:de|en|es|pt|it|fr)' in old
           for id in ids:
-              photo=root/'assets/og'/(id.lower()+'-de-v1.jpg')
-              page=root/'de/tipps/ergebnis'/id/'index.html'
-              assert photo.stat().st_size>15_000,(photo,photo.stat().st_size)
-              with Image.open(photo) as im:
-                  assert im.size==(1200,630),im.size
-                  assert im.getexif().get(270),id
-              t=page.read_text()
-              assert '<meta property="og:image"' in t and id.lower() in t,id
-              assert '<link rel="canonical"' in t and 'application/ld+json' in t,id
-              assert 'Spielverlauf und Höhepunkte' in t and 'Warum ' in t,id
-              assert 'offizieller Spielbericht / LaLiga' in t,id
-              assert 'data-report-embedded="1"' in t,id
-              assert 'tip-report-live.js?v=' in t,id
-              assert 'Ursprüngliche vollständige Auswertung' in t,id
-              old=(root/'assets/tip-report-live.js').read_text()
-              for label in ['Veröffentlichter Tipp','Ergebnis und Wertung','Endstand und Nachweis','Auswirkung auf die 1.000-€-Statistik','Bestätigt']:
-                  assert label in old,(id,label)
-              for marker in ['function calculate(rows,id)','calc.fixedTotal','calc.compoundTotal','data-report-embedded','data-verified-final-score']:
-                  assert marker in old,(id,marker)
-
-              print('VALID:',id,str(page))
+              for lang in langs:
+                  photo=root/'assets/og'/(id.lower()+f'-{lang}-v1.jpg')
+                  page=root/lang/'tipps/ergebnis'/id/'index.html'
+                  assert photo.exists() and photo.stat().st_size>15000,photo
+                  with Image.open(photo) as im:
+                      assert im.size==(1200,630),photo
+                      assert im.getexif().get(270),photo
+                  html=page.read_text(encoding='utf8')
+                  assert f'<html lang="{lang}">' in html,(lang,id)
+                  assert f'/{lang}/tipps/ergebnis/{id}/' in html,(lang,id)
+                  assert f'{id.lower()}-{lang}-v1.jpg' in html,(lang,id)
+                  assert html.count('rel="alternate" hreflang=')==7,(lang,id)
+                  assert 'data-report-embedded="1"' in html,(lang,id)
+                  assert 'tip-report-live.js?v=' in html,(lang,id)
+                  assert all(x in html for x in ['og:image','twitter:image','rel="canonical"','application/ld+json']),id
+                  assert '<ul class="timeline">' in html,id
+                  assert 'LaLiga / official club match report' in html,id
+                  if lang!='de':
+                      assert 'Ursprünglicher vollständiger Bericht und Statistik' not in html,(id,lang)
+                  print('ALL SIX LANGUAGE QUALITY GATES PASS:',id,lang)
+          print('SUCCESS: five unique official reports in 6 languages = 30 images and 30 complete SEO pages.')
           PY
+          node --check assets/tip-report-live.js
           git diff --check
       - name: Publish generated assets to the same BetInsight website
         run: |
           set -euo pipefail
           git config user.name "BetInsight Editorial"
           git config user.email "actions@github.com"
-          git add de/tipps/ergebnis/ assets/og/*-de-v1.jpg
+          git add de/tipps/ergebnis/ en/tipps/ergebnis/ es/tipps/ergebnis/ pt/tipps/ergebnis/ it/tipps/ergebnis/ fr/tipps/ergebnis/ assets/og/bi-*-v1.jpg docs/result-report-batches/block-001-i18n-build.json
           if git diff --cached --quiet; then
             echo "Batch 001 already published."
             exit 0
@@ -78,10 +89,10 @@ jobs:
           for attempt in 1 2 3 4; do
             git pull --rebase origin main
             if git push origin HEAD:main; then
-              echo "Five reports published to main."
+              echo "30 localized reports and 30 OG previews published to main."
               exit 0
             fi
             sleep 5
           done
-          echo "ERROR: cannot publish five pages"
+          echo "ERROR: cannot publish complete six-language batch"
           exit 1
