@@ -27,7 +27,7 @@ jobs:
           set -euo pipefail
           git config user.name 'BetInsight Visual Assets'
           git config user.email 'actions@github.com'
-          git add assets/brand/result-ball-field-photo.jpg assets/brand/result-ball-field-attribution.json assets/brand/result-photo-inspection.jpg
+          git add assets/brand/result-ball-field-photo-v2.jpg assets/brand/result-ball-field-attribution-v2.json assets/brand/result-photo-inspection-v2.jpg
           if ! git diff --cached --quiet; then
             git commit -m 'assets: licensed sharp soccer ball and turf for dynamic tip reviews'
             git push
