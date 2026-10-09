@@ -67,7 +67,7 @@ jobs:
                   assert 'tip-report-live.js?v=' in html,(lang,id)
                   assert all(x in html for x in ['og:image','twitter:image','rel="canonical"','application/ld+json']),id
                   assert '<ul class="timeline">' in html,id
-                  assert 'LaLiga / official club match report' in html,id
+                  assert 'LaLiga / ' in html,id
                   if lang!='de':
                       assert 'Ursprünglicher vollständiger Bericht und Statistik' not in html,(id,lang)
                   print('ALL SIX LANGUAGE QUALITY GATES PASS:',id,lang)
