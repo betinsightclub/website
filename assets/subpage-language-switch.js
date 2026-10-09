@@ -128,7 +128,7 @@
     SUPPORTED.forEach(language => {
       const option = document.createElement("option");
       option.value = language;
-      option.textContent = (FLAGS[language] || "🌐") + " " + language.toUpperCase();
+      option.textContent = (FLAGS[language] || "🌐") + " " + (language==="zh" ? "繁中" : language.toUpperCase());
       option.selected = language === current;
       select.appendChild(option);
     });
