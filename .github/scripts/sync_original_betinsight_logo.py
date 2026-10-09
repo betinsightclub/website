@@ -40,10 +40,14 @@ def main():
     thumb=thumb.quantize(colors=64,method=Image.Quantize.FASTOCTREE,dither=Image.Dither.NONE)
     thumb_io=BytesIO()
     thumb.save(thumb_io,format="PNG",optimize=True)
+    (ROOT/"assets"/"brand"/"betinsight-logo-review-thumb.png").write_bytes(thumb_io.getvalue())
     reference=ROOT/"docs"/"brand-original-logo-preview.base64.txt"
     reference.parent.mkdir(parents=True,exist_ok=True)
     reference.write_text(base64.b64encode(thumb_io.getvalue()).decode("ascii"),encoding="ascii")
+    alpha_hist=im.getchannel("A").histogram()
+    translucent_fraction=round(sum(alpha_hist[:255])/(im.width*im.height),4)
     info={
+      "transparent_pixel_fraction":translucent_fraction,
       "source_repo":"betinsightclub/profil",
       "source_path":"logo_betisight.club.png",
       "approved_original_git_blob":EXPECTED_SHA,
