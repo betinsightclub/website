@@ -138,7 +138,7 @@ function render(r,calc){const won=r.ergebnis_status==="GEWONNEN",status=won?L.wo
 const pathReport=location.pathname.match(/\/(?:de|en|es|pt|it|fr)\/tipps\/ergebnis\/(BI-[A-Za-z0-9_-]+)\/?$/);
 const id=new URLSearchParams(location.search).get("id")||(pathReport&&pathReport[1]);
 const reviewedNew=new Set(["BI-20261004-011406-MAR","BI-20261004-011255-MAR","BI-20261002-145749-MAR","BI-20260927-040207-MAR","BI-20260925-185756-MAR","BI-20261009-172442-MAR"]);
-if(!embedded && id && reviewedNew.has(id) && /\\/tipps\\/bericht\\/?$/.test(location.pathname)){
+if(!embedded && id && reviewedNew.has(id) && location.pathname.endsWith("/tipps/bericht/")){
   location.replace("/"+lang+"/tipps/ergebnis/"+encodeURIComponent(id)+"/");
   return;
 }
