@@ -1,6 +1,6 @@
 {
   "standard": "BetInsight Social Preview v3 — Verified Original Transparent Logo & Premium Football",
-  "date": "2026-10-09",
+  "date": "2026-10-10",
   "scope": [
     "tip result pages",
     "football analyses",
@@ -103,5 +103,66 @@
       "test_tipp_id": "BI-20261009-172442-MAR",
       "live_browser_end_to_end": "NOT YET VERIFIED"
     }
+  },
+  "seo_image_standard": {
+    "mandatory_for_each_published_result": true,
+    "label": "BetInsight Bild- und Suchmaschinen-Metadaten",
+    "original_template": {
+      "repository": "betinsightclub/website",
+      "path": "assets/templates/betinsight-result-master-blanko.png",
+      "embedded_official_logo": true,
+      "render_rule": "Never place a second logo on an already-branded template; do not redraw, recolor or replace existing logo."
+    },
+    "image_file": {
+      "public_path_pattern": "/assets/og/ergebnis-{tip-id}-{lang}-v{n}.jpg",
+      "image_width": 1200,
+      "image_height": 630,
+      "filename": "Descriptive, unique per tip and version, no keyword stuffing.",
+      "file_metadata": {
+        "JPEG": "Embed real EXIF ImageDescription, Artist, Copyright and Software where applicable. Never invent authorship or rights.",
+        "PNG": "Use PNG tEXt/iTXt chunks Title, Description, Author, Copyright and Source when supported; keep master template unmodified.",
+        "google_caveat": "Embedded EXIF/IPTC/XMP/PNG metadata alone does not establish Google indexing or search rankings; page-level signals matter."
+      },
+      "text_fields": [
+        "Image title based on match(es)",
+        "Factual image description incl. result, overall tip status, number of legs",
+        "BetInsight Club as publisher, not automatically as photographer/copyright-holder",
+        "Actual licensed image asset credit where required"
+      ],
+      "accessibility": "Per-report descriptive alt text in the page HTML; not visible printed SEO text across the image."
+    },
+    "page": {
+      "server_render_required": true,
+      "unique_public_html_for_each_tip": true,
+      "canonical_absolute_url": true,
+      "robots": "index,follow,max-image-preview:large only for confirmed public reports",
+      "title": "unique search title for match(es), result, BetInsight",
+      "description": "human, factual summary explaining final outcome; no guaranteed winnings or fabricated events",
+      "social_tags": [
+        "og:type",
+        "og:title",
+        "og:description",
+        "og:url",
+        "og:image",
+        "og:image:width",
+        "og:image:height",
+        "twitter:card",
+        "twitter:image"
+      ],
+      "google_fields": [
+        "<title>",
+        "meta[name=description]",
+        "link[rel=canonical]",
+        "img[alt]",
+        "JSON-LD Article",
+        "JSON-LD ImageObject",
+        "image sitemap entry when appropriate"
+      ],
+      "critical": "Pure client-side mutations of /de/tipps/bericht/?id=... do not reliably expose per-tip metadata to Flipboard/Google. Build and host a unique static/server-rendered URL for each confirmed result before social distribution.",
+      "structured_data_claim": "Use truthful Article/ImageObject schema; do not add SportsEvent claims or review ratings without accurate data."
+    },
+    "match_story": "Use verified API-Football match events and original match source links. Combinations: each leg, winning/losing condition, crucial moments and short overall explanation. Do not invent unavailable details.",
+    "publishing_gate": "No social publishing until generated image exists, public URL responds, static HTML contains its own correct meta tags and real preview has been checked.",
+    "status": "DOCUMENTED; not an indication that the automatic master-backoffice event-to-per-tip-OG pipeline is live."
   }
 }
