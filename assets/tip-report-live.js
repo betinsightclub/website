@@ -37,7 +37,7 @@ function resultCover(r){
     '<img class="result-cover-brand" loading="eager" decoding="async" src="/assets/brand/betinsight-original-transparent.png" alt="BetInsight.club – Original-Logo">'+
     '<div class="result-cover-overline">'+esc(L.ey)+'</div>'+
     '<h1>'+esc(r.spiel||"")+'</h1>'+
-    (result?'<div class="result-cover-score">'+esc(result)+'</div>':'')+
+    (result?'<div class="result-cover-score" data-cover-scores>'+esc(result)+'</div>':'')+
     '<div class="result-cover-footer"><span class="result-cover-status">'+esc(status)+'</span><span>'+esc(r.spiel_datum||"")+'</span><span>'+esc(r.liga||r.sportart||"")+'</span></div>'+
     '</div></section>'+
     '<div class="wrap result-context"><p>'+esc(L.lead)+'</p><div class="meta"><span>'+esc(L.tipper)+': '+esc(tipper(r)||"—")+'</span><span>'+esc(status)+'</span></div></div>';
@@ -73,7 +73,7 @@ function loadStory(r){
   if(!/^[A-Za-z0-9_-]{7,90}$/.test(id))return;
   fetch("/assets/match-report-stories/"+encodeURIComponent(id)+".json",{cache:"no-store"})
     .then(v=>v.ok?v.json():null).then(story=>{
-      if(story&&story.tipp_id===id&&root.contains(slot))slot.innerHTML=storyHTML(story);
+      if(story&&story.tipp_id===id&&root.contains(slot)){slot.innerHTML=storyHTML(story);const scores=root.querySelector("[data-cover-scores]");if(scores&&Array.isArray(story.legs)){const parts=story.legs.filter(x=>x.score).map(x=>String(x.home||"")+" "+String(x.score));if(parts.length)scores.textContent=parts.join("   •   ");}}
     }).catch(()=>{});
 }
 
