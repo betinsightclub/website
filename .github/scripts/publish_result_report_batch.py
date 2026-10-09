@@ -37,6 +37,8 @@ IMAGE_COPY={
     "pt":{"type":"PROGNÓSTICO  /  ANÁLISE","won":"GANHO","lost":"PERDIDO","versus":"VS  ","unit":"UNITS","odds":"COTAÇÃO","footer":"Jogos reais  •  Análises reais  •  Resultados honestos","yes":"GANHO","no":"PERDIDO"},
     "it":{"type":"SINGOLA  /  ANALISI PARTITA","won":"VINTO","lost":"PERSO","versus":"VS  ","unit":"UNITS","odds":"QUOTA","footer":"Partite vere  •  Analisi vere  •  Risultati onesti","yes":"VINTO","no":"PERSO"},
     "fr":{"type":"PARI SIMPLE  /  ANALYSE","won":"GAGNÉ","lost":"PERDU","versus":"VS  ","unit":"UNITS","odds":"COTE","footer":"Matchs réels  •  Analyses réelles  •  Résultats honnêtes","yes":"GAGNÉ","no":"PERDU"},
+    "nl":{"type":"ENKELE TIP  /  WEDSTRIJDANALYSE","won":"GEWONNEN","lost":"VERLOREN","versus":"VS  ","unit":"UNITS","odds":"QUOTE","footer":"Echte wedstrijden  •  Echte analyses  •  Eerlijke resultaten","yes":"GEWONNEN","no":"VERLOREN"},
+    "zh":{"type":"單場預測／賽後分析","won":"獲勝","lost":"失敗","versus":"對  ","unit":"單位","odds":"賠率","footer":"真實賽事  •  真實分析  •  公開透明的結果","yes":"成功","no":"失敗"},
 }
 
 def clean(value):
@@ -45,7 +47,18 @@ def clean(value):
 def esc(value):
     return html.escape(clean(value),quote=True)
 
+IMAGE_TEXT_LOCALE="de"
+def set_render_locale(lang):
+    global IMAGE_TEXT_LOCALE
+    IMAGE_TEXT_LOCALE=lang
+
 def font(size,bold=True):
+    if IMAGE_TEXT_LOCALE=="zh":
+        cjk="/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc" if bold else "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"
+        if not Path(cjk).exists():
+            raise RuntimeError("Traditional Chinese image requires installed Noto CJK font: "+cjk)
+        # Noto Sans CJK font collection index 3 is Traditional Chinese (Taiwan).
+        return ImageFont.truetype(cjk,size,index=3)
     choices=(
         ["/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf","DejaVuSans-Bold.ttf"] if bold else
         ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf","DejaVuSans.ttf"]
@@ -71,6 +84,7 @@ def valid(item):
     assert len(item["legs"])==1 and item["legs"][0]["key_events"]
 
 def image_for(item, lang='de'):
+    set_render_locale(lang)
     copy=IMAGE_COPY[lang]
     im=Image.open(TEMPLATE).convert("RGBA")
     if im.width<1000 or im.height<500:raise RuntimeError("Invalid original master dimensions")
