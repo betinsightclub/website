@@ -98,6 +98,18 @@ def image_for(item):
     return canvas
 
 CSS=r"""
+.legacy-report{margin:30px 0 38px;padding:18px 0;border-top:1px solid #1f576f;border-bottom:1px solid #1f576f}
+.legacy-report>h2{font-size:clamp(22px,3.5vw,29px);margin:0 0 8px}
+.legacy-report>p{color:#afcedd;margin-bottom:20px;font-size:14px}
+.legacy-report .wrap{width:100%;max-width:100%}
+.legacy-report .layout{padding:0 0 26px;grid-template-columns:minmax(0,1fr) 235px;gap:15px}
+.legacy-report .article{padding:clamp(15px,3vw,28px);box-shadow:none}
+.legacy-report .article h2{font-size:clamp(20px,3vw,26px)}
+.legacy-report .sidebar{position:static}
+.legacy-report .stat-card b{font-size:clamp(13px,2vw,17px)}
+@media(max-width:830px){.legacy-report .layout{grid-template-columns:1fr}.legacy-report .sidebar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.legacy-report .stats-grid{grid-template-columns:1fr}.legacy-report .sidebar{grid-template-columns:1fr}}
+
 :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#031724;color:#effaff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:16px;line-height:1.72}
 a{color:#72ddff}a:hover{color:#a9fffa}main{max-width:1000px;margin:auto;padding:26px 22px 90px}
 header{border-bottom:1px solid #224454;padding-bottom:20px;margin-bottom:27px;display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -161,7 +173,7 @@ def report_html(item,image_url,page_url):
 <meta name="twitter:image" content="{esc(image_url)}">
 <meta name="twitter:image:alt" content="{esc(alt)}">
 <script type="application/ld+json">{jsonld}</script>
-<style>{CSS}</style></head><body>
+<link rel="stylesheet" href="/assets/tip-report.css?v=20261010-2"><style>{CSS}</style></head><body>
 <main><header><a href="{DOMAIN}/">betInsight.club</a><span class="crumb"><a href="{DOMAIN}/de/tipps/">Tipps</a> / Ergebnisbericht</span></header>
 <article><figure class="hero" style="margin:0"><img src="{esc(image_url)}" width="1200" height="630" alt="{esc(alt)}" fetchpriority="high"></figure>
 <p class="kicker">BetInsight · Nachträgliche Tippauswertung</p>
@@ -169,7 +181,10 @@ def report_html(item,image_url,page_url):
 <span class="status {'win' if won else 'lose'}">Tipp {'GEWONNEN' if won else 'VERLOREN'}</span>
 <p class="subtitle">Das tatsächliche Spielergebnis, die entscheidenden Szenen und die Einordnung unserer vor dem Spiel veröffentlichten Auswahl.</p>
 <div class="keydata"><span>Datum: {esc(date)}</span><span>Markt: {esc(item['market'])}</span><span>Quote: {str(item['odds']).replace('.',',')}</span><span>Units: {item['units']:g}</span></div>
-<div class="article"><h2>Der veröffentlichte Tipp</h2>
+<section class="legacy-report"><h2>Ursprüngliche vollständige Auswertung und 1.000-€-Statistik</h2>
+<p>Hier bleibt der bisherige BetInsight-Bericht vollständig erhalten – einschließlich des vor dem Spiel veröffentlichten Tipps, der Ergebniswertung, beider Statistikmodelle und des Bestätigungsnachweises. Die Zahlen werden weiterhin aus der bestehenden Statistikberechnung geladen.</p>
+<div data-report-root data-report-embedded="1"><p>Originalbericht und Statistik werden geladen …</p></div></section>
+<div class="article"><h2>Zusätzliche Spielanalyse mit Höhepunkten</h2><h3>Originalauswahl</h3>
 <p>Unsere ursprüngliche Auswahl laut BetInsight-Master-Backoffice: <strong>{esc(item['market'])}</strong>. Der Tipp wurde nach Spielende offiziell als <strong>{'gewonnen' if won else 'verloren'}</strong> bestätigt.</p>
 <h2>Spielverlauf und Höhepunkte</h2><ul class="timeline">{events}</ul>
 <p>{esc(item['legs'][0]['narrative_de'])}</p>
@@ -178,7 +193,7 @@ def report_html(item,image_url,page_url):
 <p class="note">{esc(item['note_de'])}</p></div>
 <nav><a href="{esc(original)}">Ursprünglichen BetInsight-Bericht öffnen ↗</a><a href="{DOMAIN}/de/tipps/">Weitere veröffentlichte Tipps ansehen ↗</a></nav>
 </article><p class="footer">BetInsight.club · Echte Spiele · Echte Analysen · Ehrliche Ergebnisse</p></main>
-</body></html>"""
+<script src="/assets/tip-report-live.js?v=20261010-2" defer></script></body></html>"""
     return content,seo_title,meta,alt
 
 def build_one(id):
