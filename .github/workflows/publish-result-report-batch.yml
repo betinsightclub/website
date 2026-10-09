@@ -59,7 +59,7 @@ jobs:
                       assert im.size==(1200,630),photo
                       assert im.getexif().get(270),photo
                   html=page.read_text(encoding='utf8')
-                  assert f'<html lang="{lang}">' in html,(lang,id)
+                  assert f'<html lang="{("pt-PT" if lang=="pt" else lang)}">' in html,(lang,id)
                   assert f'/{lang}/tipps/ergebnis/{id}/' in html,(lang,id)
                   assert f'{id.lower()}-{lang}-v2.jpg' in html,(lang,id)
                   assert html.count('rel="alternate" hreflang=')==7,(lang,id)
