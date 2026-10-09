@@ -1,0 +1,60 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260927-040207-MAR",
+  "match_date": "2026-09-27",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "Real Valladolid CF",
+  "away": "Córdoba CF",
+  "match": "Real Valladolid CF – Córdoba CF",
+  "score": "3:1",
+  "market": "Real Valladolid gewinnt (1X2)",
+  "odds": 2.46,
+  "units": 3,
+  "league": "LaLiga Hypermotion",
+  "verified_source": "Official LALIGA / home club game records",
+  "source_url": "https://www.laliga.com/es-GB/partido/temporada-2026-2027-laliga-hypermotion-real-valladolid-cf-cordoba-cf-7",
+  "leg_status": "WON",
+  "source_checked_at": "2026-10-10",
+  "legs": [
+    {
+      "home": "Real Valladolid CF",
+      "away": "Córdoba CF",
+      "score": "3:1",
+      "status": "FT",
+      "market_label": "Real Valladolid gewinnt (1X2)",
+      "selection_outcome": "WON",
+      "key_events": [
+        {
+          "minute": "4′",
+          "text": "Eigentor von Miguel Rubio: Córdoba geht 0:1 in Führung.",
+          "text_en": "Miguel Rubio's own goal puts Córdoba ahead."
+        },
+        {
+          "minute": "38′",
+          "text": "Arnu gleicht für Valladolid zum 1:1 aus.",
+          "text_en": "Arnu equalises for Valladolid."
+        },
+        {
+          "minute": "54′",
+          "text": "Víctor Jr dreht die Partie zum 2:1.",
+          "text_en": "Víctor Jr makes it 2–1 for Valladolid."
+        },
+        {
+          "minute": "73′",
+          "text": "Barberà erhöht auf 3:1.",
+          "text_en": "Barberà extends the lead to 3–1."
+        }
+      ],
+      "narrative_de": "Valladolid geriet durch ein unglückliches Eigentor von Miguel Rubio bereits in der 4. Minute in Rückstand. Die Reaktion folgte noch vor der Pause: Arnu glich in der 38. Minute aus. In der zweiten Hälfte gelang Víctor Jr die Führung, ehe Barberà mit dem 3:1 das Spiel entschied. Diese Comeback-Leistung führte zu einem eindeutigen Heimsieg. Die von BetInsight veröffentlichte 1X2-Auswahl „Real Valladolid gewinnt“ war damit bei Quote 2,46 erfolgreich.",
+      "narrative_en": "Valladolid fell behind to a fourth-minute own goal, but Arnu equalised before half-time. Víctor Jr completed the turnaround in the second half and Barberà sealed a 3–1 win. The published Valladolid home-win selection at odds of 2.46 therefore succeeded.",
+      "source_url": "https://www.laliga.com/es-GB/partido/temporada-2026-2027-laliga-hypermotion-real-valladolid-cf-cordoba-cf-7",
+      "source_label": "Offizieller Spielbericht / LaLiga"
+    }
+  ],
+  "summary_de": "Entscheidend war die Wende nach dem frühen Rückstand. Der 3:1-Endstand bestätigte die Auswahl auf Valladolid-Sieg.",
+  "summary_en": "Valladolid overturned an early own-goal deficit and won 3–1, confirming the home-win selection.",
+  "note_de": "Nachträgliche Analyse eines zuvor veröffentlichten Tipps. Wettstatus, ursprünglicher Tipp und Quote stammen aus dem bestätigten BetInsight-Master-Backoffice. Tore und Ereignisse aus dem offiziellen Spielbericht. Keine nachträgliche Vorhersage.",
+  "note_en": "Post-match analysis of a previously published selection. Settlement and original selection are from confirmed BetInsight data. Football events are from the official match report."
+}
