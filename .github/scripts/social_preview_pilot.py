@@ -10,10 +10,10 @@ import re
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSET = ROOT / "assets" / "betinsight-logo.png"
-OUT = ROOT / "assets" / "og" / "flipboard-crystal-palace-man-city-2026-10-09.jpg"
+OUT = ROOT / "assets" / "og" / "flipboard-crystal-palace-man-city-2026-10-09-v2.jpg"
 SOURCE = "https://betinsight.club/en/tipps/crystal-palace-man-city-28-08-2026/"
 SHARE = "https://flip.it/0.zhyl"
-OG = "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09.jpg"
+OG = "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09-v2.jpg"
 SLUG = "flipboard-crystal-palace-man-city-2026-10-09"
 UTM = SOURCE + "?utm_source=flipboard&utm_medium=organic_social&utm_campaign=football_analysis_202610&utm_content=palace_city_review"
 
@@ -28,35 +28,57 @@ def font(size, bold=False):
     return ImageFont.load_default()
 
 def render():
-    assert ASSET.is_file(), "Approved website BetInsight logo missing"
+    """Render a modern sports cover with the exact ORIGINAL GitHub brand asset.
+    The stadium/ball comes from BetInsight's existing website photo. No AI logos,
+    player portraits, team crests, sponsors or league trademarks are generated.
+    """
+    from PIL import ImageOps, ImageFilter, ImageEnhance
+    assert ASSET.is_file(), "Approved original GitHub BetInsight logo missing"
+    bg_asset = ROOT / "assets" / "hero-fussball-dunkel.png"
+    assert bg_asset.is_file(), "Approved football image missing"
     w, h = 1200, 630
-    im = Image.new("RGB", (w,h))
-    px = im.load()
+    original = Image.open(bg_asset).convert("RGB")
+    # Stadium atmosphere out of focus; retain a sharp football and detailed turf on the right.
+    background = ImageOps.fit(original,(w,h),method=Image.Resampling.LANCZOS,centering=(0.50,0.65))
+    background = ImageEnhance.Brightness(background.filter(ImageFilter.GaussianBlur(13))).enhance(0.43)
+    foreground = ImageOps.fit(original,(740,h),method=Image.Resampling.LANCZOS,centering=(0.50,0.67))
+    foreground = ImageEnhance.Contrast(ImageEnhance.Brightness(foreground).enhance(1.26)).enhance(1.22)
+    mask = Image.new("L",(740,h),0)
+    mp = mask.load()
+    for y in range(h):
+        for x in range(740):
+            # Soft dissolve into dark copy on the left.
+            fade = max(0,min(255,round(255*(x/260))))
+            mp[x,y] = fade
+    background.paste(foreground,(460,0),mask)
+    im = background.convert("RGBA")
+    # Dark translucent left plate; no new illustrated marks or generic replacement logos.
+    shade = Image.new("RGBA",(w,h),(0,0,0,0))
+    sp = shade.load()
     for y in range(h):
         for x in range(w):
-            a = x/w
-            b = y/h
-            px[x,y] = (int(4+8*a+4*b), int(18+29*(1-a)+14*b), int(33+42*(1-a)+8*b))
-    d = ImageDraw.Draw(im, "RGBA")
-    for i in range(4):
-        d.ellipse((720-i*125,180-i*86,1340+i*85,790+i*90),outline=(31,150,191,45),width=2)
-    d.polygon([(0,560),(1200,435),(1200,630),(0,630)],fill=(9,70,58,130))
-    d.line([(0,555),(1200,430)],fill=(80,171,156,65),width=3)
-    # Unmodified official logo, only resampled proportionally.
+            a = int(232 * max(0,1.0-x/895) + 28)
+            sp[x,y]=(2,14,30,min(245,a))
+    im = Image.alpha_composite(im,shade)
+    d=ImageDraw.Draw(im,"RGBA")
+    d.rectangle((0,0,w,7),fill=(53,184,229,210))
+    d.line([(52,237),(639,237)],fill=(52,179,231,200),width=3)
+    d.line([(52,462),(615,462)],fill=(42,171,216,130),width=2)
+    # Original PNG from GitHub is pasted as-is, with only proportional resizing.
     logo = Image.open(ASSET).convert("RGBA")
-    logo.thumbnail((300,120), Image.Resampling.LANCZOS)
-    d.rounded_rectangle((42,33,366,159), radius=20, fill=(3,13,28,178), outline=(70,156,209,100), width=2)
-    im.paste(logo,(48 + (314-logo.width)//2, 36 + (120-logo.height)//2), logo)
+    logo.thumbnail((256,100),Image.Resampling.LANCZOS)
+    d.rounded_rectangle((45,32,324,144),radius=18,fill=(0,13,30,176),outline=(80,188,226,110),width=2)
+    im.alpha_composite(logo,(50+(269-logo.width)//2,38+(100-logo.height)//2))
     d=ImageDraw.Draw(im)
-    d.text((57,199),"BETINSIGHT  /  MATCH REVIEW",font=font(26,True),fill="#77d8ff")
-    d.text((54,268),"CRYSTAL PALACE",font=font(54,True),fill="#ffffff")
-    d.text((55,340),"vs  MANCHESTER CITY",font=font(48,True),fill="#ffffff")
-    d.rounded_rectangle((57,428,236,492),radius=14,fill="#11705e")
-    d.text((85,441),"WON",font=font(36,True),fill="#ffffff")
-    d.text((269,437),"1 : 4",font=font(39,True),fill="#f6e2a7")
-    d.text((57,535),"28 AUG 2026  •  PREMIER LEAGUE  •  DOCUMENTED RESULT",font=font(18,True),fill="#b8d7e8")
+    d.text((359,79),"MATCH REVIEW",font=font(25,True),fill=(189,226,244,255))
+    d.text((54,180),"CRYSTAL PALACE",font=font(43,True),fill="white")
+    d.text((55,247),"vs  MANCHESTER CITY",font=font(39,True),fill="#d4f3ff")
+    d.text((54,322),"1  :  4",font=font(104,True),fill="#ffffff")
+    d.rounded_rectangle((53,482,236,550),radius=22,fill=(4,100,49,235),outline=(51,243,122,235),width=3)
+    d.text((102,497),"WON",font=font(39,True),fill="#ffffff")
+    d.text((52,578),"28 AUG 2026  •  MATCH PLAYED  •  DOCUMENTED RESULT",font=font(17,True),fill="#e2eff7")
     OUT.parent.mkdir(parents=True,exist_ok=True)
-    im.save(OUT,"JPEG",quality=89,subsampling=0,optimize=True)
+    im.convert("RGB").save(OUT,"JPEG",quality=91,subsampling=0,optimize=True)
 
 def new_page(lang):
     en=lang=="en"
@@ -127,17 +149,22 @@ def put_report_pages():
 def update_source():
     path = ROOT/"en"/"tipps"/"crystal-palace-man-city-28-08-2026"/"index.html"
     text = path.read_text(encoding="utf-8")
-    old = '<meta property="og:image" content="https://betinsight.club/assets/hero-fussball-dunkel.png">'
-    if old in text:
-        text=text.replace(old,f'<meta property="og:image" content="{OG}">')
-    elif f'<meta property="og:image" content="{OG}">' not in text:
-        raise RuntimeError("Source page has unexpected og:image; refusing to overwrite")
-    if 'name="twitter:image"' not in text:
-        insert='<meta name="twitter:card" content="summary_large_image">'
-        if insert in text:
-            text=text.replace(insert,insert+f'<meta name="twitter:image" content="{OG}">')
-        else:
-            text=text.replace("</head>",f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{OG}"></head>',1)
+    allowed = (
+        "https://betinsight.club/assets/hero-fussball-dunkel.png",
+        "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09.jpg",
+        OG,
+    )
+    og_match = re.search(r'<meta property="og:image" content="([^"]+)">', text)
+    if not og_match or og_match.group(1) not in allowed:
+        raise RuntimeError("Unexpected OG asset: review manually rather than overwrite")
+    text = text.replace(og_match.group(0), f'<meta property="og:image" content="{OG}">', 1)
+    tw = re.search(r'<meta name="twitter:image" content="([^"]+)">',text)
+    if tw:
+        if tw.group(1) not in allowed:
+            raise RuntimeError("Unexpected Twitter image: review manually")
+        text=text.replace(tw.group(0),f'<meta name="twitter:image" content="{OG}">',1)
+    else:
+        text=text.replace("</head>",f'<meta name="twitter:image" content="{OG}"></head>',1)
     path.write_text(text,encoding="utf-8")
 
 if __name__=="__main__":
