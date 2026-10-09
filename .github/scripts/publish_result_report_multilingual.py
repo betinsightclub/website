@@ -146,7 +146,8 @@ def make_page(item,id,lang,tr,imgurl):
 <nav><a href="{esc(original)}">{esc(L['original_link'])} ↗</a><a href="{DOMAIN}/{lang}/tipps/">{esc(L['back'])} ↗</a></nav>
 </article><p class="footer">{esc(L['og_foot'])}</p></main>
 <script defer src="/assets/result-report-locale.js?v=20261010-1"></script>
-<script defer src="/assets/tip-report-live.js?v=20261010-5"></script>
+<script defer src="/assets/result-localization.js?v=20261010-1"></script>
+<script defer src="/assets/tip-report-live.js?v=20261010-6"></script>
 </body></html>"""
 
 def main():
