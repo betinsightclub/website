@@ -5,7 +5,9 @@
     "es",
     "pt",
     "it",
-    "fr"
+    "fr",
+    "nl",
+    "zh"
   ],
   "tip_count": 5,
   "approved_source": "Five confirmed BetInsight tip results and their documented official-source match event timelines; translations preserve original event order and minute/score facts.",
@@ -70,6 +72,30 @@
           "Fran Beltrán tente sa chance pour Gérone, sans marquer.",
           "Une tentative tardive de Bryan Gil est arrêtée."
         ]
+      },
+      "nl": {
+        "market": "Mallorca wint (1X2)",
+        "headline": "Girona – Mallorca 0-0: voorspelling uitzege verloren",
+        "summary": "Het doelpuntloze gelijkspel was niet genoeg voor de 1X2-selectie Mallorca wint. Daarvoor was een uitzege nodig.",
+        "narrative": "De voorspelling kon alleen winnen als Mallorca de uitwedstrijd won. Het duel eindigde echter in 0-0. Volgens de officiële cijfers kwam Girona tot zestien doelpogingen, waarvan vijf op doel. Mallorca schoot negen keer, zonder een schot op doel. Ook de late druk van Girona veranderde de stand niet. Mallorca hield één punt over aan het duel, maar boekte niet de noodzakelijke overwinning. Daarom was de 1X2-selectie verloren.",
+        "events": [
+          "Alberto Moreno van Mallorca krijgt een gele kaart.",
+          "De eerste helft eindigt zonder doelpunten: 0-0.",
+          "Fran Beltrán schiet namens Girona; het blijft 0-0.",
+          "Een late poging van Bryan Gil wordt gestopt."
+        ]
+      },
+      "zh": {
+        "market": "馬略卡獲勝（1X2）",
+        "headline": "赫羅納對馬略卡 0比0：客勝投注失敗",
+        "summary": "比賽以0比0收場。1X2投注選擇的是馬略卡獲勝，平局並不能成立，因此此項預測失敗。",
+        "narrative": "BetInsight賽前的1X2選擇需要馬略卡在客場取勝，但比賽最終互交白卷。根據官方數據，赫羅納有16次射門、5次射正；馬略卡有9次射門，沒有射正。赫羅納在比賽末段持續施壓，仍無法改寫比分。馬略卡拿到1分，卻沒有取得投注所需的勝利，因此這項選擇判定為失敗。",
+        "events": [
+          "馬略卡球員Alberto Moreno領到黃牌。",
+          "上半場結束，雙方0比0。",
+          "赫羅納球員Fran Beltrán起腳射門，比分不變。",
+          "比賽末段Bryan Gil的射門被撲出。"
+        ]
       }
     },
     "BI-20261004-011255-MAR": {
@@ -131,6 +157,30 @@
           "Latasa égalise pour Valladolid, 1-1.",
           "J. Ponceau donne l'avantage à Valladolid, 1-2.",
           "Elias égalise pour Las Palmas, 2-2."
+        ]
+      },
+      "nl": {
+        "market": "Las Palmas wint (1X2)",
+        "headline": "Las Palmas – Valladolid 2-2: thuiszege blijft uit",
+        "summary": "Las Palmas scoorde twee keer, maar speelde 2-2. De voorspelde thuisoverwinning kwam er niet.",
+        "narrative": "Las Palmas kwam al in de vijfde minuut op voorsprong dankzij Pezzolesi. Latasa maakte in de tiende minuut gelijk en J. Ponceau zette Valladolid in de 26e minuut op 1-2. Elias herstelde na 54 minuten het evenwicht: 2-2. Een derde treffer van Las Palmas bleef uit. Daardoor was de gepubliceerde 1X2-selectie op een thuisoverwinning verloren.",
+        "events": [
+          "Pezzolesi zet Las Palmas op 1-0.",
+          "Latasa maakt namens Valladolid de 1-1.",
+          "J. Ponceau brengt Valladolid op 1-2.",
+          "Elias maakt gelijk voor Las Palmas: 2-2."
+        ]
+      },
+      "zh": {
+        "market": "拉斯帕爾馬斯獲勝（1X2）",
+        "headline": "拉斯帕爾馬斯對瓦拉多利德 2比2：主勝投注失敗",
+        "summary": "拉斯帕爾馬斯攻入兩球，但終場只以2比2戰平，未能達成主場獲勝的條件。",
+        "narrative": "拉斯帕爾馬斯在第5分鐘由Pezzolesi先開紀錄，第10分鐘Latasa為瓦拉多利德扳平。第26分鐘J. Ponceau再下一城，使瓦拉多利德反超為2比1。第54分鐘Elias將比分追成2比2，之後主隊未能攻入致勝球。由於賽前選擇的是拉斯帕爾馬斯在1X2市場獲勝，所以投注判定失敗。",
+        "events": [
+          "Pezzolesi破門，拉斯帕爾馬斯1比0領先。",
+          "Latasa為瓦拉多利德扳成1比1。",
+          "J. Ponceau進球，瓦拉多利德反超為2比1。",
+          "Elias為拉斯帕爾馬斯追平為2比2。"
         ]
       }
     },
@@ -199,6 +249,32 @@
           "Olabarrieta inscrit le 3-1.",
           "Rastrojo marque le 4-1 pendant le temps additionnel."
         ]
+      },
+      "nl": {
+        "market": "Eldense – gelijkspel geen weddenschap (Draw No Bet)",
+        "headline": "Eldense – Oviedo 4-1: Draw No Bet gewonnen",
+        "summary": "Eldense boog een vroege 0-1-achterstand om in een 4-1-overwinning. De Draw No Bet-selectie won.",
+        "narrative": "Oviedo nam al in de eerste minuut de leiding via Alberto Reina. Na rust kwam Eldense terug: R. López benutte in de 56e minuut een strafschop en Fidel scoorde twaalf minuten later eveneens vanaf de stip. Olabarrieta en Rastrojo breidden de voorsprong in de slotfase uit tot 4-1. Bij Draw No Bet wordt de inzet bij een gelijkspel terugbetaald. Omdat Eldense won, was deze selectie volledig winnend.",
+        "events": [
+          "Alberto Reina zet Oviedo op 0-1.",
+          "R. López maakt vanaf de strafschopstip 1-1.",
+          "Fidel benut een tweede strafschop: 2-1 voor Eldense.",
+          "Olabarrieta brengt de stand op 3-1.",
+          "Rastrojo maakt in blessuretijd de 4-1."
+        ]
+      },
+      "zh": {
+        "market": "埃登斯——和局退款（Draw No Bet）",
+        "headline": "埃登斯對奧維耶多 4比1：和局退款投注獲勝",
+        "summary": "埃登斯從0比1落後逆轉為4比1獲勝，因此「和局退款」選擇成功。",
+        "narrative": "奧維耶多在開賽第1分鐘由Alberto Reina取得領先。下半場埃登斯展開反擊，第56分鐘R. López主罰十二碼追平，第68分鐘Fidel再以十二碼破門，將比分改寫為2比1。隨後Olabarrieta和Rastrojo在末段擴大優勢，最終以4比1取勝。「和局退款」在平局時會退還本金，但埃登斯實際獲勝，所以此項投注成功。",
+        "events": [
+          "Alberto Reina進球，奧維耶多1比0領先。",
+          "R. López主罰十二碼追成1比1。",
+          "Fidel再度以十二碼破門，埃登斯2比1反超。",
+          "Olabarrieta將領先擴大至3比1。",
+          "Rastrojo在傷停補時攻入第4球。"
+        ]
       }
     },
     "BI-20260927-040207-MAR": {
@@ -261,6 +337,30 @@
           "Víctor Jr donne l'avantage à Valladolid, 2-1.",
           "Barberà inscrit le 3-1."
         ]
+      },
+      "nl": {
+        "market": "Real Valladolid wint (1X2)",
+        "headline": "Valladolid – Córdoba 3-1: succesvolle comeback",
+        "summary": "Valladolid kwam vroeg achter door een eigen doelpunt, maar won met 3-1. De thuiswinstselectie slaagde.",
+        "narrative": "Een eigen doelpunt van Miguel Rubio zette Córdoba al in de vierde minuut op voorsprong. Arnu zorgde in de 38e minuut voor de gelijkmaker. Na rust voltooide Víctor Jr de ommekeer en Barberà tekende in de 73e minuut voor de 3-1. De thuisoverwinning bevestigde de gepubliceerde 1X2-selectie op Real Valladolid tegen quotering 2,46.",
+        "events": [
+          "Eigen doelpunt Miguel Rubio: Córdoba op 0-1.",
+          "Arnu maakt namens Valladolid de 1-1.",
+          "Víctor Jr brengt Valladolid op 2-1.",
+          "Barberà maakt de 3-1."
+        ]
+      },
+      "zh": {
+        "market": "皇家瓦拉多利德獲勝（1X2）",
+        "headline": "瓦拉多利德對科爾多瓦 3比1：逆轉獲勝，預測成功",
+        "summary": "瓦拉多利德開局因烏龍球落後，最終逆轉以3比1獲勝，主勝投注成功。",
+        "narrative": "第4分鐘Miguel Rubio不慎踢進烏龍球，科爾多瓦取得1比0領先。第38分鐘Arnu為瓦拉多利德扳平。下半場Víctor Jr完成逆轉，第73分鐘Barberà再下一城，鎖定3比1勝局。這場主場勝利符合BetInsight賽前以賠率2.46發布的1X2主勝選擇。",
+        "events": [
+          "Miguel Rubio踢進烏龍球，科爾多瓦1比0領先。",
+          "Arnu為瓦拉多利德追成1比1。",
+          "Víctor Jr進球，瓦拉多利德2比1反超。",
+          "Barberà攻入第3球，比分3比1。"
+        ]
       }
     },
     "BI-20260925-185756-MAR": {
@@ -318,9 +418,33 @@
           "Donny van de Beek double la mise avant la mi-temps.",
           "Gérone conserve son avantage de 2-0 jusqu'à la fin."
         ]
+      },
+      "nl": {
+        "market": "Girona FC wint (1X2)",
+        "headline": "Girona – Albacete 2-0: thuiszege correct voorspeld",
+        "summary": "Girona scoorde twee keer voor rust, hield de nul en won met 2-0. De thuiswinstselectie was correct.",
+        "narrative": "Abel Ruiz zette Girona in de vijfde minuut op voorsprong. Donny van de Beek verdubbelde de marge nog voor de rust. Albacete kreeg kansen maar wist niet te scoren. Girona hield de 2-0-voorsprong vast tot het eindsignaal. De 1X2-selectie op een overwinning van Girona tegen quotering 1,56 was daarmee gewonnen.",
+        "events": [
+          "Abel Ruiz scoort de vroege 1-0 voor Girona.",
+          "Donny van de Beek maakt nog voor rust 2-0.",
+          "Girona houdt de 2-0-voorsprong vast tot het einde."
+        ]
+      },
+      "zh": {
+        "market": "赫羅納獲勝（1X2）",
+        "headline": "赫羅納對阿爾巴塞特 2比0：主勝預測成功",
+        "summary": "赫羅納上半場攻入兩球，並保持零失球，最終2比0獲勝，主勝投注成功。",
+        "narrative": "第5分鐘Abel Ruiz為赫羅納先開紀錄。中場休息前Donny van de Beek再下一城，將優勢擴大至2比0。阿爾巴塞特雖有進攻機會，但未能破門。赫羅納將兩球優勢保持到終場，因此賽前發布、賠率1.56的1X2主勝選擇成功。",
+        "events": [
+          "Abel Ruiz為赫羅納攻入第1球，比分1比0。",
+          "Donny van de Beek在上半場結束前擴大優勢至2比0。",
+          "赫羅納守住2比0的比分直至終場。"
+        ]
       }
     }
   },
   "portuguese_locale": "pt-PT",
-  "portuguese_policy": "European Portuguese from Portugal only; NEVER pt-BR, Portuguese (Brazil), Brazilian Portuguese or the Brazil flag."
+  "portuguese_policy": "European Portuguese from Portugal only; NEVER pt-BR, Portuguese (Brazil), Brazilian Portuguese or the Brazil flag.",
+  "chinese_locale": "zh-Hant-TW",
+  "chinese_variant": "Traditional Chinese (Taiwan, 🇹🇼 繁中), never Simplified Chinese"
 }
