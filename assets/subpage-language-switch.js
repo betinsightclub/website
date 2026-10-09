@@ -1,8 +1,8 @@
 (() => {
   "use strict";
 
-  const SUPPORTED = ["de","en","es","pt","it","fr"];
-  const FLAGS = {de:"🇩🇪",en:"🇬🇧",es:"🇪🇸",pt:"🇵🇹",it:"🇮🇹",fr:"🇫🇷"};
+  const SUPPORTED = ["de","en","es","pt","it","fr","nl","zh"];
+  const FLAGS = {de:"🇩🇪",en:"🇬🇧",es:"🇪🇸",pt:"🇵🇹",it:"🇮🇹",fr:"🇫🇷",nl:"🇳🇱",zh:"🇹🇼"};
   const LANGUAGE_KEY = "betinsight_language";
   const REF_STORAGE_KEY = "betinsight_ref_code";
   const DEFAULT_REF_CODE = "POOL";
@@ -13,7 +13,9 @@
     es:{label:"Temas",season:"Temporada 2026/27",football:"Pronósticos de fútbol",over:"Más de 2,5 goles",winner:"Ganador del partido",acca:"Combinada"},
     pt:{label:"Temas",season:"Época 2026/27",football:"Prognósticos de futebol",over:"Mais de 2,5 golos",winner:"Vencedor do jogo",acca:"Múltipla"},
     it:{label:"Temi",season:"Stagione 2026/27",football:"Pronostici calcio",over:"Over 2,5 gol",winner:"Vincente partita",acca:"Multipla"},
-    fr:{label:"Thèmes",season:"Saison 2026/27",football:"Pronostics football",over:"Plus de 2,5 buts",winner:"Vainqueur du match",acca:"Combiné"}
+    fr:{label:"Thèmes",season:"Saison 2026/27",football:"Pronostics football",over:"Plus de 2,5 buts",winner:"Vainqueur du match",acca:"Combiné"},
+    nl:{label:"Onderwerpen",season:"Seizoen 2026/27",football:"Voetbalvoorspellingen",over:"Meer dan 2,5 doelpunten",winner:"Winnaar",acca:"Combinatie"},
+    zh:{label:"主題",season:"2026/27賽季",football:"足球預測",over:"大於2.5球",winner:"比賽勝方",acca:"串關"}
   };
 
   const SECTION_NAV_COPY = {
@@ -22,7 +24,9 @@
     es:{aria:"Pronósticos y estadísticas",tips:"Revisiones de pronósticos",stats:"Estadísticas y evolución",preview:"Vista previa"},
     pt:{aria:"Prognósticos e estatísticas",tips:"Análises de prognósticos",stats:"Estatísticas e evolução",preview:"Pré-visualização"},
     it:{aria:"Pronostici e statistiche",tips:"Valutazioni dei pronostici",stats:"Statistiche e andamento",preview:"Anteprima"},
-    fr:{aria:"Pronostics et statistiques",tips:"Bilans des pronostics",stats:"Statistiques et évolution",preview:"Aperçu"}
+    fr:{aria:"Pronostics et statistiques",tips:"Bilans des pronostics",stats:"Statistiques et évolution",preview:"Aperçu"},
+    nl:{aria:"Voorspellingen en statistieken",tips:"Tipanalyses",stats:"Statistieken en prestaties",preview:"Voorbeeld"},
+    zh:{aria:"投注分析與統計",tips:"預測結果分析",stats:"統計與走勢",preview:"預覽"}
   };
 
   function currentLanguage() {
@@ -104,7 +108,7 @@
   function buildSwitch() {
     // Homepage language choice already determines the locale of result reports.
     // Do not duplicate a second switcher on results or full tip reviews.
-    if (/^\/(de|en|es|pt|it|fr)\/tipps\/(?:bericht|ergebnis)(?:\/|$)/.test(location.pathname)) return;
+    if (/^\/(de|en|es|pt|it|fr|nl|zh)\/tipps\/(?:bericht|ergebnis)(?:\/|$)/.test(location.pathname)) return;
     if (document.querySelector("[data-bi-subpage-language]")) return;
     const header = document.querySelector(".topbar, .header-inner");
     const back = header?.querySelector(".back");
