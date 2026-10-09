@@ -77,5 +77,137 @@
   "summary_en": "The combination was lost overall: Espanyol X2 succeeded, but Dortmund's 2–0 lead turned into a 2–2 draw after two late goals. Both selections must win for a two-leg combination to pay out.",
   "note_de": "Die Darstellung basiert auf dokumentierten öffentlichen Spielberichten. Sie ändert keine Einträge im Master-Backoffice und stellt keine nachträgliche Vorhersage dar.",
   "note_en": "This review is based on published match reports. It does not change the Master Backoffice result or imply a pre-match prediction.",
-  "data_origin": "Verified public sources. Manual first pilot; automatic API enrichment not yet active."
+  "data_origin": "Verified public sources. Manual first pilot; automatic API enrichment not yet active.",
+  "translations": {
+    "en": {
+      "summary": "The combination was lost overall: Espanyol X2 succeeded, but Dortmund's 2–0 lead turned into a 2–2 draw after two late goals. Both selections must win for a two-leg combination to pay out.",
+      "note": "This review is based on published match reports. It does not change the Master Backoffice result or imply a pre-match prediction.",
+      "heading": "Match timeline & decisive moments",
+      "conclusion_heading": "Why did the accumulator lose?",
+      "legs": [
+        {
+          "market": "1X2 – Borussia Dortmund to win",
+          "narrative": "Dortmund went 2–0 ahead through two late goals, but Bremen came back spectacularly: Reis scored in the 88th minute and Füllkrug equalised in stoppage time. The Dortmund win selection therefore failed.",
+          "events": [
+            "Daniel Svensson puts Dortmund 1–0 ahead.",
+            "Nico Schlotterbeck doubles Dortmund's lead to 2–0.",
+            "Ludovit Reis pulls one back for Bremen, 2–1.",
+            "Niclas Füllkrug scores a 90+2 equaliser, 2–2."
+          ]
+        },
+        {
+          "market": "Double chance X2 – draw or Espanyol win",
+          "narrative": "Espanyol scored early and conceded an equaliser in stoppage time. However, the 1–1 draw still satisfied the X2 double-chance selection, so this leg was successful.",
+          "events": [
+            "Bryan Zaragoza gives Espanyol an early lead.",
+            "Adrián Niño equalises for Málaga in stoppage time."
+          ]
+        }
+      ]
+    },
+    "es": {
+      "summary": "La combinada se perdió porque el Dortmund empató 2:2 pese a ir ganando 2:0. La selección X2 a favor del Espanyol sí acertó, pero una combinada exige que se cumplan las dos selecciones.",
+      "note": "Análisis retrospectivo basado en fuentes públicas. No modifica los resultados confirmados ni supone un pronóstico posterior al encuentro.",
+      "heading": "Desarrollo de los partidos y momentos decisivos",
+      "conclusion_heading": "¿Por qué se perdió la combinada?",
+      "legs": [
+        {
+          "market": "1X2 – victoria del Borussia Dortmund",
+          "narrative": "El Dortmund llegó a ponerse 2:0 gracias a dos goles en los minutos 80 y 85. El Bremen reaccionó en el tramo final: Reis redujo la diferencia en el 88 y Füllkrug empató en el tiempo añadido. La apuesta por la victoria del Dortmund dejó de cumplirse.",
+          "events": [
+            "Daniel Svensson adelanta al Dortmund: 1:0.",
+            "Nico Schlotterbeck amplía la ventaja: 2:0.",
+            "Ludovit Reis marca el 2:1 para el Bremen.",
+            "Niclas Füllkrug empata 2:2 en el tiempo añadido."
+          ]
+        },
+        {
+          "market": "Doble oportunidad X2 – empate o victoria del Espanyol",
+          "narrative": "El Espanyol se adelantó pronto, pero el Málaga empató en el tiempo añadido. El 1:1 bastaba para acertar la doble oportunidad X2. Esta selección fue correcta, aunque la combinada global resultó perdedora.",
+          "events": [
+            "Bryan Zaragoza adelanta al Espanyol.",
+            "Adrián Niño empata para el Málaga en el tiempo añadido: 1:1."
+          ]
+        }
+      ]
+    },
+    "pt": {
+      "summary": "A múltipla foi perdida porque o Dortmund empatou 2–2 depois de estar a vencer por 2–0. A seleção X2 a favor do Espanyol foi acertada, mas as duas seleções tinham de ser vencedoras.",
+      "note": "Análise posterior baseada em fontes públicas. Não altera os resultados confirmados nem constitui um prognóstico retroativo.",
+      "heading": "Decorrer dos jogos e momentos decisivos",
+      "conclusion_heading": "Porque foi a múltipla perdida?",
+      "legs": [
+        {
+          "market": "1X2 – vitória do Borussia Dortmund",
+          "narrative": "O Dortmund chegou a estar a vencer por 2–0 graças a golos aos 80 e 85 minutos. No entanto, o Bremen reagiu nos últimos minutos: Reis reduziu aos 88 e Füllkrug empatou no tempo de compensação. A seleção de vitória do Dortmund ficou assim perdida.",
+          "events": [
+            "Daniel Svensson coloca o Dortmund em vantagem: 1–0.",
+            "Nico Schlotterbeck aumenta a vantagem para 2–0.",
+            "Ludovit Reis reduz para 2–1 a favor do Bremen.",
+            "Niclas Füllkrug empata 2–2 no tempo de compensação."
+          ]
+        },
+        {
+          "market": "Hipótese dupla X2 – empate ou vitória do Espanyol",
+          "narrative": "O Espanyol adiantou-se cedo, mas o Málaga empatou no tempo de compensação. O 1–1 era suficiente para validar a hipótese dupla X2. Esta seleção foi acertada, embora a múltipla, no seu conjunto, tenha sido perdida.",
+          "events": [
+            "Bryan Zaragoza marca para o Espanyol.",
+            "Adrián Niño empata para o Málaga no tempo de compensação: 1–1."
+          ]
+        }
+      ]
+    },
+    "it": {
+      "summary": "La multipla è risultata perdente: il Dortmund ha pareggiato 2-2 dopo essere stato avanti 2-0. La doppia chance X2 sull'Espanyol era corretta, ma per una multipla devono essere corrette entrambe le selezioni.",
+      "note": "Analisi successiva basata su fonti pubbliche; non modifica i risultati confermati né costituisce una previsione retroattiva.",
+      "heading": "Svolgimento delle partite e momenti decisivi",
+      "conclusion_heading": "Perché la multipla è stata persa?",
+      "legs": [
+        {
+          "market": "1X2 – vittoria Borussia Dortmund",
+          "narrative": "Il Dortmund era avanti 2-0 dopo due reti segnate all'80' e all'85'. Il Bremen ha però reagito nel finale: Reis ha accorciato all'88' e Füllkrug ha pareggiato nel recupero. La selezione sulla vittoria del Dortmund è quindi risultata perdente.",
+          "events": [
+            "Daniel Svensson porta avanti il Dortmund: 1-0.",
+            "Nico Schlotterbeck segna il 2-0.",
+            "Ludovit Reis accorcia per il Bremen: 2-1.",
+            "Niclas Füllkrug pareggia 2-2 nel recupero."
+          ]
+        },
+        {
+          "market": "Doppia chance X2 – pareggio o vittoria Espanyol",
+          "narrative": "L'Espanyol è passato in vantaggio nelle prime fasi, ma il Málaga ha pareggiato nel recupero. L'1-1 bastava per centrare la doppia chance X2. Questa scelta era corretta, ma la multipla complessiva no.",
+          "events": [
+            "Bryan Zaragoza porta in vantaggio l'Espanyol.",
+            "Adrián Niño pareggia per il Málaga nel recupero: 1-1."
+          ]
+        }
+      ]
+    },
+    "fr": {
+      "summary": "Le combiné a été perdu : Dortmund a concédé le nul 2-2 après avoir mené 2-0. Le choix X2 en faveur de l'Espanyol était gagnant, mais les deux sélections devaient réussir.",
+      "note": "Analyse rétrospective fondée sur des sources publiques ; elle ne modifie pas les résultats confirmés et ne constitue pas un pronostic après coup.",
+      "heading": "Déroulement des rencontres et moments décisifs",
+      "conclusion_heading": "Pourquoi le combiné a-t-il été perdu ?",
+      "legs": [
+        {
+          "market": "1X2 – victoire du Borussia Dortmund",
+          "narrative": "Dortmund menait 2-0 après deux buts inscrits aux 80e et 85e minutes. Brême a réagi dans les dernières minutes : Reis a réduit le score à la 88e et Füllkrug a égalisé dans le temps additionnel. La sélection victoire de Dortmund a donc échoué.",
+          "events": [
+            "Daniel Svensson donne l'avantage à Dortmund : 1-0.",
+            "Nico Schlotterbeck double la mise : 2-0.",
+            "Ludovit Reis réduit l'écart pour Brême : 2-1.",
+            "Niclas Füllkrug égalise 2-2 dans le temps additionnel."
+          ]
+        },
+        {
+          "market": "Double chance X2 – nul ou victoire de l'Espanyol",
+          "narrative": "L'Espanyol a ouvert le score rapidement, mais Málaga a égalisé dans le temps additionnel. Le 1-1 suffisait pour réussir la double chance X2. Cette sélection était correcte, contrairement au combiné dans son ensemble.",
+          "events": [
+            "Bryan Zaragoza ouvre le score pour l'Espanyol.",
+            "Adrián Niño égalise pour Málaga dans le temps additionnel : 1-1."
+          ]
+        }
+      ]
+    }
+  }
 }
