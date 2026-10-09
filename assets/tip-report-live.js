@@ -66,15 +66,37 @@ function storyHTML(story){
     legs+'<div class="story-summary"><h3>'+esc(de?"BetInsight-Fazit":"BetInsight conclusion")+'</h3><p>'+esc(conclusion||"")+'</p></div>'+
     '<p class="story-footnote">'+esc(note||"")+'</p></section>';
 }
-function loadStory(r){
+async function loadStory(r){
   const slot=root.querySelector("[data-story-slot]");
   if(!slot)return;
   const id=String(r.tipp_id||"").trim();
   if(!/^[A-Za-z0-9_-]{7,90}$/.test(id))return;
-  fetch("/assets/match-report-stories/"+encodeURIComponent(id)+".json",{cache:"no-store"})
-    .then(v=>v.ok?v.json():null).then(story=>{
-      if(story&&story.tipp_id===id&&root.contains(slot)){slot.innerHTML=storyHTML(story);const scores=root.querySelector("[data-cover-scores]");if(scores&&Array.isArray(story.legs)){const parts=story.legs.filter(x=>x.score).map(x=>String(x.home||"")+" "+String(x.score));if(parts.length)scores.textContent=parts.join("   •   ");}}
-    }).catch(()=>{});
+  try{
+    let story=null;
+    const local=await fetch("/assets/match-report-stories/"+encodeURIComponent(id)+".json",{cache:"no-store"});
+    if(local.ok)story=await local.json();
+    if(!story){
+      // Read ONLY verified/cached summaries; never call the sports provider per browser visit.
+      const api="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-public-result-story?id="+encodeURIComponent(id);
+      const remote=await fetch(api,{cache:"no-store"});
+      if(remote.ok){
+        const info=await remote.json();
+        if(info.ok&&info.status==="READY")story=info.story;
+      }
+    }
+    if(story&&story.tipp_id===id&&root.contains(slot)){
+      slot.innerHTML=storyHTML(story);
+      const scores=root.querySelector("[data-cover-scores]");
+      if(scores&&Array.isArray(story.legs)){
+        const parts=story.legs.filter(x=>x.score).map(x=>String(x.home||"")+" "+String(x.score));
+        if(parts.length)scores.textContent=parts.join("   •   ");
+      }
+    }else if(root.contains(slot)){
+      slot.innerHTML='<div class="story-pending">'+esc(lang==="de"?"Ein ausführlicher, quellengeprüfter Spielverlauf ist für diesen Tipp noch in Bearbeitung.":"A source-verified match timeline is still being prepared for this tip.")+'</div>';
+    }
+  }catch(e){
+    console.warn("BetInsight public result timeline unavailable",String(e));
+  }
 }
 
 function render(r,calc){const won=r.ergebnis_status==="GEWONNEN",status=won?L.won:L.lost,score=String(r.endergebnis||"").trim(),who=tipper(r)||"—",confirmed=String(r.bestaetigt_am||"").trim();setMeta(r);root.innerHTML=resultCover(r)+'<div class="wrap layout"><article class="article"><h2>'+esc(L.published)+'</h2><p>'+esc(L.publishedCopy)+'</p><div class="tipbox"><strong>'+esc(r.tipp||r.markt||"")+'</strong><div class="tipmeta"><div><span>'+esc(L.odds)+'</span><b>'+esc(r.quote||"")+'</b></div><div><span>'+esc(L.units)+'</span><b>'+esc(r.preis_units||"")+'</b></div><div><span>'+esc(L.market)+'</span><b>'+esc(r.markt||"")+'</b></div></div></div><h2>'+esc(L.outcome)+'</h2><div class="outcome '+(won?"":"loss")+'"><p>'+(won?esc(L.outWon):esc(L.outLost))+'</p></div><div data-story-slot></div><h2>'+esc(L.scoreTitle)+'</h2><p>'+esc(score?L.scoreKnown:L.scoreMissing)+(score?' <strong>'+esc(score)+'</strong>.':'')+'</p><h2>'+esc(L.impact)+'</h2><p>'+esc(L.impactCopy)+'</p><div class="stats-grid"><div class="stat-card"><span>'+esc(L.fixed)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(delta(calc.fd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.fixedTotal))+'</b></div><div class="stat-card"><span>'+esc(L.compound)+'</span><b class="'+(calc.cd>=0?"pos":"neg")+'">'+esc(delta(calc.cd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.compoundTotal))+'</b></div></div><h2>'+esc(L.confirmed)+'</h2><p>'+esc(L.reportAuto)+(confirmed?' · '+esc(confirmed):'')+'</p><div class="note">'+esc(L.note)+'</div></article><aside class="sidebar"><div class="sidecard"><h3>'+esc(L.sidebarTitle)+'</h3><p>'+esc(L.sidebarCopy)+'</p><a class="sidebtn" href="../">'+esc(L.sidebarBtn)+'</a><a class="sidebtn secondary" href="../../statistik-vorschau/">'+esc(L.statsBtn)+'</a></div><div class="sidecard"><h3>BetInsight.club</h3><a class="sidebtn secondary" href="../../">'+esc(L.home)+'</a></div></aside></div>'}
