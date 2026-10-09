@@ -6,6 +6,7 @@ Only crop fully transparent padding and proportional Lanczos downscaling if nece
 from pathlib import Path
 from io import BytesIO
 import hashlib
+import base64
 import json
 import urllib.request
 from PIL import Image
@@ -34,6 +35,14 @@ def main():
     ORIGINAL.parent.mkdir(parents=True,exist_ok=True)
     ORIGINAL.write_bytes(raw)
     cropped.save(CROPPED,format="PNG",optimize=True)
+    thumb=cropped.copy()
+    thumb.thumbnail((280,200),Image.Resampling.LANCZOS)
+    thumb=thumb.quantize(colors=64,method=Image.Quantize.FASTOCTREE,dither=Image.Dither.NONE)
+    thumb_io=BytesIO()
+    thumb.save(thumb_io,format="PNG",optimize=True)
+    reference=ROOT/"docs"/"brand-original-logo-preview.base64.txt"
+    reference.parent.mkdir(parents=True,exist_ok=True)
+    reference.write_text(base64.b64encode(thumb_io.getvalue()).decode("ascii"),encoding="ascii")
     info={
       "source_repo":"betinsightclub/profil",
       "source_path":"logo_betisight.club.png",
