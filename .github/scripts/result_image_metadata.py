@@ -10,6 +10,7 @@ Google/Flipboard also require server-readable article HTML and OG tags.
 """
 import argparse
 import json
+import unicodedata
 from pathlib import Path
 from PIL import Image, PngImagePlugin
 
@@ -33,9 +34,15 @@ def export_image(source: Path, target: Path, data: dict) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
     extension = target.suffix.lower()
     if extension in {".jpg", ".jpeg"}:
-        # Separate descriptive EXIF fields, not visible text printed into the image.
+        # JPEG EXIF ImageDescription is ASCII. Keep full Unicode in XPTitle/XPComment
+        # and in the crawlable HTML, without pretending the ASCII EXIF tag is UTF-8.
+        def ascii_exif(s):
+            s = s.replace("–", "-").replace("—", "-").replace("•", "-")
+            return unicodedata.normalize("NFKD", s).encode("ascii", "replace").decode("ascii")
         exif = Image.Exif()
-        exif[270] = f"{title}. {description}"  # ImageDescription
+        exif[270] = ascii_exif(f"{title}. {description}")
+        exif[40091] = (title + "\\x00").encode("utf-16le")  # XPTitle
+        exif[40092] = (description + "\\x00").encode("utf-16le")  # XPComment
         exif[315] = creator                    # Artist: graphic/composite creator
         exif[33432] = rights                  # Copyright / image rights
         exif[305] = "BetInsight result-image pipeline"
@@ -59,7 +66,7 @@ def export_image(source: Path, target: Path, data: dict) -> None:
         if extension == ".png":
             assert check.info.get("Title") == title
         else:
-            assert title in str(check.getexif().get(270, ""))
+            assert ascii_exif(title) in str(check.getexif().get(270, ""))
     print(f"BetInsight metadata written: {target}")
 
 def main():
