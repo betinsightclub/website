@@ -102,6 +102,9 @@
   }
 
   function buildSwitch() {
+    // Homepage language choice already determines the locale of result reports.
+    // Do not duplicate a second switcher on results or full tip reviews.
+    if (/^\/(de|en|es|pt|it|fr)\/tipps\/(?:bericht|ergebnis)(?:\/|$)/.test(location.pathname)) return;
     if (document.querySelector("[data-bi-subpage-language]")) return;
     const header = document.querySelector(".topbar, .header-inner");
     const back = header?.querySelector(".back");
