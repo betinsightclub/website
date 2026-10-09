@@ -9,12 +9,12 @@
   const YOUTUBE_URL = "https://www.youtube.com/@betinsightclub";
   const TELEGRAM_URL = "https://t.me/+iKZj1FvUf4RmMjdh";
   const SUPPORTED = ["de", "en", "es", "pt", "it", "fr"];
-  const LANGUAGE_FLAG = { de:"🇩🇪", en:"🇬🇧", es:"🇪🇸", pt:"🇧🇷", it:"🇮🇹", fr:"🇫🇷" };
+  const LANGUAGE_FLAG = { de:"🇩🇪", en:"🇬🇧", es:"🇪🇸", pt:"🇵🇹", it:"🇮🇹", fr:"🇫🇷" };
   const LANGUAGE_COPY = {
     de:{name:"Deutsch",language:"Sprache wählen",follow:"Folge uns",youtube:"BetInsight Club auf YouTube öffnen",telegram:"BetInsight Club auf Telegram öffnen",academy:"Academy & Hilfe"},
     en:{name:"English",language:"Choose language",follow:"Follow us",youtube:"Open BetInsight Club on YouTube",telegram:"Open BetInsight Club on Telegram",academy:"Academy & Help"},
     es:{name:"Español",language:"Elegir idioma",follow:"Síguenos",youtube:"Abrir BetInsight Club en YouTube",telegram:"Abrir BetInsight Club en Telegram",academy:"Academy y ayuda"},
-    pt:{name:"Português",language:"Escolher idioma",follow:"Siga-nos",youtube:"Abrir BetInsight Club no YouTube",telegram:"Abrir BetInsight Club no Telegram",academy:"Academy e ajuda"},
+    pt:{name:"Português (Portugal)",language:"Escolher idioma",follow:"Siga-nos",youtube:"Abrir BetInsight Club no YouTube",telegram:"Abrir BetInsight Club no Telegram",academy:"Academy e ajuda"},
     it:{name:"Italiano",language:"Scegli lingua",follow:"Seguici",youtube:"Apri BetInsight Club su YouTube",telegram:"Apri BetInsight Club su Telegram",academy:"Academy e aiuto"},
     fr:{name:"Français",language:"Choisir la langue",follow:"Suivez-nous",youtube:"Ouvrir BetInsight Club sur YouTube",telegram:"Ouvrir BetInsight Club sur Telegram",academy:"Academy et aide"}
   };
