@@ -64,3 +64,14 @@
   .result-cover-status{font-size:16px}
   .story-leg{padding:14px}
 }
+
+
+/* Reviewed batch-001 posters – original approved image file already embeds logo. */
+.reviewed-poster{margin-top:23px;margin-bottom:18px}
+.reviewed-poster>a{display:block;line-height:0}
+.reviewed-poster img{display:block;max-width:100%;height:auto;aspect-ratio:1200/630;
+  border-radius:20px;border:1px solid rgba(86,210,245,.36);
+  box-shadow:0 20px 60px rgba(0,0,0,.32)}
+.reviewed-poster-link{padding:10px 0 4px}
+.reviewed-poster-link a{color:#88e6ff;font-size:14px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:700px){.reviewed-poster img{border-radius:12px}}
