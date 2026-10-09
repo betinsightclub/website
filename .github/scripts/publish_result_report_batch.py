@@ -72,7 +72,7 @@ def image_for(item):
     for x in range(0,820):
         fade=max(0.0,min(1.0,(820-x)/360))
         alpha=int((140 if x<585 else 140*fade))
-        for y in range(148,631):
+        for y in range(148,IMAGE_H):
             sp[x,y]=(0,11,27,alpha)
     canvas=Image.alpha_composite(canvas,shading)
     d=ImageDraw.Draw(canvas)
