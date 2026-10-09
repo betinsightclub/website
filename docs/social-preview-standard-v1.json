@@ -164,5 +164,37 @@
     "match_story": "Use verified API-Football match events and original match source links. Combinations: each leg, winning/losing condition, crucial moments and short overall explanation. Do not invent unavailable details.",
     "publishing_gate": "No social publishing until generated image exists, public URL responds, static HTML contains its own correct meta tags and real preview has been checked.",
     "status": "DOCUMENTED; not an indication that the automatic master-backoffice event-to-per-tip-OG pipeline is live."
+  },
+  "multi_language_release_policy": {
+    "strict": true,
+    "status": "MANDATORY_FOR_ALL_BATCHES",
+    "supported_languages": [
+      "de",
+      "en",
+      "es",
+      "pt",
+      "it",
+      "fr"
+    ],
+    "locale_code": {
+      "de": "de-DE",
+      "en": "en-GB",
+      "es": "es-ES",
+      "pt": "pt-BR",
+      "it": "it-IT",
+      "fr": "fr-FR"
+    },
+    "note": "NL/ZH are NOT currently supported on tip-report pages. Expand only after dedicated UI+editorial+OG implementations.",
+    "per_tip_required": [
+      "unique indexable HTML route per locale",
+      "translated title/description, match narrative, key events and market labels",
+      "translated text on the image, never redraw pre-embedded original logo",
+      "separate image metadata and og:image per locale",
+      "localized canonical and bidirectional hreflang x-default",
+      "same original statistical report in that language with same values and formulas",
+      "official source link, evidence and transparency disclaimer"
+    ],
+    "batch_gate": "exactly 5 confirmed tip IDs x 6 languages = 30 indexable HTML pages and 30 individual localized image files; CI fails hard on any missing output; no partial block release",
+    "no_fake_translation": "Do not substitute German or English reports for Spanish/Portuguese/Italian/French; preserve actual names, events, scores, original odds, units and game selection."
   }
 }
