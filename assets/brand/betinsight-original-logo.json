@@ -1,0 +1,15 @@
+{
+  "source_repo": "betinsightclub/profil",
+  "source_path": "logo_betisight.club.png",
+  "approved_original_git_blob": "28d37857985982a5f28a4435db6dcbb2e6033f34",
+  "source_dimensions": [
+    1536,
+    1024
+  ],
+  "cropped_dimensions": [
+    1511,
+    1024
+  ],
+  "transparent_background": true,
+  "modifications": "Only invisible alpha padding was cropped; RGB, font and brand content unchanged"
+}
