@@ -1,0 +1,51 @@
+name: BetInsight Verified Result Report Checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/tip-report-live.js'
+      - 'assets/tip-report.css'
+      - 'assets/brand/betinsight-original-transparent.png'
+      - 'assets/brand/result-ball-field-photo.jpg'
+      - 'assets/match-report-stories/**'
+      - 'de/tipps/bericht/index.html'
+      - 'en/tipps/bericht/index.html'
+      - '.github/workflows/verify-result-reports.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check 'Pillow>=10,<13'
+      - name: Verify JavaScript syntax
+        run: node --check assets/tip-report-live.js
+      - name: Verify source photo, transparent official logo, and researched match events
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          root=Path(".")
+          logo=Image.open(root/"assets/brand/betinsight-original-transparent.png")
+          assert logo.mode in ("RGBA","P"),logo.mode
+          assert Image.open(root/"assets/brand/result-ball-field-photo.jpg").width >=900
+          meta=json.loads((root/"assets/brand/betinsight-original-logo.json").read_text())
+          assert meta["approved_original_git_blob"]=="28d37857985982a5f28a4435db6dcbb2e6033f34"
+          story=json.loads((root/"assets/match-report-stories/BI-20261009-172442-MAR.json").read_text())
+          assert len(story["legs"])==2 and story["outcome"]=="LOST"
+          assert all(leg["key_events"] and leg["source_url"].startswith("https://") for leg in story["legs"])
+          for lang in ("de","en","es","pt","it","fr"):
+              html=(root/lang/"tipps/bericht/index.html").read_text()
+              assert "tip-report-live.js?v=20261009-2" in html,lang
+              assert "betinsight-original-transparent.png" in html,lang
+          print("SUCCESS: syntax, sources, photos, languages and official logo verified")
+          PY
