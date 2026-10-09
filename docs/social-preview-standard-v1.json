@@ -1,5 +1,5 @@
 {
-  "standard": "BetInsight Social Preview v2 — Modern Stadium + Original Brand",
+  "standard": "BetInsight Social Preview v3 — Verified Original Transparent Logo & Premium Football",
   "date": "2026-10-09",
   "scope": [
     "tip result pages",
@@ -9,10 +9,12 @@
   ],
   "approved_brand_assets": {
     "betinsight": {
-      "repository": "betinsightclub/website",
-      "path": "assets/betinsight-logo.png",
-      "website_url": "https://betinsight.club/assets/betinsight-logo.png",
-      "rule": "Use the unchanged existing logo file; do not redraw, restyle or invent a replacement."
+      "repository": "betinsightclub/profil",
+      "path": "logo_betisight.club.png",
+      "approved_blob_sha": "28d37857985982a5f28a4435db6dcbb2e6033f34",
+      "mirrored_original": "betinsightclub/website/assets/brand/betinsight-original-source.png",
+      "display_variant": "betinsightclub/website/assets/brand/betinsight-original-transparent.png",
+      "only_permitted_processing": "Crop near-invisible external transparency; never redraw/recolor logo or its lettering."
     },
     "betinsight_fullsize_reference": {
       "repository": "betinsightclub/profil",
@@ -67,25 +69,39 @@
   },
   "status": "Brand paths and operating rule documented in the GitHub repository; fully automatic social-image generation/publication is a separate implementation task.",
   "visual_style": {
-    "key_visual": "Modern premium editorial sports cover: a large sharp realistic football resting on crisp dew-covered grass in the foreground. Behind it: softly defocused floodlit football stadium, subtle crowd bokeh, midnight-blue/cyan lighting and restrained gradients.",
+    "key_visual": "Sharp licensed real soccer ball and grass photograph in foreground, dramatic midnight-blue editorial sports cover with defocused stadium feel. Never invented player faces, team marks or BetInsight symbols.",
     "sports_photo_licensing": "Use BetInsight-owned or appropriately licensed stadium and ball imagery; do not fabricate real-player photos or paste official club crests, league emblems, logos or sponsor branding without rights.",
     "typography": "Large legible real team names; prominent exact score and date; compact status WON/LOST/VOID; legible even as small social card.",
     "dimensions": "1200x630 (1.90476:1)",
     "layout": "Original logo top-left, match details left, sharp ball + wet grass predominantly right. Balanced with clear visual hierarchy and enough safe margins for social crawlers.",
     "approved_original_logo_rule": "Brand mark must be physically composited from ORIGINAL approved GitHub asset bytes. NEVER ask an AI image generator to draw, reproduce, interpret, or modify the BetInsight or TIME CLASH logo; an image model's representation is not the original.",
-    "original_logo_path": "betinsightclub/website/assets/betinsight-logo.png",
+    "original_logo_path": "betinsightclub/website/assets/brand/betinsight-original-transparent.png",
     "original_timeclash_logo_path": "betinsightclub/profil/time-clash/assets/branding/time-clash-wordmark-clean-1024.png",
     "fallback_rule": "If original logo or licensed photo asset is unavailable, STOP and report an error. Never substitute a generic or hallucinated brand mark.",
     "identity_consistency": "Replace only actual match names, final score, status, date, category; no guessed match facts. For public RESULT cards require confirmed result and display correct BetInsight WIN/LOSS (not necessarily home-team outcome).",
-    "versioning": "On visual changes change the OG image filename (v2, v3) so social crawlers fetch the update."
+    "versioning": "On visual changes change the OG image filename (v2, v3) so social crawlers fetch the update.",
+    "license": "https://unsplash.com/license"
   },
   "implementation": {
     "pilot_script": ".github/scripts/social_preview_pilot.py",
     "pilot_workflow": ".github/workflows/social-preview-pilot.yml",
     "pilot_page": "https://betinsight.club/en/tipps/crystal-palace-man-city-28-08-2026/",
-    "pilot_image": "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09-v2.jpg",
+    "pilot_image": "https://betinsight.club/assets/og/flipboard-crystal-palace-man-city-2026-10-09-v3.jpg",
     "automated_backoffice_result_previews": "NOT YET IMPLEMENTED. Do not claim automatic result cards from Master confirmation.",
     "marketing_keyword": "INSERAT + published URL",
-    "keyword_rule": "Use the published ad link to prepare a bilingual report and ORIGINAL-BRAND image. Do not claim automation from a chat message alone; perform GitHub publish and validate."
+    "keyword_rule": "Use the published ad link to prepare a bilingual report and ORIGINAL-BRAND image. Do not claim automation from a chat message alone; perform GitHub publish and validate.",
+    "dynamic_result_pages": {
+      "script": "assets/tip-report-live.js",
+      "style": "assets/tip-report.css",
+      "background": "assets/brand/result-ball-field-photo.jpg",
+      "authorisation": "Only confirmed and public tipped results",
+      "individual_story": "Static verified first pilot; later Supabase cached API-Football events",
+      "vault_key_reference": "api_football_key",
+      "supabase_function": "betinsight-public-result-story",
+      "source_of_truth": "betinsight_tip_results",
+      "logo": "assets/brand/betinsight-original-transparent.png",
+      "test_tipp_id": "BI-20261009-172442-MAR",
+      "live_browser_end_to_end": "NOT YET VERIFIED"
+    }
   }
 }
