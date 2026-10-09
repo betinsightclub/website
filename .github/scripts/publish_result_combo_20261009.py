@@ -18,7 +18,9 @@ C={
 "es":{"head":"APUESTA COMBINADA","lost":"PERDIDA","won":"ACERTADA","bad":"FALLADA","conclusion":"Por qué se perdió la combinada","stats":"2 UNITS   •   CUOTA 1,85   •   1 DE 2 ACERTADAS","footer":"Partidos reales • Análisis reales • Resultados honestos","source":"Fuente del partido","match":"Partido"},
 "pt":{"head":"APOSTA MÚLTIPLA","lost":"PERDIDA","won":"CERTA","bad":"ERRADA","conclusion":"Porque foi a múltipla perdida","stats":"2 UNITS   •   COTAÇÃO 1,85   •   1 DE 2 CERTAS","footer":"Jogos reais • Análises reais • Resultados transparentes","source":"Fonte do jogo","match":"Jogo"},
 "it":{"head":"SCOMMESSA MULTIPLA","lost":"PERSA","won":"CORRETTA","bad":"SBAGLIATA","conclusion":"Perché la multipla è stata persa","stats":"2 UNITS   •   QUOTA 1,85   •   1 SU 2 CORRETTE","footer":"Partite vere • Analisi vere • Risultati onesti","source":"Fonte partita","match":"Partita"},
-"fr":{"head":"PARI COMBINÉ","lost":"PERDU","won":"CORRECT","bad":"PERDU","conclusion":"Pourquoi le combiné est perdu","stats":"2 UNITS   •   COTE 1,85   •   1 SUR 2 CORRECT","footer":"Matchs réels • Analyses réelles • Résultats honnêtes","source":"Source du match","match":"Rencontre"}
+"fr":{"head":"PARI COMBINÉ","lost":"PERDU","won":"CORRECT","bad":"PERDU","conclusion":"Pourquoi le combiné est perdu","stats":"2 UNITS   •   COTE 1,85   •   1 SUR 2 CORRECT","footer":"Matchs réels • Analyses réelles • Résultats honnêtes","source":"Source du match","match":"Rencontre"},
+"nl":{"head":"COMBINATIETIP","lost":"VERLOREN","won":"GOED","bad":"FOUT","conclusion":"Waarom de combinatie verloor","stats":"2 UNITS • QUOTE 1,85 • 1 VAN 2 GOED","footer":"Echte wedstrijden • Echte analyses • Eerlijke resultaten","source":"Wedstrijdbron","match":"Wedstrijd"},
+"zh":{"head":"串關投注","lost":"失敗","won":"成功","bad":"失敗","conclusion":"為什麼串關投注失敗？","stats":"2 單位 • 賠率 1.85 • 2 項中 1 項成功","footer":"真實賽事 • 真實分析 • 公開透明的結果","source":"賽事資料來源","match":"比賽"}
 }
 RED=(255,59,108,255);GREEN=(57,243,135,255);WHITE=(255,255,255,255);BLUE=(170,222,249,255)
 def translated(story,lang):
@@ -38,6 +40,7 @@ def pill(d,text,x,y,color):
     d.text((px,py),text,font=f,fill=color)
 
 def cover(story,lang):
+    set_render_locale(lang)
     cp=C[lang]
     im=ImageOps.fit(Image.open(TEMPLATE).convert("RGBA"),(1200,630),method=Image.Resampling.LANCZOS)
     overlay=Image.new("RGBA",(1200,630),(0,0,0,0))
@@ -87,7 +90,7 @@ def webpage(story,lang,imageurl):
         events="\n".join("<li><strong>"+esc(ev["minute"])+"</strong> "+esc(trleg["events"][n])+"</li>" for n,ev in enumerate(leg["key_events"]))
         status=c["won"] if leg["selection_outcome"]=="WON" else c["bad"]
         sections.append('<section class="story-leg"><div class="story-leg-header"><span class="story-leg-num">'+str(i+1)+'</span><h3>'+esc(leg["home"]+" – "+leg["away"])+'</h3><strong>'+esc(leg["score"])+'</strong></div><p class="story-leg-market">'+esc(trleg["market"])+" · "+esc(status)+'</p><ul class="story-events">'+events+'</ul><p>'+esc(trleg["narrative"])+'</p><p class="story-source"><a target="_blank" rel="noopener noreferrer" href="'+esc(leg["source_url"])+'">'+esc(c["source"])+' ↗</a></p></section>')
-    html_lang=HREF[lang] if lang=="pt" else lang
+    html_lang=HREF[lang] if lang in ("pt","zh") else lang
     return f"""<!doctype html><html lang="{html_lang}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(heading)} | BetInsight</title>
