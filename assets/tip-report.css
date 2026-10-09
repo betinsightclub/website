@@ -7,8 +7,8 @@
 .result-cover-photo{position:absolute;inset:0;z-index:0;
   background-image:linear-gradient(90deg,#011322 0%,rgba(1,19,34,.98) 30%,rgba(1,19,34,.7) 56%,rgba(1,19,34,.10) 100%),
   linear-gradient(0deg,rgba(2,24,32,.78),rgba(2,15,30,0) 50%),
-  url('/assets/brand/result-ball-field-photo.jpg');
-  background-size:cover;background-position:62% 56%;filter:contrast(1.08) saturate(1.15)}
+  url('/assets/templates/betinsight-result-master-blanko.png');
+  background-size:cover;background-position:center center;filter:contrast(1.06) saturate(1.1)}
 .result-cover:after{content:"";position:absolute;inset:0;pointer-events:none;border-top:5px solid #16d9f9;
   background:radial-gradient(ellipse 65% 40% at 90% 0%,rgba(49,157,255,.25),transparent)}
 .result-cover-content{position:relative;z-index:1;padding:26px 44px 36px;width:min(100%,820px);min-height:480px;
@@ -75,3 +75,9 @@
 .reviewed-poster-link{padding:10px 0 4px}
 .reviewed-poster-link a{color:#88e6ff;font-size:14px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:700px){.reviewed-poster img{border-radius:12px}}
+
+/* Approved master already includes the exact original logo. Keep its upper corner unobstructed. */
+.result-cover .result-cover-content{padding-top:175px;justify-content:flex-end;padding-bottom:28px;min-height:510px}
+.result-cover .result-cover-photo{background-image:linear-gradient(90deg,rgba(1,10,24,.64),rgba(1,10,24,.35) 62%,transparent 78%),url('/assets/templates/betinsight-result-master-blanko.png');background-position:center;background-size:cover}
+.result-cover .result-cover-overline{font-size:11px;letter-spacing:.12em}.result-cover h1{max-width:610px;font-size:clamp(25px,3.4vw,40px)}
+@media(max-width:600px){.result-cover .result-cover-content{padding-top:130px;min-height:430px}.result-cover h1{font-size:clamp(21px,5vw,32px)}}
