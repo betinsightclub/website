@@ -46,5 +46,12 @@ jobs:
             echo 'Pilot already up to date'
           else
             git commit -m 'social: publish Flipboard match review with unique approved-logo preview'
-            git push
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then exit 0; fi
+              echo "GitHub push busy; retry $attempt"
+              sleep 4
+            done
+            echo 'ERROR: cannot publish social-preview after retries'
+            exit 1
           fi
