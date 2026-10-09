@@ -1,0 +1,60 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20261004-011406-MAR",
+  "match_date": "2026-10-04",
+  "kind": "single",
+  "outcome": "LOST",
+  "status": "VERLOREN",
+  "home": "Girona FC",
+  "away": "RCD Mallorca",
+  "match": "Girona FC – RCD Mallorca",
+  "score": "0:0",
+  "market": "Mallorca gewinnt (1X2)",
+  "odds": 3.3,
+  "units": 2,
+  "league": "LaLiga Hypermotion",
+  "verified_source": "Official LALIGA / home club game records",
+  "source_url": "https://www.laliga.com/es-GB/partido/temporada-2026-2027-laliga-hypermotion-girona-fc-rcd-mallorca-8",
+  "leg_status": "LOST",
+  "source_checked_at": "2026-10-10",
+  "legs": [
+    {
+      "home": "Girona FC",
+      "away": "RCD Mallorca",
+      "score": "0:0",
+      "status": "FT",
+      "market_label": "Mallorca gewinnt (1X2)",
+      "selection_outcome": "LOST",
+      "key_events": [
+        {
+          "minute": "32′",
+          "text": "Mallorcas Alberto Moreno sieht Gelb.",
+          "text_en": "Mallorca defender Alberto Moreno is cautioned."
+        },
+        {
+          "minute": "45′",
+          "text": "Torlose erste Halbzeit; Girona und Mallorca gehen mit 0:0 in die Pause.",
+          "text_en": "A goalless first half ends 0–0."
+        },
+        {
+          "minute": "84′",
+          "text": "Girona kommt durch Fran Beltrán zum Abschluss – Mallorca hält die Null.",
+          "text_en": "Fran Beltrán tests the Mallorca goal, but no goal follows."
+        },
+        {
+          "minute": "90.+",
+          "text": "Girona drängt noch einmal; ein später Schuss von Bryan Gil wird gehalten.",
+          "text_en": "A late Bryan Gil effort is saved as Girona presses."
+        }
+      ],
+      "narrative_de": "Mallorca benötigte für den veröffentlichten 1X2-Tipp einen Auswärtssieg. Stattdessen blieb die Partie torlos. Girona kam laut offizieller Spielstatistik auf 16 Abschlüsse und fünf Schüsse aufs Tor, Mallorca auf neun Abschlüsse und keinen Schuss aufs Tor. Auch Gironas späte Offensivaktionen änderten nichts mehr am 0:0. Das defensive Durchhalten sicherte Mallorca einen Punkt, aber keinen Auswärtssieg. Genau deshalb ging die Auswahl „Mallorca gewinnt“ bei Quote 3,30 verloren.",
+      "narrative_en": "The 1X2 selection required Mallorca to win away from home. Girona had 16 attempts and five shots on target; Mallorca finished with nine attempts and none on target. The match remained 0–0 despite Girona's late pressure. Mallorca secured a point rather than an away win, so the Mallorca-win selection at odds of 3.30 lost.",
+      "source_url": "https://www.laliga.com/es-GB/partido/temporada-2026-2027-laliga-hypermotion-girona-fc-rcd-mallorca-8",
+      "source_label": "Offizieller Spielbericht / LaLiga"
+    }
+  ],
+  "summary_de": "Entscheidend ist die Wettart: Ein Unentschieden reicht für einen reinen Mallorca-Sieg (1X2) nicht. Das 0:0 war daher ein verlorener Tipp.",
+  "summary_en": "A 0–0 draw is insufficient for a Mallorca victory under the 1X2 market. The selection lost.",
+  "note_de": "Nachträgliche Analyse eines zuvor veröffentlichten Tipps. Wettstatus, ursprünglicher Tipp und Quote stammen aus dem bestätigten BetInsight-Master-Backoffice. Tore und Ereignisse aus dem offiziellen Spielbericht. Keine nachträgliche Vorhersage.",
+  "note_en": "Post-match analysis of a previously published selection. Settlement and original selection are from confirmed BetInsight data. Football events are from the official match report."
+}
