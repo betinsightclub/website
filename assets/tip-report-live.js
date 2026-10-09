@@ -1,6 +1,7 @@
 (()=>{"use strict";
 const API="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-member-gateway?route=tip-results";
 const lang=(document.documentElement.lang||"de").toLowerCase().split("-")[0];
+const biText=window.BetInsightResultI18n||{market:(v)=>v,match:(v)=>v,selection:(v)=>v,league:(v)=>v};
 const L={
 de:{loading:"Bericht wird geladen …",error:"Der bestätigte Tipp konnte momentan nicht geladen werden.",back:"← Alle Tippauswertungen",ey:"BetInsight · Automatische Tippauswertung",lead:"Dieser Bericht wurde automatisch aus dem im Master-Backoffice bestätigten Ergebnis erzeugt. Er dokumentiert einen bereits abgeschlossenen Tipp und ist keine nachträgliche Vorhersage.",published:"Veröffentlichter Tipp",publishedCopy:"Vor dem Spiel war bei BetInsight folgender Tipp veröffentlicht.",odds:"Quote",units:"Units",market:"Markt",outcome:"Ergebnis und Wertung",won:"Gewonnen",lost:"Verloren",outWon:"Der Tipp wurde im Master-Backoffice als gewonnen bestätigt und wird deshalb in der BetInsight-Statistik als Gewinn gewertet.",outLost:"Der Tipp wurde im Master-Backoffice als verloren bestätigt und wird deshalb in der BetInsight-Statistik als Verlust gewertet.",scoreTitle:"Endstand und Nachweis",scoreKnown:"Im bestätigten Ergebnisdatensatz ist folgender Endstand hinterlegt:",scoreMissing:"Im bestätigten Ergebnisdatensatz ist derzeit kein Endstand hinterlegt. Deshalb wird hier bewusst kein Spielstand erfunden.",impact:"Auswirkung auf die 1.000-€-Statistik",impactCopy:"Die Berechnung folgt exakt derselben Modelllogik wie die öffentliche BetInsight-Statistik.",fixed:"Ohne Zinseszins",compound:"Mit Zinseszins",change:"Veränderung",after:"Stand danach",confirmed:"Bestätigt",tipper:"Tippgeber",reportAuto:"Automatisch erstellt nach Ergebnisbestätigung",sidebarTitle:"Tippauswertungen & Ergebnisse",sidebarCopy:"Alle abgeschlossenen und im System bestätigten Tipps.",sidebarBtn:"Alle Tippauswertungen",statsBtn:"Statistik & Verlauf",home:"Zur BetInsight-Startseite",note:"BetInsight ist kein Wettanbieter und nimmt keine Wetten oder Kundengelder entgegen. 18+. Vergangene Ergebnisse sind keine Garantie für zukünftige Ergebnisse.",metaDesc:"Automatisch erstellte BetInsight-Tippauswertung eines im Master-Backoffice bestätigten Ergebnisses."},
 en:{loading:"Loading report …",error:"The confirmed tip cannot be loaded at the moment.",back:"← All tip reviews",ey:"BetInsight · Automatic tip review",lead:"This report was generated automatically from the result confirmed in the Master Backoffice. It documents a completed tip and is not a retroactive prediction.",published:"Published tip",publishedCopy:"Before the match, the following tip was published by BetInsight.",odds:"Odds",units:"Units",market:"Market",outcome:"Result and grading",won:"Won",lost:"Lost",outWon:"The tip was confirmed as won in the Master Backoffice and is therefore recorded as a win in the BetInsight statistics.",outLost:"The tip was confirmed as lost in the Master Backoffice and is therefore recorded as a loss in the BetInsight statistics.",scoreTitle:"Final score and evidence",scoreKnown:"The confirmed result record contains the following final score:",scoreMissing:"No final score is currently stored in the confirmed result record. No score is invented here.",impact:"Impact on the €1,000 statistics",impactCopy:"The calculation uses exactly the same model logic as the public BetInsight statistics.",fixed:"Without compounding",compound:"With compounding",change:"Change",after:"Balance after",confirmed:"Confirmed",tipper:"Tipster",reportAuto:"Automatically created after result confirmation",sidebarTitle:"Tip reviews & results",sidebarCopy:"All completed tips confirmed in the system.",sidebarBtn:"All tip reviews",statsBtn:"Statistics & performance",home:"Back to BetInsight home",note:"BetInsight is not a betting operator and does not accept bets or customer funds. 18+. Past results do not guarantee future results.",metaDesc:"Automatically generated BetInsight review of a result confirmed in the Master Backoffice."},
@@ -47,44 +48,47 @@ function resultCover(r){
     return '<section class="wrap reviewed-poster">'+
       '<a href="'+destination+'" title="BetInsight verified report / Bericht öffnen"><img src="'+img+'" alt="'+esc(alt)+'" width="1200" height="630" loading="eager" decoding="async"></a>'+
       '<div class="reviewed-poster-link"><a href="'+destination+'">'+esc(({de:"Ausführlichen Spielbericht mit Höhepunkten öffnen",en:"Read the full match review and highlights",es:"Ver el análisis completo y los momentos destacados",pt:"Ler a análise completa e os principais lances",it:"Leggi l'analisi completa e i momenti decisivi",fr:"Lire l'analyse et les temps forts"})[lang]||"Read match review")+' →</a></div>'+
-      '</section><div class="wrap result-context"><h1>'+esc(r.spiel||"")+'</h1><p>'+esc(L.lead)+'</p><div class="meta"><span>'+esc(L.tipper)+': '+esc(tipper(r)||"—")+'</span><span>'+esc(status)+'</span></div></div>';
+      '</section><div class="wrap result-context"><h1>'+esc(biText.match(r.spiel||"",lang))+'</h1><p>'+esc(L.lead)+'</p><div class="meta"><span>'+esc(L.tipper)+': '+esc(tipper(r)||"—")+'</span><span>'+esc(status)+'</span></div></div>';
   }
 
+  // For reports without a generated OG cover, display the USER-APPROVED
+  // blanko background (logo already embedded) instead of the grass-only photo.
   // The cover is a responsive design with the unmodified, verified corporate
   // logo. No generated logos, invented goals, or external club trademarks.
   return '<section class="result-cover wrap '+(won?'is-won':'is-lost')+'">'+
     '<div class="result-cover-photo" aria-hidden="true"></div>'+
     '<div class="result-cover-content">'+
-    '<img class="result-cover-brand" loading="eager" decoding="async" src="/assets/brand/betinsight-original-transparent.png" alt="BetInsight.club – Original-Logo">'+
+    
     '<div class="result-cover-overline">'+esc(L.ey)+'</div>'+
-    '<h1>'+esc(r.spiel||"")+'</h1>'+
+    '<h1>'+esc(biText.match(r.spiel||"",lang))+'</h1>'+
     (result?'<div class="result-cover-score" data-cover-scores>'+esc(result)+'</div>':'')+
-    '<div class="result-cover-footer"><span class="result-cover-status">'+esc(status)+'</span><span>'+esc(r.spiel_datum||"")+'</span><span>'+esc(r.liga||r.sportart||"")+'</span></div>'+
+    '<div class="result-cover-footer"><span class="result-cover-status">'+esc(status)+'</span><span>'+esc(r.spiel_datum||"")+'</span><span>'+esc(biText.league(r.liga||r.sportart||"",lang))+'</span></div>'+
     '</div></section>'+
     '<div class="wrap result-context"><p>'+esc(L.lead)+'</p><div class="meta"><span>'+esc(L.tipper)+': '+esc(tipper(r)||"—")+'</span><span>'+esc(status)+'</span></div></div>';
 }
 function storyHTML(story){
   if(!story||!Array.isArray(story.legs)||!story.legs.length)return "";
-  const de=lang==="de",hdr=de?"Tatsächlicher Spielverlauf & entscheidende Szenen":"Match timeline & decisive moments";
+  const de=lang==="de",translation=story.translations&&story.translations[lang],hdr=translation?.heading||(de?"Tatsächlicher Spielverlauf & entscheidende Szenen":"Match timeline & decisive moments");
   const resultLabel=(v)=>v==="WON"?(de?"Auswahl richtig":"Selection won"):(v==="LOST"?(de?"Auswahl falsch":"Selection lost"):(de?"Auswertung offen":"Unverified"));
   const legs=story.legs.map((leg,i)=>{
     const title=String(leg.home||"")+" – "+String(leg.away||"");
-    const narrative=de?leg.narrative_de:leg.narrative_en;
-    const items=(Array.isArray(leg.key_events)?leg.key_events:[]).slice(0,14).map(ev=>
-      '<li><strong>'+esc(ev.minute||"")+'</strong> '+esc((de?ev.text:ev.text_en)||ev.text||"")+'</li>').join("");
+    const trLeg=translation?.legs?.[i];
+    const narrative=trLeg?.narrative||(de?leg.narrative_de:leg.narrative_en);
+    const items=(Array.isArray(leg.key_events)?leg.key_events:[]).slice(0,14).map((ev,eventIndex)=>
+      '<li><strong>'+esc(ev.minute||"")+'</strong> '+esc(trLeg?.events?.[eventIndex]||(de?ev.text:ev.text_en)||ev.text||"")+'</li>').join("");
     const source=String(leg.source_url||"");
     const isTrusted=/^https:\/\/[a-z0-9.-]+\//i.test(source);
     return '<section class="story-leg"><div class="story-leg-header"><span class="story-leg-num">'+(i+1)+'</span><h3>'+esc(title)+'</h3><strong>'+esc(leg.score||"")+'</strong></div>'+
-      '<p class="story-leg-market">'+esc(leg.market_label||"")+' · '+esc(resultLabel(leg.selection_outcome))+'</p>'+
+      '<p class="story-leg-market">'+esc(trLeg?.market||biText.market(leg.market_label||"",lang))+' · '+esc(resultLabel(leg.selection_outcome))+'</p>'+
       '<ul class="story-events">'+items+'</ul>'+
       '<p>'+esc(narrative||"")+'</p>'+
-      (isTrusted?'<p class="story-source"><a target="_blank" rel="noopener noreferrer" href="'+esc(source)+'">'+esc(leg.source_label||"Quelle")+' ↗</a></p>':'')+
+      (isTrusted?'<p class="story-source"><a target="_blank" rel="noopener noreferrer" href="'+esc(source)+'">'+esc(lang==="de"?(leg.source_label||"Quelle"):(lang==="es"?"Fuente del partido":lang==="pt"?"Fonte do jogo":lang==="it"?"Fonte partita":lang==="fr"?"Source du match":"Match source"))+' ↗</a></p>':'')+
       '</section>';
   }).join("");
-  const conclusion=de?story.summary_de:story.summary_en;
-  const note=de?story.note_de:story.note_en;
+  const conclusion=translation?.summary||(de?story.summary_de:story.summary_en);
+  const note=translation?.note||(de?story.note_de:story.note_en);
   return '<section class="story"><div class="story-head"><span>BETINSIGHT · '+esc(de?"SPIELANALYSE":"MATCH ANALYSIS")+'</span><h2>'+esc(hdr)+'</h2></div>'+
-    legs+'<div class="story-summary"><h3>'+esc(de?"BetInsight-Fazit":"BetInsight conclusion")+'</h3><p>'+esc(conclusion||"")+'</p></div>'+
+    legs+'<div class="story-summary"><h3>'+esc(translation?.conclusion_heading||(de?"BetInsight-Fazit":"BetInsight conclusion"))+'</h3><p>'+esc(conclusion||"")+'</p></div>'+
     '<p class="story-footnote">'+esc(note||"")+'</p></section>';
 }
 async function loadStory(r){
@@ -130,9 +134,14 @@ async function loadStory(r){
   }
 }
 
-function render(r,calc){const won=r.ergebnis_status==="GEWONNEN",status=won?L.won:L.lost,score=String(r.endergebnis||"").trim(),who=tipper(r)||"—",confirmed=String(r.bestaetigt_am||"").trim();setMeta(r);root.innerHTML=(embedded?'':resultCover(r))+'<div class="wrap layout"><article class="article"><h2>'+esc(L.published)+'</h2><p>'+esc(L.publishedCopy)+'</p><div class="tipbox"><strong>'+esc(r.tipp||r.markt||"")+'</strong><div class="tipmeta"><div><span>'+esc(L.odds)+'</span><b>'+esc(r.quote||"")+'</b></div><div><span>'+esc(L.units)+'</span><b>'+esc(r.preis_units||"")+'</b></div><div><span>'+esc(L.market)+'</span><b>'+esc(r.markt||"")+'</b></div></div></div><h2>'+esc(L.outcome)+'</h2><div class="outcome '+(won?"":"loss")+'"><p>'+(won?esc(L.outWon):esc(L.outLost))+'</p></div><div data-story-slot></div><h2>'+esc(L.scoreTitle)+'</h2><p>'+esc(score?L.scoreKnown:L.scoreMissing)+(score?' <strong>'+esc(score)+'</strong>.':'')+'<span data-verified-final-score></span></p><h2>'+esc(L.impact)+'</h2><p>'+esc(L.impactCopy)+'</p><div class="stats-grid"><div class="stat-card"><span>'+esc(L.fixed)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(delta(calc.fd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.fixedTotal))+'</b></div><div class="stat-card"><span>'+esc(L.compound)+'</span><b class="'+(calc.cd>=0?"pos":"neg")+'">'+esc(delta(calc.cd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.compoundTotal))+'</b></div></div><h2>'+esc(L.confirmed)+'</h2><p>'+esc(L.reportAuto)+(confirmed?' · '+esc(confirmed):'')+'</p><div class="note">'+esc(L.note)+'</div></article><aside class="sidebar"><div class="sidecard"><h3>'+esc(L.sidebarTitle)+'</h3><p>'+esc(L.sidebarCopy)+'</p><a class="sidebtn" href="../">'+esc(L.sidebarBtn)+'</a><a class="sidebtn secondary" href="../../statistik-vorschau/">'+esc(L.statsBtn)+'</a></div><div class="sidecard"><h3>BetInsight.club</h3><a class="sidebtn secondary" href="../../">'+esc(L.home)+'</a></div></aside></div>'}
+function render(r,calc){const won=r.ergebnis_status==="GEWONNEN",status=won?L.won:L.lost,score=String(r.endergebnis||"").trim(),who=tipper(r)||"—",confirmed=String(r.bestaetigt_am||"").trim();setMeta(r);root.innerHTML=(embedded?'':resultCover(r))+'<div class="wrap layout"><article class="article"><h2>'+esc(L.published)+'</h2><p>'+esc(L.publishedCopy)+'</p><div class="tipbox"><strong>'+esc(biText.selection(r.tipp||r.markt||"",lang,r.tipp_id))+'</strong><div class="tipmeta"><div><span>'+esc(L.odds)+'</span><b>'+esc(r.quote||"")+'</b></div><div><span>'+esc(L.units)+'</span><b>'+esc(r.preis_units||"")+'</b></div><div><span>'+esc(L.market)+'</span><b>'+esc(biText.market(r.markt||"",lang))+'</b></div></div></div><h2>'+esc(L.outcome)+'</h2><div class="outcome '+(won?"":"loss")+'"><p>'+(won?esc(L.outWon):esc(L.outLost))+'</p></div><div data-story-slot></div><h2>'+esc(L.scoreTitle)+'</h2><p>'+esc(score?L.scoreKnown:L.scoreMissing)+(score?' <strong>'+esc(score)+'</strong>.':'')+'<span data-verified-final-score></span></p><h2>'+esc(L.impact)+'</h2><p>'+esc(L.impactCopy)+'</p><div class="stats-grid"><div class="stat-card"><span>'+esc(L.fixed)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(delta(calc.fd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.fixedTotal))+'</b></div><div class="stat-card"><span>'+esc(L.compound)+'</span><b class="'+(calc.cd>=0?"pos":"neg")+'">'+esc(delta(calc.cd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.compoundTotal))+'</b></div></div><h2>'+esc(L.confirmed)+'</h2><p>'+esc(L.reportAuto)+(confirmed?' · '+esc(confirmed):'')+'</p><div class="note">'+esc(L.note)+'</div></article><aside class="sidebar"><div class="sidecard"><h3>'+esc(L.sidebarTitle)+'</h3><p>'+esc(L.sidebarCopy)+'</p><a class="sidebtn" href="../">'+esc(L.sidebarBtn)+'</a><a class="sidebtn secondary" href="../../statistik-vorschau/">'+esc(L.statsBtn)+'</a></div><div class="sidecard"><h3>BetInsight.club</h3><a class="sidebtn secondary" href="../../">'+esc(L.home)+'</a></div></aside></div>'}
 const pathReport=location.pathname.match(/\/(?:de|en|es|pt|it|fr)\/tipps\/ergebnis\/(BI-[A-Za-z0-9_-]+)\/?$/);
 const id=new URLSearchParams(location.search).get("id")||(pathReport&&pathReport[1]);
+const reviewedNew=new Set(["BI-20261004-011406-MAR","BI-20261004-011255-MAR","BI-20261002-145749-MAR","BI-20260927-040207-MAR","BI-20260925-185756-MAR","BI-20261009-172442-MAR"]);
+if(!embedded && id && reviewedNew.has(id) && /\\/tipps\\/bericht\\/?$/.test(location.pathname)){
+  location.replace("/"+lang+"/tipps/ergebnis/"+encodeURIComponent(id)+"/");
+  return;
+}
 if(!id){root.innerHTML='<div class="wrap" style="padding:70px 0"><p class="lead">'+esc(L.error)+'</p></div>';return}
 fetch(API,{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject(new Error("HTTP"))).then(all=>{if(!Array.isArray(all))throw new Error("DATA");const rows=validRows(all),r=rows.find(x=>String(x.tipp_id)===String(id));if(!r)throw new Error("NOT_FOUND");const calc=calculate(rows,id);if(!calc)throw new Error("CALC");render(r,calc);if(!embedded)loadStory(r)}).catch(()=>{root.innerHTML='<div class="wrap" style="padding:70px 0"><p class="lead">'+esc(L.error)+'</p></div>'});
 })();
