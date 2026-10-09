@@ -23,7 +23,9 @@
     "es",
     "pt",
     "it",
-    "fr"
+    "fr",
+    "nl",
+    "zh"
   ],
   "required_localized_assets": {
     "image": true,
@@ -40,10 +42,21 @@
     "hreflang": true,
     "proof_link": true
   },
-  "release_gate": "ALL six languages must publish successfully and show the same original BetInsight confirmed tip/statistics; no missing or German fallback allowed in localized SEO pages",
+  "release_gate": "Eight language report families are mandatory: 5 confirmed tip IDs x 8 languages = 40 unique HTML reports and 40 locale-labeled social JPGs; fail if any absent or untranslated.",
   "portuguese_locale": "pt-PT",
   "portuguese_variant": "Português de Portugal, nunca português do Brasil",
   "visual_QA": "Centered badge text in all six languages, particularly ES PERDIDO and PT PERDIDO; frame not overlapped",
   "navigation_QA": "Homepage language preference controls internal routing; remove second selector from result articles; crawler share URL locale remains unchanged.",
-  "latest_image_version": 2
+  "latest_image_version": 2,
+  "required_locale_mapping": {
+    "de": "de-DE",
+    "en": "en-GB",
+    "es": "es-ES",
+    "pt": "pt-PT",
+    "it": "it-IT",
+    "fr": "fr-FR",
+    "nl": "nl-NL",
+    "zh": "zh-Hant-TW"
+  },
+  "traditional_chinese": "🇹🇼 繁中 (zh-Hant-TW) ONLY, as shown in home language selection; no Simplified Chinese substitution"
 }
