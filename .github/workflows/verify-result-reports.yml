@@ -13,7 +13,7 @@ on:
       - '.github/workflows/verify-result-reports.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -49,3 +49,22 @@ jobs:
               assert "betinsight-original-transparent.png" in html,lang
           print("SUCCESS: syntax, sources, photos, languages and official logo verified")
           PY
+
+      - name: Record successful technical validation
+        run: |
+          python - <<'PY'
+          import json,datetime,pathlib
+          path=pathlib.Path('docs/result-report-validation.json')
+          path.parent.mkdir(parents=True,exist_ok=True)
+          path.write_text(json.dumps({
+            'result':'PASS',
+            'checked_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'checks':['javascript_syntax','approved_full_resolution_logo','licensed_ball_photo','both_combination_legs','six_languages'],
+            'note':'This validates repository assets and JavaScript syntax, not end-to-end live browser rendering or API-Football credentials.'
+          },indent=2)+'\n')
+          PY
+          git config user.name 'BetInsight Result Validator'
+          git config user.email 'actions@github.com'
+          git add docs/result-report-validation.json
+          git commit -m 'ci: result report validation passed' || true
+          git push
