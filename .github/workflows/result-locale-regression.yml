@@ -1,0 +1,63 @@
+name: BetInsight Report Locale Regression Guard
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/result-locale-regression.yml"
+      - "assets/result-localization.js"
+      - "assets/stats-preview.js"
+      - "assets/tip-report-live.js"
+      - "assets/tip-report.css"
+      - "**/statistik-vorschau/index.html"
+      - "**/tipps/bericht/index.html"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Script syntax
+        run: |
+          node --check assets/result-localization.js
+          node --check assets/stats-preview.js
+          node --check assets/tip-report-live.js
+      - name: Locale regression assertions
+        run: |
+          node <<'NODE'
+          const fs=require("node:fs"),vm=require("node:vm"),assert=require("node:assert/strict");
+          const context={window:{}};
+          vm.runInNewContext(fs.readFileSync("assets/result-localization.js","utf8"),context);
+          const T=context.window.BetInsightResultI18n;
+          const id="BI-20261009-172442-MAR";
+          const data="1. Borussia Dortmund – Werder Bremen – 1X2: Borussia Dortmund Sieg @ 1.35 | 2. Málaga – Espanyol – Doppelte Chance X2: Unentschieden oder Espanyol Sieg @ 1.37";
+          for(const locale of ["en","es","pt","it","fr"]){
+            const out=T.selection(data,locale,id);
+            assert.notEqual(out,data,locale);
+            assert(!/(Kombi-Wette|Doppelte Chance|Unentschieden|Auswahlen)/i.test(out),locale+" untranslated");
+            assert(out.includes("Borussia Dortmund")&&out.includes("Espanyol"),locale);
+            assert.equal(T.match("Kombi (2 Auswahlen): Dortmund",locale).includes("Auswahlen"),false,locale);
+            assert.notEqual(T.market("Kombi-Wette",locale),"Kombi-Wette");
+          }
+          assert.equal(T.selection(data,"de",id),data,"Never mutate German original source");
+          assert(T.selection(data,"pt",id).includes("Hipótese dupla"),"Only PT-PT terminology");
+          const stat=fs.readFileSync("assets/stats-preview.js","utf8");
+          const report=fs.readFileSync("assets/tip-report-live.js","utf8");
+          const css=fs.readFileSync("assets/tip-report.css","utf8");
+          assert(stat.includes("i18n.selection(tip[c],c,autoId)"));
+          assert(stat.includes("i18n.match(n,c)"));
+          assert(stat.includes('pt:"pt-PT"'));
+          assert(report.includes('biText.selection(r.tipp||r.markt||"",lang,r.tipp_id)'));
+          assert(report.includes("reviewedNew.has(id)"),"Old reviewed IDs should open localized full reports");
+          assert(report.includes("data-story-slot")&&report.includes("stats-grid"),"Original report not removed");
+          assert(css.includes("betinsight-result-master-blanko.png"),"Never revert to grass-only cover");
+          for(const lang of ["de","en","es","pt","it","fr"]){
+            for(const segment of ["statistik-vorschau","tipps/bericht"]){
+              const html=fs.readFileSync(lang+"/"+segment+"/index.html","utf8");
+              assert(html.includes("result-localization.js"),lang+segment);
+              assert(html.indexOf("result-localization.js")<html.indexOf(segment==="statistik-vorschau"?"stats-preview.js":"tip-report-live.js"),"Order matters");
+            }
+          }
+          console.log("PASS: all six languages, no German leaks in 2026-10-09 combo, original betting data retained.");
+          NODE
