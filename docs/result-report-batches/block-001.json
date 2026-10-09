@@ -2,7 +2,7 @@
   "batch_id": "001",
   "title": "BetInsight Ergebnis-Berichte – Block 1 (5 bestätigte reale Tipps)",
   "date": "2026-10-10",
-  "status": "source_verified_first_pilot",
+  "status": "multi_language_rollout_started",
   "criteria": "only public confirmed quality-relevant settled tips; no WM/test/demo",
   "template": "assets/templates/betinsight-result-master-blanko.png",
   "logo_rule": "approved original BetInsight logo already embedded; never overlay a second logo",
@@ -16,5 +16,29 @@
     "BI-20260927-040207-MAR",
     "BI-20260925-185756-MAR"
   ],
-  "note": "Verified official score and match events from LaLiga / Girona FC. Master verdict, market, quote and units come from Supabase. Original financial and result tables untouched."
+  "note": "Verified official score and match events from LaLiga / Girona FC. Master verdict, market, quote and units come from Supabase. Original financial and result tables untouched.",
+  "required_languages": [
+    "de",
+    "en",
+    "es",
+    "pt",
+    "it",
+    "fr"
+  ],
+  "required_localized_assets": {
+    "image": true,
+    "visual_text": true,
+    "original_stats": true,
+    "match_events": true,
+    "match_analysis": true,
+    "market_description": true,
+    "meta_title": true,
+    "meta_description": true,
+    "og_image": true,
+    "article_schema": true,
+    "canonical": true,
+    "hreflang": true,
+    "proof_link": true
+  },
+  "release_gate": "ALL six languages must publish successfully and show the same original BetInsight confirmed tip/statistics; no missing or German fallback allowed in localized SEO pages"
 }
