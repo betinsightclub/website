@@ -1,0 +1,78 @@
+name: BetInsight Result Reviews – Five-Game Batch 001
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-result-report-batch.yml"
+      - ".github/scripts/publish_result_report_batch.py"
+      - ".github/scripts/result_image_metadata.py"
+      - "docs/result-report-batches/block-001.json"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: betinsight-result-review-batch-001
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install proven image compositor
+        run: python -m pip install --disable-pip-version-check "Pillow>=10,<13"
+      - name: Verify input and syntax
+        run: |
+          set -euo pipefail
+          test -s assets/templates/betinsight-result-master-blanko.png
+          test -s docs/result-report-batches/block-001.json
+          python -m py_compile .github/scripts/result_image_metadata.py .github/scripts/publish_result_report_batch.py
+      - name: Generate five verified covers and crawlable SEO articles
+        run: python .github/scripts/publish_result_report_batch.py
+      - name: Verify exactly five unique previews and HTML files
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          from PIL import Image
+          root=pathlib.Path('.')
+          batch=json.loads((root/'docs/result-report-batches/block-001.json').read_text())
+          ids=batch['tip_ids']
+          assert len(ids)==5 and len(set(ids))==5
+          for id in ids:
+              photo=root/'assets/og'/(id.lower()+'-de-v1.jpg')
+              page=root/'de/tipps/ergebnis'/id/'index.html'
+              assert photo.stat().st_size>15_000,(photo,photo.stat().st_size)
+              with Image.open(photo) as im:
+                  assert im.size==(1200,630),im.size
+                  assert im.getexif().get(270),id
+              t=page.read_text()
+              assert '<meta property="og:image"' in t and id.lower() in t,id
+              assert '<link rel="canonical"' in t and 'application/ld+json' in t,id
+              assert 'Spielverlauf und Höhepunkte' in t and 'Warum ' in t,id
+              assert 'offizieller Spielbericht / LaLiga' in t,id
+              print('VALID:',id,str(page))
+          PY
+          git diff --check
+      - name: Publish generated assets to the same BetInsight website
+        run: |
+          set -euo pipefail
+          git config user.name "BetInsight Editorial"
+          git config user.email "actions@github.com"
+          git add de/tipps/ergebnis/ assets/og/*-de-v1.jpg
+          if git diff --cached --quiet; then
+            echo "Batch 001 already published."
+            exit 0
+          fi
+          git commit -m "editorial: first five result reviews with official-source highlights and SEO previews"
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              echo "Five reports published to main."
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "ERROR: cannot publish five pages"
+          exit 1
