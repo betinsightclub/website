@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Publish six source-verified match-combination reviews, one unique OG image per locale.
+All JavaScript inputs must pass node --check before generation.
 Avoids modifying source bets, outcomes, units or both 1000 EUR statistics.
 """
 import datetime as dt
