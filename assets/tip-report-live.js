@@ -29,6 +29,25 @@ function resultCover(r){
   const won=r.ergebnis_status==="GEWONNEN";
   const status=won?L.won:L.lost;
   const result=String(r.endergebnis||"").trim();
+
+  const reviewedIDs=new Set([
+    "BI-20261004-011406-MAR",
+    "BI-20261004-011255-MAR",
+    "BI-20261002-145749-MAR",
+    "BI-20260927-040207-MAR",
+    "BI-20260925-185756-MAR"
+  ]);
+  const id=String(r.tipp_id||"").trim();
+  if(lang==="de"&&reviewedIDs.has(id)){
+    const img="/assets/og/"+id.toLowerCase()+"-de-v1.jpg";
+    const destination="/de/tipps/ergebnis/"+encodeURIComponent(id)+"/";
+    const alt="BetInsight Ergebnisbild "+String(r.spiel||"")+" – "+(won?"Tipp gewonnen":"Tipp verloren");
+    return '<section class="wrap reviewed-poster">'+
+      '<a href="'+destination+'" title="Spielbericht mit SEO-Vorschau öffnen"><img src="'+img+'" alt="'+esc(alt)+'" width="1200" height="630" loading="eager" decoding="async"></a>'+
+      '<div class="reviewed-poster-link"><a href="'+destination+'">Ausführlichen Spielbericht mit Höhepunkten öffnen →</a></div>'+
+      '</section><div class="wrap result-context"><h1>'+esc(r.spiel||"")+'</h1><p>'+esc(L.lead)+'</p><div class="meta"><span>'+esc(L.tipper)+': '+esc(tipper(r)||"—")+'</span><span>'+esc(status)+'</span></div></div>';
+  }
+
   // The cover is a responsive design with the unmodified, verified corporate
   // logo. No generated logos, invented goals, or external club trademarks.
   return '<section class="result-cover wrap '+(won?'is-won':'is-lost')+'">'+
