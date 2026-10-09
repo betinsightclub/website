@@ -109,11 +109,12 @@ async function loadStory(r){
       slot.innerHTML=storyHTML(story);
       const off=root.querySelector("[data-verified-final-score]");
       if(off&&Array.isArray(story.legs)){
-        const scores=story.legs.filter(x=>x.score&&/^\\d+:\\d+$/.test(String(x.score))).map(x=>String(x.home||"")+" – "+String(x.away||"")+": "+String(x.score));
+        const scores=story.legs.filter(x=>x.score&&/^\d+:\d+$/.test(String(x.score)))
+          .map(x=>String(x.home||"")+" – "+String(x.away||"")+": "+String(x.score));
         if(scores.length){
           off.innerHTML='<strong>'+esc(lang==="de"?"Unabhängig nachgewiesener offizieller Endstand: ":"Official final score verified independently: ")+esc(scores.join(" · "))+'</strong>';
           const src=story.legs[0].source_url;
-          if(/^https:\\/\\/[a-z0-9.-]+\\//i.test(String(src||"")))off.innerHTML+=' · <a href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">'+esc(lang==="de"?"Spielquelle":"Match source")+' ↗</a>';
+          if(String(src||"").startsWith("https://"))off.innerHTML+=' · <a href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">'+esc(lang==="de"?"Spielquelle":"Match source")+' ↗</a>';
         }
       }
       const scores=root.querySelector("[data-cover-scores]");
