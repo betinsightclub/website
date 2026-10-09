@@ -50,7 +50,7 @@ function storyHTML(story){
     const title=String(leg.home||"")+" – "+String(leg.away||"");
     const narrative=de?leg.narrative_de:leg.narrative_en;
     const items=(Array.isArray(leg.key_events)?leg.key_events:[]).slice(0,14).map(ev=>
-      '<li><strong>'+esc(ev.minute||"")+'</strong> '+esc(ev.text||"")+'</li>').join("");
+      '<li><strong>'+esc(ev.minute||"")+'</strong> '+esc((de?ev.text:ev.text_en)||ev.text||"")+'</li>').join("");
     const source=String(leg.source_url||"");
     const isTrusted=/^https:\/\/[a-z0-9.-]+\//i.test(source);
     return '<section class="story-leg"><div class="story-leg-header"><span class="story-leg-num">'+(i+1)+'</span><h3>'+esc(title)+'</h3><strong>'+esc(leg.score||"")+'</strong></div>'+
