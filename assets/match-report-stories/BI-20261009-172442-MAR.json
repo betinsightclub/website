@@ -208,6 +208,58 @@
           ]
         }
       ]
+    },
+    "nl": {
+      "summary": "De combinatie verloor: Dortmund verspeelde een 2-0-voorsprong en speelde uiteindelijk 2-2 tegen Bremen. De dubbele kans X2 op Espanyol was wel goed, maar bij een combinatie moeten beide selecties winnen.",
+      "note": "Achteraf opgestelde analyse aan de hand van openbare wedstrijdverslagen. De bevestigde uitkomst, inzet en historische statistieken zijn niet gewijzigd.",
+      "heading": "Wedstrijdverloop en beslissende momenten",
+      "conclusion_heading": "Waarom verloor de combinatie?",
+      "legs": [
+        {
+          "market": "1X2 – Borussia Dortmund wint",
+          "narrative": "Dortmund leek op weg naar de overwinning na doelpunten in de 80e en 85e minuut: 2-0. Bremen sloeg echter in de slotfase terug. Reis maakte in de 88e minuut de 2-1 en Füllkrug zorgde in de blessuretijd voor 2-2. De selectie Dortmund wint ging daardoor verloren.",
+          "events": [
+            "Daniel Svensson zet Dortmund op 1-0.",
+            "Nico Schlotterbeck verdubbelt de voorsprong tot 2-0.",
+            "Ludovit Reis maakt namens Bremen de 2-1.",
+            "Niclas Füllkrug scoort in blessuretijd de 2-2."
+          ]
+        },
+        {
+          "market": "Dubbele kans X2 – gelijkspel of Espanyol wint",
+          "narrative": "Espanyol nam vroeg de leiding. Málaga maakte pas in de blessuretijd gelijk: 1-1. Dat resultaat volstond voor de dubbele kans X2. Deze selectie was dus juist, maar de andere selectie niet en de totale combinatie verloor.",
+          "events": [
+            "Bryan Zaragoza zet Espanyol op voorsprong.",
+            "Adrián Niño maakt in blessuretijd namens Málaga de 1-1."
+          ]
+        }
+      ]
+    },
+    "zh": {
+      "summary": "串關投注最終失敗：多特蒙德原本以2比0領先，卻在比賽最後階段被不來梅追成2比2。西班牙人的雙重機會X2選擇成功，但串關必須兩項選擇全部成立才能獲勝。",
+      "note": "本文根據公開賽事報導進行賽後分析，不會更改後台已確認的結果、投注單位或歷史統計，也不代表賽後重新預測。",
+      "heading": "兩場比賽的過程與關鍵時刻",
+      "conclusion_heading": "為什麼串關投注失敗？",
+      "legs": [
+        {
+          "market": "1X2——多特蒙德獲勝",
+          "narrative": "多特蒙德在第80和85分鐘接連進球，以2比0領先，但不來梅在比賽末段反撲。Reis於第88分鐘追回一球，Füllkrug又在傷停補時扳平為2比2。由於多特蒙德沒有贏球，此項1X2選擇失敗。",
+          "events": [
+            "Daniel Svensson進球，多特蒙德1比0領先。",
+            "Nico Schlotterbeck擴大領先至2比0。",
+            "Ludovit Reis為不來梅追回一球，比分2比1。",
+            "Niclas Füllkrug在傷停補時追平為2比2。"
+          ]
+        },
+        {
+          "market": "雙重機會X2——平局或西班牙人獲勝",
+          "narrative": "西班牙人早早取得領先，但馬拉加在傷停補時將比分追成1比1。平局符合雙重機會X2的條件，因此此項選擇成功。然而，由於多特蒙德的選擇失敗，整張串關仍判定為失敗。",
+          "events": [
+            "Bryan Zaragoza為西班牙人先開紀錄。",
+            "Adrián Niño在傷停補時為馬拉加扳成1比1。"
+          ]
+        }
+      ]
     }
   }
 }
