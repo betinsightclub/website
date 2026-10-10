@@ -5,11 +5,13 @@
     "es",
     "pt",
     "it",
-    "fr"
+    "fr",
+    "nl",
+    "zh"
   ],
   "tip_count": 5,
-  "page_count": 30,
-  "image_count": 30,
+  "page_count": 40,
+  "image_count": 40,
   "all_original_statistical_components_preserved": true,
   "original_tip_data_mutated": false
 }
