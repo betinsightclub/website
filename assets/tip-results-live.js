@@ -17,13 +17,16 @@ const reportMap={
 "BI-20260925-185756-MAR":"girona-fc-albacete-25-09-2026/"
 };
 const lang=(document.documentElement.lang||"de").toLowerCase().split("-")[0];
+const biText=window.BetInsightResultI18n||{selection:(v)=>v,match:(v)=>v,league:(v)=>v};
 const C={
 de:{odds:"Quote",units:"Units",score:"Endstand",won:"Gewonnen",lost:"Verloren",read:"Auswertung lesen →"},
 en:{odds:"Odds",units:"Units",score:"Final score",won:"Won",lost:"Lost",read:"Read review →"},
 es:{odds:"Cuota",units:"Units",score:"Resultado final",won:"Ganado",lost:"Perdido",read:"Leer análisis →"},
 pt:{odds:"Cotação",units:"Units",score:"Resultado final",won:"Ganho",lost:"Perdido",read:"Ler a análise →"},
 it:{odds:"Quota",units:"Units",score:"Risultato finale",won:"Vinto",lost:"Perso",read:"Leggi analisi →"},
-fr:{odds:"Cote",units:"Units",score:"Score final",won:"Gagné",lost:"Perdu",read:"Lire le bilan →"}
+fr:{odds:"Cote",units:"Units",score:"Score final",won:"Gagné",lost:"Perdu",read:"Lire le bilan →"},
+nl:{odds:"Quote",units:"Units",score:"Eindstand",won:"Gewonnen",lost:"Verloren",read:"Analyse lezen →"},
+zh:{odds:"賠率",units:"單位",score:"最終比分",won:"獲勝",lost:"失敗",read:"閱讀分析 →"}
 }[lang]||{odds:"Quote",units:"Units",score:"Endstand",won:"Gewonnen",lost:"Verloren",read:"Auswertung lesen →"};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const n=v=>{const s=String(v??"").trim();return Number(s.includes(",")?s.replace(/\./g,"").replace(",","."):s)||0};
@@ -39,7 +42,7 @@ fetch(URL,{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(rows=
    const won=r.ergebnis_status==="GEWONNEN",el=document.createElement("a");
    el.className="report-card";el.dataset.liveId=String(r.tipp_id||"");
    el.href="bericht/?id="+encodeURIComponent(String(r.tipp_id||""));
-   el.innerHTML='<span class="date">'+esc(r.spiel_datum)+' · '+esc(r.liga||r.sportart||"")+'</span><h2>'+esc(r.spiel)+'</h2><p>'+esc(r.tipp||r.markt||"")+'</p><div class="cardmeta"><span>'+C.odds+' '+esc(r.quote)+'</span><span>'+esc(r.preis_units)+' '+C.units+'</span>'+(r.endergebnis?'<span>'+C.score+' '+esc(r.endergebnis)+'</span>':'')+'<span class="'+(won?"result-win":"result-loss")+'">'+(won?C.won:C.lost)+'</span></div><span class="read">'+C.read+'</span>';
+   el.innerHTML='<span class="date">'+esc(r.spiel_datum)+' · '+esc(biText.league(r.liga||r.sportart||"",lang))+'</span><h2>'+esc(biText.match(r.spiel,lang))+'</h2><p>'+esc(biText.selection(r.tipp||r.markt||"",lang,r.tipp_id))+'</p><div class="cardmeta"><span>'+C.odds+' '+esc(r.quote)+'</span><span>'+esc(r.preis_units)+' '+C.units+'</span>'+(r.endergebnis?'<span>'+C.score+' '+esc(r.endergebnis)+'</span>':'')+'<span class="'+(won?"result-win":"result-loss")+'">'+(won?C.won:C.lost)+'</span></div><span class="read">'+C.read+'</span>';
    grid.appendChild(el);
  });
 }).catch(()=>{});
