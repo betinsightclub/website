@@ -1,0 +1,484 @@
+{
+  "schema": "betinsight_result_batch_002_editorial_v1",
+  "source_validation": "Master-confirmed quality-relevant tip IDs + independent official club/league/DFB match reports",
+  "language_codes": [
+    "de",
+    "en",
+    "es",
+    "pt",
+    "it",
+    "fr",
+    "nl",
+    "zh"
+  ],
+  "source_checked": "2026-10-10",
+  "editorial_rules": [
+    "Do not change master units, quote, grading, stats",
+    "No events without published league/club sources",
+    "PT=pt-PT, zh=Traditional Chinese Taiwan",
+    "Original report embedded as is"
+  ],
+  "items": [
+    {
+      "tipp_id": "BI-20260826-001536-MAR",
+      "match_date": "2026-08-28",
+      "home": "Crystal Palace",
+      "away": "Manchester City",
+      "match": "Crystal Palace – Manchester City",
+      "score": "1:4",
+      "league": "Premier League",
+      "market": "Manchester City gewinnt (1X2)",
+      "odds": 1.6,
+      "units": 3,
+      "outcome": "WON",
+      "tipper": "Martin",
+      "source_url": "https://www.cpfc.co.uk/news/match-reports/report-highlights-palace-manchester-city-august-2026/",
+      "events": [
+        {
+          "minute": "17′",
+          "player": "Erling Haaland",
+          "score": "0:1",
+          "kind": "goal"
+        },
+        {
+          "minute": "54′",
+          "player": "Rayan Cherki",
+          "score": "0:2",
+          "kind": "goal"
+        },
+        {
+          "minute": "56′",
+          "player": "Gianluigi Donnarumma",
+          "score": "1:2",
+          "kind": "own"
+        },
+        {
+          "minute": "59′",
+          "player": "Rayan Cherki",
+          "score": "1:3",
+          "kind": "goal"
+        },
+        {
+          "minute": "84′",
+          "player": "Erling Haaland",
+          "score": "1:4",
+          "kind": "goal"
+        }
+      ],
+      "copy": {
+        "de": [
+          "City-Auswärtssieg bei Crystal Palace: 1:4",
+          "Der getippte Manchester-City-Sieg trat mit 1:4 ein; die 1X2-Auswahl war gewonnen.",
+          "Haaland brachte City nach 17 Minuten nach vorn. Cherki erhöhte nach der Pause, ehe ein Eigentor Donnarummas Crystal Palace kurz auf 1:2 heranbrachte. Cherki stellte nur drei Minuten später den Zwei-Tore-Abstand wieder her, Haaland besiegelte in Minute 84 das 1:4. Entscheidend für die BetInsight-Auswahl war der klare Auswärtssieg.",
+          "Manchester City gewinnt (1X2)"
+        ],
+        "en": [
+          "Manchester City win 4–1 at Crystal Palace",
+          "Manchester City won 4–1 away, validating the published 1X2 away-win selection.",
+          "Haaland put City ahead in the 17th minute. Cherki doubled the lead after half-time, before a Donnarumma own goal reduced Palace's deficit to 1–2. Cherki restored the two-goal cushion just three minutes later, and Haaland completed the scoring in the 84th minute. The away win made the selection successful.",
+          "Manchester City to win (1X2)"
+        ],
+        "es": [
+          "Manchester City vence 4–1 en Crystal Palace",
+          "La victoria visitante 1–4 del Manchester City confirma el pronóstico 1X2.",
+          "Haaland abrió el marcador en el minuto 17 y Cherki amplió la ventaja tras el descanso. Un autogol de Donnarumma acercó al Palace a 1–2, pero Cherki respondió tres minutos después. Haaland cerró el 1–4 en el minuto 84. La victoria visitante cumplió la selección publicada.",
+          "Victoria del Manchester City (1X2)"
+        ],
+        "pt": [
+          "Manchester City vence por 4–1 em casa do Crystal Palace",
+          "A vitória fora por 4–1 do Manchester City confirmou o prognóstico 1X2.",
+          "Haaland inaugurou o marcador aos 17 minutos e Cherki ampliou a vantagem após o intervalo. Um autogolo de Donnarumma permitiu ao Palace reduzir para 1–2, mas Cherki respondeu três minutos depois. Haaland fixou o resultado em 1–4 aos 84 minutos. A vitória fora confirmou a seleção publicada.",
+          "Vitória do Manchester City (1X2)"
+        ],
+        "it": [
+          "Manchester City vince 4–1 sul campo del Crystal Palace",
+          "Il successo esterno per 4–1 del Manchester City conferma la selezione 1X2.",
+          "Haaland ha segnato al 17', Cherki ha raddoppiato nella ripresa. Un autogol di Donnarumma ha portato il Palace sull'1–2, ma Cherki ha ristabilito subito il doppio vantaggio. Haaland ha fissato il punteggio sul 4–1 all'84'. La vittoria esterna ha reso vincente il pronostico.",
+          "Vittoria Manchester City (1X2)"
+        ],
+        "fr": [
+          "Manchester City s’impose 4–1 à Crystal Palace",
+          "Le succès 4–1 de Manchester City à l’extérieur valide le pronostic 1X2.",
+          "Haaland a ouvert le score à la 17e minute, puis Cherki a doublé la mise. Un but contre son camp de Donnarumma a ramené Palace à 1–2, mais Cherki a rapidement rétabli l’écart. Haaland a porté le score à 1–4 à la 84e. La victoire à l’extérieur confirme la sélection.",
+          "Victoire de Manchester City (1X2)"
+        ],
+        "nl": [
+          "Manchester City wint met 4-1 bij Crystal Palace",
+          "De uitzege van Manchester City met 4-1 bevestigde de gepubliceerde 1X2-voorspelling.",
+          "Haaland zette City in de 17e minuut op voorsprong, waarna Cherki de marge na rust verdubbelde. Door een eigen doelpunt van Donnarumma kwam Palace terug tot 1-2, maar Cherki maakte drie minuten later de 1-3. Haaland bepaalde de eindstand op 1-4. De uitoverwinning maakte de selectie winnend.",
+          "Manchester City wint (1X2)"
+        ],
+        "zh": [
+          "曼城作客水晶宮以4比1獲勝",
+          "曼城以4比1取得客場勝利，符合賽前發布的1X2客勝預測。",
+          "Haaland在第17分鐘先開紀錄，Cherki於下半場擴大領先。Donnarumma的一記烏龍球令水晶宮追至1比2，但Cherki三分鐘後再次破門。Haaland於第84分鐘鎖定4比1勝局。由於曼城取得客勝，這項1X2預測判定成功。",
+          "曼城獲勝（1X2）"
+        ]
+      }
+    },
+    {
+      "tipp_id": "BI-20260904-163328-FRA",
+      "match_date": "2026-09-05",
+      "home": "TSG Hoffenheim",
+      "away": "Borussia Dortmund",
+      "match": "TSG Hoffenheim – Borussia Dortmund",
+      "score": "2:3",
+      "league": "Bundesliga",
+      "market": "Über 2,5 Tore",
+      "odds": 1.46,
+      "units": 2,
+      "outcome": "WON",
+      "tipper": "Frank",
+      "source_url": "https://www.bundesliga.com/en/bundesliga/news/hoffenheim-borussia-dortmund-match-report-highlights-matchday-2-39040",
+      "events": [
+        {
+          "minute": "45′",
+          "player": "Alvian Avdullahu",
+          "score": "1:0",
+          "kind": "goal"
+        },
+        {
+          "minute": "54′",
+          "player": "Tim Lemperle",
+          "score": "2:0",
+          "kind": "goal"
+        },
+        {
+          "minute": "61′",
+          "player": "Serhou Guirassy",
+          "score": "2:1",
+          "kind": "goal"
+        },
+        {
+          "minute": "66′",
+          "player": "Fábio Silva",
+          "score": "2:2",
+          "kind": "goal"
+        },
+        {
+          "minute": "86′",
+          "player": "Albian Hajdari",
+          "score": "2:3",
+          "kind": "own"
+        }
+      ],
+      "copy": {
+        "de": [
+          "Hoffenheim – Dortmund 2:3: fünf Tore nach spektakulärer Wende",
+          "Mit fünf Treffern lag die Partie über 2,5 Toren. Der veröffentlichte Over-Tipp war gewonnen.",
+          "Hoffenheim ging durch Avdullahu kurz vor der Pause und Lemperle in Minute 54 mit 2:0 in Führung. Guirassy erzielte in Minute 61 das 2:1 – bereits dieses dritte Tor erfüllte den Über-2,5-Markt. Fábio Silva glich aus, ein Eigentor von Hajdari brachte Dortmund schließlich den Sieg. Für die Tippwertung zählt die Gesamtzahl der Tore, nicht der Sieger.",
+          "Über 2,5 Tore"
+        ],
+        "en": [
+          "Hoffenheim – Dortmund 2–3: five goals in dramatic comeback",
+          "Five goals exceeded the over-2.5 line, so the published selection won.",
+          "Hoffenheim led 2–0 through Avdullahu shortly before the break and Lemperle after 54 minutes. Guirassy made it 2–1 in the 61st minute, and that third goal already settled the over-2.5 selection as a winner. Fábio Silva levelled before a Hajdari own goal secured Dortmund's comeback. It was the goal total, not the winner, that mattered for the bet.",
+          "Over 2.5 goals"
+        ],
+        "es": [
+          "Hoffenheim – Dortmund 2–3: cinco goles y remontada",
+          "Los cinco goles superaron la línea de más de 2,5: pronóstico ganado.",
+          "Hoffenheim se puso 2–0 con goles de Avdullahu y Lemperle. Guirassy recortó distancias en el minuto 61; ese tercer gol ya bastaba para acertar el más de 2,5. Fábio Silva empató y un autogol de Hajdari dio la victoria al Dortmund. El pronóstico dependía del total de goles, no del ganador.",
+          "Más de 2,5 goles"
+        ],
+        "pt": [
+          "Hoffenheim – Dortmund 2–3: cinco golos e reviravolta",
+          "Os cinco golos superaram a linha de mais de 2,5: prognóstico ganho.",
+          "O Hoffenheim chegou ao 2–0 com golos de Avdullahu e Lemperle. Guirassy reduziu aos 61 minutos; esse terceiro golo já tornava vencedor o mercado mais de 2,5. Fábio Silva empatou e um autogolo de Hajdari completou a reviravolta do Dortmund. A seleção dependia do número de golos, não do vencedor.",
+          "Mais de 2,5 golos"
+        ],
+        "it": [
+          "Hoffenheim – Dortmund 2–3: cinque reti e rimonta",
+          "Cinque gol superano la soglia over 2,5 e rendono vincente la selezione.",
+          "L'Hoffenheim si è portato sul 2-0 con Avdullahu e Lemperle. Guirassy ha accorciato al 61': già la terza rete assicurava l'over 2,5. Fábio Silva ha pareggiato e un autogol di Hajdari ha completato la rimonta del Dortmund. Conta il totale dei gol, non la squadra vincente.",
+          "Over 2,5 gol"
+        ],
+        "fr": [
+          "Hoffenheim – Dortmund 2–3 : cinq buts et remontée",
+          "Les cinq buts dépassent le seuil de plus de 2,5 : pronostic gagnant.",
+          "Hoffenheim menait 2–0 grâce à Avdullahu puis Lemperle. Guirassy a réduit la marque à la 61e minute : ce troisième but suffisait déjà à valider le plus de 2,5. Fábio Silva a égalisé, puis un but contre son camp de Hajdari a offert la victoire au BVB. Seul le total de buts comptait pour ce choix.",
+          "Plus de 2,5 buts"
+        ],
+        "nl": [
+          "Hoffenheim – Dortmund 2-3: vijf doelpunten en comeback",
+          "Vijf treffers betekenden meer dan 2,5 doelpunten: de voorspelling won.",
+          "Hoffenheim nam een 2-0-voorsprong via Avdullahu en Lemperle. Guirassy maakte in de 61e minuut de 2-1, waarmee de grens van 2,5 doelpunten al was overschreden. Fábio Silva maakte gelijk en een eigen doelpunt van Hajdari bezorgde Dortmund de zege. Voor deze weddenschap telde het aantal doelpunten, niet de winnaar.",
+          "Meer dan 2,5 doelpunten"
+        ],
+        "zh": [
+          "霍芬海姆對多特蒙德2比3：五球逆轉",
+          "全場攻入五球，超過2.5球門檻，賽前投注成功。",
+          "霍芬海姆由Avdullahu和Lemperle取得2比0領先。Guirassy在第61分鐘追成2比1，第三個進球已讓「大於2.5球」條件成立。Fábio Silva隨後扳平，多特蒙德再因Hajdari的烏龍球逆轉獲勝。此項預測看的是總進球數，並非勝方。",
+          "總進球數大於2.5球"
+        ]
+      }
+    },
+    {
+      "tipp_id": "BI-20260908-151838-FRA",
+      "match_date": "2026-09-08",
+      "home": "Borussia Dortmund",
+      "away": "Villarreal CF",
+      "match": "Borussia Dortmund – Villarreal CF",
+      "score": "3:2",
+      "league": "UEFA Champions League",
+      "market": "Borussia Dortmund gewinnt (1X2)",
+      "odds": 1.78,
+      "units": 2,
+      "outcome": "WON",
+      "tipper": "Frank",
+      "source_url": "https://datencenter.dfb.de/datencenter/champions-league/2026-2027/1/borussia-dortmund-fc-villarreal-2429579",
+      "events": [
+        {
+          "minute": "53′",
+          "player": "Renato Veiga",
+          "score": "1:0",
+          "kind": "own"
+        },
+        {
+          "minute": "66′",
+          "player": "Santiago Mouriño",
+          "score": "1:1",
+          "kind": "goal"
+        },
+        {
+          "minute": "80′",
+          "player": "Serhou Guirassy",
+          "score": "2:1",
+          "kind": "goal"
+        },
+        {
+          "minute": "85′",
+          "player": "Serhou Guirassy",
+          "score": "3:1",
+          "kind": "penalty"
+        },
+        {
+          "minute": "90.+3′",
+          "player": "Serhou Guirassy",
+          "score": "3:2",
+          "kind": "own"
+        }
+      ],
+      "copy": {
+        "de": [
+          "Dortmund – Villarreal 3:2: Heimsieg trotz spätem Eigentor",
+          "Borussia Dortmund gewann 3:2. Damit traf der veröffentlichte 1X2-Heimsieg zu.",
+          "Ein Eigentor von Renato Veiga brachte Dortmund nach der Pause in Führung. Santiago Mouriño glich für Villarreal aus; Guirassy erzielte in der 80. Minute das 2:1 und fünf Minuten später per Elfmeter das 3:1. In der Nachspielzeit traf Guirassy auch ins eigene Tor, doch Dortmund behauptete das 3:2. Die getippte Heimmannschaft gewann.",
+          "Borussia Dortmund gewinnt (1X2)"
+        ],
+        "en": [
+          "Dortmund – Villarreal 3–2: home win survives late own goal",
+          "Borussia Dortmund won 3–2, validating the 1X2 home-win selection.",
+          "Renato Veiga's own goal handed Dortmund the lead after half-time. Santiago Mouriño levelled for Villarreal before Guirassy scored in the 80th minute and added a penalty five minutes later. An own goal by Guirassy made it 3–2 in added time, but Dortmund held on. The selected home team won.",
+          "Borussia Dortmund to win (1X2)"
+        ],
+        "es": [
+          "Dortmund – Villarreal 3–2: triunfo pese a autogol tardío",
+          "El Dortmund ganó 3–2 y confirmó el pronóstico 1X2 de victoria local.",
+          "Un autogol de Renato Veiga adelantó al Dortmund. Santiago Mouriño empató para el Villarreal, pero Guirassy marcó en el minuto 80 y amplió la ventaja de penalti en el 85. El propio Guirassy anotó después un autogol en el descuento; aun así, el Dortmund sostuvo el 3–2.",
+          "Victoria del Borussia Dortmund (1X2)"
+        ],
+        "pt": [
+          "Dortmund – Villarreal 3–2: triunfo apesar de autogolo tardio",
+          "O Dortmund venceu por 3–2 e confirmou o prognóstico 1X2 de vitória caseira.",
+          "Um autogolo de Renato Veiga colocou o Dortmund na frente. Santiago Mouriño empatou, mas Guirassy marcou aos 80 minutos e novamente de penálti aos 85. Já no tempo de compensação, Guirassy fez um autogolo que reduziu para 3–2. O Dortmund manteve a vantagem e a seleção foi ganha.",
+          "Vitória do Borussia Dortmund (1X2)"
+        ],
+        "it": [
+          "Dortmund – Villarreal 3–2: vittoria nonostante autogol finale",
+          "Il Dortmund ha vinto 3-2, confermando la selezione 1X2 sulla squadra di casa.",
+          "Un autogol di Renato Veiga ha portato avanti il Dortmund. Santiago Mouriño ha pareggiato, ma Guirassy ha segnato all'80' e poi su rigore all'85'. Nel recupero lo stesso Guirassy ha realizzato un autogol che ha portato il risultato sul 3-2. Il Dortmund ha comunque difeso la vittoria.",
+          "Vittoria Borussia Dortmund (1X2)"
+        ],
+        "fr": [
+          "Dortmund – Villarreal 3–2 : victoire malgré un csc tardif",
+          "Dortmund s'impose 3–2 et valide le pronostic 1X2 à domicile.",
+          "Un but contre son camp de Renato Veiga a donné l'avantage au BVB. Santiago Mouriño a égalisé, mais Guirassy a marqué à la 80e puis sur penalty à la 85e. Dans le temps additionnel, Guirassy a aussi inscrit un but contre son camp. Dortmund a néanmoins conservé son avance 3–2, validant le choix.",
+          "Victoire de Borussia Dortmund (1X2)"
+        ],
+        "nl": [
+          "Dortmund – Villarreal 3-2: thuiszege ondanks late eigen goal",
+          "Dortmund won met 3-2 en bevestigde de gepubliceerde 1X2-thuiswinst.",
+          "Een eigen doelpunt van Renato Veiga gaf Dortmund de leiding. Santiago Mouriño maakte gelijk voor Villarreal. Guirassy scoorde in de 80e minuut de 2-1 en vijf minuten later vanaf de strafschopstip de 3-1. In blessuretijd maakte hij ook een eigen doelpunt, maar Dortmund hield de 3-2 vast.",
+          "Borussia Dortmund wint (1X2)"
+        ],
+        "zh": [
+          "多特蒙德對比利亞雷亞爾3比2：主勝投注成功",
+          "多特蒙德最終以3比2獲勝，符合賽前1X2主勝選擇。",
+          "Renato Veiga的烏龍球讓多特蒙德在下半場取得領先，Santiago Mouriño隨後為比利亞雷亞爾追平。Guirassy在第80分鐘進球，五分鐘後又以十二碼擴大優勢。傷停補時Guirassy不慎踢進烏龍球，但多特蒙德仍守住3比2。",
+          "多特蒙德獲勝（1X2）"
+        ]
+      }
+    },
+    {
+      "tipp_id": "BI-20260911-110018-FRA",
+      "match_date": "2026-09-11",
+      "home": "SV Darmstadt 98",
+      "away": "Arminia Bielefeld",
+      "match": "SV Darmstadt 98 – Arminia Bielefeld",
+      "score": "2:1",
+      "league": "2. Bundesliga",
+      "market": "Darmstadt gewinnt (1X2)",
+      "odds": 2.87,
+      "units": 2,
+      "outcome": "WON",
+      "tipper": "Frank",
+      "source_url": "https://www.bundesliga.com/de/2bundesliga/news/sv-darmstadt-98-dsc-arminia-bielefeld-spieltag-5-spielbericht-highlights-39137",
+      "events": [
+        {
+          "minute": "3′",
+          "player": "Ho-jae Lee",
+          "score": "1:0",
+          "kind": "goal"
+        },
+        {
+          "minute": "59′",
+          "player": "Marius Wörl",
+          "score": "1:1",
+          "kind": "goal"
+        },
+        {
+          "minute": "86′",
+          "player": "Milan Smit",
+          "score": "2:1",
+          "kind": "penalty"
+        }
+      ],
+      "copy": {
+        "de": [
+          "Darmstadt – Bielefeld 2:1: später Strafstoß entscheidet",
+          "Darmstadt siegte 2:1 und erfüllte damit den getippten 1X2-Heimsieg.",
+          "Lee brachte Darmstadt bereits in Minute drei in Führung. Bielefeld glich in der 59. Minute durch Wörl aus und hatte längere Phasen mit mehr Spielanteilen. Erst ein Strafstoß von Milan Smit in der 86. Minute brachte Darmstadt erneut nach vorn. Das 2:1 blieb bestehen; deshalb war der Heimsieg-Tipp bei Quote 2,87 gewonnen.",
+          "Darmstadt gewinnt (1X2)"
+        ],
+        "en": [
+          "Darmstadt – Bielefeld 2–1: late penalty decides it",
+          "Darmstadt's 2–1 win validated the published 1X2 home-win selection.",
+          "Lee gave Darmstadt the lead after only three minutes. Bielefeld equalised through Wörl in the 59th minute and enjoyed long spells of pressure. Milan Smit's 86th-minute penalty put Darmstadt ahead again. The home team held on, confirming the selection at odds of 2.87.",
+          "Darmstadt to win (1X2)"
+        ],
+        "es": [
+          "Darmstadt – Bielefeld 2–1: penalti decisivo al final",
+          "Darmstadt ganó 2–1 y confirmó el pronóstico 1X2 de victoria local.",
+          "Lee adelantó al Darmstadt en el minuto tres. Wörl empató para el Bielefeld en el 59, tras una fase de presión visitante. Milan Smit marcó el penalti decisivo en el minuto 86. El 2–1 final validó la selección a cuota 2,87.",
+          "Victoria del Darmstadt (1X2)"
+        ],
+        "pt": [
+          "Darmstadt – Bielefeld 2–1: penálti decisivo no final",
+          "O Darmstadt venceu por 2–1 e confirmou o prognóstico 1X2 de vitória em casa.",
+          "Lee colocou o Darmstadt na frente logo aos três minutos. Wörl empatou para o Bielefeld aos 59, depois de um período de pressão dos visitantes. Milan Smit converteu o penálti decisivo aos 86 minutos. O 2–1 final validou a seleção com cotação de 2,87.",
+          "Vitória do Darmstadt (1X2)"
+        ],
+        "it": [
+          "Darmstadt – Bielefeld 2–1: rigore decisivo nel finale",
+          "La vittoria del Darmstadt per 2-1 conferma la previsione 1X2 casalinga.",
+          "Lee ha portato avanti il Darmstadt al 3'. Wörl ha pareggiato per il Bielefeld al 59', dopo una lunga fase di pressione ospite. Milan Smit ha trasformato il rigore decisivo all'86'. Il 2-1 finale ha reso vincente la selezione con quota 2,87.",
+          "Vittoria Darmstadt (1X2)"
+        ],
+        "fr": [
+          "Darmstadt – Bielefeld 2–1 : penalty décisif en fin de match",
+          "Darmstadt gagne 2–1 et valide le pronostic 1X2 à domicile.",
+          "Lee a ouvert le score dès la troisième minute. Wörl a égalisé pour Bielefeld à la 59e, après une période de domination des visiteurs. Milan Smit a transformé le penalty décisif à la 86e. Le score final de 2–1 valide la sélection à cote 2,87.",
+          "Victoire de Darmstadt (1X2)"
+        ],
+        "nl": [
+          "Darmstadt – Bielefeld 2-1: late strafschop beslist duel",
+          "Darmstadt won met 2-1 en bevestigde de voorspelde thuisoverwinning.",
+          "Lee zette Darmstadt al in de derde minuut op voorsprong. Wörl maakte in de 59e minuut gelijk voor Bielefeld, dat lange tijd druk zette. Milan Smit benutte in de 86e minuut de beslissende strafschop. De eindstand van 2-1 bevestigde de 1X2-selectie tegen quote 2,87.",
+          "Darmstadt wint (1X2)"
+        ],
+        "zh": [
+          "達姆施塔特對比勒費爾德2比1：末段十二碼致勝",
+          "達姆施塔特以2比1獲勝，符合賽前發布的1X2主勝預測。",
+          "Lee在第3分鐘為達姆施塔特先開紀錄。比勒費爾德一度佔據主動，Wörl於第59分鐘追成1比1。第86分鐘Milan Smit主罰十二碼得手，為主隊攻入致勝球。終場2比1，因此主勝投注成功，賠率為2.87。",
+          "達姆施塔特獲勝（1X2）"
+        ]
+      }
+    },
+    {
+      "tipp_id": "BI-20260911-105547-FRA",
+      "match_date": "2026-09-12",
+      "home": "VfL Bochum",
+      "away": "Greuther Fürth",
+      "match": "VfL Bochum – Greuther Fürth",
+      "score": "1:1",
+      "league": "2. Bundesliga",
+      "market": "Bochum gewinnt (1X2)",
+      "odds": 1.88,
+      "units": 2,
+      "outcome": "LOST",
+      "tipper": "Frank",
+      "source_url": "https://www.bundesliga.com/de/2bundesliga/news/vfl-bochum-1848-spvgg-greuther-fuerth-spieltag-5-spielbericht-highlights-39145",
+      "events": [
+        {
+          "minute": "17′",
+          "player": "Philipp Hofmann",
+          "score": "1:0",
+          "kind": "goal"
+        },
+        {
+          "minute": "71′",
+          "player": "Omar Sillah",
+          "score": "1:1",
+          "kind": "goal"
+        },
+        {
+          "minute": "82′",
+          "player": "Mats Pannewig",
+          "score": "1:1",
+          "kind": "second_yellow"
+        }
+      ],
+      "copy": {
+        "de": [
+          "Bochum – Fürth 1:1: Ausgleich kostet den Heimsieg",
+          "Bochum spielte nur 1:1. Der 1X2-Tipp auf Bochum-Sieg verlor trotz früher Führung.",
+          "Philipp Hofmann brachte Bochum in Minute 17 nach einer Ecke in Führung. Fürth kam zurück und Omar Sillah glich in der 71. Minute aus. Bochums Mats Pannewig musste nach Gelb-Rot in der 82. Minute vom Platz. Bis zum Schlusspfiff fiel kein weiteres Tor. Weil die Auswahl einen Bochumer Sieg verlangte, reichte das Unentschieden nicht aus.",
+          "Bochum gewinnt (1X2)"
+        ],
+        "en": [
+          "Bochum – Fürth 1–1: equaliser denies home-win selection",
+          "Bochum drew 1–1. The 1X2 selection on a home win lost despite an early lead.",
+          "Philipp Hofmann put Bochum ahead in the 17th minute after a corner. Fürth fought back and Omar Sillah levelled in the 71st minute. Bochum's Mats Pannewig was sent off for a second yellow card in minute 82. No winner followed. A draw does not satisfy a 1X2 Bochum-win selection.",
+          "Bochum to win (1X2)"
+        ],
+        "es": [
+          "Bochum – Fürth 1–1: el empate frustra la victoria local",
+          "Bochum empató 1–1, por lo que se perdió el pronóstico 1X2 de victoria local.",
+          "Philipp Hofmann adelantó al Bochum en el minuto 17 tras un córner. Omar Sillah empató para el Fürth en el 71. Mats Pannewig, del Bochum, fue expulsado por doble amarilla en el 82. No hubo más goles. El empate no sirve para acertar una selección 1X2 de victoria del Bochum.",
+          "Victoria del Bochum (1X2)"
+        ],
+        "pt": [
+          "Bochum – Fürth 1–1: empate impede vitória caseira",
+          "O Bochum empatou 1–1; o prognóstico 1X2 de vitória da equipa da casa foi perdido.",
+          "Philipp Hofmann colocou o Bochum na frente aos 17 minutos na sequência de um canto. Omar Sillah empatou para o Fürth aos 71. Mats Pannewig, do Bochum, foi expulso por acumulação de amarelos aos 82. Não houve mais golos. Um empate não valida a seleção 1X2 de vitória do Bochum.",
+          "Vitória do Bochum (1X2)"
+        ],
+        "it": [
+          "Bochum – Fürth 1–1: il pareggio nega la vittoria interna",
+          "Il Bochum ha pareggiato 1-1; la selezione 1X2 sulla vittoria casalinga ha perso.",
+          "Philipp Hofmann ha portato avanti il Bochum al 17' sugli sviluppi di un corner. Omar Sillah ha pareggiato per il Fürth al 71'. Mats Pannewig è stato espulso per doppia ammonizione all'82'. Non ci sono state altre reti. Un pareggio non soddisfa la previsione di vittoria del Bochum.",
+          "Vittoria Bochum (1X2)"
+        ],
+        "fr": [
+          "Bochum – Fürth 1–1 : égalisation fatale au pari maison",
+          "Bochum fait 1–1, ce qui entraîne la perte du pronostic 1X2 sur sa victoire.",
+          "Philipp Hofmann a ouvert le score pour Bochum à la 17e minute après un corner. Omar Sillah a égalisé pour Fürth à la 71e. Mats Pannewig, côté Bochum, a reçu un deuxième carton jaune à la 82e minute. Aucun autre but n'a été inscrit. Le nul ne permet pas de gagner un pari 1X2 sur Bochum.",
+          "Victoire de Bochum (1X2)"
+        ],
+        "nl": [
+          "Bochum – Fürth 1-1: gelijkmaker kost de thuiszege",
+          "Bochum speelde 1-1 en verloor daardoor de 1X2-selectie op een thuisoverwinning.",
+          "Philipp Hofmann zette Bochum in de 17e minuut na een corner op voorsprong. Omar Sillah maakte namens Fürth in de 71e minuut gelijk. Mats Pannewig kreeg in de 82e minuut een tweede gele kaart en moest vertrekken. Een winnende treffer bleef uit. Het gelijkspel was onvoldoende voor de voorspelde thuiszege.",
+          "Bochum wint (1X2)"
+        ],
+        "zh": [
+          "波鴻對菲爾特1比1：追平進球使主勝投注失敗",
+          "波鴻最終1比1戰平，因此賽前1X2主勝預測失敗。",
+          "第17分鐘Philipp Hofmann接應角球為波鴻取得領先。第71分鐘Omar Sillah為菲爾特扳成1比1。第82分鐘波鴻球員Mats Pannewig因第二張黃牌被罰下，之後雙方均未再進球。1X2主勝必須波鴻獲勝，平局不符合條件。",
+          "波鴻獲勝（1X2）"
+        ]
+      }
+    }
+  ]
+}
