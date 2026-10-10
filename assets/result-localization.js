@@ -22,6 +22,11 @@ fr:"1. Borussia Dortmund – Werder Bremen – 1X2 : victoire de Dortmund @ 1,35
 nl:"1. Borussia Dortmund – Werder Bremen – 1X2: Dortmund wint @ 1,35 | 2. Málaga – Espanyol – Dubbele kans X2: gelijkspel of Espanyol wint @ 1,37",
 zh:"1. Borussia Dortmund – Werder Bremen – 1X2：多特蒙德獲勝 @ 1.35 | 2. Málaga – Espanyol – 雙重機會X2：平局或西班牙人獲勝 @ 1.37"};
 const confirmed={
+"BI-20260826-001536-MAR":{nl:"Manchester City wint (1X2)",zh:"曼城獲勝（1X2）"},
+"BI-20260904-163328-FRA":{nl:"Meer dan 2,5 doelpunten",zh:"總進球數大於2.5球"},
+"BI-20260908-151838-FRA":{nl:"Borussia Dortmund wint (1X2)",zh:"多特蒙德獲勝（1X2）"},
+"BI-20260911-110018-FRA":{nl:"Darmstadt wint (1X2)",zh:"達姆施塔特獲勝（1X2）"},
+"BI-20260911-105547-FRA":{nl:"Bochum wint (1X2)",zh:"波鴻獲勝（1X2）"},
 "BI-20261004-011406-MAR":{nl:"Mallorca wint (1X2)",zh:"馬略卡獲勝（1X2）"},
 "BI-20261004-011255-MAR":{nl:"Las Palmas wint (1X2)",zh:"拉斯帕爾馬斯獲勝（1X2）"},
 "BI-20261002-145749-MAR":{nl:"Eldense – gelijkspel geen weddenschap (Draw No Bet)",zh:"埃登斯——和局退款（Draw No Bet）"},
