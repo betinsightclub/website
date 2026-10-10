@@ -1,0 +1,89 @@
+name: BetInsight Result Reports - Five-Game Batch 002
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-result-report-batch-002.yml"
+      - ".github/scripts/publish_result_report_batch_002.py"
+      - "docs/result-report-batches/block-002-editorial.json"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: betinsight-result-review-batch-002
+  cancel-in-progress: false
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Chinese fonts and Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk
+          python -m pip install --disable-pip-version-check "Pillow>=10,<13"
+      - name: Check source data and syntax
+        run: |
+          python -m py_compile .github/scripts/publish_result_report_batch_002.py .github/scripts/publish_result_report_batch.py .github/scripts/publish_result_report_multilingual.py
+          node --check assets/tip-report-live.js
+          test -s assets/templates/betinsight-result-master-blanko.png
+      - name: Generate five verified match articles and covers in eight languages
+        run: python .github/scripts/publish_result_report_batch_002.py
+      - name: Validate all forty reports and preview images
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json,re
+          R=Path('.')
+          S=json.loads((R/'docs/result-report-batches/block-002-editorial.json').read_text())
+          langs=['de','en','es','pt','it','fr','nl','zh']
+          assert S['language_codes']==langs and len(S['items'])==5
+          for item in S['items']:
+            id=item['tipp_id']
+            story=json.loads((R/'assets/match-report-stories'/f'{id}.json').read_text())
+            assert story['odds']==item['odds'] and story['units']==item['units']
+            assert story['outcome']==item['outcome']
+            for l in langs:
+              page=R/l/'tipps'/'ergebnis'/id/'index.html'
+              pic=R/'assets'/'og'/f'{id.lower()}-{l}-v1.jpg'
+              assert page.is_file() and pic.is_file(),(id,l)
+              html=page.read_text()
+              assert html.count('rel="alternate" hreflang=')==9
+              assert 'data-report-embedded' in html and 'tip-report-live.js' in html
+              assert 'application/ld+json' in html and 'twitter:image' in html and 'og:image' in html
+              assert item['source_url'] in html
+              assert len(re.findall(r'<li><strong>',html))==len(item['events'])
+              assert 'pt-BR' not in html and 'Português (Brasil)' not in html
+              if l=='zh': assert '<html lang="zh-Hant-TW">' in html
+              if l=='pt': assert '<html lang="pt-PT">' in html
+              with Image.open(pic) as image:
+                assert image.size==(1200,630) and image.getexif().get(270)
+          print('PASS: all 40 new SEO reports and 40 approved-logo social images')
+          PY
+          git diff --check
+      - name: Publish batch and no financial/statistical data
+        run: |
+          set -euo pipefail
+          git config user.name "BetInsight Editorial"
+          git config user.email "actions@github.com"
+          git add docs/result-report-batches/block-002-build.json
+          for id in BI-20260826-001536-MAR BI-20260904-163328-FRA BI-20260908-151838-FRA BI-20260911-110018-FRA BI-20260911-105547-FRA; do
+            git add assets/match-report-stories/$id.json
+            low=$(printf '%s' "$id" | tr '[:upper:]' '[:lower:]')
+            for lang in de en es pt it fr nl zh; do
+              git add $lang/tipps/ergebnis/$id/index.html
+              git add assets/og/$low-$lang-v1.jpg
+            done
+          done
+          if git diff --cached --quiet; then echo 'Already published'; exit 0; fi
+          git commit -m "editorial: batch 002 real sourced 5 results x 8 languages and own preview images"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
