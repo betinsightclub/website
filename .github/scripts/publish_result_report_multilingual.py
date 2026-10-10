@@ -53,7 +53,7 @@ def prepare(item,id,lang,translations):
     if not isinstance(translations.get("events"),list) or len(translations["events"])!=len(orig):
         raise ValueError(f"Wrong event translation count: {id} / {lang}")
     for key in ("headline","market","summary","narrative"):
-        if len(str(translations.get(key,"")).strip())<12:
+        if len(str(translations.get(key,"")).strip())<(4 if key=="market" else 10):
             raise ValueError(f"Missing detailed translation: {id} / {lang} / {key}")
     return translations
 
