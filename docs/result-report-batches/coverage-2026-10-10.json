@@ -1,0 +1,172 @@
+{
+  "as_of": "2026-10-10",
+  "scope": "only confirmed quality-relevant public tips displayed in BetInsight statistics, no World Cup/test/void",
+  "statistics_total": 18,
+  "fully_reworked": 11,
+  "pending": 7,
+  "languages": [
+    "de",
+    "en",
+    "es",
+    "pt",
+    "it",
+    "fr",
+    "nl",
+    "zh"
+  ],
+  "reviewed": [
+    {
+      "id": "BI-20260826-001536-MAR",
+      "game": "Crystal Palace – Manchester City",
+      "block": "002",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20260904-163328-FRA",
+      "game": "Hoffenheim – Dortmund",
+      "block": "002",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20260908-151838-FRA",
+      "game": "Dortmund – Villarreal",
+      "block": "002",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20260911-110018-FRA",
+      "game": "Darmstadt – Bielefeld",
+      "block": "002",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20260911-105547-FRA",
+      "game": "Bochum – Greuther Fürth",
+      "block": "002",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20260925-185756-MAR",
+      "game": "Girona – Albacete",
+      "block": "001",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20260927-040207-MAR",
+      "game": "Real Valladolid – Córdoba",
+      "block": "001",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20261002-145749-MAR",
+      "game": "Eldense – Oviedo",
+      "block": "001",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20261004-011255-MAR",
+      "game": "Las Palmas – Valladolid",
+      "block": "001",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20261004-011406-MAR",
+      "game": "Girona – Mallorca",
+      "block": "001",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    },
+    {
+      "id": "BI-20261009-172442-MAR",
+      "game": "Dortmund/Bremen + Málaga/Espanyol (Kombi)",
+      "block": "KOMBI",
+      "status": "live_on_github_pages_repo",
+      "localized_articles": 8,
+      "own_previews": 8,
+      "original_stats_preserved": true
+    }
+  ],
+  "pending_queue": [
+    {
+      "id": "BI-20260912-004348-MAR",
+      "game": "Real Sociedad/Atlético + Chelsea/Hull",
+      "next_block": "003",
+      "status": "awaiting editorial and sourced match-event review"
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "game": "Villarreal/Betis + Leeds/Newcastle",
+      "next_block": "003",
+      "status": "awaiting editorial and sourced match-event review"
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "game": "Real Betis – Getafe",
+      "next_block": "003",
+      "status": "awaiting editorial and sourced match-event review"
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "game": "Málaga – Villarreal",
+      "next_block": "003",
+      "status": "awaiting editorial and sourced match-event review"
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "game": "Holstein Kiel – Osnabrück",
+      "next_block": "003",
+      "status": "awaiting editorial and sourced match-event review"
+    },
+    {
+      "id": "BI-20260918-164427-FRA",
+      "game": "Kaiserslautern – Braunschweig",
+      "next_block": "004",
+      "status": "awaiting editorial and sourced match-event review"
+    },
+    {
+      "id": "BI-20260920-134759-MAR",
+      "game": "Valencia – Real Sociedad",
+      "next_block": "004",
+      "status": "awaiting editorial and sourced match-event review"
+    }
+  ],
+  "next_step": "The user requested batches of five URLs for manual review. Deliver batch 002 links now; only then proceed with batch 003 (5), then batch 004 (2).",
+  "rules": [
+    "PT uses Portuguese from Portugal exclusively.",
+    "ZH uses traditional Chinese Taiwan; not simplified.",
+    "Use the embedded approved original-logo master picture.",
+    "Verify match report/ticker events against licensed public sources; never invent goal minutes.",
+    "Embed untouched original Backoffice report including 1,000 EUR fixed and compound figures.",
+    "Keep per-language SEO, OG, JSON-LD and image metadata.",
+    "Do not alter user bookings or outcome grading."
+  ]
+}
