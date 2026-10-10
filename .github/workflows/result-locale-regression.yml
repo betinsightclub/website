@@ -5,6 +5,7 @@ on:
     paths:
       - ".github/workflows/result-locale-regression.yml"
       - "assets/result-localization.js"
+      - "assets/tip-results-live.js"
       - "assets/stats-preview.js"
       - "assets/tip-report-live.js"
       - "assets/tip-report.css"
@@ -61,7 +62,9 @@ jobs:
             assert(list.includes('hreflang="nl-NL"'),"Missing Dutch alternate");
           }
 
-          assert(stat.includes("i18n.selection(tip[c]||tip.de,c,autoId)"));
+          assert(stat.includes("i18n.selection(tip[c]||tip.de,c,knownId)"));
+          for(const id of ["BI-20260826-001536-MAR","BI-20260904-163328-FRA","BI-20260908-151838-FRA","BI-20260911-110018-FRA","BI-20260911-105547-FRA"])
+             assert(stat.includes(id) && report.includes(id),"All 5 batch 002 archived tips must open full localized reviews");
           assert(stat.includes("i18n.match(n,c)"));
           assert(stat.includes('pt:"pt-PT"'));
           assert(report.includes('biText.selection(r.tipp||r.markt||"",lang,r.tipp_id)'));
