@@ -8,6 +8,8 @@ on:
       - "assets/stats-preview.js"
       - "assets/tip-report-live.js"
       - "assets/tip-report.css"
+      - "assets/subpage-language-switch.js"
+      - "**/tipps/index.html"
       - "**/statistik-vorschau/index.html"
       - "**/tipps/bericht/index.html"
   workflow_dispatch:
@@ -47,6 +49,18 @@ jobs:
           const stat=fs.readFileSync("assets/stats-preview.js","utf8");
           const report=fs.readFileSync("assets/tip-report-live.js","utf8");
           const css=fs.readFileSync("assets/tip-report.css","utf8");
+          const switcher=fs.readFileSync("assets/subpage-language-switch.js","utf8");
+          assert(switcher.includes('SUPPORTED = ["de","en","es","pt","it","fr","nl","zh"]'),"Tip and stats dropdown must match all 8 home languages.");
+          assert(switcher.includes('zh:"🇹🇼"'),"Use Taiwan flag for Traditional Chinese.");
+          assert(switcher.includes('zh" ? "繁中"'),"Chinese label must say 繁中.");
+          for(const lang of ["nl","zh"]){
+            const list=fs.readFileSync(lang+"/tipps/index.html","utf8");
+            assert(list.includes('result-localization.js'),"Translated result cards missing");
+            assert(list.includes('subpage-language-switch.js'),"8-language selector missing");
+            assert(list.includes('hreflang="zh-Hant-TW"'),"Missing Chinese alternate");
+            assert(list.includes('hreflang="nl-NL"'),"Missing Dutch alternate");
+          }
+
           assert(stat.includes("i18n.selection(tip[c]||tip.de,c,autoId)"));
           assert(stat.includes("i18n.match(n,c)"));
           assert(stat.includes('pt:"pt-PT"'));
