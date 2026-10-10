@@ -4,8 +4,8 @@
   // Respect it when navigating within BetInsight. Keep explicit externally
   // shared /es/, /pt/, etc. URLs unchanged for visitors and search crawlers.
   try {
-    const supported = new Set(["de", "en", "es", "pt", "it", "fr"]);
-    const preferred = localStorage.getItem("betinsight_language");
+    const supported = new Set(["de", "en", "es", "pt", "it", "fr", "nl", "zh"]);
+    const preferred = String(localStorage.getItem("betinsight_language")||"").toLowerCase().split("-")[0];
     if (!supported.has(preferred) || !document.referrer) return;
     const current = new URL(location.href);
     const previous = new URL(document.referrer);
