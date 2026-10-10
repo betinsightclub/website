@@ -7,7 +7,7 @@ import datetime as dt
 import html,json
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageOps
-from publish_result_report_batch import ROOT,DOMAIN,TEMPLATE,font,fit_font,export_image
+from publish_result_report_batch import ROOT,DOMAIN,TEMPLATE,font,fit_font,export_image,set_render_locale
 from publish_result_report_multilingual import LANGS,OG,HREF,LABELS,CSS,esc
 TID="BI-20261009-172442-MAR"
 STORY=ROOT/"assets"/"match-report-stories"/(TID+".json")
