@@ -1,4 +1,4 @@
-name: BetInsight Six-Language Combo Result 2026-10-09
+name: BetInsight Eight-Language Combo Result 2026-10-09
 on:
   push:
     branches: [main]
@@ -22,24 +22,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install Taiwanese Traditional Chinese font
+        run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
       - run: python -m pip install --disable-pip-version-check "Pillow>=10,<13"
-      - name: Validate 6-language code and approved blanko
+      - name: Validate 8-language code and approved blanko
         run: |
           test -s assets/templates/betinsight-result-master-blanko.png
           python -m py_compile .github/scripts/publish_result_combo_20261009.py
           node --check assets/result-localization.js
           node --check assets/tip-report-live.js
           node --check assets/stats-preview.js
-      - name: Build 6 verifiable combination-report images and HTML
+      - name: Build 8 verifiable combination-report images and HTML
         run: python .github/scripts/publish_result_combo_20261009.py
-      - name: Test score, six native languages, preserved original 1000 EUR statistics and OG
+      - name: Test score, eight native languages, preserved original 1000 EUR statistics and OG
         run: |
           python - <<'PY'
           import pathlib
           from PIL import Image
           root=pathlib.Path(".")
           id="BI-20261009-172442-MAR"
-          langs=["de","en","es","pt","it","fr"]
+          langs=["de","en","es","pt","it","fr","nl","zh"]
           source=(root/"assets/match-report-stories"/(id+".json")).read_text(encoding="utf-8")
           assert '"outcome": "LOST"' in source
           for lang in langs:
@@ -47,10 +49,10 @@ jobs:
               photo=root/"assets"/"og"/(id.lower()+"-"+lang+"-combo-v1.jpg")
               assert page.is_file() and photo.is_file(),(lang,"missing")
               s=page.read_text()
-              assert ("pt-PT" if lang=="pt" else f'lang="{lang}"') in s,lang
+              assert (f'lang="pt-PT"' if lang=="pt" else f'lang="zh-Hant-TW"' if lang=="zh" else f'lang="{lang}"') in s,lang
               assert "pt-BR" not in s and "Português (Brasil)" not in s
               assert "og:image" in s and "twitter:image" in s and "application/ld+json" in s
-              assert s.count('hreflang=')==7
+              assert s.count('hreflang=')==9
               assert "data-report-embedded" in s
               assert "tip-report-live.js" in s and "result-localization.js" in s
               assert "Borussia Dortmund" in s and "Espanyol" in s and "2:2" in s and "1:1" in s
@@ -59,17 +61,17 @@ jobs:
                   assert im.size==(1200,630)
                   assert im.getexif().get(270)
               print("PASS",lang,page,photo)
-          print("SIX-LANGUAGE COMBO PASSED")
+          print("EIGHT-LANGUAGE COMBO PASSED")
           PY
           git diff --check
-      - name: Publish correct all-six-language reports
+      - name: Publish correct all-eight-language reports
         run: |
           set -euo pipefail
           git config user.name "BetInsight Editorial"
           git config user.email "actions@github.com"
-          git add de/tipps/ergebnis/BI-20261009-172442-MAR/ en/tipps/ergebnis/BI-20261009-172442-MAR/ es/tipps/ergebnis/BI-20261009-172442-MAR/ pt/tipps/ergebnis/BI-20261009-172442-MAR/ it/tipps/ergebnis/BI-20261009-172442-MAR/ fr/tipps/ergebnis/BI-20261009-172442-MAR/ assets/og/bi-20261009-172442-mar-*-combo-v1.jpg
+          git add de/tipps/ergebnis/BI-20261009-172442-MAR/ en/tipps/ergebnis/BI-20261009-172442-MAR/ es/tipps/ergebnis/BI-20261009-172442-MAR/ pt/tipps/ergebnis/BI-20261009-172442-MAR/ it/tipps/ergebnis/BI-20261009-172442-MAR/ fr/tipps/ergebnis/BI-20261009-172442-MAR/ nl/tipps/ergebnis/BI-20261009-172442-MAR/ zh/tipps/ergebnis/BI-20261009-172442-MAR/ assets/og/bi-20261009-172442-mar-*-combo-v1.jpg
           if git diff --cached --quiet; then echo 'Already published'; exit 0; fi
-          git commit -m "result: localized six-language Dortmund Bremen/Malaga Espanyol report with approved covers"
+          git commit -m "result: localized eight-language Dortmund Bremen/Malaga Espanyol report with approved covers"
           for n in 1 2 3 4 5; do
             git pull --rebase origin main
             if git push origin HEAD:main; then exit 0; fi
