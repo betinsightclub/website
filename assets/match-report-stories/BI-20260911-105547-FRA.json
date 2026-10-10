@@ -1,0 +1,134 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260911-105547-FRA",
+  "match_date": "2026-09-12",
+  "kind": "single",
+  "outcome": "LOST",
+  "status": "VERLOREN",
+  "home": "VfL Bochum",
+  "away": "Greuther Fürth",
+  "match": "VfL Bochum – Greuther Fürth",
+  "score": "1:1",
+  "market": "Bochum gewinnt (1X2)",
+  "odds": 1.88,
+  "units": 2,
+  "league": "2. Bundesliga",
+  "verified_source": "Independent official match report",
+  "source_url": "https://www.bundesliga.com/de/2bundesliga/news/vfl-bochum-1848-spvgg-greuther-fuerth-spieltag-5-spielbericht-highlights-39145",
+  "source_checked_at": "2026-10-10",
+  "leg_status": "LOST",
+  "legs": [
+    {
+      "home": "VfL Bochum",
+      "away": "Greuther Fürth",
+      "score": "1:1",
+      "status": "FT",
+      "market_label": "Bochum gewinnt (1X2)",
+      "selection_outcome": "LOST",
+      "source_url": "https://www.bundesliga.com/de/2bundesliga/news/vfl-bochum-1848-spvgg-greuther-fuerth-spieltag-5-spielbericht-highlights-39145",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "17′",
+          "text": "Philipp Hofmann erzielt das 1:0.",
+          "text_en": "Philipp Hofmann scores to make it 1:0."
+        },
+        {
+          "minute": "71′",
+          "text": "Omar Sillah erzielt das 1:1.",
+          "text_en": "Omar Sillah scores to make it 1:1."
+        },
+        {
+          "minute": "82′",
+          "text": "Mats Pannewig sieht Gelb-Rot, der Spielstand bleibt 1:1.",
+          "text_en": "Mats Pannewig is sent off for a second yellow; the score is 1:1."
+        }
+      ],
+      "narrative_de": "Philipp Hofmann brachte Bochum in Minute 17 nach einer Ecke in Führung. Fürth kam zurück und Omar Sillah glich in der 71. Minute aus. Bochums Mats Pannewig musste nach Gelb-Rot in der 82. Minute vom Platz. Bis zum Schlusspfiff fiel kein weiteres Tor. Weil die Auswahl einen Bochumer Sieg verlangte, reichte das Unentschieden nicht aus.",
+      "narrative_en": "Philipp Hofmann put Bochum ahead in the 17th minute after a corner. Fürth fought back and Omar Sillah levelled in the 71st minute. Bochum's Mats Pannewig was sent off for a second yellow card in minute 82. No winner followed. A draw does not satisfy a 1X2 Bochum-win selection."
+    }
+  ],
+  "summary_de": "Bochum spielte nur 1:1. Der 1X2-Tipp auf Bochum-Sieg verlor trotz früher Führung.",
+  "summary_en": "Bochum drew 1–1. The 1X2 selection on a home win lost despite an early lead.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Bochum – Fürth 1–1: equaliser denies home-win selection",
+      "market": "Bochum to win (1X2)",
+      "summary": "Bochum drew 1–1. The 1X2 selection on a home win lost despite an early lead.",
+      "narrative": "Philipp Hofmann put Bochum ahead in the 17th minute after a corner. Fürth fought back and Omar Sillah levelled in the 71st minute. Bochum's Mats Pannewig was sent off for a second yellow card in minute 82. No winner followed. A draw does not satisfy a 1X2 Bochum-win selection.",
+      "events": [
+        "Philipp Hofmann scores to make it 1:0.",
+        "Omar Sillah scores to make it 1:1.",
+        "Mats Pannewig is sent off for a second yellow; the score is 1:1."
+      ]
+    },
+    "es": {
+      "headline": "Bochum – Fürth 1–1: el empate frustra la victoria local",
+      "market": "Victoria del Bochum (1X2)",
+      "summary": "Bochum empató 1–1, por lo que se perdió el pronóstico 1X2 de victoria local.",
+      "narrative": "Philipp Hofmann adelantó al Bochum en el minuto 17 tras un córner. Omar Sillah empató para el Fürth en el 71. Mats Pannewig, del Bochum, fue expulsado por doble amarilla en el 82. No hubo más goles. El empate no sirve para acertar una selección 1X2 de victoria del Bochum.",
+      "events": [
+        "Philipp Hofmann marca el 1:0.",
+        "Omar Sillah marca el 1:1.",
+        "Mats Pannewig es expulsado por doble amarilla con el marcador 1:1."
+      ]
+    },
+    "pt": {
+      "headline": "Bochum – Fürth 1–1: empate impede vitória caseira",
+      "market": "Vitória do Bochum (1X2)",
+      "summary": "O Bochum empatou 1–1; o prognóstico 1X2 de vitória da equipa da casa foi perdido.",
+      "narrative": "Philipp Hofmann colocou o Bochum na frente aos 17 minutos na sequência de um canto. Omar Sillah empatou para o Fürth aos 71. Mats Pannewig, do Bochum, foi expulso por acumulação de amarelos aos 82. Não houve mais golos. Um empate não valida a seleção 1X2 de vitória do Bochum.",
+      "events": [
+        "Philipp Hofmann marca o 1:0.",
+        "Omar Sillah marca o 1:1.",
+        "Mats Pannewig é expulso por acumulação de amarelos com o resultado em 1:1."
+      ]
+    },
+    "it": {
+      "headline": "Bochum – Fürth 1–1: il pareggio nega la vittoria interna",
+      "market": "Vittoria Bochum (1X2)",
+      "summary": "Il Bochum ha pareggiato 1-1; la selezione 1X2 sulla vittoria casalinga ha perso.",
+      "narrative": "Philipp Hofmann ha portato avanti il Bochum al 17' sugli sviluppi di un corner. Omar Sillah ha pareggiato per il Fürth al 71'. Mats Pannewig è stato espulso per doppia ammonizione all'82'. Non ci sono state altre reti. Un pareggio non soddisfa la previsione di vittoria del Bochum.",
+      "events": [
+        "Philipp Hofmann segna il 1:0.",
+        "Omar Sillah segna il 1:1.",
+        "Mats Pannewig viene espulso per doppia ammonizione sul 1:1."
+      ]
+    },
+    "fr": {
+      "headline": "Bochum – Fürth 1–1 : égalisation fatale au pari maison",
+      "market": "Victoire de Bochum (1X2)",
+      "summary": "Bochum fait 1–1, ce qui entraîne la perte du pronostic 1X2 sur sa victoire.",
+      "narrative": "Philipp Hofmann a ouvert le score pour Bochum à la 17e minute après un corner. Omar Sillah a égalisé pour Fürth à la 71e. Mats Pannewig, côté Bochum, a reçu un deuxième carton jaune à la 82e minute. Aucun autre but n'a été inscrit. Le nul ne permet pas de gagner un pari 1X2 sur Bochum.",
+      "events": [
+        "Philipp Hofmann marque : 1:0.",
+        "Omar Sillah marque : 1:1.",
+        "Mats Pannewig est expulsé après un deuxième jaune, score 1:1."
+      ]
+    },
+    "nl": {
+      "headline": "Bochum – Fürth 1-1: gelijkmaker kost de thuiszege",
+      "market": "Bochum wint (1X2)",
+      "summary": "Bochum speelde 1-1 en verloor daardoor de 1X2-selectie op een thuisoverwinning.",
+      "narrative": "Philipp Hofmann zette Bochum in de 17e minuut na een corner op voorsprong. Omar Sillah maakte namens Fürth in de 71e minuut gelijk. Mats Pannewig kreeg in de 82e minuut een tweede gele kaart en moest vertrekken. Een winnende treffer bleef uit. Het gelijkspel was onvoldoende voor de voorspelde thuiszege.",
+      "events": [
+        "Philipp Hofmann scoort en brengt de stand op 1:0.",
+        "Omar Sillah scoort en brengt de stand op 1:1.",
+        "Mats Pannewig krijgt zijn tweede gele kaart en moet vertrekken bij 1:1."
+      ]
+    },
+    "zh": {
+      "headline": "波鴻對菲爾特1比1：追平進球使主勝投注失敗",
+      "market": "波鴻獲勝（1X2）",
+      "summary": "波鴻最終1比1戰平，因此賽前1X2主勝預測失敗。",
+      "narrative": "第17分鐘Philipp Hofmann接應角球為波鴻取得領先。第71分鐘Omar Sillah為菲爾特扳成1比1。第82分鐘波鴻球員Mats Pannewig因第二張黃牌被罰下，之後雙方均未再進球。1X2主勝必須波鴻獲勝，平局不符合條件。",
+      "events": [
+        "Philipp Hofmann進球，比分改寫為1:0。",
+        "Omar Sillah進球，比分改寫為1:1。",
+        "Mats Pannewig領到第二張黃牌被罰下，比分仍為1:1。"
+      ]
+    }
+  }
+}

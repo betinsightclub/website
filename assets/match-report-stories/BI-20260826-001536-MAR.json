@@ -1,0 +1,158 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260826-001536-MAR",
+  "match_date": "2026-08-28",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "Crystal Palace",
+  "away": "Manchester City",
+  "match": "Crystal Palace – Manchester City",
+  "score": "1:4",
+  "market": "Manchester City gewinnt (1X2)",
+  "odds": 1.6,
+  "units": 3,
+  "league": "Premier League",
+  "verified_source": "Independent official match report",
+  "source_url": "https://www.cpfc.co.uk/news/match-reports/report-highlights-palace-manchester-city-august-2026/",
+  "source_checked_at": "2026-10-10",
+  "leg_status": "WON",
+  "legs": [
+    {
+      "home": "Crystal Palace",
+      "away": "Manchester City",
+      "score": "1:4",
+      "status": "FT",
+      "market_label": "Manchester City gewinnt (1X2)",
+      "selection_outcome": "WON",
+      "source_url": "https://www.cpfc.co.uk/news/match-reports/report-highlights-palace-manchester-city-august-2026/",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "17′",
+          "text": "Erling Haaland erzielt das 0:1.",
+          "text_en": "Erling Haaland scores to make it 0:1."
+        },
+        {
+          "minute": "54′",
+          "text": "Rayan Cherki erzielt das 0:2.",
+          "text_en": "Rayan Cherki scores to make it 0:2."
+        },
+        {
+          "minute": "56′",
+          "text": "Eigentor durch Gianluigi Donnarumma: 1:2.",
+          "text_en": "Own goal by Gianluigi Donnarumma: 1:2."
+        },
+        {
+          "minute": "59′",
+          "text": "Rayan Cherki erzielt das 1:3.",
+          "text_en": "Rayan Cherki scores to make it 1:3."
+        },
+        {
+          "minute": "84′",
+          "text": "Erling Haaland erzielt das 1:4.",
+          "text_en": "Erling Haaland scores to make it 1:4."
+        }
+      ],
+      "narrative_de": "Haaland brachte City nach 17 Minuten nach vorn. Cherki erhöhte nach der Pause, ehe ein Eigentor Donnarummas Crystal Palace kurz auf 1:2 heranbrachte. Cherki stellte nur drei Minuten später den Zwei-Tore-Abstand wieder her, Haaland besiegelte in Minute 84 das 1:4. Entscheidend für die BetInsight-Auswahl war der klare Auswärtssieg.",
+      "narrative_en": "Haaland put City ahead in the 17th minute. Cherki doubled the lead after half-time, before a Donnarumma own goal reduced Palace's deficit to 1–2. Cherki restored the two-goal cushion just three minutes later, and Haaland completed the scoring in the 84th minute. The away win made the selection successful."
+    }
+  ],
+  "summary_de": "Der getippte Manchester-City-Sieg trat mit 1:4 ein; die 1X2-Auswahl war gewonnen.",
+  "summary_en": "Manchester City won 4–1 away, validating the published 1X2 away-win selection.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Manchester City win 4–1 at Crystal Palace",
+      "market": "Manchester City to win (1X2)",
+      "summary": "Manchester City won 4–1 away, validating the published 1X2 away-win selection.",
+      "narrative": "Haaland put City ahead in the 17th minute. Cherki doubled the lead after half-time, before a Donnarumma own goal reduced Palace's deficit to 1–2. Cherki restored the two-goal cushion just three minutes later, and Haaland completed the scoring in the 84th minute. The away win made the selection successful.",
+      "events": [
+        "Erling Haaland scores to make it 0:1.",
+        "Rayan Cherki scores to make it 0:2.",
+        "Own goal by Gianluigi Donnarumma: 1:2.",
+        "Rayan Cherki scores to make it 1:3.",
+        "Erling Haaland scores to make it 1:4."
+      ]
+    },
+    "es": {
+      "headline": "Manchester City vence 4–1 en Crystal Palace",
+      "market": "Victoria del Manchester City (1X2)",
+      "summary": "La victoria visitante 1–4 del Manchester City confirma el pronóstico 1X2.",
+      "narrative": "Haaland abrió el marcador en el minuto 17 y Cherki amplió la ventaja tras el descanso. Un autogol de Donnarumma acercó al Palace a 1–2, pero Cherki respondió tres minutos después. Haaland cerró el 1–4 en el minuto 84. La victoria visitante cumplió la selección publicada.",
+      "events": [
+        "Erling Haaland marca el 0:1.",
+        "Rayan Cherki marca el 0:2.",
+        "Autogol de Gianluigi Donnarumma: 1:2.",
+        "Rayan Cherki marca el 1:3.",
+        "Erling Haaland marca el 1:4."
+      ]
+    },
+    "pt": {
+      "headline": "Manchester City vence por 4–1 em casa do Crystal Palace",
+      "market": "Vitória do Manchester City (1X2)",
+      "summary": "A vitória fora por 4–1 do Manchester City confirmou o prognóstico 1X2.",
+      "narrative": "Haaland inaugurou o marcador aos 17 minutos e Cherki ampliou a vantagem após o intervalo. Um autogolo de Donnarumma permitiu ao Palace reduzir para 1–2, mas Cherki respondeu três minutos depois. Haaland fixou o resultado em 1–4 aos 84 minutos. A vitória fora confirmou a seleção publicada.",
+      "events": [
+        "Erling Haaland marca o 0:1.",
+        "Rayan Cherki marca o 0:2.",
+        "Autogolo de Gianluigi Donnarumma: 1:2.",
+        "Rayan Cherki marca o 1:3.",
+        "Erling Haaland marca o 1:4."
+      ]
+    },
+    "it": {
+      "headline": "Manchester City vince 4–1 sul campo del Crystal Palace",
+      "market": "Vittoria Manchester City (1X2)",
+      "summary": "Il successo esterno per 4–1 del Manchester City conferma la selezione 1X2.",
+      "narrative": "Haaland ha segnato al 17', Cherki ha raddoppiato nella ripresa. Un autogol di Donnarumma ha portato il Palace sull'1–2, ma Cherki ha ristabilito subito il doppio vantaggio. Haaland ha fissato il punteggio sul 4–1 all'84'. La vittoria esterna ha reso vincente il pronostico.",
+      "events": [
+        "Erling Haaland segna il 0:1.",
+        "Rayan Cherki segna il 0:2.",
+        "Autogol di Gianluigi Donnarumma: 1:2.",
+        "Rayan Cherki segna il 1:3.",
+        "Erling Haaland segna il 1:4."
+      ]
+    },
+    "fr": {
+      "headline": "Manchester City s’impose 4–1 à Crystal Palace",
+      "market": "Victoire de Manchester City (1X2)",
+      "summary": "Le succès 4–1 de Manchester City à l’extérieur valide le pronostic 1X2.",
+      "narrative": "Haaland a ouvert le score à la 17e minute, puis Cherki a doublé la mise. Un but contre son camp de Donnarumma a ramené Palace à 1–2, mais Cherki a rapidement rétabli l’écart. Haaland a porté le score à 1–4 à la 84e. La victoire à l’extérieur confirme la sélection.",
+      "events": [
+        "Erling Haaland marque : 0:1.",
+        "Rayan Cherki marque : 0:2.",
+        "But contre son camp de Gianluigi Donnarumma : 1:2.",
+        "Rayan Cherki marque : 1:3.",
+        "Erling Haaland marque : 1:4."
+      ]
+    },
+    "nl": {
+      "headline": "Manchester City wint met 4-1 bij Crystal Palace",
+      "market": "Manchester City wint (1X2)",
+      "summary": "De uitzege van Manchester City met 4-1 bevestigde de gepubliceerde 1X2-voorspelling.",
+      "narrative": "Haaland zette City in de 17e minuut op voorsprong, waarna Cherki de marge na rust verdubbelde. Door een eigen doelpunt van Donnarumma kwam Palace terug tot 1-2, maar Cherki maakte drie minuten later de 1-3. Haaland bepaalde de eindstand op 1-4. De uitoverwinning maakte de selectie winnend.",
+      "events": [
+        "Erling Haaland scoort en brengt de stand op 0:1.",
+        "Rayan Cherki scoort en brengt de stand op 0:2.",
+        "Eigen doelpunt van Gianluigi Donnarumma: 1:2.",
+        "Rayan Cherki scoort en brengt de stand op 1:3.",
+        "Erling Haaland scoort en brengt de stand op 1:4."
+      ]
+    },
+    "zh": {
+      "headline": "曼城作客水晶宮以4比1獲勝",
+      "market": "曼城獲勝（1X2）",
+      "summary": "曼城以4比1取得客場勝利，符合賽前發布的1X2客勝預測。",
+      "narrative": "Haaland在第17分鐘先開紀錄，Cherki於下半場擴大領先。Donnarumma的一記烏龍球令水晶宮追至1比2，但Cherki三分鐘後再次破門。Haaland於第84分鐘鎖定4比1勝局。由於曼城取得客勝，這項1X2預測判定成功。",
+      "events": [
+        "Erling Haaland進球，比分改寫為0:1。",
+        "Rayan Cherki進球，比分改寫為0:2。",
+        "Gianluigi Donnarumma踢進烏龍球，比分1:2。",
+        "Rayan Cherki進球，比分改寫為1:3。",
+        "Erling Haaland進球，比分改寫為1:4。"
+      ]
+    }
+  }
+}

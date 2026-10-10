@@ -1,0 +1,158 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260908-151838-FRA",
+  "match_date": "2026-09-08",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "Borussia Dortmund",
+  "away": "Villarreal CF",
+  "match": "Borussia Dortmund – Villarreal CF",
+  "score": "3:2",
+  "market": "Borussia Dortmund gewinnt (1X2)",
+  "odds": 1.78,
+  "units": 2,
+  "league": "UEFA Champions League",
+  "verified_source": "Independent official match report",
+  "source_url": "https://datencenter.dfb.de/datencenter/champions-league/2026-2027/1/borussia-dortmund-fc-villarreal-2429579",
+  "source_checked_at": "2026-10-10",
+  "leg_status": "WON",
+  "legs": [
+    {
+      "home": "Borussia Dortmund",
+      "away": "Villarreal CF",
+      "score": "3:2",
+      "status": "FT",
+      "market_label": "Borussia Dortmund gewinnt (1X2)",
+      "selection_outcome": "WON",
+      "source_url": "https://datencenter.dfb.de/datencenter/champions-league/2026-2027/1/borussia-dortmund-fc-villarreal-2429579",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "53′",
+          "text": "Eigentor durch Renato Veiga: 1:0.",
+          "text_en": "Own goal by Renato Veiga: 1:0."
+        },
+        {
+          "minute": "66′",
+          "text": "Santiago Mouriño erzielt das 1:1.",
+          "text_en": "Santiago Mouriño scores to make it 1:1."
+        },
+        {
+          "minute": "80′",
+          "text": "Serhou Guirassy erzielt das 2:1.",
+          "text_en": "Serhou Guirassy scores to make it 2:1."
+        },
+        {
+          "minute": "85′",
+          "text": "Serhou Guirassy verwandelt einen Strafstoß zum 3:1.",
+          "text_en": "Serhou Guirassy converts a penalty for 3:1."
+        },
+        {
+          "minute": "90.+3′",
+          "text": "Eigentor durch Serhou Guirassy: 3:2.",
+          "text_en": "Own goal by Serhou Guirassy: 3:2."
+        }
+      ],
+      "narrative_de": "Ein Eigentor von Renato Veiga brachte Dortmund nach der Pause in Führung. Santiago Mouriño glich für Villarreal aus; Guirassy erzielte in der 80. Minute das 2:1 und fünf Minuten später per Elfmeter das 3:1. In der Nachspielzeit traf Guirassy auch ins eigene Tor, doch Dortmund behauptete das 3:2. Die getippte Heimmannschaft gewann.",
+      "narrative_en": "Renato Veiga's own goal handed Dortmund the lead after half-time. Santiago Mouriño levelled for Villarreal before Guirassy scored in the 80th minute and added a penalty five minutes later. An own goal by Guirassy made it 3–2 in added time, but Dortmund held on. The selected home team won."
+    }
+  ],
+  "summary_de": "Borussia Dortmund gewann 3:2. Damit traf der veröffentlichte 1X2-Heimsieg zu.",
+  "summary_en": "Borussia Dortmund won 3–2, validating the 1X2 home-win selection.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Dortmund – Villarreal 3–2: home win survives late own goal",
+      "market": "Borussia Dortmund to win (1X2)",
+      "summary": "Borussia Dortmund won 3–2, validating the 1X2 home-win selection.",
+      "narrative": "Renato Veiga's own goal handed Dortmund the lead after half-time. Santiago Mouriño levelled for Villarreal before Guirassy scored in the 80th minute and added a penalty five minutes later. An own goal by Guirassy made it 3–2 in added time, but Dortmund held on. The selected home team won.",
+      "events": [
+        "Own goal by Renato Veiga: 1:0.",
+        "Santiago Mouriño scores to make it 1:1.",
+        "Serhou Guirassy scores to make it 2:1.",
+        "Serhou Guirassy converts a penalty for 3:1.",
+        "Own goal by Serhou Guirassy: 3:2."
+      ]
+    },
+    "es": {
+      "headline": "Dortmund – Villarreal 3–2: triunfo pese a autogol tardío",
+      "market": "Victoria del Borussia Dortmund (1X2)",
+      "summary": "El Dortmund ganó 3–2 y confirmó el pronóstico 1X2 de victoria local.",
+      "narrative": "Un autogol de Renato Veiga adelantó al Dortmund. Santiago Mouriño empató para el Villarreal, pero Guirassy marcó en el minuto 80 y amplió la ventaja de penalti en el 85. El propio Guirassy anotó después un autogol en el descuento; aun así, el Dortmund sostuvo el 3–2.",
+      "events": [
+        "Autogol de Renato Veiga: 1:0.",
+        "Santiago Mouriño marca el 1:1.",
+        "Serhou Guirassy marca el 2:1.",
+        "Serhou Guirassy convierte un penalti para el 3:1.",
+        "Autogol de Serhou Guirassy: 3:2."
+      ]
+    },
+    "pt": {
+      "headline": "Dortmund – Villarreal 3–2: triunfo apesar de autogolo tardio",
+      "market": "Vitória do Borussia Dortmund (1X2)",
+      "summary": "O Dortmund venceu por 3–2 e confirmou o prognóstico 1X2 de vitória caseira.",
+      "narrative": "Um autogolo de Renato Veiga colocou o Dortmund na frente. Santiago Mouriño empatou, mas Guirassy marcou aos 80 minutos e novamente de penálti aos 85. Já no tempo de compensação, Guirassy fez um autogolo que reduziu para 3–2. O Dortmund manteve a vantagem e a seleção foi ganha.",
+      "events": [
+        "Autogolo de Renato Veiga: 1:0.",
+        "Santiago Mouriño marca o 1:1.",
+        "Serhou Guirassy marca o 2:1.",
+        "Serhou Guirassy converte um penálti para o 3:1.",
+        "Autogolo de Serhou Guirassy: 3:2."
+      ]
+    },
+    "it": {
+      "headline": "Dortmund – Villarreal 3–2: vittoria nonostante autogol finale",
+      "market": "Vittoria Borussia Dortmund (1X2)",
+      "summary": "Il Dortmund ha vinto 3-2, confermando la selezione 1X2 sulla squadra di casa.",
+      "narrative": "Un autogol di Renato Veiga ha portato avanti il Dortmund. Santiago Mouriño ha pareggiato, ma Guirassy ha segnato all'80' e poi su rigore all'85'. Nel recupero lo stesso Guirassy ha realizzato un autogol che ha portato il risultato sul 3-2. Il Dortmund ha comunque difeso la vittoria.",
+      "events": [
+        "Autogol di Renato Veiga: 1:0.",
+        "Santiago Mouriño segna il 1:1.",
+        "Serhou Guirassy segna il 2:1.",
+        "Serhou Guirassy trasforma un rigore per il 3:1.",
+        "Autogol di Serhou Guirassy: 3:2."
+      ]
+    },
+    "fr": {
+      "headline": "Dortmund – Villarreal 3–2 : victoire malgré un csc tardif",
+      "market": "Victoire de Borussia Dortmund (1X2)",
+      "summary": "Dortmund s'impose 3–2 et valide le pronostic 1X2 à domicile.",
+      "narrative": "Un but contre son camp de Renato Veiga a donné l'avantage au BVB. Santiago Mouriño a égalisé, mais Guirassy a marqué à la 80e puis sur penalty à la 85e. Dans le temps additionnel, Guirassy a aussi inscrit un but contre son camp. Dortmund a néanmoins conservé son avance 3–2, validant le choix.",
+      "events": [
+        "But contre son camp de Renato Veiga : 1:0.",
+        "Santiago Mouriño marque : 1:1.",
+        "Serhou Guirassy marque : 2:1.",
+        "Serhou Guirassy transforme un penalty : 3:1.",
+        "But contre son camp de Serhou Guirassy : 3:2."
+      ]
+    },
+    "nl": {
+      "headline": "Dortmund – Villarreal 3-2: thuiszege ondanks late eigen goal",
+      "market": "Borussia Dortmund wint (1X2)",
+      "summary": "Dortmund won met 3-2 en bevestigde de gepubliceerde 1X2-thuiswinst.",
+      "narrative": "Een eigen doelpunt van Renato Veiga gaf Dortmund de leiding. Santiago Mouriño maakte gelijk voor Villarreal. Guirassy scoorde in de 80e minuut de 2-1 en vijf minuten later vanaf de strafschopstip de 3-1. In blessuretijd maakte hij ook een eigen doelpunt, maar Dortmund hield de 3-2 vast.",
+      "events": [
+        "Eigen doelpunt van Renato Veiga: 1:0.",
+        "Santiago Mouriño scoort en brengt de stand op 1:1.",
+        "Serhou Guirassy scoort en brengt de stand op 2:1.",
+        "Serhou Guirassy benut een strafschop: 3:1.",
+        "Eigen doelpunt van Serhou Guirassy: 3:2."
+      ]
+    },
+    "zh": {
+      "headline": "多特蒙德對比利亞雷亞爾3比2：主勝投注成功",
+      "market": "多特蒙德獲勝（1X2）",
+      "summary": "多特蒙德最終以3比2獲勝，符合賽前1X2主勝選擇。",
+      "narrative": "Renato Veiga的烏龍球讓多特蒙德在下半場取得領先，Santiago Mouriño隨後為比利亞雷亞爾追平。Guirassy在第80分鐘進球，五分鐘後又以十二碼擴大優勢。傷停補時Guirassy不慎踢進烏龍球，但多特蒙德仍守住3比2。",
+      "events": [
+        "Renato Veiga踢進烏龍球，比分1:0。",
+        "Santiago Mouriño進球，比分改寫為1:1。",
+        "Serhou Guirassy進球，比分改寫為2:1。",
+        "Serhou Guirassy主罰十二碼得手，比分3:1。",
+        "Serhou Guirassy踢進烏龍球，比分3:2。"
+      ]
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260911-110018-FRA",
+  "match_date": "2026-09-11",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "SV Darmstadt 98",
+  "away": "Arminia Bielefeld",
+  "match": "SV Darmstadt 98 – Arminia Bielefeld",
+  "score": "2:1",
+  "market": "Darmstadt gewinnt (1X2)",
+  "odds": 2.87,
+  "units": 2,
+  "league": "2. Bundesliga",
+  "verified_source": "Independent official match report",
+  "source_url": "https://www.bundesliga.com/de/2bundesliga/news/sv-darmstadt-98-dsc-arminia-bielefeld-spieltag-5-spielbericht-highlights-39137",
+  "source_checked_at": "2026-10-10",
+  "leg_status": "WON",
+  "legs": [
+    {
+      "home": "SV Darmstadt 98",
+      "away": "Arminia Bielefeld",
+      "score": "2:1",
+      "status": "FT",
+      "market_label": "Darmstadt gewinnt (1X2)",
+      "selection_outcome": "WON",
+      "source_url": "https://www.bundesliga.com/de/2bundesliga/news/sv-darmstadt-98-dsc-arminia-bielefeld-spieltag-5-spielbericht-highlights-39137",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "3′",
+          "text": "Ho-jae Lee erzielt das 1:0.",
+          "text_en": "Ho-jae Lee scores to make it 1:0."
+        },
+        {
+          "minute": "59′",
+          "text": "Marius Wörl erzielt das 1:1.",
+          "text_en": "Marius Wörl scores to make it 1:1."
+        },
+        {
+          "minute": "86′",
+          "text": "Milan Smit verwandelt einen Strafstoß zum 2:1.",
+          "text_en": "Milan Smit converts a penalty for 2:1."
+        }
+      ],
+      "narrative_de": "Lee brachte Darmstadt bereits in Minute drei in Führung. Bielefeld glich in der 59. Minute durch Wörl aus und hatte längere Phasen mit mehr Spielanteilen. Erst ein Strafstoß von Milan Smit in der 86. Minute brachte Darmstadt erneut nach vorn. Das 2:1 blieb bestehen; deshalb war der Heimsieg-Tipp bei Quote 2,87 gewonnen.",
+      "narrative_en": "Lee gave Darmstadt the lead after only three minutes. Bielefeld equalised through Wörl in the 59th minute and enjoyed long spells of pressure. Milan Smit's 86th-minute penalty put Darmstadt ahead again. The home team held on, confirming the selection at odds of 2.87."
+    }
+  ],
+  "summary_de": "Darmstadt siegte 2:1 und erfüllte damit den getippten 1X2-Heimsieg.",
+  "summary_en": "Darmstadt's 2–1 win validated the published 1X2 home-win selection.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Darmstadt – Bielefeld 2–1: late penalty decides it",
+      "market": "Darmstadt to win (1X2)",
+      "summary": "Darmstadt's 2–1 win validated the published 1X2 home-win selection.",
+      "narrative": "Lee gave Darmstadt the lead after only three minutes. Bielefeld equalised through Wörl in the 59th minute and enjoyed long spells of pressure. Milan Smit's 86th-minute penalty put Darmstadt ahead again. The home team held on, confirming the selection at odds of 2.87.",
+      "events": [
+        "Ho-jae Lee scores to make it 1:0.",
+        "Marius Wörl scores to make it 1:1.",
+        "Milan Smit converts a penalty for 2:1."
+      ]
+    },
+    "es": {
+      "headline": "Darmstadt – Bielefeld 2–1: penalti decisivo al final",
+      "market": "Victoria del Darmstadt (1X2)",
+      "summary": "Darmstadt ganó 2–1 y confirmó el pronóstico 1X2 de victoria local.",
+      "narrative": "Lee adelantó al Darmstadt en el minuto tres. Wörl empató para el Bielefeld en el 59, tras una fase de presión visitante. Milan Smit marcó el penalti decisivo en el minuto 86. El 2–1 final validó la selección a cuota 2,87.",
+      "events": [
+        "Ho-jae Lee marca el 1:0.",
+        "Marius Wörl marca el 1:1.",
+        "Milan Smit convierte un penalti para el 2:1."
+      ]
+    },
+    "pt": {
+      "headline": "Darmstadt – Bielefeld 2–1: penálti decisivo no final",
+      "market": "Vitória do Darmstadt (1X2)",
+      "summary": "O Darmstadt venceu por 2–1 e confirmou o prognóstico 1X2 de vitória em casa.",
+      "narrative": "Lee colocou o Darmstadt na frente logo aos três minutos. Wörl empatou para o Bielefeld aos 59, depois de um período de pressão dos visitantes. Milan Smit converteu o penálti decisivo aos 86 minutos. O 2–1 final validou a seleção com cotação de 2,87.",
+      "events": [
+        "Ho-jae Lee marca o 1:0.",
+        "Marius Wörl marca o 1:1.",
+        "Milan Smit converte um penálti para o 2:1."
+      ]
+    },
+    "it": {
+      "headline": "Darmstadt – Bielefeld 2–1: rigore decisivo nel finale",
+      "market": "Vittoria Darmstadt (1X2)",
+      "summary": "La vittoria del Darmstadt per 2-1 conferma la previsione 1X2 casalinga.",
+      "narrative": "Lee ha portato avanti il Darmstadt al 3'. Wörl ha pareggiato per il Bielefeld al 59', dopo una lunga fase di pressione ospite. Milan Smit ha trasformato il rigore decisivo all'86'. Il 2-1 finale ha reso vincente la selezione con quota 2,87.",
+      "events": [
+        "Ho-jae Lee segna il 1:0.",
+        "Marius Wörl segna il 1:1.",
+        "Milan Smit trasforma un rigore per il 2:1."
+      ]
+    },
+    "fr": {
+      "headline": "Darmstadt – Bielefeld 2–1 : penalty décisif en fin de match",
+      "market": "Victoire de Darmstadt (1X2)",
+      "summary": "Darmstadt gagne 2–1 et valide le pronostic 1X2 à domicile.",
+      "narrative": "Lee a ouvert le score dès la troisième minute. Wörl a égalisé pour Bielefeld à la 59e, après une période de domination des visiteurs. Milan Smit a transformé le penalty décisif à la 86e. Le score final de 2–1 valide la sélection à cote 2,87.",
+      "events": [
+        "Ho-jae Lee marque : 1:0.",
+        "Marius Wörl marque : 1:1.",
+        "Milan Smit transforme un penalty : 2:1."
+      ]
+    },
+    "nl": {
+      "headline": "Darmstadt – Bielefeld 2-1: late strafschop beslist duel",
+      "market": "Darmstadt wint (1X2)",
+      "summary": "Darmstadt won met 2-1 en bevestigde de voorspelde thuisoverwinning.",
+      "narrative": "Lee zette Darmstadt al in de derde minuut op voorsprong. Wörl maakte in de 59e minuut gelijk voor Bielefeld, dat lange tijd druk zette. Milan Smit benutte in de 86e minuut de beslissende strafschop. De eindstand van 2-1 bevestigde de 1X2-selectie tegen quote 2,87.",
+      "events": [
+        "Ho-jae Lee scoort en brengt de stand op 1:0.",
+        "Marius Wörl scoort en brengt de stand op 1:1.",
+        "Milan Smit benut een strafschop: 2:1."
+      ]
+    },
+    "zh": {
+      "headline": "達姆施塔特對比勒費爾德2比1：末段十二碼致勝",
+      "market": "達姆施塔特獲勝（1X2）",
+      "summary": "達姆施塔特以2比1獲勝，符合賽前發布的1X2主勝預測。",
+      "narrative": "Lee在第3分鐘為達姆施塔特先開紀錄。比勒費爾德一度佔據主動，Wörl於第59分鐘追成1比1。第86分鐘Milan Smit主罰十二碼得手，為主隊攻入致勝球。終場2比1，因此主勝投注成功，賠率為2.87。",
+      "events": [
+        "Ho-jae Lee進球，比分改寫為1:0。",
+        "Marius Wörl進球，比分改寫為1:1。",
+        "Milan Smit主罰十二碼得手，比分2:1。"
+      ]
+    }
+  }
+}

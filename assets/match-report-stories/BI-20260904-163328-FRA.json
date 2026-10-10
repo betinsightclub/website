@@ -1,0 +1,158 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260904-163328-FRA",
+  "match_date": "2026-09-05",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "TSG Hoffenheim",
+  "away": "Borussia Dortmund",
+  "match": "TSG Hoffenheim – Borussia Dortmund",
+  "score": "2:3",
+  "market": "Über 2,5 Tore",
+  "odds": 1.46,
+  "units": 2,
+  "league": "Bundesliga",
+  "verified_source": "Independent official match report",
+  "source_url": "https://www.bundesliga.com/en/bundesliga/news/hoffenheim-borussia-dortmund-match-report-highlights-matchday-2-39040",
+  "source_checked_at": "2026-10-10",
+  "leg_status": "WON",
+  "legs": [
+    {
+      "home": "TSG Hoffenheim",
+      "away": "Borussia Dortmund",
+      "score": "2:3",
+      "status": "FT",
+      "market_label": "Über 2,5 Tore",
+      "selection_outcome": "WON",
+      "source_url": "https://www.bundesliga.com/en/bundesliga/news/hoffenheim-borussia-dortmund-match-report-highlights-matchday-2-39040",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "45′",
+          "text": "Alvian Avdullahu erzielt das 1:0.",
+          "text_en": "Alvian Avdullahu scores to make it 1:0."
+        },
+        {
+          "minute": "54′",
+          "text": "Tim Lemperle erzielt das 2:0.",
+          "text_en": "Tim Lemperle scores to make it 2:0."
+        },
+        {
+          "minute": "61′",
+          "text": "Serhou Guirassy erzielt das 2:1.",
+          "text_en": "Serhou Guirassy scores to make it 2:1."
+        },
+        {
+          "minute": "66′",
+          "text": "Fábio Silva erzielt das 2:2.",
+          "text_en": "Fábio Silva scores to make it 2:2."
+        },
+        {
+          "minute": "86′",
+          "text": "Eigentor durch Albian Hajdari: 2:3.",
+          "text_en": "Own goal by Albian Hajdari: 2:3."
+        }
+      ],
+      "narrative_de": "Hoffenheim ging durch Avdullahu kurz vor der Pause und Lemperle in Minute 54 mit 2:0 in Führung. Guirassy erzielte in Minute 61 das 2:1 – bereits dieses dritte Tor erfüllte den Über-2,5-Markt. Fábio Silva glich aus, ein Eigentor von Hajdari brachte Dortmund schließlich den Sieg. Für die Tippwertung zählt die Gesamtzahl der Tore, nicht der Sieger.",
+      "narrative_en": "Hoffenheim led 2–0 through Avdullahu shortly before the break and Lemperle after 54 minutes. Guirassy made it 2–1 in the 61st minute, and that third goal already settled the over-2.5 selection as a winner. Fábio Silva levelled before a Hajdari own goal secured Dortmund's comeback. It was the goal total, not the winner, that mattered for the bet."
+    }
+  ],
+  "summary_de": "Mit fünf Treffern lag die Partie über 2,5 Toren. Der veröffentlichte Over-Tipp war gewonnen.",
+  "summary_en": "Five goals exceeded the over-2.5 line, so the published selection won.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Hoffenheim – Dortmund 2–3: five goals in dramatic comeback",
+      "market": "Over 2.5 goals",
+      "summary": "Five goals exceeded the over-2.5 line, so the published selection won.",
+      "narrative": "Hoffenheim led 2–0 through Avdullahu shortly before the break and Lemperle after 54 minutes. Guirassy made it 2–1 in the 61st minute, and that third goal already settled the over-2.5 selection as a winner. Fábio Silva levelled before a Hajdari own goal secured Dortmund's comeback. It was the goal total, not the winner, that mattered for the bet.",
+      "events": [
+        "Alvian Avdullahu scores to make it 1:0.",
+        "Tim Lemperle scores to make it 2:0.",
+        "Serhou Guirassy scores to make it 2:1.",
+        "Fábio Silva scores to make it 2:2.",
+        "Own goal by Albian Hajdari: 2:3."
+      ]
+    },
+    "es": {
+      "headline": "Hoffenheim – Dortmund 2–3: cinco goles y remontada",
+      "market": "Más de 2,5 goles",
+      "summary": "Los cinco goles superaron la línea de más de 2,5: pronóstico ganado.",
+      "narrative": "Hoffenheim se puso 2–0 con goles de Avdullahu y Lemperle. Guirassy recortó distancias en el minuto 61; ese tercer gol ya bastaba para acertar el más de 2,5. Fábio Silva empató y un autogol de Hajdari dio la victoria al Dortmund. El pronóstico dependía del total de goles, no del ganador.",
+      "events": [
+        "Alvian Avdullahu marca el 1:0.",
+        "Tim Lemperle marca el 2:0.",
+        "Serhou Guirassy marca el 2:1.",
+        "Fábio Silva marca el 2:2.",
+        "Autogol de Albian Hajdari: 2:3."
+      ]
+    },
+    "pt": {
+      "headline": "Hoffenheim – Dortmund 2–3: cinco golos e reviravolta",
+      "market": "Mais de 2,5 golos",
+      "summary": "Os cinco golos superaram a linha de mais de 2,5: prognóstico ganho.",
+      "narrative": "O Hoffenheim chegou ao 2–0 com golos de Avdullahu e Lemperle. Guirassy reduziu aos 61 minutos; esse terceiro golo já tornava vencedor o mercado mais de 2,5. Fábio Silva empatou e um autogolo de Hajdari completou a reviravolta do Dortmund. A seleção dependia do número de golos, não do vencedor.",
+      "events": [
+        "Alvian Avdullahu marca o 1:0.",
+        "Tim Lemperle marca o 2:0.",
+        "Serhou Guirassy marca o 2:1.",
+        "Fábio Silva marca o 2:2.",
+        "Autogolo de Albian Hajdari: 2:3."
+      ]
+    },
+    "it": {
+      "headline": "Hoffenheim – Dortmund 2–3: cinque reti e rimonta",
+      "market": "Over 2,5 gol",
+      "summary": "Cinque gol superano la soglia over 2,5 e rendono vincente la selezione.",
+      "narrative": "L'Hoffenheim si è portato sul 2-0 con Avdullahu e Lemperle. Guirassy ha accorciato al 61': già la terza rete assicurava l'over 2,5. Fábio Silva ha pareggiato e un autogol di Hajdari ha completato la rimonta del Dortmund. Conta il totale dei gol, non la squadra vincente.",
+      "events": [
+        "Alvian Avdullahu segna il 1:0.",
+        "Tim Lemperle segna il 2:0.",
+        "Serhou Guirassy segna il 2:1.",
+        "Fábio Silva segna il 2:2.",
+        "Autogol di Albian Hajdari: 2:3."
+      ]
+    },
+    "fr": {
+      "headline": "Hoffenheim – Dortmund 2–3 : cinq buts et remontée",
+      "market": "Plus de 2,5 buts",
+      "summary": "Les cinq buts dépassent le seuil de plus de 2,5 : pronostic gagnant.",
+      "narrative": "Hoffenheim menait 2–0 grâce à Avdullahu puis Lemperle. Guirassy a réduit la marque à la 61e minute : ce troisième but suffisait déjà à valider le plus de 2,5. Fábio Silva a égalisé, puis un but contre son camp de Hajdari a offert la victoire au BVB. Seul le total de buts comptait pour ce choix.",
+      "events": [
+        "Alvian Avdullahu marque : 1:0.",
+        "Tim Lemperle marque : 2:0.",
+        "Serhou Guirassy marque : 2:1.",
+        "Fábio Silva marque : 2:2.",
+        "But contre son camp de Albian Hajdari : 2:3."
+      ]
+    },
+    "nl": {
+      "headline": "Hoffenheim – Dortmund 2-3: vijf doelpunten en comeback",
+      "market": "Meer dan 2,5 doelpunten",
+      "summary": "Vijf treffers betekenden meer dan 2,5 doelpunten: de voorspelling won.",
+      "narrative": "Hoffenheim nam een 2-0-voorsprong via Avdullahu en Lemperle. Guirassy maakte in de 61e minuut de 2-1, waarmee de grens van 2,5 doelpunten al was overschreden. Fábio Silva maakte gelijk en een eigen doelpunt van Hajdari bezorgde Dortmund de zege. Voor deze weddenschap telde het aantal doelpunten, niet de winnaar.",
+      "events": [
+        "Alvian Avdullahu scoort en brengt de stand op 1:0.",
+        "Tim Lemperle scoort en brengt de stand op 2:0.",
+        "Serhou Guirassy scoort en brengt de stand op 2:1.",
+        "Fábio Silva scoort en brengt de stand op 2:2.",
+        "Eigen doelpunt van Albian Hajdari: 2:3."
+      ]
+    },
+    "zh": {
+      "headline": "霍芬海姆對多特蒙德2比3：五球逆轉",
+      "market": "總進球數大於2.5球",
+      "summary": "全場攻入五球，超過2.5球門檻，賽前投注成功。",
+      "narrative": "霍芬海姆由Avdullahu和Lemperle取得2比0領先。Guirassy在第61分鐘追成2比1，第三個進球已讓「大於2.5球」條件成立。Fábio Silva隨後扳平，多特蒙德再因Hajdari的烏龍球逆轉獲勝。此項預測看的是總進球數，並非勝方。",
+      "events": [
+        "Alvian Avdullahu進球，比分改寫為1:0。",
+        "Tim Lemperle進球，比分改寫為2:0。",
+        "Serhou Guirassy進球，比分改寫為2:1。",
+        "Fábio Silva進球，比分改寫為2:2。",
+        "Albian Hajdari踢進烏龍球，比分2:3。"
+      ]
+    }
+  }
+}
