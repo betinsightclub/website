@@ -152,7 +152,7 @@ def main():
         page.parent.mkdir(parents=True,exist_ok=True)
         text=webpage(story,lang,DOMAIN+"/assets/og/"+pic.name)
         assert 'og:image' in text and 'application/ld+json' in text and 'data-report-embedded="1"' in text
-        assert text.count('hreflang=')==7
+        assert text.count('hreflang=')==9
         assert 'pt-BR' not in text and 'pt_BR' not in text
         page.write_text(text,encoding="utf-8")
         print(lang,page,pic)
