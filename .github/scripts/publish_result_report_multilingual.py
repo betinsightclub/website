@@ -185,7 +185,7 @@ def main():
             markup=destination.read_text(encoding="utf-8")
             assert image_url in markup and f'<html lang="{HREF[lang] if lang in ("pt","zh") else lang}">' in markup
             assert "data-report-embedded" in markup
-            assert len(re.findall(r'link rel="alternate" hreflang=',markup))==7
+            assert len(re.findall(r'link rel="alternate" hreflang=',markup))==9
             assert 'application/ld+json' in markup
             assert all(t in markup for t in ["og:image","twitter:image","rel=\"canonical\""])
             count+=1
