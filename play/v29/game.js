@@ -787,8 +787,16 @@ class World3D{
  updateCaughtBallHands(){
    if(!this.ballCaught||!this.ball||!this.keeper)return;
    if(this.v27Active){
+     const b=this.keeper.userData.bones||{};
      const anchor=new THREE.Vector3(0,1.17,.28);this.keeper.localToWorld(anchor);
-     // Blend ball toward the player's glove/chest center, never teleport.
+     // When the keeper is catching, show the ball BETWEEN THE REAL HANDS.
+     // Use the torso only if one of the hands isn't part of the loaded rig.
+     if(b.handL&&b.handR){
+       b.handL.getWorldPosition(anchor);
+       const right=b.handR.getWorldPosition(new THREE.Vector3());
+       anchor.lerp(right,.5);
+       anchor.z+=.065;
+     }
      const blend=THREE.MathUtils.clamp((performance.now()-this.v27CatchStart)/240,0,1);
      const from=this.v27CatchInitial||this.ball.position;
      this.ball.position.lerpVectors(from,anchor,blend*blend*(3-2*blend));return;
@@ -1245,7 +1253,7 @@ class World3D{
        .distanceTo(fore.getWorldPosition(new THREE.Vector3()))+
        fore.getWorldPosition(new THREE.Vector3())
        .distanceTo(hand.getWorldPosition(new THREE.Vector3()));
-     const delta=target.sub(shoulder);
+     const delta=target.clone().sub(shoulder);
      if(reach>.05&&delta.length()>reach*.96)target.copy(shoulder).add(delta.normalize().multiplyScalar(reach*.96));
      const shoulderMax=.23*power,elbowMax=.34*power;
      for(let n=0;n<2;n++){
@@ -1750,7 +1758,6 @@ class World3D{
    const now=performance.now(),dt=Math.min(.05,(now-this.prevFrameMs)/1000);this.prevFrameMs=now;
    if(this.player?.userData?.mixer)this.player.userData.mixer.update(dt);
    if(this.keeper?.userData?.mixer&&!this.v24Active&&!this.v26Active)this.keeper.userData.mixer.update(dt);
-   if(this.ballCaught)this.updateCaughtBallHands();
    if(this.mixamoMixer&&!this.mixamoActive)this.mixamoMixer.update(dt);
    const t=this.clock.getElapsedTime();
    if(this.idle&&!S.busy){
@@ -1789,6 +1796,8 @@ class World3D{
      const p=Math.min(1,(performance.now()-a.t0)/a.d),e=1-Math.pow(1-p,3);
      a.step(e,p);if(p>=1){a.done?.();return false}return true
    });
+   if(this.v29ArmReach)this.v29ReachGloves();
+   if(this.ballCaught)this.updateCaughtBallHands();
    if(this.showSideCam&&performance.now()>this.sideCamHoldUntil&&!S.busy)this.endSideCam(true);
    this.renderScene()
  }
