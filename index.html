@@ -59,9 +59,8 @@
 
       function savedLanguage() {
         try {
-          return cleanLanguage(
-            localStorage.getItem(LANGUAGE_KEY)
-          );
+          return cleanLanguage(localStorage.getItem(LANGUAGE_KEY)) ||
+            cleanLanguage(localStorage.getItem("betinsight-lang"));
         } catch (error) {
           return "";
         }
