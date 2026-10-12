@@ -1152,7 +1152,6 @@ class World3D{
    const activeClip=hasClip?clipName:"Jump";
    this.stopKeeperIdle=true;
    this.setKeeperState("react");
-   keeper.userData.activeAction=null;
    this.playRigClip(keeper,activeClip,{once:true,fade:.10,speed:1.12});
    const p0=keeper.position.clone();
    this.setKeeperState("push_off");
@@ -1193,7 +1192,6 @@ class World3D{
    });
    // Cross-fade directly into the model's native Idle without stopping its
    // mixer. Native bone data neutralizes the jump pose across the skeleton.
-   k.userData.activeAction=null;
    this.playRigClip(k,"Idle",{fade:.32,speed:1});
    const from=k.position.clone(),rot=k.rotation.z;
    this.setKeeperState("recover");
@@ -1762,7 +1760,7 @@ class World3D{
    });
    await this.setCameraPose(new THREE.Vector3(0,2.45,14.8),new THREE.Vector3(0,1.1,3.6),220);
  }
- reset(){if(this.v27Active){this.v27Active=false;this.v27CatchInitial=null;this.v27CatchStart=0;this.keeper.userData.activeAction=null;this.playRigClip(this.keeper,"Idle",{fade:0});}if(this.v26Active)this.v26Restore();if(this.v24Active)this.v24Reset();if(this.mixamoRig)this.v23Idle();this.endSideCam(true);this.releaseCaughtBall();this.stopKeeperIdle=false;this.setKeeperState("ready");this.player.position.set(S.playerPos.x,0,S.playerPos.z);this.player.rotation.set(0,Math.PI,0);if(this.player.userData.headPivot)this.player.userData.headPivot.rotation.set(0,0,0);this.player.scale.setScalar(1);this.player.armL.rotation.set(0,0,-.1);this.player.armR.rotation.set(0,0,.1);this.player.legL.rotation.set(0,0,0);this.player.legR.rotation.set(0,0,0);
+ reset(){if(this.v27Active){this.v27Active=false;this.v27CatchInitial=null;this.v27CatchStart=0;this.playRigClip(this.keeper,"Idle",{fade:.18});}if(this.v26Active)this.v26Restore();if(this.v24Active)this.v24Reset();if(this.mixamoRig)this.v23Idle();this.endSideCam(true);this.releaseCaughtBall();this.stopKeeperIdle=false;this.setKeeperState("ready");this.player.position.set(S.playerPos.x,0,S.playerPos.z);this.player.rotation.set(0,Math.PI,0);if(this.player.userData.headPivot)this.player.userData.headPivot.rotation.set(0,0,0);this.player.scale.setScalar(1);this.player.armL.rotation.set(0,0,-.1);this.player.armR.rotation.set(0,0,.1);this.player.legL.rotation.set(0,0,0);this.player.legR.rotation.set(0,0,0);
  this.player.legL.userData.shin.rotation.set(0,0,0);this.player.legR.userData.shin.rotation.set(0,0,0);
  this.player.armL.userData.fore.rotation.set(0,0,0);this.player.armR.userData.fore.rotation.set(0,0,0);
  this.keeper.position.set(0,0,.35);this.keeper.rotation.set(0,0,0);this.keeper.armL.rotation.set(0,0,-.48);this.keeper.armR.rotation.set(0,0,.48);
