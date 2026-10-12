@@ -1732,6 +1732,11 @@ if(BRIDGE_MODE){
 }
 
 for(const id of ["v23FbxFiles","v23FbxGameFiles"]){const el=document.getElementById(id);if(el)el.addEventListener("change",e=>v23ReceiveFiles(e.target.files));}
+// Browser autoplay policy: in the Time-Clash iframe an actual pointer/keyboard
+// gesture unlocks sound even if game setup was started by a postMessage event.
+const v25UnlockAudio=()=>kickAudio.prepare().catch(e=>console.warn("V25 audio unlock",e));
+document.addEventListener("pointerdown",v25UnlockAudio,{once:true,capture:true});
+document.addEventListener("keydown",v25UnlockAudio,{once:true,capture:true});
 document.getElementById("v25SoundEnabled")?.addEventListener("change",e=>{
   kickAudio.enabled=e.target.checked;
   if(kickAudio.enabled)kickAudio.prepare().catch(()=>{});
