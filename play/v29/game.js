@@ -1960,11 +1960,11 @@ function simulate(sh,kp){
   return{outcome:out,frameType,ax:rawX,ay:rawY,kx,ky,contactZ,saveType,spinX,spinY,curveX:spinX*.75,curveY:spinY*.38}
 }
 function ended(){if(S.ta<5||S.tb<5){const ra=5-S.ta,rb=5-S.tb;return S.a>S.b+rb||S.b>S.a+ra}return S.ta===S.tb&&S.a!==S.b}
-function showOutcomeCallout(outcome,frameType=null){
+function showOutcomeCallout(outcome,frameType=null,saveType=null){
  const el=$("#outcomeCallout");if(!el)return;
  const map={
    goal:["TOR!","goal"],
-   save:["GEHALTEN!","save"],
+   save:[saveType==="caught"?"GEFANGEN!":"ABGEWEHRT!","save"],
    post:[frameType==="crossbar"?"LATTE!":"PFOSTEN!","post"],
    miss:["DANEBEN!","miss"]
  };
@@ -1975,7 +1975,7 @@ function showOutcomeCallout(outcome,frameType=null){
  clearTimeout(showOutcomeCallout._t);
  showOutcomeCallout._t=setTimeout(()=>el.classList.add("hidden"),1500);
 }
-async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],shooterId:sh[2]||null,keeper:d.keeper.name,keeperId:d.keeper.id||null,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});resetContactAfterShot();if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?"GEHALTEN!":sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType);board();await new Promise(r=>setTimeout(r,850));if(ended()){await finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
+async function shootNow(){if(S.busy||S.finished||!S.target.set)return;S.busy=true;enableShoot(false);const side=S.side,a=sideTeam(side),d=oppTeam(side),sh=shooter(side),sim=simulate(sh,d.keeper);$("#commentary").textContent=sh[0]+" läuft an …";await world.shoot(sim);S.shots.push({side,team:a.name,shooter:sh[0],shooterId:sh[2]||null,keeper:d.keeper.name,keeperId:d.keeper.id||null,power:S.power,contactX:S.contact.x,contactY:S.contact.y,...sim});resetContactAfterShot();if(side==="A"){S.ta++;if(sim.outcome==="goal")S.a++}else{S.tb++;if(sim.outcome==="goal")S.b++}$("#commentary").textContent=sim.outcome==="goal"?"TOR!":sim.outcome==="save"?(sim.saveType==="caught"?"GEFANGEN!":"ABGEWEHRT!"):sim.outcome==="post"?(sim.frameType==="crossbar"?"LATTE!":"PFOSTEN!"):"DANEBEN!";showOutcomeCallout(sim.outcome,sim.frameType,sim.saveType);board();await new Promise(r=>setTimeout(r,850));if(ended()){await finish();return}S.side=side==="A"?"B":"A";if(S.ta>=5&&S.tb>=5&&S.a===S.b)S.sudden=true;S.busy=false;ui()}
 function bridgeResultPayload(win){
  return{protocol:"betinsight-penalty-v1",context_id:bridgeContext?.context_id||null,reason:bridgeContext?.reason||"direct",language:bridgeContext?.language||"de",stadium_id:S.stadiumId,winner_side:win,winner:win==="A"?S.A.name:S.B.name,team_a:S.A.name,team_b:S.B.name,penalties_a:S.a,penalties_b:S.b,shots:S.shots.map((x,i)=>({order:i+1,side:x.side,team:x.team,shooter:x.shooter,shooter_id:x.shooterId||null,keeper:x.keeper,keeper_id:x.keeperId||null,outcome:x.outcome,frame_type:x.frameType||null,power:x.power,contact_x:x.contactX,contact_y:x.contactY}))}
 }
