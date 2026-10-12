@@ -26,7 +26,7 @@
   <meta property="og:site_name" content="BetInsight Club">
   <meta property="og:locale" content="de_DE">
   <meta property="og:title" content="BetInsight Club – Sport verstehen. Erleben. Vergleichen.">
-  <meta property="og:description" content="Sportanalysen, Unit-Gewichtungen, Community, Live-Formate und TIME CLASH auf einer Plattform.">
+  <meta property="og:description" content="BetInsight Club verbindet strukturierte Fußballanalysen, Unit-Gewichtungen, Statistiken, Live-Formate, Community und TIME CLASH auf einer Plattform.">
   <meta property="og:url" content="https://betinsight.club/de/">
   <meta property="og:image" content="https://betinsight.club/assets/hero-fussball-dunkel.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -823,7 +823,10 @@ function applyLang(lang){
   const publicFeedLink=document.getElementById("publicTrainerFeedLink");
   if(publicFeedLink) publicFeedLink.href="/trainer-feed/?lang="+encodeURIComponent(lang);
   localStorage.setItem("betinsight-lang",lang);
-  const u=new URL(location.href);u.searchParams.set("lang",lang);history.replaceState(null,"",u);
+  const u=new URL(location.href);
+  if(lang==="nl"||lang==="zh-tw") u.searchParams.set("lang",lang);
+  else u.searchParams.delete("lang");
+  if(u.href!==location.href) history.replaceState(null,"",u);
 }
 
 
@@ -1014,10 +1017,30 @@ window.addEventListener("wheel",e=>{
 
 const qs=new URLSearchParams(location.search).get("lang");
 const pathLang=(location.pathname.split("/").filter(Boolean)[0]||"").toLowerCase();
+if(qs && ["de","en","es","pt","it","fr"].includes(qs) && qs!==pathLang){
+  const url=new URL("/"+qs+"/",location.origin);
+  const params=new URLSearchParams(location.search);
+  params.delete("lang");
+  url.search=params.toString();
+  url.hash=location.hash;
+  location.replace(url.href);
+}
 const saved=localStorage.getItem("betinsight-lang");
 const browser=(navigator.language||"de").toLowerCase();
 let initial=qs||(T[pathLang]?pathLang:"")||saved||(browser.startsWith("pt")?"pt":browser.startsWith("es")?"es":browser.startsWith("fr")?"fr":browser.startsWith("it")?"it":browser.startsWith("nl")?"nl":browser.startsWith("zh")?"zh-tw":browser.startsWith("en")?"en":"de");
-document.getElementById("langSelect").addEventListener("change",e=>applyLang(e.target.value));
+document.getElementById("langSelect").addEventListener("change", e=>{
+  const next=e.target.value;
+  if(["de","en","es","pt","it","fr"].includes(next)){
+    const url=new URL("/"+next+"/",location.origin);
+    const params=new URLSearchParams(location.search);
+    params.delete("lang");
+    url.search=params.toString();
+    url.hash=location.hash;
+    location.assign(url.href);
+  }else{
+    applyLang(next);
+  }
+});
 applyLang(initial);
 const yearEl=document.getElementById("year"); if(yearEl) yearEl.textContent=new Date().getFullYear();
 </script>
