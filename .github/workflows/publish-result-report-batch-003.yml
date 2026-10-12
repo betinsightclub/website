@@ -1,0 +1,95 @@
+name: BetInsight Result Reports - Five-Game Batch 003
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-result-report-batch-003.yml"
+      - ".github/scripts/publish_result_report_batch_003.py"
+      - "docs/result-report-batches/block-003-editorial.json"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: betinsight-result-review-batch-003
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CJK and image tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk
+          python -m pip install --disable-pip-version-check "Pillow>=10,<13"
+      - name: Validate code, official master and locale files
+        run: |
+          python -m py_compile .github/scripts/publish_result_report_batch_003.py
+          python -m py_compile .github/scripts/publish_result_combo_20261009.py
+          python -m py_compile .github/scripts/publish_result_report_batch_002.py
+          test -s assets/templates/betinsight-result-master-blanko.png
+          node --check assets/tip-report-live.js
+      - name: Generate all 8-language reviewed articles and image metadata
+        run: python .github/scripts/publish_result_report_batch_003.py
+      - name: Validate complete report history and media
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          R=Path(".")
+          src=json.loads((R/"docs/result-report-batches/block-003-editorial.json").read_text())
+          langs=["de","en","es","pt","it","fr","nl","zh"]
+          assert src["languages"]==langs and len(src["items"])==5
+          for row in src["items"]:
+            id=row["tipp_id"]
+            story=json.loads((R/"assets/match-report-stories"/(id+".json")).read_text())
+            assert story["odds"]==row["odds"] and story["units"]==row["units"]
+            assert story["outcome"]==row["outcome"]
+            for lang in langs:
+              page=R/lang/"tipps"/"ergebnis"/id/"index.html"
+              suffix="-combo-v1.jpg" if row["kind"]=="combo" else "-v1.jpg"
+              pic=R/"assets"/"og"/(id.lower()+"-"+lang+suffix)
+              assert page.exists() and pic.exists(),(id,lang)
+              text=page.read_text()
+              assert "data-report-embedded" in text and "tip-report-live.js" in text
+              assert text.count("hreflang=")==9
+              assert "og:image" in text and "twitter:image" in text and "application/ld+json" in text
+              assert "pt-BR" not in text and "Português (Brasil)" not in text
+              if lang=="pt":assert 'lang="pt-PT"' in text
+              if lang=="zh":assert 'lang="zh-Hant-TW"' in text
+              for leg in row["legs"] if row["kind"]=="combo" else [row]:
+                assert leg["source_url"] in text,(id,lang)
+              with Image.open(pic) as im:
+                assert im.size==(1200,630) and im.getexif().get(270)
+          print("PASS 5 games x 8 languages: complete match stories, sources, approved images, original bet data retained")
+          PY
+      - name: Publish all forty indexed articles and preview images
+        run: |
+          set -euo pipefail
+          git config user.name "BetInsight Editorial"
+          git config user.email "actions@github.com"
+          git add docs/result-report-batches/block-003-build.json
+          for id in BI-20260912-004348-MAR BI-20260914-175440-MAR BI-20260917-003712-MAR BI-20260917-003813-MAR BI-20260918-160859-FRA; do
+            git add assets/match-report-stories/$id.json
+            low=$(printf "%s" "$id" | tr "[:upper:]" "[:lower:]")
+            for lang in de en es pt it fr nl zh; do
+              git add $lang/tipps/ergebnis/$id/index.html
+              if [ "$id" = "BI-20260912-004348-MAR" ] || [ "$id" = "BI-20260914-175440-MAR" ]; then
+                git add assets/og/$low-$lang-combo-v1.jpg
+              else
+                git add assets/og/$low-$lang-v1.jpg
+              fi
+            done
+          done
+          if git diff --cached --quiet; then echo "Already published"; exit 0; fi
+          git commit -m "editorial: publish 5 source-grounded match reviews in all 8 BetInsight locales"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
