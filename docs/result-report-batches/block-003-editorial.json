@@ -1,0 +1,541 @@
+{
+  "schema": "betinsight_result_editorial_v1",
+  "batch_id": "003",
+  "created": "2026-10-12",
+  "languages": [
+    "de",
+    "en",
+    "es",
+    "pt",
+    "it",
+    "fr",
+    "nl",
+    "zh"
+  ],
+  "number_of_tips": 5,
+  "source_of_tip_truth": "public.betinsight_tip_results / confirmed master",
+  "copy_origin": "Human-authored summaries grounded in cited public match reports",
+  "policy": "Original verified result, quote, units and statistics must remain unchanged; no invented events or data",
+  "items": [
+    {
+      "tipp_id": "BI-20260912-004348-MAR",
+      "match_date": "2026-09-12",
+      "kind": "combo",
+      "outcome": "LOST",
+      "market": "Kombi-Wette",
+      "match": "Real Sociedad – Atlético Madrid + Chelsea – Hull City",
+      "score": "0:3 · 2:2",
+      "odds": 1.67,
+      "units": 4,
+      "tipper": "Martin",
+      "legs": [
+        {
+          "home": "Real Sociedad",
+          "away": "Atlético de Madrid",
+          "date": "2026-09-13",
+          "score": "0:3",
+          "market": "Doppelte Chance X2",
+          "selection_outcome": "WON",
+          "source_url": "https://www.laliga.com/en-GB/match/temporada-2026-2027-laliga-ea-sports-real-sociedad-atletico-de-madrid-5",
+          "events": [
+            [
+              "84′",
+              "Alejandro Grimaldo",
+              "0:1",
+              "penalty"
+            ],
+            [
+              "90′",
+              "Jonathan David",
+              "0:2",
+              "goal"
+            ],
+            [
+              "90.+5′",
+              "Giuliano Simeone",
+              "0:3",
+              "goal"
+            ]
+          ]
+        },
+        {
+          "home": "Chelsea FC",
+          "away": "Hull City",
+          "date": "2026-09-12",
+          "score": "2:2",
+          "market": "Chelsea gewinnt (1X2)",
+          "selection_outcome": "LOST",
+          "source_url": "https://www.chelseafc.com/en/news/article/match-report-chelsea-2-2-hull",
+          "events": [
+            [
+              "7′",
+              "Morgan Rogers",
+              "1:0",
+              "goal"
+            ],
+            [
+              "28′",
+              "Mohamed Belloumi",
+              "1:1",
+              "goal"
+            ],
+            [
+              "34′",
+              "Mohamed Belloumi",
+              "1:2",
+              "goal"
+            ],
+            [
+              "66′",
+              "João Pedro",
+              "2:2",
+              "goal"
+            ]
+          ]
+        }
+      ],
+      "copy": {
+        "de": [
+          "Kombi verloren: Atlético X2 richtig, Chelsea-Sieg falsch",
+          "Atlético gewann bei Real Sociedad mit 3:0 und erfüllte die Doppelte Chance X2. Chelsea führte gegen Hull früh, geriet durch zwei Belloumi-Tore in Rückstand und glich zum 2:2 aus. Für den 1X2-Tipp auf Chelsea wäre jedoch ein Sieg nötig gewesen. Weil bei einer Kombiwette beide Auswahlen stimmen müssen, verlor der gesamte Tipp.",
+          "Die erste Auswahl war richtig: Atlético traf erst in der 84. Minute per Elfmeter und erhöhte spät auf 3:0. In London ging Chelsea durch Rogers in Führung, Hull drehte die Partie binnen weniger Minuten, João Pedro glich auf 2:2 aus. Ein weiterer Chelsea-Treffer blieb aus – deshalb scheiterte die Kombi.",
+          "1 von 2 richtig"
+        ],
+        "en": [
+          "Accumulator lost: Atlético X2 correct, Chelsea win incorrect",
+          "Atlético won 3–0 away, satisfying the double-chance X2 selection. Chelsea drew 2–2 with Hull after an early lead and late equaliser. Chelsea needed to win for the 1X2 leg to succeed; because all selections must win in an accumulator, the bet lost.",
+          "Atlético broke through late with a Grimaldo penalty in minute 84 and added two more goals. At Stamford Bridge Rogers scored early, Hull turned the game around through Belloumi, and João Pedro equalised at 2–2. Chelsea did not find a winning goal, so only one leg was correct.",
+          "1 of 2 correct"
+        ],
+        "es": [
+          "Combinada perdida: acertó Atlético X2, falló victoria de Chelsea",
+          "Atlético ganó 0–3 y acertó la doble oportunidad X2. Chelsea empató 2–2 contra Hull; necesitaba ganar para cumplir la segunda selección 1X2. Una combinada exige acertar ambas elecciones, por lo que se perdió.",
+          "Atlético abrió el marcador con un penalti de Grimaldo en el minuto 84 y amplió su ventaja en el descuento. Chelsea empezó ganando con gol de Rogers, pero Belloumi dio la vuelta al marcador con dos goles. João Pedro firmó el 2–2, sin que Chelsea lograra la victoria.",
+          "1 de 2 acertadas"
+        ],
+        "pt": [
+          "Múltipla perdida: Atlético X2 certo, vitória do Chelsea errada",
+          "O Atlético venceu por 3–0 e validou a hipótese dupla X2. O Chelsea empatou 2–2 com o Hull; precisava de ganhar para confirmar a segunda seleção 1X2. Como ambas as seleções tinham de ser certas, a múltipla foi perdida.",
+          "O Atlético só inaugurou o marcador aos 84 minutos, de penálti por Grimaldo, e ampliou a vantagem no tempo de compensação. O Chelsea adiantou-se por Rogers, mas dois golos de Belloumi viraram o resultado. João Pedro empatou 2–2, sem que chegasse o golo da vitória.",
+          "1 de 2 certas"
+        ],
+        "it": [
+          "Multipla persa: Atlético X2 corretto, vittoria Chelsea errata",
+          "L'Atlético ha vinto 3-0, rendendo corretta la doppia chance X2. Il Chelsea ha pareggiato 2-2 contro l'Hull e non ha ottenuto la vittoria richiesta dalla seconda selezione 1X2. Una multipla richiede che tutte le scelte siano vincenti.",
+          "L'Atlético ha sbloccato il risultato solo all'84' con il rigore di Grimaldo e ha segnato altre due reti nel finale. Il Chelsea era passato avanti con Rogers, ma due gol di Belloumi hanno ribaltato il punteggio. João Pedro ha pareggiato 2-2, senza un successivo gol-vittoria.",
+          "1 su 2 corretta"
+        ],
+        "fr": [
+          "Combiné perdu : Atlético X2 validé, victoire de Chelsea manquée",
+          "L'Atlético s'est imposé 3–0 et a validé la double chance X2. Chelsea a fait match nul 2–2 contre Hull, alors qu'une victoire était indispensable pour la seconde sélection 1X2. Un combiné nécessite la réussite de tous les choix.",
+          "L'Atlético a marqué à la 84e sur penalty par Grimaldo avant d'aggraver le score dans le temps additionnel. Chelsea avait ouvert le score par Rogers, mais Belloumi a renversé la rencontre avec deux buts. João Pedro a égalisé à 2–2, sans but décisif ensuite.",
+          "1 sélection sur 2 correcte"
+        ],
+        "nl": [
+          "Combinatie verloren: Atlético X2 goed, Chelsea-winst fout",
+          "Atlético won met 3-0 en voldeed aan dubbele kans X2. Chelsea speelde 2-2 tegen Hull en boekte niet de vereiste thuisoverwinning voor de tweede 1X2-selectie. Bij een combinatie moeten beide selecties goed zijn; daarom ging de weddenschap verloren.",
+          "Atlético kwam pas in de 84e minuut op voorsprong door een strafschop van Grimaldo en liep laat uit naar 0-3. Chelsea leidde vroeg door Rogers, maar twee doelpunten van Belloumi brachten Hull voor. João Pedro zorgde voor 2-2, waarna de beslissende Chelsea-treffer uitbleef.",
+          "1 van 2 goed"
+        ],
+        "zh": [
+          "串關失敗：馬德里競技X2成功，切爾西主勝落空",
+          "馬德里競技以3比0擊敗皇家社會，符合雙重機會X2。切爾西對赫爾城只踢成2比2，未能達成第二項1X2主勝條件。串關必須兩項選擇皆正確，因此整張投注失敗。",
+          "馬德里競技直到第84分鐘才由Grimaldo以十二碼破門，隨後在終場前再進兩球。切爾西先由Rogers領先，Belloumi連入兩球助赫爾城反超，João Pedro追成2比2；切爾西未能再攻入致勝球。",
+          "2項中1項成功"
+        ]
+      }
+    },
+    {
+      "tipp_id": "BI-20260914-175440-MAR",
+      "match_date": "2026-09-14",
+      "kind": "combo",
+      "outcome": "LOST",
+      "market": "Kombi-Wette",
+      "match": "Villarreal – Real Betis + Leeds United – Newcastle United",
+      "score": "1:2 · 4:1",
+      "odds": 2.15,
+      "units": 3,
+      "tipper": "Martin",
+      "legs": [
+        {
+          "home": "Villarreal CF",
+          "away": "Real Betis",
+          "date": "2026-09-14",
+          "score": "1:2",
+          "market": "Doppelte Chance 1X Villarreal oder Remis",
+          "selection_outcome": "LOST",
+          "source_url": "https://www.laliga.com/es-NL/partido/temporada-2026-2027-laliga-ea-sports-villarreal-cf-real-betis-5",
+          "events": [
+            [
+              "29′",
+              "Gerard Moreno",
+              "1:0",
+              "goal"
+            ],
+            [
+              "39′",
+              "Cucho Hernández",
+              "1:1",
+              "goal"
+            ],
+            [
+              "43′",
+              "Natan",
+              "1:2",
+              "goal"
+            ]
+          ]
+        },
+        {
+          "home": "Leeds United",
+          "away": "Newcastle United",
+          "date": "2026-09-14",
+          "score": "4:1",
+          "market": "Doppelte Chance X2 Newcastle oder Remis",
+          "selection_outcome": "LOST",
+          "source_url": "https://www.skysports.com/football/leeds-vs-newcastle/report/559479",
+          "events": [
+            [
+              "32′",
+              "Lewis Miley",
+              "1:0",
+              "own"
+            ],
+            [
+              "34′",
+              "Dominic Calvert-Lewin",
+              "2:0",
+              "goal"
+            ],
+            [
+              "45.+1′",
+              "Dominic Calvert-Lewin",
+              "3:0",
+              "goal"
+            ],
+            [
+              "59′",
+              "Noah Okafor",
+              "4:0",
+              "goal"
+            ],
+            [
+              "90′",
+              "Baba Touré",
+              "4:1",
+              "goal"
+            ]
+          ]
+        }
+      ],
+      "copy": {
+        "de": [
+          "Kombi verloren: Beide Doppelchancen scheiterten",
+          "Villarreal verlor nach 1:0-Führung 1:2 gegen Real Betis – die Doppelchance 1X verfehlte ihr Ziel. Newcastle verlor bei Leeds sogar 1:4 – damit war auch die Doppelchance X2 falsch. Beide Auswahlmärkte scheiterten, die Kombiwette verlor.",
+          "Gerard Moreno brachte Villarreal in Führung, doch Cucho Hernández und Natan drehten das Spiel bereits vor der Pause. In Leeds sorgten ein Eigentor von Lewis Miley und zwei Treffer von Calvert-Lewin früh für die Vorentscheidung. Leeds erhöhte auf 4:0, bevor Newcastle spät den Ehrentreffer erzielte. Weder Villarreal noch Newcastle holte den für die jeweilige Doppelchance nötigen Punkt.",
+          "0 von 2 richtig"
+        ],
+        "en": [
+          "Accumulator lost: both double-chance selections failed",
+          "Villarreal lost 1–2 despite leading against Betis, so 1X failed. Newcastle were beaten 4–1 by Leeds, so X2 failed as well. Neither selection was successful; the entire accumulator lost.",
+          "Gerard Moreno put Villarreal ahead, but Cucho Hernández and Natan overturned the lead before half-time. At Leeds, a Lewis Miley own goal and two Calvert-Lewin goals put the hosts well ahead. Leeds made it 4–0 before Newcastle's late consolation. Neither selected side secured even the draw needed for its respective double-chance market.",
+          "0 of 2 correct"
+        ],
+        "es": [
+          "Combinada perdida: fallaron las dos dobles oportunidades",
+          "Villarreal cayó 1–2 ante Betis pese a adelantarse y falló el 1X. Newcastle perdió 4–1 contra Leeds y tampoco cumplió el X2. Las dos selecciones de la combinada resultaron incorrectas.",
+          "Gerard Moreno adelantó al Villarreal, pero Cucho Hernández y Natan remontaron antes del descanso. En Leeds, un autogol de Lewis Miley y dos tantos de Calvert-Lewin dejaron casi sentenciado el partido. Leeds marcó el cuarto y Newcastle solo redujo distancias al final. Ninguna de las dos dobles oportunidades se cumplió.",
+          "0 de 2 acertadas"
+        ],
+        "pt": [
+          "Múltipla perdida: falharam ambas as hipóteses duplas",
+          "O Villarreal perdeu 1–2 com o Betis apesar de ter estado em vantagem, invalidando a hipótese dupla 1X. O Newcastle perdeu 4–1 com o Leeds, invalidando também a hipótese dupla X2. Nenhuma seleção foi acertada.",
+          "Gerard Moreno adiantou o Villarreal, mas Cucho Hernández e Natan deram a volta ao marcador antes do intervalo. Em Leeds, um autogolo de Lewis Miley e dois golos de Calvert-Lewin colocaram a equipa da casa em vantagem confortável. O Leeds chegou aos 4–0 antes do golo tardio do Newcastle. Nenhuma das equipas escolhidas evitou a derrota.",
+          "0 de 2 certas"
+        ],
+        "it": [
+          "Multipla persa: entrambe le doppie chance sbagliate",
+          "Villarreal ha perso 1-2 contro il Betis nonostante il vantaggio iniziale: 1X errata. Newcastle ha perso 4-1 contro il Leeds: anche X2 errata. Le due selezioni sono risultate perdenti.",
+          "Gerard Moreno aveva portato avanti il Villarreal, ma Cucho Hernández e Natan hanno ribaltato il risultato prima dell'intervallo. A Leeds, un'autorete di Lewis Miley e una doppietta di Calvert-Lewin hanno creato un ampio margine. Leeds è arrivato sul 4-0 prima del gol della bandiera ospite. Nessuna delle due squadre scelte ha ottenuto il pareggio necessario.",
+          "0 su 2 corrette"
+        ],
+        "fr": [
+          "Combiné perdu : les deux doubles chances échouent",
+          "Villarreal a perdu 1–2 contre le Betis malgré l'ouverture du score, invalidant le 1X. Newcastle a été battu 4–1 à Leeds, invalidant le X2. Les deux sélections ont échoué.",
+          "Gerard Moreno avait donné l'avantage à Villarreal, mais Cucho Hernández et Natan ont renversé la situation avant la pause. À Leeds, un but contre son camp de Lewis Miley et deux réalisations de Calvert-Lewin ont rapidement creusé l'écart. Leeds a porté le score à 4–0 avant le but tardif de Newcastle. Aucune des deux équipes sélectionnées n'a évité la défaite.",
+          "0 sélection sur 2 correcte"
+        ],
+        "nl": [
+          "Combinatie verloren: beide dubbele kansen mis",
+          "Villarreal verloor met 1-2 van Betis ondanks een vroege voorsprong en voldeed niet aan 1X. Newcastle verloor met 4-1 bij Leeds en voldeed niet aan X2. Beide selecties waren fout.",
+          "Gerard Moreno zette Villarreal op voorsprong, maar Cucho Hernández en Natan draaiden de stand al voor rust om. Bij Leeds zorgden een eigen doelpunt van Lewis Miley en twee goals van Calvert-Lewin voor een groot verschil. Leeds liep uit naar 4-0; Newcastle maakte laat nog 4-1. Geen van beide gekozen ploegen behaalde het vereiste gelijkspel.",
+          "0 van 2 goed"
+        ],
+        "zh": [
+          "串關失敗：兩項雙重機會皆未成立",
+          "比利亞雷亞爾雖然先領先，最終仍以1比2不敵皇家貝蒂斯，因此1X失敗。紐卡索以1比4敗給里茲，因此X2也失敗。兩項選擇皆不符合條件。",
+          "Gerard Moreno率先為比利亞雷亞爾進球，但Cucho Hernández和Natan在上半場結束前讓貝蒂斯反超。另一場比賽，Lewis Miley踢進烏龍球，加上Calvert-Lewin連入兩球，里茲早早建立優勢。里茲擴大至4比0，紐卡索只在末段追回一球。兩項雙重機會均無法避免敗局。",
+          "2項中0項成功"
+        ]
+      }
+    },
+    {
+      "tipp_id": "BI-20260917-003712-MAR",
+      "match_date": "2026-09-17",
+      "kind": "single",
+      "home": "Real Betis",
+      "away": "Getafe CF",
+      "match": "Real Betis – Getafe",
+      "score": "1:0",
+      "league": "La Liga",
+      "market": "Real Betis gewinnt (1X2)",
+      "outcome": "WON",
+      "odds": 1.72,
+      "units": 4,
+      "tipper": "Martin",
+      "source_url": "https://www.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-real-betis-getafe-cf-6",
+      "events": [
+        {
+          "minute": "45′",
+          "player": "Ez Abde",
+          "score": "1:0",
+          "kind": "goal"
+        },
+        {
+          "minute": "87′",
+          "player": "Mario Martín",
+          "score": "1:0",
+          "kind": "second_yellow"
+        }
+      ],
+      "copy": {
+        "de": [
+          "Betis schlägt Getafe 1:0 – Heimsieg bestätigt",
+          "Ez Abde schoss Real Betis kurz vor der Pause zum 1:0. Getafe fand keinen Ausgleich; Betis gewann und die 1X2-Heimsieg-Auswahl bei Quote 1,72 war richtig.",
+          "Betis kontrollierte die Partie über weite Strecken und ging durch Abdes Treffer in der 45. Minute in Führung. Getafe musste nach der späten Gelb-Roten Karte gegen Mario Martín die Schlussphase in Unterzahl spielen. Trotz weiterer Chancen blieb es beim 1:0. Da die Auswahl ausdrücklich auf Betis-Sieg lautete, bestätigte das Ergebnis den Tipp.",
+          "Real Betis gewinnt (1X2)"
+        ],
+        "en": [
+          "Real Betis beat Getafe 1–0 – home-win tip correct",
+          "Ez Abde scored just before half-time and Getafe never equalised. Betis won 1–0, confirming the home 1X2 selection at odds of 1.72.",
+          "Betis controlled much of the game and took the lead through Ez Abde in minute 45. Getafe finished with ten players after Mario Martín received a second yellow late on. Further chances came and went, but 1–0 remained the result. Betis won, as required by the published 1X2 market.",
+          "Real Betis to win (1X2)"
+        ],
+        "es": [
+          "Betis vence 1–0 a Getafe: pronóstico local acertado",
+          "Ez Abde marcó antes del descanso y Getafe no logró empatar. Betis ganó 1–0 y confirmó la selección 1X2 a cuota 1,72.",
+          "El Betis dominó buena parte del encuentro y se adelantó con Ez Abde en el minuto 45. Getafe acabó con diez jugadores por la segunda amarilla de Mario Martín. El equipo local mantuvo su mínima ventaja hasta el final. La victoria del Betis cumplió el pronóstico publicado.",
+          "Victoria del Real Betis (1X2)"
+        ],
+        "pt": [
+          "Betis vence Getafe por 1–0: prognóstico certo",
+          "Ez Abde marcou antes do intervalo e o Getafe não conseguiu empatar. O Betis ganhou por 1–0 e confirmou o prognóstico 1X2 com cotação de 1,72.",
+          "O Betis controlou boa parte do encontro e adiantou-se por Ez Abde aos 45 minutos. O Getafe terminou com dez jogadores depois da segunda advertência de Mario Martín. A equipa da casa conservou a vantagem mínima até ao apito final. A vitória confirmou a seleção publicada.",
+          "Vitória do Real Betis (1X2)"
+        ],
+        "it": [
+          "Betis batte Getafe 1–0: pronostico casalingo corretto",
+          "Ez Abde ha segnato prima dell'intervallo e il Getafe non ha pareggiato. La vittoria per 1-0 conferma la selezione 1X2 a quota 1,72.",
+          "Il Betis ha controllato buona parte della gara e si è portato avanti al 45' con Ez Abde. Il Getafe ha chiuso in dieci dopo la seconda ammonizione di Mario Martín. Il risultato è rimasto 1-0 fino al fischio finale, rendendo vincente la selezione sulla squadra di casa.",
+          "Vittoria Real Betis (1X2)"
+        ],
+        "fr": [
+          "Betis bat Getafe 1–0 : pronostic domicile validé",
+          "Ez Abde a marqué juste avant la pause. Getafe n'a pas égalisé et Betis a gagné 1–0, validant le choix 1X2 à cote 1,72.",
+          "Le Betis a dominé une grande partie du match et a pris l'avantage grâce à Ez Abde à la 45e. Getafe a terminé à dix après le deuxième avertissement de Mario Martín. Le score est resté de 1–0 jusqu'au terme de la rencontre, ce qui valide le pronostic de victoire à domicile.",
+          "Victoire du Real Betis (1X2)"
+        ],
+        "nl": [
+          "Betis wint met 1-0 van Getafe: thuiszege goed voorspeld",
+          "Ez Abde scoorde vlak voor rust en Getafe kwam niet langszij. De 1-0-zege bevestigde de 1X2-thuiswinst tegen quote 1,72.",
+          "Betis had lange tijd het initiatief en kwam in de 45e minuut op voorsprong via Ez Abde. Getafe eindigde met tien man na de tweede gele kaart voor Mario Martín. De thuisploeg hield de krappe 1-0 vast tot het einde. Daardoor was de voorspelling op een thuiszege gewonnen.",
+          "Real Betis wint (1X2)"
+        ],
+        "zh": [
+          "皇家貝蒂斯1比0擊敗赫塔費，主勝預測成功",
+          "Ez Abde在上半場結束前攻入全場唯一進球，赫塔費未能扳平。貝蒂斯以1比0獲勝，符合賠率1.72的1X2主勝選擇。",
+          "貝蒂斯在多數時間掌握比賽主動權，第45分鐘Ez Abde先開紀錄。赫塔費球員Mario Martín在比賽末段領到第二張黃牌遭罰下。主隊守住1比0直到終場，因此賽前主勝預測成功。",
+          "皇家貝蒂斯獲勝（1X2）"
+        ]
+      }
+    },
+    {
+      "tipp_id": "BI-20260917-003813-MAR",
+      "match_date": "2026-09-17",
+      "kind": "single",
+      "home": "Málaga CF",
+      "away": "Villarreal CF",
+      "match": "Málaga – Villarreal",
+      "score": "1:3",
+      "league": "La Liga",
+      "market": "Villarreal gewinnt (1X2)",
+      "outcome": "WON",
+      "odds": 2.04,
+      "units": 4,
+      "tipper": "Martin",
+      "source_url": "https://iaas-public-front-pro.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-malaga-cf-villarreal-cf-6",
+      "events": [
+        {
+          "minute": "12′",
+          "player": "Carlos Dotor",
+          "score": "1:0",
+          "kind": "goal"
+        },
+        {
+          "minute": "40′",
+          "player": "Alberto Moleiro",
+          "score": "1:1",
+          "kind": "goal"
+        },
+        {
+          "minute": "45.+2′",
+          "player": "Pape Gueye",
+          "score": "1:2",
+          "kind": "goal"
+        },
+        {
+          "minute": "86′",
+          "player": "Pape Gueye",
+          "score": "1:3",
+          "kind": "penalty"
+        }
+      ],
+      "copy": {
+        "de": [
+          "Villarreal gewinnt nach Rückstand 3:1 in Málaga",
+          "Málaga ging früh in Führung, aber Villarreal drehte das Spiel noch vor der Pause. Nach dem 1:3-Auswärtssieg war die 1X2-Auswahl auf Villarreal bei Quote 2,04 gewonnen.",
+          "Carlos Dotor brachte Málaga nach zwölf Minuten in Führung. Alberto Moleiro glich in der 40. Minute aus, Pape Gueye traf in der Nachspielzeit der ersten Hälfte zum 1:2. In Minute 86 verwandelte Gueye einen Elfmeter zum 1:3. Villarreal behauptete damit den für den Tipp nötigen Auswärtssieg.",
+          "Villarreal gewinnt (1X2)"
+        ],
+        "en": [
+          "Villarreal come from behind to win 3–1 at Málaga",
+          "Málaga led early, but Villarreal turned the game around before half-time. The 3–1 away win validated the Villarreal 1X2 selection at odds of 2.04.",
+          "Carlos Dotor put Málaga ahead in the 12th minute. Alberto Moleiro levelled on 40 minutes before Pape Gueye put Villarreal ahead in first-half stoppage time. Gueye converted an 86th-minute penalty to seal the 3–1 result, confirming the published away-win selection.",
+          "Villarreal to win (1X2)"
+        ],
+        "es": [
+          "Villarreal remonta y gana 1–3 en Málaga",
+          "Málaga abrió el marcador, pero Villarreal remontó antes del descanso y ganó 1–3. El pronóstico 1X2 visitante a cuota 2,04 fue acertado.",
+          "Carlos Dotor adelantó al Málaga en el minuto 12. Alberto Moleiro empató en el 40 y Pape Gueye marcó el 1–2 en el descuento de la primera parte. Gueye transformó un penalti en el 86 para cerrar el 1–3. La victoria visitante confirmó el pronóstico.",
+          "Victoria del Villarreal (1X2)"
+        ],
+        "pt": [
+          "Villarreal dá a volta e vence por 3–1 em Málaga",
+          "O Málaga marcou primeiro, mas o Villarreal virou o resultado antes do intervalo e ganhou por 3–1. O prognóstico 1X2 de vitória fora foi acertado, à cotação de 2,04.",
+          "Carlos Dotor adiantou o Málaga aos 12 minutos. Alberto Moleiro empatou aos 40 e Pape Gueye fez o 1–2 no tempo de compensação da primeira parte. Gueye converteu um penálti aos 86 minutos, fechando o 1–3. A vitória fora confirmou a seleção.",
+          "Vitória do Villarreal (1X2)"
+        ],
+        "it": [
+          "Villarreal rimonta e vince 3–1 a Málaga",
+          "Málaga era passato in vantaggio, ma Villarreal ha ribaltato il risultato prima dell'intervallo e ha vinto 3-1. Pronostico esterno corretto a quota 2,04.",
+          "Carlos Dotor ha segnato per il Málaga al 12'. Alberto Moleiro ha pareggiato al 40' e Pape Gueye ha firmato l'1-2 nel recupero del primo tempo. Gueye ha poi trasformato un rigore all'86' per l'1-3 finale. La vittoria esterna ha confermato la selezione.",
+          "Vittoria Villarreal (1X2)"
+        ],
+        "fr": [
+          "Villarreal renverse Málaga et gagne 3–1",
+          "Málaga avait pris l'avantage, mais Villarreal a renversé la situation avant la pause pour gagner 3–1. Le choix 1X2 extérieur à cote 2,04 est validé.",
+          "Carlos Dotor a ouvert le score pour Málaga à la 12e. Alberto Moleiro a égalisé à la 40e et Pape Gueye a marqué le 1–2 dans le temps additionnel de la première période. Gueye a ensuite transformé un penalty à la 86e pour le 1–3 final. Le succès extérieur confirme la sélection.",
+          "Victoire de Villarreal (1X2)"
+        ],
+        "nl": [
+          "Villarreal draait achterstand om en wint 3-1 bij Málaga",
+          "Málaga kwam vroeg op voorsprong, maar Villarreal maakte nog voor rust een ommekeer en won met 3-1. De uitwinstselectie was goed tegen quote 2,04.",
+          "Carlos Dotor zette Málaga in de twaalfde minuut voor. Alberto Moleiro maakte in de veertigste minuut gelijk. Pape Gueye bracht Villarreal in blessuretijd voor rust op 1-2 en benutte in minuut 86 een strafschop voor de 1-3. De uitzege bevestigde de gepubliceerde selectie.",
+          "Villarreal wint (1X2)"
+        ],
+        "zh": [
+          "比利亞雷亞爾逆轉馬拉加，以3比1客勝",
+          "馬拉加先取得領先，但比利亞雷亞爾在上半場結束前反超，最終客場3比1獲勝，符合賠率2.04的1X2客勝預測。",
+          "Carlos Dotor在第12分鐘為馬拉加破門。Alberto Moleiro於第40分鐘追平，Pape Gueye在上半場傷停補時將比分改寫為2比1。第86分鐘Gueye再以十二碼鎖定3比1，確認比利亞雷亞爾客場獲勝。",
+          "比利亞雷亞爾獲勝（1X2）"
+        ]
+      }
+    },
+    {
+      "tipp_id": "BI-20260918-160859-FRA",
+      "match_date": "2026-09-19",
+      "kind": "single",
+      "home": "Holstein Kiel",
+      "away": "VfL Osnabrück",
+      "match": "Holstein Kiel – VfL Osnabrück",
+      "score": "1:1",
+      "league": "2. Bundesliga",
+      "market": "Holstein Kiel gewinnt (1X2)",
+      "outcome": "LOST",
+      "odds": 1.77,
+      "units": 2,
+      "tipper": "Frank",
+      "source_url": "https://www.bundesliga.com/de/2bundesliga/news/holstein-kiel-vfl-osnabrueck-spieltag-6-spielbericht-highlights-39257",
+      "events": [
+        {
+          "minute": "45.+2′",
+          "player": "Phil Harres",
+          "score": "1:0",
+          "kind": "penalty"
+        },
+        {
+          "minute": "72′",
+          "player": "Hiroki Sekine",
+          "score": "1:1",
+          "kind": "own"
+        },
+        {
+          "minute": "75′",
+          "player": "David Zec",
+          "score": "1:1",
+          "kind": "second_yellow"
+        }
+      ],
+      "copy": {
+        "de": [
+          "Kiel – Osnabrück 1:1: Eigentor kostet den Heimsieg",
+          "Kiel führte durch einen Elfmeter, doch ein Eigentor brachte Osnabrück den Ausgleich. Das 1:1 bedeutete für den 1X2-Heimsieg-Tipp eine Niederlage.",
+          "Phil Harres verwandelte in der Nachspielzeit der ersten Hälfte einen Elfmeter zum 1:0. In Minute 72 unterlief dem Kieler Hiroki Sekine ein Eigentor zum 1:1. Nur drei Minuten später sah David Zec Gelb-Rot, sodass Kiel in Unterzahl weiterspielte. Es blieb beim Remis – ein 1X2-Sieg auf Kiel wurde damit nicht erreicht.",
+          "Holstein Kiel gewinnt (1X2)"
+        ],
+        "en": [
+          "Kiel – Osnabrück 1–1: own goal denies home-win tip",
+          "Kiel led through a penalty, but an own goal brought Osnabrück level. The 1–1 draw meant the 1X2 home-win selection lost.",
+          "Phil Harres converted a first-half stoppage-time penalty to make it 1–0. In minute 72, Kiel's Hiroki Sekine scored an own goal to make it 1–1. Three minutes later David Zec received a second yellow card, leaving the hosts a man down. The score stayed level, so a Kiel home win did not occur.",
+          "Holstein Kiel to win (1X2)"
+        ],
+        "es": [
+          "Kiel – Osnabrück 1–1: un autogol frustra victoria local",
+          "Kiel se adelantó de penalti, pero un autogol permitió el empate. El 1–1 hizo perder el pronóstico 1X2 de victoria local.",
+          "Phil Harres transformó un penalti en el descuento de la primera parte. En el minuto 72, Hiroki Sekine marcó en propia puerta para el 1–1. Tres minutos más tarde David Zec vio la segunda amarilla y Kiel acabó en inferioridad. El empate no cumplía el pronóstico de victoria local.",
+          "Victoria del Holstein Kiel (1X2)"
+        ],
+        "pt": [
+          "Kiel – Osnabrück 1–1: autogolo impede vitória caseira",
+          "O Kiel adiantou-se de penálti, mas um autogolo deu o empate ao Osnabrück. O 1–1 invalidou o prognóstico 1X2 de vitória caseira.",
+          "Phil Harres converteu um penálti no tempo de compensação da primeira parte para o 1–0. Aos 72 minutos, Hiroki Sekine fez um autogolo para o 1–1. Três minutos depois David Zec foi expulso por acumulação de amarelos e o Kiel terminou em inferioridade numérica. O empate não confirmava o prognóstico.",
+          "Vitória do Holstein Kiel (1X2)"
+        ],
+        "it": [
+          "Kiel – Osnabrück 1–1: autogol costa la vittoria interna",
+          "Kiel era avanti grazie a un rigore, ma un autogol ha riportato Osnabrück in parità. L'1-1 ha fatto perdere il pronostico 1X2 sulla squadra di casa.",
+          "Phil Harres ha trasformato un rigore nel recupero del primo tempo per l'1-0. Al 72' Hiroki Sekine ha segnato nella propria porta e portato il punteggio sull'1-1. Tre minuti dopo David Zec è stato espulso per doppia ammonizione. Il Kiel non ha più trovato la vittoria necessaria per il pronostico.",
+          "Vittoria Holstein Kiel (1X2)"
+        ],
+        "fr": [
+          "Kiel – Osnabrück 1–1 : un csc coûte la victoire",
+          "Kiel menait après un penalty, mais un but contre son camp a donné l'égalisation à Osnabrück. Le nul 1–1 invalide le pronostic 1X2 domicile.",
+          "Phil Harres a transformé un penalty pendant le temps additionnel de la première période. À la 72e, Hiroki Sekine a marqué contre son camp et rétabli l'égalité. Trois minutes plus tard, David Zec a reçu un deuxième jaune et Kiel a terminé à dix. Le résultat est resté de 1–1, insuffisant pour la victoire de Kiel.",
+          "Victoire de Holstein Kiel (1X2)"
+        ],
+        "nl": [
+          "Kiel – Osnabrück 1-1: eigen doelpunt kost thuiszege",
+          "Kiel leidde na een strafschop, maar een eigen doelpunt bracht Osnabrück langszij. Het 1-1-gelijkspel deed de 1X2-selectie op thuiswinst verliezen.",
+          "Phil Harres benutte in blessuretijd voor rust een strafschop voor de 1-0. In de 72e minuut maakte Hiroki Sekine een eigen doelpunt: 1-1. Drie minuten later kreeg David Zec zijn tweede gele kaart. Kiel speelde de slotfase met tien man en won niet, waardoor de voorspelling op thuiszege verloren ging.",
+          "Holstein Kiel wint (1X2)"
+        ],
+        "zh": [
+          "基爾對奧斯納布呂克1比1：烏龍球使主勝失敗",
+          "基爾憑十二碼取得領先，但下半場一記烏龍球讓客隊追平。最終1比1，無法達成賽前1X2主勝條件。",
+          "Phil Harres在上半場傷停補時主罰十二碼得手，基爾1比0領先。第72分鐘Hiroki Sekine踢進烏龍球，比分成為1比1。三分鐘後David Zec因第二張黃牌被罰下，基爾在少一人的情況下完成比賽。平局不符合基爾主勝預測。",
+          "基爾獲勝（1X2）"
+        ]
+      }
+    }
+  ]
+}
