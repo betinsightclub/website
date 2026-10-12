@@ -7,6 +7,7 @@
   const FACEBOOK_URL = "https://www.facebook.com/betinsightclub";
   const BLUESKY_URL = "https://bsky.app/profile/betinsight.bsky.social";
   const MINDS_URL = "https://www.minds.com/betinsightclub/";
+  const TRUSTPILOT_REVIEW_URL = "https://www.trustpilot.com/evaluate/betinsight.club";
   const COMPANY_NAME = "LucMedia LTDA";
   const COMPANY_CNPJ = "69.449.797/0001-05";
   const SUPPORTED = ["de","en","es","pt","it","fr","nl","zh-tw"];
@@ -20,6 +21,25 @@
     nl:{follow:"Volg ons",youtube:"BetInsight Club op YouTube openen",telegram:"BetInsight Club op Telegram openen",x:"BetInsight Club op X openen",facebook:"BetInsight Club op Facebook openen",bluesky:"BetInsight Club op Bluesky openen",minds:"BetInsight Club op Minds openen"},
     "zh-tw":{follow:"追蹤我們",youtube:"在 YouTube 開啟 BetInsight Club",telegram:"在 Telegram 開啟 BetInsight Club",x:"在 X 開啟 BetInsight Club",facebook:"在 Facebook 開啟 BetInsight Club",bluesky:"在 Bluesky 開啟 BetInsight Club",minds:"在 Minds 開啟 BetInsight Club"}
   };
+
+  const REVIEW_COPY = {
+    de: "Auf Trustpilot bewerten",
+    en: "Review us on Trustpilot",
+    es: "Valóranos en Trustpilot",
+    pt: "Avalie-nos no Trustpilot",
+    it: "Recensiscici su Trustpilot",
+    fr: "Évaluez-nous sur Trustpilot",
+    nl: "Beoordeel ons op Trustpilot",
+    "zh-tw": "在 Trustpilot 評價我們",
+    zh: "在 Trustpilot 评价我们"
+  };
+
+  function reviewLanguage(){
+    const raw = String(document.documentElement.lang || "").toLowerCase();
+    const path = location.pathname.split("/").filter(Boolean)[0]?.toLowerCase();
+    if (raw === "zh" || raw.startsWith("zh-cn") || path === "zh") return "zh";
+    return lang();
+  }
 
   function lang(){
     const raw = String(document.documentElement.lang || "").toLowerCase();
@@ -43,6 +63,9 @@
       .betinsight-footer-social-icon{display:block;width:20px;height:20px}
       .betinsight-footer-social-link[data-social="x"]{color:#fff;font:900 17px/1 Arial,Helvetica,sans-serif}
       footer .betinsight-footer-social,.footer .betinsight-footer-social{max-width:100%}
+      .betinsight-footer-review{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:30px;max-width:100%;padding:4px 9px;border:1px solid rgba(0,182,122,.32);border-radius:9px;background:rgba(0,182,122,.06);color:#b9ead5;font:700 11px/1.3 Inter,system-ui,sans-serif;text-decoration:none;white-space:nowrap;transition:background .16s ease,border-color .16s ease}
+      .betinsight-footer-review:hover,.betinsight-footer-review:focus-visible{background:rgba(0,182,122,.14);border-color:#00b67a;outline-offset:3px}
+      .betinsight-footer-review-star{color:#00b67a;font-size:16px;line-height:1}
       .betinsight-footer-company{margin-top:14px;color:#718a96;font-size:11px;line-height:1.6}
       .betinsight-footer-info-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:12px}
       .betinsight-footer-info-links a{color:#9fb2c2;text-decoration:none}
@@ -116,6 +139,31 @@
         '<svg class="betinsight-footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#ffd21f"/><path d="M5.5 17.5v-11h2.7l3.8 4.7 3.8-4.7h2.7v11h-2.8v-6.6L12 15.3l-3.7-4.4v6.6Z" fill="#171717"/></svg>'
       ));
     }
+  }
+
+  function ensureReviewLink(wrapper){
+    const label = REVIEW_COPY[reviewLanguage()] || REVIEW_COPY.en;
+    let a = wrapper.querySelector('[data-social="trustpilot"]');
+    if (!a) {
+      a = document.createElement("a");
+      a.className = "betinsight-footer-review";
+      a.dataset.social = "trustpilot";
+      a.href = TRUSTPILOT_REVIEW_URL;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      const star = document.createElement("span");
+      star.className = "betinsight-footer-review-star";
+      star.setAttribute("aria-hidden", "true");
+      star.textContent = "★";
+      const text = document.createElement("span");
+      text.className = "betinsight-footer-review-text";
+      a.append(star, text);
+      wrapper.appendChild(a);
+    }
+    a.setAttribute("aria-label", label);
+    a.title = label;
+    const caption = a.querySelector(".betinsight-footer-review-text");
+    if (caption) caption.textContent = label;
   }
 
   function target(){
@@ -214,6 +262,7 @@
       host.appendChild(wrapper);
     }
     ensureLinks(wrapper);
+    ensureReviewLink(wrapper);
     ensureInfoLinks();
     ensureCompanyIdentity();
   }
@@ -221,7 +270,11 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true});
   else init();
 
-  const langObserver = new MutationObserver(() => ensureInfoLinks());
+  const langObserver = new MutationObserver(() => {
+    ensureInfoLinks();
+    const wrapper = document.querySelector("[data-betinsight-footer-social]");
+    if (wrapper) ensureReviewLink(wrapper);
+  });
   langObserver.observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
 })();
 /* BetInsight Football Wiki enhancements */
