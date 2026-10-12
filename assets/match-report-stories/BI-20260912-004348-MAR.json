@@ -1,0 +1,270 @@
+{
+  "schema": "betinsight_verified_combo_story_v1",
+  "tipp_id": "BI-20260912-004348-MAR",
+  "match_date": "2026-09-12",
+  "kind": "combo",
+  "outcome": "LOST",
+  "status": "VERLOREN",
+  "match": "Real Sociedad – Atlético Madrid + Chelsea – Hull City",
+  "score": "0:3 · 2:2",
+  "market": "Kombi-Wette",
+  "odds": 1.67,
+  "units": 4,
+  "tipper": "Martin",
+  "summary_de": "Atlético gewann bei Real Sociedad mit 3:0 und erfüllte die Doppelte Chance X2. Chelsea führte gegen Hull früh, geriet durch zwei Belloumi-Tore in Rückstand und glich zum 2:2 aus. Für den 1X2-Tipp auf Chelsea wäre jedoch ein Sieg nötig gewesen. Weil bei einer Kombiwette beide Auswahlen stimmen müssen, verlor der gesamte Tipp.",
+  "summary_en": "Atlético won 3–0 away, satisfying the double-chance X2 selection. Chelsea drew 2–2 with Hull after an early lead and late equaliser. Chelsea needed to win for the 1X2 leg to succeed; because all selections must win in an accumulator, the bet lost.",
+  "note_de": "Die beiden Wettteile und deren Resultate sind anhand der verlinkten offiziellen Quellen geprüft. Ursprünglicher Kombitipp, Quote, Units, Verlustergebnis und Statistik bleiben unverändert.",
+  "note_en": "Both legs and match events use the linked match reports. Original tip, odds, units, settlement and statistics are unchanged.",
+  "legs": [
+    {
+      "home": "Real Sociedad",
+      "away": "Atlético de Madrid",
+      "score": "0:3",
+      "market_label": "Doppelte Chance X2",
+      "selection_outcome": "WON",
+      "source_url": "https://www.laliga.com/en-GB/match/temporada-2026-2027-laliga-ea-sports-real-sociedad-atletico-de-madrid-5",
+      "key_events": [
+        {
+          "minute": "84′",
+          "text": "Alejandro Grimaldo verwandelt einen Strafstoß zum 0:1.",
+          "text_en": "Alejandro Grimaldo converts a penalty for 0:1."
+        },
+        {
+          "minute": "90′",
+          "text": "Jonathan David erzielt das 0:2.",
+          "text_en": "Jonathan David scores to make it 0:2."
+        },
+        {
+          "minute": "90.+5′",
+          "text": "Giuliano Simeone erzielt das 0:3.",
+          "text_en": "Giuliano Simeone scores to make it 0:3."
+        }
+      ],
+      "narrative_de": "Atlético erzielte in der Schlussphase durch Grimaldo, Jonathan David und Giuliano drei Tore. Der Auswärtssieg erfüllt die Auswahl X2.",
+      "narrative_en": "Atlético scored three late goals through Grimaldo, Jonathan David and Giuliano. The away victory satisfies X2."
+    },
+    {
+      "home": "Chelsea FC",
+      "away": "Hull City",
+      "score": "2:2",
+      "market_label": "Chelsea gewinnt (1X2)",
+      "selection_outcome": "LOST",
+      "source_url": "https://www.chelseafc.com/en/news/article/match-report-chelsea-2-2-hull",
+      "key_events": [
+        {
+          "minute": "7′",
+          "text": "Morgan Rogers erzielt das 1:0.",
+          "text_en": "Morgan Rogers scores to make it 1:0."
+        },
+        {
+          "minute": "28′",
+          "text": "Mohamed Belloumi erzielt das 1:1.",
+          "text_en": "Mohamed Belloumi scores to make it 1:1."
+        },
+        {
+          "minute": "34′",
+          "text": "Mohamed Belloumi erzielt das 1:2.",
+          "text_en": "Mohamed Belloumi scores to make it 1:2."
+        },
+        {
+          "minute": "66′",
+          "text": "João Pedro erzielt das 2:2.",
+          "text_en": "João Pedro scores to make it 2:2."
+        }
+      ],
+      "narrative_de": "Chelsea führte früh, Hull drehte das Spiel durch Belloumi. João Pedro glich zum 2:2 aus, doch Chelsea gewann nicht. Damit scheiterte der Chelsea-Sieg.",
+      "narrative_en": "Chelsea led early, but Belloumi gave Hull the lead. João Pedro equalised at 2–2; Chelsea did not win and this 1X2 leg lost."
+    }
+  ],
+  "translations": {
+    "en": {
+      "summary": "Atlético won 3–0 away, satisfying the double-chance X2 selection. Chelsea drew 2–2 with Hull after an early lead and late equaliser. Chelsea needed to win for the 1X2 leg to succeed; because all selections must win in an accumulator, the bet lost.",
+      "note": "Retrospective analysis of two previously published match selections. Original master data and statistical balances are unchanged.",
+      "heading": "Actual match timelines and decisive moments",
+      "conclusion_heading": "Why the accumulator lost",
+      "legs": [
+        {
+          "market": "Double chance X2: Atlético win or draw",
+          "narrative": "Atlético scored three late goals through Grimaldo, Jonathan David and Giuliano. The away victory satisfies X2.",
+          "events": [
+            "Alejandro Grimaldo converts a penalty for 0:1.",
+            "Jonathan David scores to make it 0:2.",
+            "Giuliano Simeone scores to make it 0:3."
+          ]
+        },
+        {
+          "market": "1X2: Chelsea to win",
+          "narrative": "Chelsea led early, but Belloumi gave Hull the lead. João Pedro equalised at 2–2; Chelsea did not win and this 1X2 leg lost.",
+          "events": [
+            "Morgan Rogers scores to make it 1:0.",
+            "Mohamed Belloumi scores to make it 1:1.",
+            "Mohamed Belloumi scores to make it 1:2.",
+            "João Pedro scores to make it 2:2."
+          ]
+        }
+      ]
+    },
+    "es": {
+      "summary": "Atlético ganó 0–3 y acertó la doble oportunidad X2. Chelsea empató 2–2 contra Hull; necesitaba ganar para cumplir la segunda selección 1X2. Una combinada exige acertar ambas elecciones, por lo que se perdió.",
+      "note": "Análisis posterior de una combinada publicada antes del encuentro. No se modifican los datos ni estadísticas originales.",
+      "heading": "Desarrollo de ambos partidos y momentos clave",
+      "conclusion_heading": "Por qué se perdió la combinada",
+      "legs": [
+        {
+          "market": "Doble oportunidad X2: Atlético o empate",
+          "narrative": "El Atlético marcó tres goles al final, por Grimaldo, Jonathan David y Giuliano. La victoria visitante cumple X2.",
+          "events": [
+            "Alejandro Grimaldo convierte un penalti para el 0:1.",
+            "Jonathan David marca el 0:2.",
+            "Giuliano Simeone marca el 0:3."
+          ]
+        },
+        {
+          "market": "1X2: victoria del Chelsea",
+          "narrative": "Chelsea se adelantó, Belloumi remontó para Hull y João Pedro empató 2–2. Chelsea no ganó y falló el 1X2.",
+          "events": [
+            "Morgan Rogers marca el 1:0.",
+            "Mohamed Belloumi marca el 1:1.",
+            "Mohamed Belloumi marca el 1:2.",
+            "João Pedro marca el 2:2."
+          ]
+        }
+      ]
+    },
+    "pt": {
+      "summary": "O Atlético venceu por 3–0 e validou a hipótese dupla X2. O Chelsea empatou 2–2 com o Hull; precisava de ganhar para confirmar a segunda seleção 1X2. Como ambas as seleções tinham de ser certas, a múltipla foi perdida.",
+      "note": "Análise posterior de uma múltipla publicada antes dos jogos. Os dados e estatísticas originais não foram alterados.",
+      "heading": "Decorrer dos jogos e momentos decisivos",
+      "conclusion_heading": "Porque foi a múltipla perdida",
+      "legs": [
+        {
+          "market": "Hipótese dupla X2: Atlético ou empate",
+          "narrative": "O Atlético marcou três golos na fase final, por Grimaldo, Jonathan David e Giuliano. A vitória fora validou o X2.",
+          "events": [
+            "Alejandro Grimaldo converte um penálti para o 0:1.",
+            "Jonathan David marca o 0:2.",
+            "Giuliano Simeone marca o 0:3."
+          ]
+        },
+        {
+          "market": "1X2: vitória do Chelsea",
+          "narrative": "O Chelsea adiantou-se, Belloumi virou para o Hull e João Pedro empatou 2–2. O Chelsea não venceu e a seleção 1X2 foi perdida.",
+          "events": [
+            "Morgan Rogers marca o 1:0.",
+            "Mohamed Belloumi marca o 1:1.",
+            "Mohamed Belloumi marca o 1:2.",
+            "João Pedro marca o 2:2."
+          ]
+        }
+      ]
+    },
+    "it": {
+      "summary": "L'Atlético ha vinto 3-0, rendendo corretta la doppia chance X2. Il Chelsea ha pareggiato 2-2 contro l'Hull e non ha ottenuto la vittoria richiesta dalla seconda selezione 1X2. Una multipla richiede che tutte le scelte siano vincenti.",
+      "note": "Analisi successiva di una multipla pubblicata prima degli incontri. I dati e le statistiche originali restano invariati.",
+      "heading": "Andamento delle partite e momenti decisivi",
+      "conclusion_heading": "Perché la multipla ha perso",
+      "legs": [
+        {
+          "market": "Doppia chance X2: Atlético o pareggio",
+          "narrative": "L'Atlético ha segnato tre reti nel finale con Grimaldo, Jonathan David e Giuliano. Il successo esterno valida X2.",
+          "events": [
+            "Alejandro Grimaldo trasforma un rigore per il 0:1.",
+            "Jonathan David segna il 0:2.",
+            "Giuliano Simeone segna il 0:3."
+          ]
+        },
+        {
+          "market": "1X2: vittoria Chelsea",
+          "narrative": "Chelsea era avanti, Belloumi ha ribaltato la gara per Hull e João Pedro ha pareggiato 2-2. Chelsea non ha vinto e l'1X2 ha perso.",
+          "events": [
+            "Morgan Rogers segna il 1:0.",
+            "Mohamed Belloumi segna il 1:1.",
+            "Mohamed Belloumi segna il 1:2.",
+            "João Pedro segna il 2:2."
+          ]
+        }
+      ]
+    },
+    "fr": {
+      "summary": "L'Atlético s'est imposé 3–0 et a validé la double chance X2. Chelsea a fait match nul 2–2 contre Hull, alors qu'une victoire était indispensable pour la seconde sélection 1X2. Un combiné nécessite la réussite de tous les choix.",
+      "note": "Analyse a posteriori d'un combiné publié avant les matchs. Les données et statistiques d'origine sont conservées.",
+      "heading": "Déroulement des matchs et moments décisifs",
+      "conclusion_heading": "Pourquoi le combiné a été perdu",
+      "legs": [
+        {
+          "market": "Double chance X2 : Atlético ou nul",
+          "narrative": "L'Atlético a marqué trois fois en fin de match par Grimaldo, Jonathan David et Giuliano. La victoire valide X2.",
+          "events": [
+            "Alejandro Grimaldo transforme un penalty : 0:1.",
+            "Jonathan David marque : 0:2.",
+            "Giuliano Simeone marque : 0:3."
+          ]
+        },
+        {
+          "market": "1X2 : victoire de Chelsea",
+          "narrative": "Chelsea a pris l'avantage, Belloumi a renversé le score pour Hull et João Pedro a égalisé à 2–2. Chelsea n'a pas gagné.",
+          "events": [
+            "Morgan Rogers marque : 1:0.",
+            "Mohamed Belloumi marque : 1:1.",
+            "Mohamed Belloumi marque : 1:2.",
+            "João Pedro marque : 2:2."
+          ]
+        }
+      ]
+    },
+    "nl": {
+      "summary": "Atlético won met 3-0 en voldeed aan dubbele kans X2. Chelsea speelde 2-2 tegen Hull en boekte niet de vereiste thuisoverwinning voor de tweede 1X2-selectie. Bij een combinatie moeten beide selecties goed zijn; daarom ging de weddenschap verloren.",
+      "note": "Achteraf uitgevoerde analyse van een eerder gepubliceerde combinatie. De oorspronkelijke cijfers blijven behouden.",
+      "heading": "Wedstrijdverloop en beslissende momenten",
+      "conclusion_heading": "Waarom de combinatie verloor",
+      "legs": [
+        {
+          "market": "Dubbele kans X2: Atlético of gelijkspel",
+          "narrative": "Atlético scoorde laat via Grimaldo, Jonathan David en Giuliano. De uitzege was voldoende voor X2.",
+          "events": [
+            "Alejandro Grimaldo benut een strafschop: 0:1.",
+            "Jonathan David scoort en brengt de stand op 0:2.",
+            "Giuliano Simeone scoort en brengt de stand op 0:3."
+          ]
+        },
+        {
+          "market": "1X2: Chelsea wint",
+          "narrative": "Chelsea kwam op voorsprong, Belloumi draaide de stand voor Hull om en João Pedro maakte 2-2. Chelsea won niet; dit 1X2-deel ging verloren.",
+          "events": [
+            "Morgan Rogers scoort en brengt de stand op 1:0.",
+            "Mohamed Belloumi scoort en brengt de stand op 1:1.",
+            "Mohamed Belloumi scoort en brengt de stand op 1:2.",
+            "João Pedro scoort en brengt de stand op 2:2."
+          ]
+        }
+      ]
+    },
+    "zh": {
+      "summary": "馬德里競技以3比0擊敗皇家社會，符合雙重機會X2。切爾西對赫爾城只踢成2比2，未能達成第二項1X2主勝條件。串關必須兩項選擇皆正確，因此整張投注失敗。",
+      "note": "這是對賽前發布串關投注的賽後分析，原始賠率、單位、結果與統計均保持不變。",
+      "heading": "兩場比賽的經過與關鍵時刻",
+      "conclusion_heading": "為什麼串關投注失敗？",
+      "legs": [
+        {
+          "market": "雙重機會X2：馬德里競技獲勝或平局",
+          "narrative": "馬德里競技在比賽末段由Grimaldo、Jonathan David和Giuliano連入三球。客勝符合X2。",
+          "events": [
+            "Alejandro Grimaldo主罰十二碼得手，比分0:1。",
+            "Jonathan David進球，比分改寫為0:2。",
+            "Giuliano Simeone進球，比分改寫為0:3。"
+          ]
+        },
+        {
+          "market": "1X2：切爾西獲勝",
+          "narrative": "切爾西先領先，Belloumi為赫爾城反超，João Pedro追成2比2。切爾西未能獲勝，因此此1X2選擇失敗。",
+          "events": [
+            "Morgan Rogers進球，比分改寫為1:0。",
+            "Mohamed Belloumi進球，比分改寫為1:1。",
+            "Mohamed Belloumi進球，比分改寫為1:2。",
+            "João Pedro進球，比分改寫為2:2。"
+          ]
+        }
+      ]
+    }
+  }
+}

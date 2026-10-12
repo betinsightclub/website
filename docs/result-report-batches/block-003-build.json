@@ -1,0 +1,301 @@
+{
+  "batch_id": "003",
+  "tip_count": 5,
+  "languages": [
+    "de",
+    "en",
+    "es",
+    "pt",
+    "it",
+    "fr",
+    "nl",
+    "zh"
+  ],
+  "pages": 40,
+  "images": 40,
+  "sources_provided": true,
+  "original_tip_data_changed": false,
+  "original_statistical_values_preserved": true,
+  "results": [
+    {
+      "id": "BI-20260912-004348-MAR",
+      "lang": "de",
+      "page": "https://betinsight.club/de/tipps/ergebnis/BI-20260912-004348-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260912-004348-mar-de-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260912-004348-MAR",
+      "lang": "en",
+      "page": "https://betinsight.club/en/tipps/ergebnis/BI-20260912-004348-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260912-004348-mar-en-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260912-004348-MAR",
+      "lang": "es",
+      "page": "https://betinsight.club/es/tipps/ergebnis/BI-20260912-004348-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260912-004348-mar-es-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260912-004348-MAR",
+      "lang": "pt",
+      "page": "https://betinsight.club/pt/tipps/ergebnis/BI-20260912-004348-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260912-004348-mar-pt-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260912-004348-MAR",
+      "lang": "it",
+      "page": "https://betinsight.club/it/tipps/ergebnis/BI-20260912-004348-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260912-004348-mar-it-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260912-004348-MAR",
+      "lang": "fr",
+      "page": "https://betinsight.club/fr/tipps/ergebnis/BI-20260912-004348-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260912-004348-mar-fr-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260912-004348-MAR",
+      "lang": "nl",
+      "page": "https://betinsight.club/nl/tipps/ergebnis/BI-20260912-004348-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260912-004348-mar-nl-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260912-004348-MAR",
+      "lang": "zh",
+      "page": "https://betinsight.club/zh/tipps/ergebnis/BI-20260912-004348-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260912-004348-mar-zh-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "lang": "de",
+      "page": "https://betinsight.club/de/tipps/ergebnis/BI-20260914-175440-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260914-175440-mar-de-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "lang": "en",
+      "page": "https://betinsight.club/en/tipps/ergebnis/BI-20260914-175440-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260914-175440-mar-en-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "lang": "es",
+      "page": "https://betinsight.club/es/tipps/ergebnis/BI-20260914-175440-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260914-175440-mar-es-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "lang": "pt",
+      "page": "https://betinsight.club/pt/tipps/ergebnis/BI-20260914-175440-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260914-175440-mar-pt-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "lang": "it",
+      "page": "https://betinsight.club/it/tipps/ergebnis/BI-20260914-175440-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260914-175440-mar-it-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "lang": "fr",
+      "page": "https://betinsight.club/fr/tipps/ergebnis/BI-20260914-175440-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260914-175440-mar-fr-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "lang": "nl",
+      "page": "https://betinsight.club/nl/tipps/ergebnis/BI-20260914-175440-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260914-175440-mar-nl-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260914-175440-MAR",
+      "lang": "zh",
+      "page": "https://betinsight.club/zh/tipps/ergebnis/BI-20260914-175440-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260914-175440-mar-zh-combo-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "lang": "de",
+      "page": "https://betinsight.club/de/tipps/ergebnis/BI-20260917-003712-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003712-mar-de-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "lang": "en",
+      "page": "https://betinsight.club/en/tipps/ergebnis/BI-20260917-003712-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003712-mar-en-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "lang": "es",
+      "page": "https://betinsight.club/es/tipps/ergebnis/BI-20260917-003712-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003712-mar-es-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "lang": "pt",
+      "page": "https://betinsight.club/pt/tipps/ergebnis/BI-20260917-003712-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003712-mar-pt-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "lang": "it",
+      "page": "https://betinsight.club/it/tipps/ergebnis/BI-20260917-003712-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003712-mar-it-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "lang": "fr",
+      "page": "https://betinsight.club/fr/tipps/ergebnis/BI-20260917-003712-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003712-mar-fr-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "lang": "nl",
+      "page": "https://betinsight.club/nl/tipps/ergebnis/BI-20260917-003712-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003712-mar-nl-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003712-MAR",
+      "lang": "zh",
+      "page": "https://betinsight.club/zh/tipps/ergebnis/BI-20260917-003712-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003712-mar-zh-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "lang": "de",
+      "page": "https://betinsight.club/de/tipps/ergebnis/BI-20260917-003813-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003813-mar-de-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "lang": "en",
+      "page": "https://betinsight.club/en/tipps/ergebnis/BI-20260917-003813-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003813-mar-en-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "lang": "es",
+      "page": "https://betinsight.club/es/tipps/ergebnis/BI-20260917-003813-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003813-mar-es-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "lang": "pt",
+      "page": "https://betinsight.club/pt/tipps/ergebnis/BI-20260917-003813-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003813-mar-pt-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "lang": "it",
+      "page": "https://betinsight.club/it/tipps/ergebnis/BI-20260917-003813-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003813-mar-it-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "lang": "fr",
+      "page": "https://betinsight.club/fr/tipps/ergebnis/BI-20260917-003813-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003813-mar-fr-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "lang": "nl",
+      "page": "https://betinsight.club/nl/tipps/ergebnis/BI-20260917-003813-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003813-mar-nl-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260917-003813-MAR",
+      "lang": "zh",
+      "page": "https://betinsight.club/zh/tipps/ergebnis/BI-20260917-003813-MAR/",
+      "image": "https://betinsight.club/assets/og/bi-20260917-003813-mar-zh-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "lang": "de",
+      "page": "https://betinsight.club/de/tipps/ergebnis/BI-20260918-160859-FRA/",
+      "image": "https://betinsight.club/assets/og/bi-20260918-160859-fra-de-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "lang": "en",
+      "page": "https://betinsight.club/en/tipps/ergebnis/BI-20260918-160859-FRA/",
+      "image": "https://betinsight.club/assets/og/bi-20260918-160859-fra-en-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "lang": "es",
+      "page": "https://betinsight.club/es/tipps/ergebnis/BI-20260918-160859-FRA/",
+      "image": "https://betinsight.club/assets/og/bi-20260918-160859-fra-es-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "lang": "pt",
+      "page": "https://betinsight.club/pt/tipps/ergebnis/BI-20260918-160859-FRA/",
+      "image": "https://betinsight.club/assets/og/bi-20260918-160859-fra-pt-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "lang": "it",
+      "page": "https://betinsight.club/it/tipps/ergebnis/BI-20260918-160859-FRA/",
+      "image": "https://betinsight.club/assets/og/bi-20260918-160859-fra-it-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "lang": "fr",
+      "page": "https://betinsight.club/fr/tipps/ergebnis/BI-20260918-160859-FRA/",
+      "image": "https://betinsight.club/assets/og/bi-20260918-160859-fra-fr-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "lang": "nl",
+      "page": "https://betinsight.club/nl/tipps/ergebnis/BI-20260918-160859-FRA/",
+      "image": "https://betinsight.club/assets/og/bi-20260918-160859-fra-nl-v1.jpg",
+      "proof": true
+    },
+    {
+      "id": "BI-20260918-160859-FRA",
+      "lang": "zh",
+      "page": "https://betinsight.club/zh/tipps/ergebnis/BI-20260918-160859-FRA/",
+      "image": "https://betinsight.club/assets/og/bi-20260918-160859-fra-zh-v1.jpg",
+      "proof": true
+    }
+  ]
+}

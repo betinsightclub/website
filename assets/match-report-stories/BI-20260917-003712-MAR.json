@@ -1,0 +1,122 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260917-003712-MAR",
+  "match_date": "2026-09-17",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "Real Betis",
+  "away": "Getafe CF",
+  "match": "Real Betis – Getafe",
+  "score": "1:0",
+  "market": "Real Betis gewinnt (1X2)",
+  "odds": 1.72,
+  "units": 4,
+  "league": "La Liga",
+  "verified_source": "Independent official match report",
+  "source_url": "https://www.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-real-betis-getafe-cf-6",
+  "source_checked_at": "2026-10-10",
+  "leg_status": "WON",
+  "legs": [
+    {
+      "home": "Real Betis",
+      "away": "Getafe CF",
+      "score": "1:0",
+      "status": "FT",
+      "market_label": "Real Betis gewinnt (1X2)",
+      "selection_outcome": "WON",
+      "source_url": "https://www.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-real-betis-getafe-cf-6",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "45′",
+          "text": "Ez Abde erzielt das 1:0.",
+          "text_en": "Ez Abde scores to make it 1:0."
+        },
+        {
+          "minute": "87′",
+          "text": "Mario Martín sieht Gelb-Rot, der Spielstand bleibt 1:0.",
+          "text_en": "Mario Martín is sent off for a second yellow; the score is 1:0."
+        }
+      ],
+      "narrative_de": "Betis kontrollierte die Partie über weite Strecken und ging durch Abdes Treffer in der 45. Minute in Führung. Getafe musste nach der späten Gelb-Roten Karte gegen Mario Martín die Schlussphase in Unterzahl spielen. Trotz weiterer Chancen blieb es beim 1:0. Da die Auswahl ausdrücklich auf Betis-Sieg lautete, bestätigte das Ergebnis den Tipp.",
+      "narrative_en": "Betis controlled much of the game and took the lead through Ez Abde in minute 45. Getafe finished with ten players after Mario Martín received a second yellow late on. Further chances came and went, but 1–0 remained the result. Betis won, as required by the published 1X2 market."
+    }
+  ],
+  "summary_de": "Ez Abde schoss Real Betis kurz vor der Pause zum 1:0. Getafe fand keinen Ausgleich; Betis gewann und die 1X2-Heimsieg-Auswahl bei Quote 1,72 war richtig.",
+  "summary_en": "Ez Abde scored just before half-time and Getafe never equalised. Betis won 1–0, confirming the home 1X2 selection at odds of 1.72.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Real Betis beat Getafe 1–0 – home-win tip correct",
+      "market": "Real Betis to win (1X2)",
+      "summary": "Ez Abde scored just before half-time and Getafe never equalised. Betis won 1–0, confirming the home 1X2 selection at odds of 1.72.",
+      "narrative": "Betis controlled much of the game and took the lead through Ez Abde in minute 45. Getafe finished with ten players after Mario Martín received a second yellow late on. Further chances came and went, but 1–0 remained the result. Betis won, as required by the published 1X2 market.",
+      "events": [
+        "Ez Abde scores to make it 1:0.",
+        "Mario Martín is sent off for a second yellow; the score is 1:0."
+      ]
+    },
+    "es": {
+      "headline": "Betis vence 1–0 a Getafe: pronóstico local acertado",
+      "market": "Victoria del Real Betis (1X2)",
+      "summary": "Ez Abde marcó antes del descanso y Getafe no logró empatar. Betis ganó 1–0 y confirmó la selección 1X2 a cuota 1,72.",
+      "narrative": "El Betis dominó buena parte del encuentro y se adelantó con Ez Abde en el minuto 45. Getafe acabó con diez jugadores por la segunda amarilla de Mario Martín. El equipo local mantuvo su mínima ventaja hasta el final. La victoria del Betis cumplió el pronóstico publicado.",
+      "events": [
+        "Ez Abde marca el 1:0.",
+        "Mario Martín es expulsado por doble amarilla con el marcador 1:0."
+      ]
+    },
+    "pt": {
+      "headline": "Betis vence Getafe por 1–0: prognóstico certo",
+      "market": "Vitória do Real Betis (1X2)",
+      "summary": "Ez Abde marcou antes do intervalo e o Getafe não conseguiu empatar. O Betis ganhou por 1–0 e confirmou o prognóstico 1X2 com cotação de 1,72.",
+      "narrative": "O Betis controlou boa parte do encontro e adiantou-se por Ez Abde aos 45 minutos. O Getafe terminou com dez jogadores depois da segunda advertência de Mario Martín. A equipa da casa conservou a vantagem mínima até ao apito final. A vitória confirmou a seleção publicada.",
+      "events": [
+        "Ez Abde marca o 1:0.",
+        "Mario Martín é expulso por acumulação de amarelos com o resultado em 1:0."
+      ]
+    },
+    "it": {
+      "headline": "Betis batte Getafe 1–0: pronostico casalingo corretto",
+      "market": "Vittoria Real Betis (1X2)",
+      "summary": "Ez Abde ha segnato prima dell'intervallo e il Getafe non ha pareggiato. La vittoria per 1-0 conferma la selezione 1X2 a quota 1,72.",
+      "narrative": "Il Betis ha controllato buona parte della gara e si è portato avanti al 45' con Ez Abde. Il Getafe ha chiuso in dieci dopo la seconda ammonizione di Mario Martín. Il risultato è rimasto 1-0 fino al fischio finale, rendendo vincente la selezione sulla squadra di casa.",
+      "events": [
+        "Ez Abde segna il 1:0.",
+        "Mario Martín viene espulso per doppia ammonizione sul 1:0."
+      ]
+    },
+    "fr": {
+      "headline": "Betis bat Getafe 1–0 : pronostic domicile validé",
+      "market": "Victoire du Real Betis (1X2)",
+      "summary": "Ez Abde a marqué juste avant la pause. Getafe n'a pas égalisé et Betis a gagné 1–0, validant le choix 1X2 à cote 1,72.",
+      "narrative": "Le Betis a dominé une grande partie du match et a pris l'avantage grâce à Ez Abde à la 45e. Getafe a terminé à dix après le deuxième avertissement de Mario Martín. Le score est resté de 1–0 jusqu'au terme de la rencontre, ce qui valide le pronostic de victoire à domicile.",
+      "events": [
+        "Ez Abde marque : 1:0.",
+        "Mario Martín est expulsé après un deuxième jaune, score 1:0."
+      ]
+    },
+    "nl": {
+      "headline": "Betis wint met 1-0 van Getafe: thuiszege goed voorspeld",
+      "market": "Real Betis wint (1X2)",
+      "summary": "Ez Abde scoorde vlak voor rust en Getafe kwam niet langszij. De 1-0-zege bevestigde de 1X2-thuiswinst tegen quote 1,72.",
+      "narrative": "Betis had lange tijd het initiatief en kwam in de 45e minuut op voorsprong via Ez Abde. Getafe eindigde met tien man na de tweede gele kaart voor Mario Martín. De thuisploeg hield de krappe 1-0 vast tot het einde. Daardoor was de voorspelling op een thuiszege gewonnen.",
+      "events": [
+        "Ez Abde scoort en brengt de stand op 1:0.",
+        "Mario Martín krijgt zijn tweede gele kaart en moet vertrekken bij 1:0."
+      ]
+    },
+    "zh": {
+      "headline": "皇家貝蒂斯1比0擊敗赫塔費，主勝預測成功",
+      "market": "皇家貝蒂斯獲勝（1X2）",
+      "summary": "Ez Abde在上半場結束前攻入全場唯一進球，赫塔費未能扳平。貝蒂斯以1比0獲勝，符合賠率1.72的1X2主勝選擇。",
+      "narrative": "貝蒂斯在多數時間掌握比賽主動權，第45分鐘Ez Abde先開紀錄。赫塔費球員Mario Martín在比賽末段領到第二張黃牌遭罰下。主隊守住1比0直到終場，因此賽前主勝預測成功。",
+      "events": [
+        "Ez Abde進球，比分改寫為1:0。",
+        "Mario Martín領到第二張黃牌被罰下，比分仍為1:0。"
+      ]
+    }
+  }
+}

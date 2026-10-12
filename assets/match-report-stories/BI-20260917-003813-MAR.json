@@ -1,0 +1,146 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260917-003813-MAR",
+  "match_date": "2026-09-17",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "Málaga CF",
+  "away": "Villarreal CF",
+  "match": "Málaga – Villarreal",
+  "score": "1:3",
+  "market": "Villarreal gewinnt (1X2)",
+  "odds": 2.04,
+  "units": 4,
+  "league": "La Liga",
+  "verified_source": "Independent official match report",
+  "source_url": "https://iaas-public-front-pro.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-malaga-cf-villarreal-cf-6",
+  "source_checked_at": "2026-10-10",
+  "leg_status": "WON",
+  "legs": [
+    {
+      "home": "Málaga CF",
+      "away": "Villarreal CF",
+      "score": "1:3",
+      "status": "FT",
+      "market_label": "Villarreal gewinnt (1X2)",
+      "selection_outcome": "WON",
+      "source_url": "https://iaas-public-front-pro.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-malaga-cf-villarreal-cf-6",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "12′",
+          "text": "Carlos Dotor erzielt das 1:0.",
+          "text_en": "Carlos Dotor scores to make it 1:0."
+        },
+        {
+          "minute": "40′",
+          "text": "Alberto Moleiro erzielt das 1:1.",
+          "text_en": "Alberto Moleiro scores to make it 1:1."
+        },
+        {
+          "minute": "45.+2′",
+          "text": "Pape Gueye erzielt das 1:2.",
+          "text_en": "Pape Gueye scores to make it 1:2."
+        },
+        {
+          "minute": "86′",
+          "text": "Pape Gueye verwandelt einen Strafstoß zum 1:3.",
+          "text_en": "Pape Gueye converts a penalty for 1:3."
+        }
+      ],
+      "narrative_de": "Carlos Dotor brachte Málaga nach zwölf Minuten in Führung. Alberto Moleiro glich in der 40. Minute aus, Pape Gueye traf in der Nachspielzeit der ersten Hälfte zum 1:2. In Minute 86 verwandelte Gueye einen Elfmeter zum 1:3. Villarreal behauptete damit den für den Tipp nötigen Auswärtssieg.",
+      "narrative_en": "Carlos Dotor put Málaga ahead in the 12th minute. Alberto Moleiro levelled on 40 minutes before Pape Gueye put Villarreal ahead in first-half stoppage time. Gueye converted an 86th-minute penalty to seal the 3–1 result, confirming the published away-win selection."
+    }
+  ],
+  "summary_de": "Málaga ging früh in Führung, aber Villarreal drehte das Spiel noch vor der Pause. Nach dem 1:3-Auswärtssieg war die 1X2-Auswahl auf Villarreal bei Quote 2,04 gewonnen.",
+  "summary_en": "Málaga led early, but Villarreal turned the game around before half-time. The 3–1 away win validated the Villarreal 1X2 selection at odds of 2.04.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Villarreal come from behind to win 3–1 at Málaga",
+      "market": "Villarreal to win (1X2)",
+      "summary": "Málaga led early, but Villarreal turned the game around before half-time. The 3–1 away win validated the Villarreal 1X2 selection at odds of 2.04.",
+      "narrative": "Carlos Dotor put Málaga ahead in the 12th minute. Alberto Moleiro levelled on 40 minutes before Pape Gueye put Villarreal ahead in first-half stoppage time. Gueye converted an 86th-minute penalty to seal the 3–1 result, confirming the published away-win selection.",
+      "events": [
+        "Carlos Dotor scores to make it 1:0.",
+        "Alberto Moleiro scores to make it 1:1.",
+        "Pape Gueye scores to make it 1:2.",
+        "Pape Gueye converts a penalty for 1:3."
+      ]
+    },
+    "es": {
+      "headline": "Villarreal remonta y gana 1–3 en Málaga",
+      "market": "Victoria del Villarreal (1X2)",
+      "summary": "Málaga abrió el marcador, pero Villarreal remontó antes del descanso y ganó 1–3. El pronóstico 1X2 visitante a cuota 2,04 fue acertado.",
+      "narrative": "Carlos Dotor adelantó al Málaga en el minuto 12. Alberto Moleiro empató en el 40 y Pape Gueye marcó el 1–2 en el descuento de la primera parte. Gueye transformó un penalti en el 86 para cerrar el 1–3. La victoria visitante confirmó el pronóstico.",
+      "events": [
+        "Carlos Dotor marca el 1:0.",
+        "Alberto Moleiro marca el 1:1.",
+        "Pape Gueye marca el 1:2.",
+        "Pape Gueye convierte un penalti para el 1:3."
+      ]
+    },
+    "pt": {
+      "headline": "Villarreal dá a volta e vence por 3–1 em Málaga",
+      "market": "Vitória do Villarreal (1X2)",
+      "summary": "O Málaga marcou primeiro, mas o Villarreal virou o resultado antes do intervalo e ganhou por 3–1. O prognóstico 1X2 de vitória fora foi acertado, à cotação de 2,04.",
+      "narrative": "Carlos Dotor adiantou o Málaga aos 12 minutos. Alberto Moleiro empatou aos 40 e Pape Gueye fez o 1–2 no tempo de compensação da primeira parte. Gueye converteu um penálti aos 86 minutos, fechando o 1–3. A vitória fora confirmou a seleção.",
+      "events": [
+        "Carlos Dotor marca o 1:0.",
+        "Alberto Moleiro marca o 1:1.",
+        "Pape Gueye marca o 1:2.",
+        "Pape Gueye converte um penálti para o 1:3."
+      ]
+    },
+    "it": {
+      "headline": "Villarreal rimonta e vince 3–1 a Málaga",
+      "market": "Vittoria Villarreal (1X2)",
+      "summary": "Málaga era passato in vantaggio, ma Villarreal ha ribaltato il risultato prima dell'intervallo e ha vinto 3-1. Pronostico esterno corretto a quota 2,04.",
+      "narrative": "Carlos Dotor ha segnato per il Málaga al 12'. Alberto Moleiro ha pareggiato al 40' e Pape Gueye ha firmato l'1-2 nel recupero del primo tempo. Gueye ha poi trasformato un rigore all'86' per l'1-3 finale. La vittoria esterna ha confermato la selezione.",
+      "events": [
+        "Carlos Dotor segna il 1:0.",
+        "Alberto Moleiro segna il 1:1.",
+        "Pape Gueye segna il 1:2.",
+        "Pape Gueye trasforma un rigore per il 1:3."
+      ]
+    },
+    "fr": {
+      "headline": "Villarreal renverse Málaga et gagne 3–1",
+      "market": "Victoire de Villarreal (1X2)",
+      "summary": "Málaga avait pris l'avantage, mais Villarreal a renversé la situation avant la pause pour gagner 3–1. Le choix 1X2 extérieur à cote 2,04 est validé.",
+      "narrative": "Carlos Dotor a ouvert le score pour Málaga à la 12e. Alberto Moleiro a égalisé à la 40e et Pape Gueye a marqué le 1–2 dans le temps additionnel de la première période. Gueye a ensuite transformé un penalty à la 86e pour le 1–3 final. Le succès extérieur confirme la sélection.",
+      "events": [
+        "Carlos Dotor marque : 1:0.",
+        "Alberto Moleiro marque : 1:1.",
+        "Pape Gueye marque : 1:2.",
+        "Pape Gueye transforme un penalty : 1:3."
+      ]
+    },
+    "nl": {
+      "headline": "Villarreal draait achterstand om en wint 3-1 bij Málaga",
+      "market": "Villarreal wint (1X2)",
+      "summary": "Málaga kwam vroeg op voorsprong, maar Villarreal maakte nog voor rust een ommekeer en won met 3-1. De uitwinstselectie was goed tegen quote 2,04.",
+      "narrative": "Carlos Dotor zette Málaga in de twaalfde minuut voor. Alberto Moleiro maakte in de veertigste minuut gelijk. Pape Gueye bracht Villarreal in blessuretijd voor rust op 1-2 en benutte in minuut 86 een strafschop voor de 1-3. De uitzege bevestigde de gepubliceerde selectie.",
+      "events": [
+        "Carlos Dotor scoort en brengt de stand op 1:0.",
+        "Alberto Moleiro scoort en brengt de stand op 1:1.",
+        "Pape Gueye scoort en brengt de stand op 1:2.",
+        "Pape Gueye benut een strafschop: 1:3."
+      ]
+    },
+    "zh": {
+      "headline": "比利亞雷亞爾逆轉馬拉加，以3比1客勝",
+      "market": "比利亞雷亞爾獲勝（1X2）",
+      "summary": "馬拉加先取得領先，但比利亞雷亞爾在上半場結束前反超，最終客場3比1獲勝，符合賠率2.04的1X2客勝預測。",
+      "narrative": "Carlos Dotor在第12分鐘為馬拉加破門。Alberto Moleiro於第40分鐘追平，Pape Gueye在上半場傷停補時將比分改寫為2比1。第86分鐘Gueye再以十二碼鎖定3比1，確認比利亞雷亞爾客場獲勝。",
+      "events": [
+        "Carlos Dotor進球，比分改寫為1:0。",
+        "Alberto Moleiro進球，比分改寫為1:1。",
+        "Pape Gueye進球，比分改寫為1:2。",
+        "Pape Gueye主罰十二碼得手，比分1:3。"
+      ]
+    }
+  }
+}

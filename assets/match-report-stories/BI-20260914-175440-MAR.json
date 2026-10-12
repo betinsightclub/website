@@ -1,0 +1,282 @@
+{
+  "schema": "betinsight_verified_combo_story_v1",
+  "tipp_id": "BI-20260914-175440-MAR",
+  "match_date": "2026-09-14",
+  "kind": "combo",
+  "outcome": "LOST",
+  "status": "VERLOREN",
+  "match": "Villarreal – Real Betis + Leeds United – Newcastle United",
+  "score": "1:2 · 4:1",
+  "market": "Kombi-Wette",
+  "odds": 2.15,
+  "units": 3,
+  "tipper": "Martin",
+  "summary_de": "Villarreal verlor nach 1:0-Führung 1:2 gegen Real Betis – die Doppelchance 1X verfehlte ihr Ziel. Newcastle verlor bei Leeds sogar 1:4 – damit war auch die Doppelchance X2 falsch. Beide Auswahlmärkte scheiterten, die Kombiwette verlor.",
+  "summary_en": "Villarreal lost 1–2 despite leading against Betis, so 1X failed. Newcastle were beaten 4–1 by Leeds, so X2 failed as well. Neither selection was successful; the entire accumulator lost.",
+  "note_de": "Die beiden Wettteile und deren Resultate sind anhand der verlinkten offiziellen Quellen geprüft. Ursprünglicher Kombitipp, Quote, Units, Verlustergebnis und Statistik bleiben unverändert.",
+  "note_en": "Both legs and match events use the linked match reports. Original tip, odds, units, settlement and statistics are unchanged.",
+  "legs": [
+    {
+      "home": "Villarreal CF",
+      "away": "Real Betis",
+      "score": "1:2",
+      "market_label": "Doppelte Chance 1X Villarreal oder Remis",
+      "selection_outcome": "LOST",
+      "source_url": "https://www.laliga.com/es-NL/partido/temporada-2026-2027-laliga-ea-sports-villarreal-cf-real-betis-5",
+      "key_events": [
+        {
+          "minute": "29′",
+          "text": "Gerard Moreno erzielt das 1:0.",
+          "text_en": "Gerard Moreno scores to make it 1:0."
+        },
+        {
+          "minute": "39′",
+          "text": "Cucho Hernández erzielt das 1:1.",
+          "text_en": "Cucho Hernández scores to make it 1:1."
+        },
+        {
+          "minute": "43′",
+          "text": "Natan erzielt das 1:2.",
+          "text_en": "Natan scores to make it 1:2."
+        }
+      ],
+      "narrative_de": "Villarreal führte durch Gerard Moreno 1:0, doch Cucho Hernández und Natan drehten die Partie. Die Heim-Doppelchance 1X scheiterte.",
+      "narrative_en": "Gerard Moreno put Villarreal ahead, but Cucho Hernández and Natan overturned the lead. Home double chance 1X failed."
+    },
+    {
+      "home": "Leeds United",
+      "away": "Newcastle United",
+      "score": "4:1",
+      "market_label": "Doppelte Chance X2 Newcastle oder Remis",
+      "selection_outcome": "LOST",
+      "source_url": "https://www.skysports.com/football/leeds-vs-newcastle/report/559479",
+      "key_events": [
+        {
+          "minute": "32′",
+          "text": "Eigentor durch Lewis Miley: 1:0.",
+          "text_en": "Own goal by Lewis Miley: 1:0."
+        },
+        {
+          "minute": "34′",
+          "text": "Dominic Calvert-Lewin erzielt das 2:0.",
+          "text_en": "Dominic Calvert-Lewin scores to make it 2:0."
+        },
+        {
+          "minute": "45.+1′",
+          "text": "Dominic Calvert-Lewin erzielt das 3:0.",
+          "text_en": "Dominic Calvert-Lewin scores to make it 3:0."
+        },
+        {
+          "minute": "59′",
+          "text": "Noah Okafor erzielt das 4:0.",
+          "text_en": "Noah Okafor scores to make it 4:0."
+        },
+        {
+          "minute": "90′",
+          "text": "Baba Touré erzielt das 4:1.",
+          "text_en": "Baba Touré scores to make it 4:1."
+        }
+      ],
+      "narrative_de": "Leeds traf durch ein Eigentor von Miley, zweimal Calvert-Lewin und Okafor viermal. Newcastle verlor 1:4 und erfüllte X2 nicht.",
+      "narrative_en": "A Miley own goal, two Calvert-Lewin goals and Okafor gave Leeds four goals. Newcastle lost 4–1, so X2 failed."
+    }
+  ],
+  "translations": {
+    "en": {
+      "summary": "Villarreal lost 1–2 despite leading against Betis, so 1X failed. Newcastle were beaten 4–1 by Leeds, so X2 failed as well. Neither selection was successful; the entire accumulator lost.",
+      "note": "Retrospective analysis of two previously published match selections. Original master data and statistical balances are unchanged.",
+      "heading": "Actual match timelines and decisive moments",
+      "conclusion_heading": "Why the accumulator lost",
+      "legs": [
+        {
+          "market": "Double chance 1X: Villarreal win or draw",
+          "narrative": "Gerard Moreno put Villarreal ahead, but Cucho Hernández and Natan overturned the lead. Home double chance 1X failed.",
+          "events": [
+            "Gerard Moreno scores to make it 1:0.",
+            "Cucho Hernández scores to make it 1:1.",
+            "Natan scores to make it 1:2."
+          ]
+        },
+        {
+          "market": "Double chance X2: Newcastle win or draw",
+          "narrative": "A Miley own goal, two Calvert-Lewin goals and Okafor gave Leeds four goals. Newcastle lost 4–1, so X2 failed.",
+          "events": [
+            "Own goal by Lewis Miley: 1:0.",
+            "Dominic Calvert-Lewin scores to make it 2:0.",
+            "Dominic Calvert-Lewin scores to make it 3:0.",
+            "Noah Okafor scores to make it 4:0.",
+            "Baba Touré scores to make it 4:1."
+          ]
+        }
+      ]
+    },
+    "es": {
+      "summary": "Villarreal cayó 1–2 ante Betis pese a adelantarse y falló el 1X. Newcastle perdió 4–1 contra Leeds y tampoco cumplió el X2. Las dos selecciones de la combinada resultaron incorrectas.",
+      "note": "Análisis posterior de una combinada publicada antes del encuentro. No se modifican los datos ni estadísticas originales.",
+      "heading": "Desarrollo de ambos partidos y momentos clave",
+      "conclusion_heading": "Por qué se perdió la combinada",
+      "legs": [
+        {
+          "market": "Doble oportunidad 1X: Villarreal o empate",
+          "narrative": "Gerard Moreno adelantó al Villarreal, pero Cucho Hernández y Natan remontaron. El 1X falló.",
+          "events": [
+            "Gerard Moreno marca el 1:0.",
+            "Cucho Hernández marca el 1:1.",
+            "Natan marca el 1:2."
+          ]
+        },
+        {
+          "market": "Doble oportunidad X2: Newcastle o empate",
+          "narrative": "Un autogol de Miley, dos tantos de Calvert-Lewin y otro de Okafor dieron cuatro goles al Leeds. Newcastle perdió 4–1 y el X2 falló.",
+          "events": [
+            "Autogol de Lewis Miley: 1:0.",
+            "Dominic Calvert-Lewin marca el 2:0.",
+            "Dominic Calvert-Lewin marca el 3:0.",
+            "Noah Okafor marca el 4:0.",
+            "Baba Touré marca el 4:1."
+          ]
+        }
+      ]
+    },
+    "pt": {
+      "summary": "O Villarreal perdeu 1–2 com o Betis apesar de ter estado em vantagem, invalidando a hipótese dupla 1X. O Newcastle perdeu 4–1 com o Leeds, invalidando também a hipótese dupla X2. Nenhuma seleção foi acertada.",
+      "note": "Análise posterior de uma múltipla publicada antes dos jogos. Os dados e estatísticas originais não foram alterados.",
+      "heading": "Decorrer dos jogos e momentos decisivos",
+      "conclusion_heading": "Porque foi a múltipla perdida",
+      "legs": [
+        {
+          "market": "Hipótese dupla 1X: Villarreal ou empate",
+          "narrative": "Gerard Moreno adiantou o Villarreal, mas Cucho Hernández e Natan deram a volta ao marcador. O 1X falhou.",
+          "events": [
+            "Gerard Moreno marca o 1:0.",
+            "Cucho Hernández marca o 1:1.",
+            "Natan marca o 1:2."
+          ]
+        },
+        {
+          "market": "Hipótese dupla X2: Newcastle ou empate",
+          "narrative": "Um autogolo de Miley, dois golos de Calvert-Lewin e outro de Okafor deram quatro golos ao Leeds. Newcastle perdeu 4–1 e o X2 falhou.",
+          "events": [
+            "Autogolo de Lewis Miley: 1:0.",
+            "Dominic Calvert-Lewin marca o 2:0.",
+            "Dominic Calvert-Lewin marca o 3:0.",
+            "Noah Okafor marca o 4:0.",
+            "Baba Touré marca o 4:1."
+          ]
+        }
+      ]
+    },
+    "it": {
+      "summary": "Villarreal ha perso 1-2 contro il Betis nonostante il vantaggio iniziale: 1X errata. Newcastle ha perso 4-1 contro il Leeds: anche X2 errata. Le due selezioni sono risultate perdenti.",
+      "note": "Analisi successiva di una multipla pubblicata prima degli incontri. I dati e le statistiche originali restano invariati.",
+      "heading": "Andamento delle partite e momenti decisivi",
+      "conclusion_heading": "Perché la multipla ha perso",
+      "legs": [
+        {
+          "market": "Doppia chance 1X: Villarreal o pareggio",
+          "narrative": "Gerard Moreno ha portato avanti il Villarreal, ma Cucho Hernández e Natan hanno ribaltato il risultato. L'1X ha perso.",
+          "events": [
+            "Gerard Moreno segna il 1:0.",
+            "Cucho Hernández segna il 1:1.",
+            "Natan segna il 1:2."
+          ]
+        },
+        {
+          "market": "Doppia chance X2: Newcastle o pareggio",
+          "narrative": "Un'autorete di Miley, due reti di Calvert-Lewin e una di Okafor hanno portato Leeds a quattro gol. Newcastle ha perso 4-1 e l'X2 ha perso.",
+          "events": [
+            "Autogol di Lewis Miley: 1:0.",
+            "Dominic Calvert-Lewin segna il 2:0.",
+            "Dominic Calvert-Lewin segna il 3:0.",
+            "Noah Okafor segna il 4:0.",
+            "Baba Touré segna il 4:1."
+          ]
+        }
+      ]
+    },
+    "fr": {
+      "summary": "Villarreal a perdu 1–2 contre le Betis malgré l'ouverture du score, invalidant le 1X. Newcastle a été battu 4–1 à Leeds, invalidant le X2. Les deux sélections ont échoué.",
+      "note": "Analyse a posteriori d'un combiné publié avant les matchs. Les données et statistiques d'origine sont conservées.",
+      "heading": "Déroulement des matchs et moments décisifs",
+      "conclusion_heading": "Pourquoi le combiné a été perdu",
+      "legs": [
+        {
+          "market": "Double chance 1X : Villarreal ou nul",
+          "narrative": "Gerard Moreno a donné l'avantage à Villarreal, mais Cucho Hernández et Natan ont renversé le score. Le 1X a échoué.",
+          "events": [
+            "Gerard Moreno marque : 1:0.",
+            "Cucho Hernández marque : 1:1.",
+            "Natan marque : 1:2."
+          ]
+        },
+        {
+          "market": "Double chance X2 : Newcastle ou nul",
+          "narrative": "Un csc de Miley, deux buts de Calvert-Lewin et un but d'Okafor ont donné quatre buts à Leeds. Newcastle a perdu 4–1, invalidant X2.",
+          "events": [
+            "But contre son camp de Lewis Miley : 1:0.",
+            "Dominic Calvert-Lewin marque : 2:0.",
+            "Dominic Calvert-Lewin marque : 3:0.",
+            "Noah Okafor marque : 4:0.",
+            "Baba Touré marque : 4:1."
+          ]
+        }
+      ]
+    },
+    "nl": {
+      "summary": "Villarreal verloor met 1-2 van Betis ondanks een vroege voorsprong en voldeed niet aan 1X. Newcastle verloor met 4-1 bij Leeds en voldeed niet aan X2. Beide selecties waren fout.",
+      "note": "Achteraf uitgevoerde analyse van een eerder gepubliceerde combinatie. De oorspronkelijke cijfers blijven behouden.",
+      "heading": "Wedstrijdverloop en beslissende momenten",
+      "conclusion_heading": "Waarom de combinatie verloor",
+      "legs": [
+        {
+          "market": "Dubbele kans 1X: Villarreal of gelijkspel",
+          "narrative": "Gerard Moreno zette Villarreal op voorsprong, maar Cucho Hernández en Natan draaiden de wedstrijd om. De 1X-selectie verloor.",
+          "events": [
+            "Gerard Moreno scoort en brengt de stand op 1:0.",
+            "Cucho Hernández scoort en brengt de stand op 1:1.",
+            "Natan scoort en brengt de stand op 1:2."
+          ]
+        },
+        {
+          "market": "Dubbele kans X2: Newcastle of gelijkspel",
+          "narrative": "Een eigen goal van Miley, twee treffers van Calvert-Lewin en één van Okafor leverden Leeds vier goals op. Newcastle verloor 4-1 en X2 faalde.",
+          "events": [
+            "Eigen doelpunt van Lewis Miley: 1:0.",
+            "Dominic Calvert-Lewin scoort en brengt de stand op 2:0.",
+            "Dominic Calvert-Lewin scoort en brengt de stand op 3:0.",
+            "Noah Okafor scoort en brengt de stand op 4:0.",
+            "Baba Touré scoort en brengt de stand op 4:1."
+          ]
+        }
+      ]
+    },
+    "zh": {
+      "summary": "比利亞雷亞爾雖然先領先，最終仍以1比2不敵皇家貝蒂斯，因此1X失敗。紐卡索以1比4敗給里茲，因此X2也失敗。兩項選擇皆不符合條件。",
+      "note": "這是對賽前發布串關投注的賽後分析，原始賠率、單位、結果與統計均保持不變。",
+      "heading": "兩場比賽的經過與關鍵時刻",
+      "conclusion_heading": "為什麼串關投注失敗？",
+      "legs": [
+        {
+          "market": "雙重機會1X：比利亞雷亞爾獲勝或平局",
+          "narrative": "Gerard Moreno先為比利亞雷亞爾取得領先，但Cucho Hernández與Natan讓貝蒂斯逆轉。1X選擇失敗。",
+          "events": [
+            "Gerard Moreno進球，比分改寫為1:0。",
+            "Cucho Hernández進球，比分改寫為1:1。",
+            "Natan進球，比分改寫為1:2。"
+          ]
+        },
+        {
+          "market": "雙重機會X2：紐卡索獲勝或平局",
+          "narrative": "Miley的烏龍球、Calvert-Lewin的兩球與Okafor的進球，使里茲取得四球。紐卡索以1比4落敗，X2選擇失敗。",
+          "events": [
+            "Lewis Miley踢進烏龍球，比分1:0。",
+            "Dominic Calvert-Lewin進球，比分改寫為2:0。",
+            "Dominic Calvert-Lewin進球，比分改寫為3:0。",
+            "Noah Okafor進球，比分改寫為4:0。",
+            "Baba Touré進球，比分改寫為4:1。"
+          ]
+        }
+      ]
+    }
+  }
+}

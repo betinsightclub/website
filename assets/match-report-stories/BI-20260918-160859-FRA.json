@@ -1,0 +1,134 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260918-160859-FRA",
+  "match_date": "2026-09-19",
+  "kind": "single",
+  "outcome": "LOST",
+  "status": "VERLOREN",
+  "home": "Holstein Kiel",
+  "away": "VfL Osnabrück",
+  "match": "Holstein Kiel – VfL Osnabrück",
+  "score": "1:1",
+  "market": "Holstein Kiel gewinnt (1X2)",
+  "odds": 1.77,
+  "units": 2,
+  "league": "2. Bundesliga",
+  "verified_source": "Independent official match report",
+  "source_url": "https://www.bundesliga.com/de/2bundesliga/news/holstein-kiel-vfl-osnabrueck-spieltag-6-spielbericht-highlights-39257",
+  "source_checked_at": "2026-10-10",
+  "leg_status": "LOST",
+  "legs": [
+    {
+      "home": "Holstein Kiel",
+      "away": "VfL Osnabrück",
+      "score": "1:1",
+      "status": "FT",
+      "market_label": "Holstein Kiel gewinnt (1X2)",
+      "selection_outcome": "LOST",
+      "source_url": "https://www.bundesliga.com/de/2bundesliga/news/holstein-kiel-vfl-osnabrueck-spieltag-6-spielbericht-highlights-39257",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "45.+2′",
+          "text": "Phil Harres verwandelt einen Strafstoß zum 1:0.",
+          "text_en": "Phil Harres converts a penalty for 1:0."
+        },
+        {
+          "minute": "72′",
+          "text": "Eigentor durch Hiroki Sekine: 1:1.",
+          "text_en": "Own goal by Hiroki Sekine: 1:1."
+        },
+        {
+          "minute": "75′",
+          "text": "David Zec sieht Gelb-Rot, der Spielstand bleibt 1:1.",
+          "text_en": "David Zec is sent off for a second yellow; the score is 1:1."
+        }
+      ],
+      "narrative_de": "Phil Harres verwandelte in der Nachspielzeit der ersten Hälfte einen Elfmeter zum 1:0. In Minute 72 unterlief dem Kieler Hiroki Sekine ein Eigentor zum 1:1. Nur drei Minuten später sah David Zec Gelb-Rot, sodass Kiel in Unterzahl weiterspielte. Es blieb beim Remis – ein 1X2-Sieg auf Kiel wurde damit nicht erreicht.",
+      "narrative_en": "Phil Harres converted a first-half stoppage-time penalty to make it 1–0. In minute 72, Kiel's Hiroki Sekine scored an own goal to make it 1–1. Three minutes later David Zec received a second yellow card, leaving the hosts a man down. The score stayed level, so a Kiel home win did not occur."
+    }
+  ],
+  "summary_de": "Kiel führte durch einen Elfmeter, doch ein Eigentor brachte Osnabrück den Ausgleich. Das 1:1 bedeutete für den 1X2-Heimsieg-Tipp eine Niederlage.",
+  "summary_en": "Kiel led through a penalty, but an own goal brought Osnabrück level. The 1–1 draw meant the 1X2 home-win selection lost.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Kiel – Osnabrück 1–1: own goal denies home-win tip",
+      "market": "Holstein Kiel to win (1X2)",
+      "summary": "Kiel led through a penalty, but an own goal brought Osnabrück level. The 1–1 draw meant the 1X2 home-win selection lost.",
+      "narrative": "Phil Harres converted a first-half stoppage-time penalty to make it 1–0. In minute 72, Kiel's Hiroki Sekine scored an own goal to make it 1–1. Three minutes later David Zec received a second yellow card, leaving the hosts a man down. The score stayed level, so a Kiel home win did not occur.",
+      "events": [
+        "Phil Harres converts a penalty for 1:0.",
+        "Own goal by Hiroki Sekine: 1:1.",
+        "David Zec is sent off for a second yellow; the score is 1:1."
+      ]
+    },
+    "es": {
+      "headline": "Kiel – Osnabrück 1–1: un autogol frustra victoria local",
+      "market": "Victoria del Holstein Kiel (1X2)",
+      "summary": "Kiel se adelantó de penalti, pero un autogol permitió el empate. El 1–1 hizo perder el pronóstico 1X2 de victoria local.",
+      "narrative": "Phil Harres transformó un penalti en el descuento de la primera parte. En el minuto 72, Hiroki Sekine marcó en propia puerta para el 1–1. Tres minutos más tarde David Zec vio la segunda amarilla y Kiel acabó en inferioridad. El empate no cumplía el pronóstico de victoria local.",
+      "events": [
+        "Phil Harres convierte un penalti para el 1:0.",
+        "Autogol de Hiroki Sekine: 1:1.",
+        "David Zec es expulsado por doble amarilla con el marcador 1:1."
+      ]
+    },
+    "pt": {
+      "headline": "Kiel – Osnabrück 1–1: autogolo impede vitória caseira",
+      "market": "Vitória do Holstein Kiel (1X2)",
+      "summary": "O Kiel adiantou-se de penálti, mas um autogolo deu o empate ao Osnabrück. O 1–1 invalidou o prognóstico 1X2 de vitória caseira.",
+      "narrative": "Phil Harres converteu um penálti no tempo de compensação da primeira parte para o 1–0. Aos 72 minutos, Hiroki Sekine fez um autogolo para o 1–1. Três minutos depois David Zec foi expulso por acumulação de amarelos e o Kiel terminou em inferioridade numérica. O empate não confirmava o prognóstico.",
+      "events": [
+        "Phil Harres converte um penálti para o 1:0.",
+        "Autogolo de Hiroki Sekine: 1:1.",
+        "David Zec é expulso por acumulação de amarelos com o resultado em 1:1."
+      ]
+    },
+    "it": {
+      "headline": "Kiel – Osnabrück 1–1: autogol costa la vittoria interna",
+      "market": "Vittoria Holstein Kiel (1X2)",
+      "summary": "Kiel era avanti grazie a un rigore, ma un autogol ha riportato Osnabrück in parità. L'1-1 ha fatto perdere il pronostico 1X2 sulla squadra di casa.",
+      "narrative": "Phil Harres ha trasformato un rigore nel recupero del primo tempo per l'1-0. Al 72' Hiroki Sekine ha segnato nella propria porta e portato il punteggio sull'1-1. Tre minuti dopo David Zec è stato espulso per doppia ammonizione. Il Kiel non ha più trovato la vittoria necessaria per il pronostico.",
+      "events": [
+        "Phil Harres trasforma un rigore per il 1:0.",
+        "Autogol di Hiroki Sekine: 1:1.",
+        "David Zec viene espulso per doppia ammonizione sul 1:1."
+      ]
+    },
+    "fr": {
+      "headline": "Kiel – Osnabrück 1–1 : un csc coûte la victoire",
+      "market": "Victoire de Holstein Kiel (1X2)",
+      "summary": "Kiel menait après un penalty, mais un but contre son camp a donné l'égalisation à Osnabrück. Le nul 1–1 invalide le pronostic 1X2 domicile.",
+      "narrative": "Phil Harres a transformé un penalty pendant le temps additionnel de la première période. À la 72e, Hiroki Sekine a marqué contre son camp et rétabli l'égalité. Trois minutes plus tard, David Zec a reçu un deuxième jaune et Kiel a terminé à dix. Le résultat est resté de 1–1, insuffisant pour la victoire de Kiel.",
+      "events": [
+        "Phil Harres transforme un penalty : 1:0.",
+        "But contre son camp de Hiroki Sekine : 1:1.",
+        "David Zec est expulsé après un deuxième jaune, score 1:1."
+      ]
+    },
+    "nl": {
+      "headline": "Kiel – Osnabrück 1-1: eigen doelpunt kost thuiszege",
+      "market": "Holstein Kiel wint (1X2)",
+      "summary": "Kiel leidde na een strafschop, maar een eigen doelpunt bracht Osnabrück langszij. Het 1-1-gelijkspel deed de 1X2-selectie op thuiswinst verliezen.",
+      "narrative": "Phil Harres benutte in blessuretijd voor rust een strafschop voor de 1-0. In de 72e minuut maakte Hiroki Sekine een eigen doelpunt: 1-1. Drie minuten later kreeg David Zec zijn tweede gele kaart. Kiel speelde de slotfase met tien man en won niet, waardoor de voorspelling op thuiszege verloren ging.",
+      "events": [
+        "Phil Harres benut een strafschop: 1:0.",
+        "Eigen doelpunt van Hiroki Sekine: 1:1.",
+        "David Zec krijgt zijn tweede gele kaart en moet vertrekken bij 1:1."
+      ]
+    },
+    "zh": {
+      "headline": "基爾對奧斯納布呂克1比1：烏龍球使主勝失敗",
+      "market": "基爾獲勝（1X2）",
+      "summary": "基爾憑十二碼取得領先，但下半場一記烏龍球讓客隊追平。最終1比1，無法達成賽前1X2主勝條件。",
+      "narrative": "Phil Harres在上半場傷停補時主罰十二碼得手，基爾1比0領先。第72分鐘Hiroki Sekine踢進烏龍球，比分成為1比1。三分鐘後David Zec因第二張黃牌被罰下，基爾在少一人的情況下完成比賽。平局不符合基爾主勝預測。",
+      "events": [
+        "Phil Harres主罰十二碼得手，比分1:0。",
+        "Hiroki Sekine踢進烏龍球，比分1:1。",
+        "David Zec領到第二張黃牌被罰下，比分仍為1:1。"
+      ]
+    }
+  }
+}
