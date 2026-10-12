@@ -1,0 +1,89 @@
+name: BetInsight Result Reports - Final Two Match Batch 004
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-result-report-batch-004.yml"
+      - ".github/scripts/publish_result_report_batch_004.py"
+      - "docs/result-report-batches/block-004-editorial.json"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: betinsight-result-review-batch-004
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Traditional Chinese font and Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk
+          python -m pip install --disable-pip-version-check "Pillow>=10,<13"
+      - name: Compile all renderers
+        run: |
+          python -m py_compile .github/scripts/publish_result_report_batch_004.py
+          python -m py_compile .github/scripts/publish_result_report_batch_002.py
+          test -s assets/templates/betinsight-result-master-blanko.png
+      - name: Generate two original match histories in eight languages
+        run: python .github/scripts/publish_result_report_batch_004.py
+      - name: Verify sources, eight languages, OG previews and original stats
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          from PIL import Image
+          R=Path('.')
+          source=json.loads((R/'docs/result-report-batches/block-004-editorial.json').read_text())
+          langs=['de','en','es','pt','it','fr','nl','zh']
+          assert source['language_codes']==langs
+          assert len(source['items'])==2
+          for game in source['items']:
+            id=game['tipp_id']
+            story=json.loads((R/'assets/match-report-stories'/(id+'.json')).read_text())
+            assert story['units']==game['units'] and story['odds']==game['odds']
+            assert story['outcome']==game['outcome']
+            for l in langs:
+              path=R/l/'tipps'/'ergebnis'/id/'index.html'
+              picture=R/'assets'/'og'/(id.lower()+'-'+l+'-v1.jpg')
+              assert path.is_file() and picture.is_file(),(id,l)
+              page=path.read_text()
+              assert game['source_url'] in page
+              assert page.count('rel="alternate" hreflang=')==9
+              assert 'data-report-embedded' in page and 'tip-report-live.js' in page
+              assert 'og:image' in page and 'twitter:image' in page and 'application/ld+json' in page
+              assert len(re.findall(r'<li><strong>',page))==len(game['events'])
+              assert 'pt-BR' not in page and 'Português (Brasil)' not in page
+              if l=='pt':assert '<html lang="pt-PT">' in page
+              if l=='zh':assert '<html lang="zh-Hant-TW">' in page
+              with Image.open(picture) as im:
+                assert im.size==(1200,630) and im.getexif().get(270)
+          print('PASS: 16 final pages and 16 previews; no original statistic modifications')
+          PY
+      - name: Publish final reviewed historical articles and images
+        run: |
+          set -euo pipefail
+          git config user.name "BetInsight Editorial"
+          git config user.email "actions@github.com"
+          git add docs/result-report-batches/block-004-build.json
+          for id in BI-20260918-164427-FRA BI-20260920-134759-MAR; do
+            git add assets/match-report-stories/$id.json
+            low=$(printf "%s" "$id" | tr '[:upper:]' '[:lower:]')
+            for lang in de en es pt it fr nl zh; do
+              git add $lang/tipps/ergebnis/$id/index.html
+              git add assets/og/$low-$lang-v1.jpg
+            done
+          done
+          if git diff --cached --quiet; then echo 'Already published'; exit 0; fi
+          git commit -m "editorial: finish 2026 BetInsight archived results with final 2 multilingual reviews and OG"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
