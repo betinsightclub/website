@@ -1,0 +1,33 @@
+name: BetInsight Sprachseiten-Qualität
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "de/index.html"
+      - "en/index.html"
+      - "es/index.html"
+      - "pt/index.html"
+      - "it/index.html"
+      - "fr/index.html"
+      - "scripts/check-language-pages.mjs"
+      - "scripts/browser-language-smoke.mjs"
+      - ".github/workflows/language-pages-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  language-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Static translations and SEO check
+        run: node scripts/check-language-pages.mjs
+      - name: Install headless browser driver
+        run: npm install --no-save --ignore-scripts puppeteer-core@24.22.0
+      - name: Test redirects, locales and tracking in Chromium
+        run: node scripts/browser-language-smoke.mjs
