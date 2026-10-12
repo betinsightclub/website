@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate BetInsight result-report batch 003: 2 combo tickets + 3 singles, 8 languages.
+This refresh also corrects every former Oct 09 hard-coded combination label.
 No writes to Supabase, tip account balances, settlement or simulated capital.
 Match events are sourced to the independent official links in editorial manifest.
 """
