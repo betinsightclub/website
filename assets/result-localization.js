@@ -21,7 +21,15 @@ it:"1. Borussia Dortmund – Werder Bremen – 1X2: vittoria Dortmund @ 1,35 | 2
 fr:"1. Borussia Dortmund – Werder Bremen – 1X2 : victoire de Dortmund @ 1,35 | 2. Málaga – Espanyol – Double chance X2 : nul ou victoire de l'Espanyol @ 1,37",
 nl:"1. Borussia Dortmund – Werder Bremen – 1X2: Dortmund wint @ 1,35 | 2. Málaga – Espanyol – Dubbele kans X2: gelijkspel of Espanyol wint @ 1,37",
 zh:"1. Borussia Dortmund – Werder Bremen – 1X2：多特蒙德獲勝 @ 1.35 | 2. Málaga – Espanyol – 雙重機會X2：平局或西班牙人獲勝 @ 1.37"};
-const confirmed={
+const confirmed=
+"BI-20260912-004348-MAR":{"de":"Atlético X2 @ 1,37 + Chelsea-Sieg @ 1,22","en":"Atlético double chance X2 @ 1.37 + Chelsea to win @ 1.22","es":"Atlético doble oportunidad X2 @ 1,37 + victoria Chelsea @ 1,22","pt":"Atlético hipótese dupla X2 @ 1,37 + vitória Chelsea @ 1,22","it":"Atlético doppia chance X2 @ 1,37 + vittoria Chelsea @ 1,22","fr":"Atlético double chance X2 @ 1,37 + victoire Chelsea @ 1,22","nl":"Atlético dubbele kans X2 @ 1,37 + Chelsea wint @ 1,22","zh":"馬德里競技雙重機會X2 @1.37 + 切爾西獲勝 @1.22"},
+"BI-20260914-175440-MAR":{"de":"Villarreal 1X @ 1,35 + Newcastle X2 @ 1,59","en":"Villarreal double chance 1X @ 1.35 + Newcastle X2 @ 1.59","es":"Villarreal doble oportunidad 1X @ 1,35 + Newcastle X2 @ 1,59","pt":"Villarreal hipótese dupla 1X @ 1,35 + Newcastle X2 @ 1,59","it":"Villarreal doppia chance 1X @ 1,35 + Newcastle X2 @ 1,59","fr":"Villarreal double chance 1X @ 1,35 + Newcastle X2 @ 1,59","nl":"Villarreal dubbele kans 1X @ 1,35 + Newcastle X2 @ 1,59","zh":"比利亞雷亞爾雙重機會1X @1.35 + 紐卡索雙重機會X2 @1.59"},
+"BI-20260917-003712-MAR":{"de":"Real Betis gewinnt (1X2)","en":"Real Betis to win (1X2)","es":"Victoria del Real Betis (1X2)","pt":"Vitória do Real Betis (1X2)","it":"Vittoria Real Betis (1X2)","fr":"Victoire du Real Betis (1X2)","nl":"Real Betis wint (1X2)","zh":"皇家貝蒂斯獲勝（1X2）"},
+"BI-20260917-003813-MAR":{"de":"Villarreal gewinnt (1X2)","en":"Villarreal to win (1X2)","es":"Victoria del Villarreal (1X2)","pt":"Vitória do Villarreal (1X2)","it":"Vittoria Villarreal (1X2)","fr":"Victoire de Villarreal (1X2)","nl":"Villarreal wint (1X2)","zh":"比利亞雷亞爾獲勝（1X2）"},
+"BI-20260918-160859-FRA":{"de":"Holstein Kiel gewinnt (1X2)","en":"Holstein Kiel to win (1X2)","es":"Victoria del Holstein Kiel (1X2)","pt":"Vitória do Holstein Kiel (1X2)","it":"Vittoria Holstein Kiel (1X2)","fr":"Victoire de Holstein Kiel (1X2)","nl":"Holstein Kiel wint (1X2)","zh":"基爾獲勝（1X2）"},
+"BI-20260918-164427-FRA":{"de":"Kaiserslautern gewinnt (1X2)","en":"Kaiserslautern to win (1X2)","es":"Victoria del Kaiserslautern (1X2)","pt":"Vitória do Kaiserslautern (1X2)","it":"Vittoria Kaiserslautern (1X2)","fr":"Victoire de Kaiserslautern (1X2)","nl":"Kaiserslautern wint (1X2)","zh":"凱澤斯勞滕獲勝（1X2）"},
+"BI-20260920-134759-MAR":{"de":"Real Sociedad – Draw No Bet","en":"Real Sociedad – Draw No Bet","es":"Real Sociedad – Empate no apuesta","pt":"Real Sociedad – Empate anula aposta","it":"Real Sociedad – Draw No Bet","fr":"Real Sociedad – Nul remboursé","nl":"Real Sociedad – Gelijkspel geen weddenschap","zh":"皇家社會——和局退款"},
+{
 "BI-20260826-001536-MAR":{nl:"Manchester City wint (1X2)",zh:"曼城獲勝（1X2）"},
 "BI-20260904-163328-FRA":{nl:"Meer dan 2,5 doelpunten",zh:"總進球數大於2.5球"},
 "BI-20260908-151838-FRA":{nl:"Borussia Dortmund wint (1X2)",zh:"多特蒙德獲勝（1X2）"},
