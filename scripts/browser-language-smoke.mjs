@@ -33,7 +33,8 @@ assert(chrome,"No Chromium/Chrome executable found for browser smoke tests");
 const browser = await puppeteer.launch({executablePath:chrome,headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
 let scenarios = 0;
 async function pageFor(lang="en-US",mobile=false){
-  const page = await browser.newPage();
+  const context = await browser.createBrowserContext();
+  const page = await context.newPage();
   await page.setViewport(mobile ? {width:375,height:812,isMobile:true,hasTouch:true} : {width:1365,height:850});
   await page.evaluateOnNewDocument(preferred => {
     Object.defineProperty(navigator,"language",{configurable:true,get:()=>preferred});
