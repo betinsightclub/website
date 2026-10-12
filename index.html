@@ -44,13 +44,12 @@
   <script>
     (function () {
       const LANGUAGE_KEY = "betinsight_language";
-      const SUPPORTED = ["de", "en", "es", "pt", "it", "fr"];
+      const SUPPORTED = ["de", "en", "es", "pt", "it", "fr", "nl", "zh-tw"];
 
       function cleanLanguage(value) {
-        const language = String(value || "")
-          .trim()
-          .toLowerCase()
-          .split("-")[0];
+        const normalized=String(value || "").trim().toLowerCase().replace("_","-");
+        if(normalized.startsWith("zh")) return "zh-tw";
+        const language=normalized.split("-")[0];
 
         return SUPPORTED.includes(language)
           ? language
@@ -105,11 +104,13 @@
         params.delete("lang");
       }
 
+      const fallbackLanguage=(language==="nl"||language==="zh-tw")?"en":language;
+      if(language==="nl"||language==="zh-tw") params.set("lang",language);
       const query = params.toString();
 
       const target =
         "./" +
-        language +
+        fallbackLanguage +
         "/" +
         (query ? "?" + query : "") +
         window.location.hash;

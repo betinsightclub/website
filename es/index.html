@@ -822,7 +822,10 @@ function applyLang(lang){
   document.getElementById("langSelect").value=lang;
   const publicFeedLink=document.getElementById("publicTrainerFeedLink");
   if(publicFeedLink) publicFeedLink.href="/trainer-feed/?lang="+encodeURIComponent(lang);
-  localStorage.setItem("betinsight-lang",lang);
+  try {
+    localStorage.setItem("betinsight_language",lang);
+    localStorage.setItem("betinsight-lang",lang);
+  } catch(error) {}
   const u=new URL(location.href);
   if(lang==="nl"||lang==="zh-tw") u.searchParams.set("lang",lang);
   else u.searchParams.delete("lang");
@@ -1025,7 +1028,11 @@ if(qs && ["de","en","es","pt","it","fr"].includes(qs) && qs!==pathLang){
   url.hash=location.hash;
   location.replace(url.href);
 }
-const saved=localStorage.getItem("betinsight-lang");
+let saved="";
+try {
+  saved=localStorage.getItem("betinsight_language") ||
+        localStorage.getItem("betinsight-lang") || "";
+} catch(error) {}
 const browser=(navigator.language||"de").toLowerCase();
 let initial=qs||(T[pathLang]?pathLang:"")||saved||(browser.startsWith("pt")?"pt":browser.startsWith("es")?"es":browser.startsWith("fr")?"fr":browser.startsWith("it")?"it":browser.startsWith("nl")?"nl":browser.startsWith("zh")?"zh-tw":browser.startsWith("en")?"en":"de");
 document.getElementById("langSelect").addEventListener("change", e=>{
