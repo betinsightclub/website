@@ -5,6 +5,7 @@ Match events are sourced to the independent official links in editorial manifest
 """
 import datetime as dt
 import json
+import re
 from pathlib import Path
 from PIL import Image
 
@@ -142,13 +143,38 @@ def main():
             temp=ROOT/"assets"/"og"/(id.lower()+"-"+lang+"-batch003-temp.png")
             title=row["copy"][lang][0]
             description=row["copy"][lang][1]
-            im=combo.cover(story,lang) if row["kind"]=="combo" else image_for(story,lang=lang)
+            if row["kind"]=="combo":
+                # Never inherit the Oct 09 example's 2 units / 1.85 / 1-of-2:
+                # every image uses its own confirmed odds, stake and leg verdict.
+                odds_label={"de":"QUOTE","en":"ODDS","es":"CUOTA","pt":"COTAÇÃO","it":"QUOTA","fr":"COTE","nl":"QUOTE","zh":"賠率"}[lang]
+                amount_label={"zh":"單位"}.get(lang,"UNITS")
+                outcome_label=row["copy"][lang][3]
+                combo.C[lang]["stats"]=f'{row["units"]} {amount_label}  •  {odds_label} {str(row["odds"]).replace(".", ",")}  •  {outcome_label}'
+                im=combo.cover(story,lang)
+            else:
+                im=image_for(story,lang=lang)
             generate_image(img,temp,im,lang,url,title,description)
             page=ROOT/lang/"tipps"/"ergebnis"/id/"index.html"
             page.parent.mkdir(parents=True,exist_ok=True)
             photo=DOMAIN+"/assets/og/"+img.name
             if row["kind"]=="combo":
                text=combo.webpage(story,lang,photo)
+               # The re-used old combo template includes literal Oct 09
+               # match names, date, stake and odds. Replace them strictly
+               # with this confirmed combination's own editorial data.
+               old_heading="Borussia Dortmund – Werder Bremen + Málaga – Espanyol"
+               assert old_heading in text
+               text=text.replace(old_heading,row["match"])
+               text=text.replace("Dortmund 2:2 Bremen • Málaga 1:1 Espanyol",
+                   row["legs"][0]["home"]+" "+row["legs"][0]["score"]+" "+row["legs"][0]["away"]
+                   +" • "+row["legs"][1]["home"]+" "+row["legs"][1]["score"]+" "+row["legs"][1]["away"])
+               date=dt.date.fromisoformat(row["match_date"]).strftime("%d.%m.%Y")
+               original_keydata=re.search(r'<div class="keydata">.*?</div>',text)
+               assert original_keydata and "1,85" in original_keydata.group(),(id,lang)
+               caption_label={"de":"Quote","en":"Odds","es":"Cuota","pt":"Cotação","it":"Quota","fr":"Cote","nl":"Quote","zh":"賠率"}[lang]
+               keydata=f'<div class="keydata"><span>{date}</span><span>{row["units"]} Units</span><span>{caption_label}: {str(row["odds"]).replace(".", ",")}</span></div>'
+               text=text[:original_keydata.start()]+keydata+text[original_keydata.end():]
+               text=text.replace("2026-10-10","2026-10-12")
             else:
                tr={
                   "headline":row["copy"][lang][0],"market":row["copy"][lang][3],
