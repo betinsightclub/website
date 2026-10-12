@@ -1046,30 +1046,34 @@ class World3D{
    this.keeper.userData.mixer?.stopAllAction();
    const b=this.keeper.userData.bones||{};
    const keys=["upperArmL","upperArmR","foreArmL","foreArmR","spine","thighL","thighR"];
-   this.v26StartBones=keys.map(key=>[b[key],b[key]?.quaternion.clone()]).filter(([bone])=>bone);
+   this.v26StartBones=keys.map(key=>({key,bone:b[key],rest:b[key]?.quaternion.clone()})).filter(x=>x.bone);
  }
  v26SafePose(t,sim){
    if(!this.v26StartBones)return;
    const catchBall=sim.outcome==="save"&&sim.saveType==="caught";
    const e=Math.max(0,Math.min(1,t));
-   const amounts=catchBall?[-.16,.16,-.17,-.17,0,.09,-.09]:
-                           [-.25,.25,-.20,-.20,sim.kx<0?.08:-.08,.12,-.12];
+   const amounts=catchBall?
+       {upperArmL:-.16,upperArmR:.16,foreArmL:-.17,foreArmR:-.17,spine:0,thighL:.09,thighR:-.09}:
+       {upperArmL:-.25,upperArmR:.25,foreArmL:-.20,foreArmR:-.20,spine:sim.kx<0?.08:-.08,thighL:.12,thighR:-.12};
    const axis=new THREE.Vector3(0,0,1),q=new THREE.Quaternion();
-   this.v26StartBones.forEach(([bone,base],i)=>{
-     if(!bone||!base)return;
-     const rot=amounts[i]*e;
-     axis.set(i===2||i===3?1:0,0,i===2||i===3?0:1);
+   this.v26StartBones.forEach(({key,bone,rest})=>{
+     if(!bone||!rest)return;
+     const rot=(amounts[key]||0)*e;
+     axis.set(key.startsWith("foreArm")?1:0,0,key.startsWith("foreArm")?0:1);
      q.setFromAxisAngle(axis,rot);
-     bone.quaternion.copy(base).multiply(q);
+     bone.quaternion.copy(rest).multiply(q);
    });
  }
  v26Restore(){
-   if(this.v26StartBones)for(const [bone,q] of this.v26StartBones){
-     if(bone&&q)bone.quaternion.copy(q);
+   if(this.v26StartBones)for(const {bone,rest} of this.v26StartBones){
+     if(bone&&rest)bone.quaternion.copy(rest);
    }
    this.v26StartBones=null;
    this.v26Active=false;
-   if(this.keeper?.userData?.isGLB)this.playRigClip(this.keeper,"Idle",{fade:0});
+   if(this.keeper?.userData?.isGLB){
+     this.keeper.userData.activeAction=null;
+     this.playRigClip(this.keeper,"Idle",{fade:0});
+   }
  }
  async v26Dive(sim,duration){
    const keeper=this.keeper;if(!keeper)return false;
