@@ -18,6 +18,7 @@ const reportMap={
 };
 const lang=(document.documentElement.lang||"de").toLowerCase().split("-")[0];
 const biText=window.BetInsightResultI18n||{selection:(v)=>v,match:(v)=>v,league:(v)=>v};
+const reviewedTipIds=new Set(["BI-20260826-001536-MAR","BI-20260904-163328-FRA","BI-20260908-151838-FRA","BI-20260911-110018-FRA","BI-20260911-105547-FRA","BI-20260912-004348-MAR","BI-20260914-175440-MAR","BI-20260917-003712-MAR","BI-20260917-003813-MAR","BI-20260918-160859-FRA","BI-20260918-164427-FRA","BI-20260920-134759-MAR","BI-20260925-185756-MAR","BI-20260927-040207-MAR","BI-20261002-145749-MAR","BI-20261004-011255-MAR","BI-20261004-011406-MAR","BI-20261009-172442-MAR"]);
 const C={
 de:{odds:"Quote",units:"Units",score:"Endstand",won:"Gewonnen",lost:"Verloren",read:"Auswertung lesen →"},
 en:{odds:"Odds",units:"Units",score:"Final score",won:"Won",lost:"Lost",read:"Read review →"},
@@ -41,7 +42,7 @@ fetch(URL,{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(rows=
    if(grid.querySelector('[data-live-id="'+CSS.escape(String(r.tipp_id))+'"]'))return;
    const won=r.ergebnis_status==="GEWONNEN",el=document.createElement("a");
    el.className="report-card";el.dataset.liveId=String(r.tipp_id||"");
-   el.href="bericht/?id="+encodeURIComponent(String(r.tipp_id||""));
+   el.href=reviewedTipIds.has(String(r.tipp_id||""))?"ergebnis/"+encodeURIComponent(String(r.tipp_id))+"/":"bericht/?id="+encodeURIComponent(String(r.tipp_id||""));
    el.innerHTML='<span class="date">'+esc(r.spiel_datum)+' · '+esc(biText.league(r.liga||r.sportart||"",lang))+'</span><h2>'+esc(biText.match(r.spiel,lang))+'</h2><p>'+esc(biText.selection(r.tipp||r.markt||"",lang,r.tipp_id))+'</p><div class="cardmeta"><span>'+C.odds+' '+esc(r.quote)+'</span><span>'+esc(r.preis_units)+' '+C.units+'</span>'+(r.endergebnis?'<span>'+C.score+' '+esc(r.endergebnis)+'</span>':'')+'<span class="'+(won?"result-win":"result-loss")+'">'+(won?C.won:C.lost)+'</span></div><span class="read">'+C.read+'</span>';
    grid.appendChild(el);
  });
