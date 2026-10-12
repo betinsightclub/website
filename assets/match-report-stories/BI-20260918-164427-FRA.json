@@ -1,0 +1,146 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260918-164427-FRA",
+  "match_date": "2026-09-19",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "1. FC Kaiserslautern",
+  "away": "Eintracht Braunschweig",
+  "match": "1. FC Kaiserslautern – Eintracht Braunschweig",
+  "score": "1:0",
+  "market": "1. FC Kaiserslautern gewinnt (1X2)",
+  "odds": 1.99,
+  "units": 2,
+  "league": "2. Bundesliga",
+  "verified_source": "Independent official match report",
+  "source_url": "https://www.bundesliga.com/de/2bundesliga/news/1-fc-kaiserslautern-eintracht-braunschweig-spieltag-6-spielbericht-highlights-39256",
+  "source_checked_at": "2026-10-12",
+  "leg_status": "WON",
+  "legs": [
+    {
+      "home": "1. FC Kaiserslautern",
+      "away": "Eintracht Braunschweig",
+      "score": "1:0",
+      "status": "FT",
+      "market_label": "1. FC Kaiserslautern gewinnt (1X2)",
+      "selection_outcome": "WON",
+      "source_url": "https://www.bundesliga.com/de/2bundesliga/news/1-fc-kaiserslautern-eintracht-braunschweig-spieltag-6-spielbericht-highlights-39256",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "65′",
+          "text": "Erencan Yardımcı wird eingewechselt; es steht 0:0.",
+          "text_en": "Erencan Yardımcı comes on as a substitute; score 0:0."
+        },
+        {
+          "minute": "73′",
+          "text": "Erencan Yardımcı erzielt das 1:0.",
+          "text_en": "Erencan Yardımcı scores to make it 1:0."
+        },
+        {
+          "minute": "74′",
+          "text": "VAR prüft den Treffer von Erencan Yardımcı und lässt das 1:0 bestehen.",
+          "text_en": "VAR checks the Erencan Yardımcı goal and confirms 1:0."
+        },
+        {
+          "minute": "81′",
+          "text": "Semih Şahin trifft den Pfosten; es bleibt beim 1:0.",
+          "text_en": "Semih Şahin strikes the post; the score remains 1:0."
+        }
+      ],
+      "narrative_de": "Lange dominierten die Abwehrreihen das Spiel. Kaiserslautern brachte Yardımcı in der 65. Minute – acht Minuten später überlupfte der Joker nach einem weiten Abschlag den Torhüter zum 1:0. Nach VAR-Prüfung zählte der Treffer. Şahin traf später nur den Pfosten. Braunschweig gelang kein Ausgleich, der 1X2-Heimsieg war damit gewonnen.",
+      "narrative_en": "The defences held firm for a long time. Kaiserslautern brought Yardımcı on in the 65th minute, and eight minutes later the substitute lobbed the goalkeeper to make it 1–0. VAR reviewed and allowed the goal. Şahin subsequently struck the post. Braunschweig never equalised, so the home-win prediction succeeded."
+    }
+  ],
+  "summary_de": "Erencan Yardımcı erzielte als eingewechselter Stürmer in der 73. Minute das einzige Tor. Der Heimsieg erfüllte die BetInsight-Auswahl 1X2 bei Quote 1,99.",
+  "summary_en": "Erencan Yardımcı scored the only goal in the 73rd minute after coming off the bench. The home win validated BetInsight's 1X2 selection at odds of 1.99.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Kaiserslautern – Braunschweig 1–0: substitute decides match",
+      "market": "Kaiserslautern to win (1X2)",
+      "summary": "Erencan Yardımcı scored the only goal in the 73rd minute after coming off the bench. The home win validated BetInsight's 1X2 selection at odds of 1.99.",
+      "narrative": "The defences held firm for a long time. Kaiserslautern brought Yardımcı on in the 65th minute, and eight minutes later the substitute lobbed the goalkeeper to make it 1–0. VAR reviewed and allowed the goal. Şahin subsequently struck the post. Braunschweig never equalised, so the home-win prediction succeeded.",
+      "events": [
+        "Erencan Yardımcı comes on as a substitute; score 0:0.",
+        "Erencan Yardımcı scores to make it 1:0.",
+        "VAR checks the Erencan Yardımcı goal and confirms 1:0.",
+        "Semih Şahin strikes the post; the score remains 1:0."
+      ]
+    },
+    "es": {
+      "headline": "Kaiserslautern – Braunschweig 1–0: decide un suplente",
+      "market": "Victoria del Kaiserslautern (1X2)",
+      "summary": "Erencan Yardımcı marcó el único gol en el minuto 73 tras entrar desde el banquillo. La victoria local confirmó la selección 1X2 a cuota 1,99.",
+      "narrative": "Las defensas dominaron gran parte del partido. Yardımcı entró en el minuto 65 y ocho minutos después superó al portero con una vaselina. El VAR revisó y validó el 1–0. Şahin estrelló luego un disparo en el poste. Braunschweig no empató y se cumplió la victoria local.",
+      "events": [
+        "Entra Erencan Yardımcı como suplente con el marcador 0:0.",
+        "Erencan Yardımcı marca el 1:0.",
+        "El VAR revisa y confirma el gol de Erencan Yardımcı: 1:0.",
+        "Semih Şahin remata al poste; sigue el 1:0."
+      ]
+    },
+    "pt": {
+      "headline": "Kaiserslautern – Braunschweig 1–0: suplente decide",
+      "market": "Vitória do Kaiserslautern (1X2)",
+      "summary": "Erencan Yardımcı marcou o único golo aos 73 minutos depois de entrar como suplente. A vitória caseira confirmou a seleção 1X2 com cotação de 1,99.",
+      "narrative": "As defesas dominaram grande parte do encontro. Yardımcı entrou aos 65 minutos e, oito minutos depois, fez um chapéu ao guarda-redes para o 1–0. O VAR confirmou o golo. Şahin ainda acertou no poste. O Braunschweig não conseguiu empatar, pelo que a vitória da casa validou o prognóstico.",
+      "events": [
+        "Erencan Yardımcı entra como suplente com o resultado em 0:0.",
+        "Erencan Yardımcı marca o 1:0.",
+        "O VAR analisa e valida o golo de Erencan Yardımcı: 1:0.",
+        "Semih Şahin acerta no poste; mantém-se o 1:0."
+      ]
+    },
+    "it": {
+      "headline": "Kaiserslautern – Braunschweig 1–0: decide un subentrato",
+      "market": "Vittoria Kaiserslautern (1X2)",
+      "summary": "Erencan Yardımcı ha segnato l'unico gol al 73' dopo essere entrato dalla panchina. La vittoria interna conferma l'1X2 a quota 1,99.",
+      "narrative": "Le difese hanno prevalso per gran parte della gara. Yardımcı è entrato al 65' e otto minuti dopo ha superato il portiere con un pallonetto per l'1-0. Il VAR ha confermato la rete. Şahin ha poi colpito il palo. Il Braunschweig non ha pareggiato e il pronostico casalingo è risultato vincente.",
+      "events": [
+        "Entra Erencan Yardımcı dalla panchina sul 0:0.",
+        "Erencan Yardımcı segna il 1:0.",
+        "Il VAR controlla e conferma la rete di Erencan Yardımcı: 1:0.",
+        "Semih Şahin colpisce il palo; resta 1:0."
+      ]
+    },
+    "fr": {
+      "headline": "Kaiserslautern – Braunschweig 1–0 : un remplaçant décisif",
+      "market": "Victoire de Kaiserslautern (1X2)",
+      "summary": "Erencan Yardımcı a inscrit l'unique but à la 73e après son entrée en jeu. La victoire à domicile valide le 1X2 à cote 1,99.",
+      "narrative": "Les défenses ont longtemps fermé les espaces. Yardımcı est entré à la 65e et, huit minutes plus tard, a lobé le gardien pour le 1–0. Le VAR a validé le but. Şahin a ensuite trouvé le poteau. Braunschweig n'a pas égalisé et le pronostic de victoire locale a été confirmé.",
+      "events": [
+        "Erencan Yardımcı entre en jeu alors que le score est de 0:0.",
+        "Erencan Yardımcı marque : 1:0.",
+        "La VAR examine puis valide le but de Erencan Yardımcı : 1:0.",
+        "Semih Şahin touche le poteau, le score reste de 1:0."
+      ]
+    },
+    "nl": {
+      "headline": "Kaiserslautern – Braunschweig 1-0: invaller beslist",
+      "market": "Kaiserslautern wint (1X2)",
+      "summary": "Erencan Yardımcı maakte in de 73e minuut het enige doelpunt nadat hij was ingevallen. De thuiszege bevestigde de 1X2-voorspelling tegen quote 1,99.",
+      "narrative": "De verdedigingen hielden het duel lang gesloten. Yardımcı kwam in de 65e minuut binnen de lijnen en lobde acht minuten later de bal over de doelman: 1-0. Na VAR-controle bleef de treffer staan. Şahin raakte vervolgens de paal. Braunschweig kwam niet meer langszij, waardoor de thuiszege werd bevestigd.",
+      "events": [
+        "Erencan Yardımcı komt als invaller binnen de lijnen bij 0:0.",
+        "Erencan Yardımcı scoort en brengt de stand op 1:0.",
+        "VAR controleert en bevestigt de treffer van Erencan Yardımcı: 1:0.",
+        "Semih Şahin raakt de paal; het blijft 1:0."
+      ]
+    },
+    "zh": {
+      "headline": "凱澤斯勞滕1比0擊敗布倫瑞克：替補球員建功",
+      "market": "凱澤斯勞滕獲勝（1X2）",
+      "summary": "替補上場的Erencan Yardımcı在第73分鐘攻入全場唯一進球，凱澤斯勞滕主勝符合賠率1.99的1X2預測。",
+      "narrative": "雙方防線長時間僵持。第65分鐘Yardımcı替補登場，八分鐘後挑射越過門將，攻入1比0致勝球。VAR確認進球有效。隨後Şahin又射中門柱。布倫瑞克未能扳平，因此主勝投注成功。",
+      "events": [
+        "Erencan Yardımcı替補登場，當時比分為0:0。",
+        "Erencan Yardımcı進球，比分改寫為1:0。",
+        "VAR覆核並確認Erencan Yardımcı的進球有效，比分1:0。",
+        "Semih Şahin射中門柱，比分仍為1:0。"
+      ]
+    }
+  }
+}

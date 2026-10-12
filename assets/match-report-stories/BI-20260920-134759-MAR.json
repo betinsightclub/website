@@ -1,0 +1,159 @@
+{
+  "schema": "betinsight_verified_match_story_v1",
+  "tipp_id": "BI-20260920-134759-MAR",
+  "match_date": "2026-09-20",
+  "kind": "single",
+  "outcome": "WON",
+  "status": "GEWONNEN",
+  "home": "Valencia CF",
+  "away": "Real Sociedad",
+  "match": "Valencia – Real Sociedad",
+  "score": "2:3",
+  "market": "Real Sociedad – Draw No Bet",
+  "odds": 1.85,
+  "units": 3,
+  "league": "La Liga",
+  "verified_source": "Independent official match report",
+  "source_url": "https://iaas-public-front-pro.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-valencia-cf-real-sociedad-7",
+  "source_checked_at": "2026-10-12",
+  "leg_status": "WON",
+  "legs": [
+    {
+      "home": "Valencia CF",
+      "away": "Real Sociedad",
+      "score": "2:3",
+      "status": "FT",
+      "market_label": "Real Sociedad – Draw No Bet",
+      "selection_outcome": "WON",
+      "source_url": "https://iaas-public-front-pro.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-valencia-cf-real-sociedad-7",
+      "source_label": "Offizieller Spielbericht / offizieller Ticker",
+      "key_events": [
+        {
+          "minute": "26′",
+          "text": "Luka Sučić erzielt das 0:1.",
+          "text_en": "Luka Sučić scores to make it 0:1."
+        },
+        {
+          "minute": "57′",
+          "text": "Aaron Mayol erzielt das 1:1.",
+          "text_en": "Aaron Mayol scores to make it 1:1."
+        },
+        {
+          "minute": "75′",
+          "text": "Carlos Soler verwandelt einen Strafstoß zum 1:2.",
+          "text_en": "Carlos Soler converts a penalty for 1:2."
+        },
+        {
+          "minute": "84′",
+          "text": "Eigentor durch Luken Beitia: 2:2.",
+          "text_en": "Own goal by Luken Beitia: 2:2."
+        },
+        {
+          "minute": "90.+1′",
+          "text": "Ander Barrenetxea erzielt das 2:3.",
+          "text_en": "Ander Barrenetxea scores to make it 2:3."
+        }
+      ],
+      "narrative_de": "Sučić brachte Real Sociedad in der 26. Minute in Führung. Valencia glich durch Mayol aus, doch Soler verwandelte einen Elfmeter zum 1:2. Ein Eigentor von Beitia ließ das Ergebnis in Minute 84 auf 2:2 kippen. Erst Barrenetxeas Treffer in der Nachspielzeit machte daraus einen 3:2-Auswärtssieg. Bei Draw No Bet wäre ein Remis lediglich eine Rückerstattung gewesen; dank des späten Siegtores war die Auswahl tatsächlich gewonnen.",
+      "narrative_en": "Sučić put Sociedad ahead after 26 minutes. Mayol levelled for Valencia, before Soler converted a penalty to restore Sociedad's lead. A Beitia own goal made it 2–2 in the 84th minute. Barrenetxea then scored in added time to seal a 3–2 away win. Under Draw No Bet a draw would only have refunded the stake; the late winner made this a winning selection."
+    }
+  ],
+  "summary_de": "Real Sociedad gewann bei Valencia in der Nachspielzeit mit 3:2. Damit war der Draw-No-Bet-Tipp auf den Auswärtssieg bei Quote 1,85 gewonnen.",
+  "summary_en": "Real Sociedad claimed a 3–2 away win with a stoppage-time goal, making the published Draw No Bet selection at odds of 1.85 successful.",
+  "note_de": "Nachträgliche Prüfung des vor dem Spiel veröffentlichten Tipps. Quote, Einsatz und Wertung stammen aus dem bestätigten BetInsight-Master-Backoffice. Spielverlauf laut verlinkter öffentlicher Quelle.",
+  "note_en": "Post-match review of a pre-match tip. Odds, units and grading are from the confirmed BetInsight Master Backoffice. Match events are from the linked public source.",
+  "translations": {
+    "en": {
+      "headline": "Valencia – Real Sociedad 2–3: stoppage-time winner secures tip",
+      "market": "Real Sociedad – Draw No Bet",
+      "summary": "Real Sociedad claimed a 3–2 away win with a stoppage-time goal, making the published Draw No Bet selection at odds of 1.85 successful.",
+      "narrative": "Sučić put Sociedad ahead after 26 minutes. Mayol levelled for Valencia, before Soler converted a penalty to restore Sociedad's lead. A Beitia own goal made it 2–2 in the 84th minute. Barrenetxea then scored in added time to seal a 3–2 away win. Under Draw No Bet a draw would only have refunded the stake; the late winner made this a winning selection.",
+      "events": [
+        "Luka Sučić scores to make it 0:1.",
+        "Aaron Mayol scores to make it 1:1.",
+        "Carlos Soler converts a penalty for 1:2.",
+        "Own goal by Luken Beitia: 2:2.",
+        "Ander Barrenetxea scores to make it 2:3."
+      ]
+    },
+    "es": {
+      "headline": "Valencia – Real Sociedad 2–3: gol final decide la apuesta",
+      "market": "Real Sociedad – Empate no apuesta",
+      "summary": "Real Sociedad ganó 2–3 en Mestalla gracias a un gol en el descuento, acertando el Draw No Bet a cuota 1,85.",
+      "narrative": "Sučić adelantó a la Real en el minuto 26. Mayol empató, Soler marcó de penalti el 1–2 y un autogol de Beitia puso el 2–2 en el minuto 84. Barrenetxea logró el gol de la victoria en el descuento. Con Draw No Bet, un empate solo habría devuelto la apuesta; el 2–3 confirmó la selección.",
+      "events": [
+        "Luka Sučić marca el 0:1.",
+        "Aaron Mayol marca el 1:1.",
+        "Carlos Soler convierte un penalti para el 1:2.",
+        "Autogol de Luken Beitia: 2:2.",
+        "Ander Barrenetxea marca el 2:3."
+      ]
+    },
+    "pt": {
+      "headline": "Valencia – Real Sociedad 2–3: golo tardio confirma prognóstico",
+      "market": "Real Sociedad – Empate anula aposta",
+      "summary": "A Real Sociedad venceu por 3–2 fora de casa com um golo no tempo de compensação, confirmando o Draw No Bet com cotação de 1,85.",
+      "narrative": "Sučić adiantou a Real Sociedad aos 26 minutos. Mayol empatou, Soler converteu um penálti para o 1–2 e um autogolo de Beitia colocou o resultado em 2–2 aos 84 minutos. Barrenetxea marcou o golo da vitória no tempo de compensação. No mercado Draw No Bet, o empate implicaria a devolução da aposta; com o 2–3, o prognóstico foi ganho.",
+      "events": [
+        "Luka Sučić marca o 0:1.",
+        "Aaron Mayol marca o 1:1.",
+        "Carlos Soler converte um penálti para o 1:2.",
+        "Autogolo de Luken Beitia: 2:2.",
+        "Ander Barrenetxea marca o 2:3."
+      ]
+    },
+    "it": {
+      "headline": "Valencia – Real Sociedad 2–3: gol nel recupero decisivo",
+      "market": "Real Sociedad – Draw No Bet",
+      "summary": "La Real Sociedad ha vinto 3-2 in trasferta grazie a un gol nel recupero, rendendo vincente il Draw No Bet a quota 1,85.",
+      "narrative": "Sučić ha portato avanti la Real al 26'. Mayol ha pareggiato, Soler ha trasformato il rigore dell'1-2 e un'autorete di Beitia ha portato il risultato sul 2-2 all'84'. Barrenetxea ha segnato il gol della vittoria nel recupero. Con Draw No Bet il pareggio avrebbe restituito la puntata; il 2-3 ha invece vinto.",
+      "events": [
+        "Luka Sučić segna il 0:1.",
+        "Aaron Mayol segna il 1:1.",
+        "Carlos Soler trasforma un rigore per il 1:2.",
+        "Autogol di Luken Beitia: 2:2.",
+        "Ander Barrenetxea segna il 2:3."
+      ]
+    },
+    "fr": {
+      "headline": "Valence – Real Sociedad 2–3 : but dans le temps additionnel",
+      "market": "Real Sociedad – Nul remboursé",
+      "summary": "La Real Sociedad a gagné 3–2 à l'extérieur grâce à un but dans le temps additionnel, validant le pari Draw No Bet à cote 1,85.",
+      "narrative": "Sučić a ouvert le score à la 26e. Mayol a égalisé, Soler a transformé un penalty pour le 1-2, puis un but contre son camp de Beitia a fait 2-2 à la 84e. Barrenetxea a marqué le but victorieux dans le temps additionnel. Un nul aurait seulement remboursé le Draw No Bet ; la victoire le rend gagnant.",
+      "events": [
+        "Luka Sučić marque : 0:1.",
+        "Aaron Mayol marque : 1:1.",
+        "Carlos Soler transforme un penalty : 1:2.",
+        "But contre son camp de Luken Beitia : 2:2.",
+        "Ander Barrenetxea marque : 2:3."
+      ]
+    },
+    "nl": {
+      "headline": "Valencia – Real Sociedad 2-3: late winnaar maakt tip goed",
+      "market": "Real Sociedad – Gelijkspel geen weddenschap",
+      "summary": "Real Sociedad won met 3-2 op bezoek bij Valencia door een doelpunt in blessuretijd. Daarmee was de Draw No Bet-selectie tegen quote 1,85 gewonnen.",
+      "narrative": "Sučić zette Sociedad in de 26e minuut voor. Mayol maakte gelijk, Soler benutte een strafschop voor de 1-2 en een eigen doelpunt van Beitia bracht de stand in minuut 84 op 2-2. Barrenetxea bezorgde Sociedad in blessuretijd alsnog de 3-2-uitzege. Bij Draw No Bet zou een gelijkspel alleen de inzet teruggeven; de late winnaar maakte de selectie winnend.",
+      "events": [
+        "Luka Sučić scoort en brengt de stand op 0:1.",
+        "Aaron Mayol scoort en brengt de stand op 1:1.",
+        "Carlos Soler benut een strafschop: 1:2.",
+        "Eigen doelpunt van Luken Beitia: 2:2.",
+        "Ander Barrenetxea scoort en brengt de stand op 2:3."
+      ]
+    },
+    "zh": {
+      "headline": "瓦倫西亞2比3皇家社會：傷停補時致勝球確認投注成功",
+      "market": "皇家社會——和局退款",
+      "summary": "皇家社會靠傷停補時進球以3比2客場獲勝，因此賠率1.85的「和局退款」投注成功。",
+      "narrative": "Sučić在第26分鐘為皇家社會取得領先，Mayol替瓦倫西亞追平，Soler以十二碼再度超前。第84分鐘Beitia的烏龍球讓比分變成2比2，直到傷停補時Barrenetxea踢進致勝球，皇家社會以3比2獲勝。和局退款市場遇平局只會退還本金，這次因為真的獲勝，投注判定成功。",
+      "events": [
+        "Luka Sučić進球，比分改寫為0:1。",
+        "Aaron Mayol進球，比分改寫為1:1。",
+        "Carlos Soler主罰十二碼得手，比分1:2。",
+        "Luken Beitia踢進烏龍球，比分2:2。",
+        "Ander Barrenetxea進球，比分改寫為2:3。"
+      ]
+    }
+  },
+  "score_source_note": "Master confirmed a win but did not store a final-score string. Official LALIGA reports Valencia 2-3 Real Sociedad."
+}
