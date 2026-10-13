@@ -898,7 +898,7 @@ async function loadHomeTrainerFeed(){
       return '<article class="trainer-post" data-unit-paid="'+(p.unit_charge_status==="PAID"?"true":"false")+'" data-official="'+(p.is_official===true?"true":"false")+'">'+
         '<div class="trainer-post-head">'+
           '<div class="trainer-avatar rank-'+rank.key+'">'+avatar+'</div>'+
-          '<div class="trainer-author"><strong>'+homeEsc(author)+'</strong><small>'+homeEsc(team)+' · '+homeEsc(homeFeedTime(p.created_at))+'</small></div>'+
+          '<div class="trainer-author"><strong><a class="bi-author-profile" href="'+(p.public_slug?"https://app.betinsight.club/trainer/?p="+encodeURIComponent(p.public_slug):publicHref)+'">'+homeEsc(author)+'</a></strong><small>'+homeEsc(team)+' · '+homeEsc(homeFeedTime(p.created_at))+'</small></div>'+
           '<div class="trainer-rank">'+rank.icon+' '+homeEsc(rank.label)+'</div>'+
         '</div>'+
         '<div class="trainer-post-text">'+homeEsc(p.body||"")+'</div>'+
