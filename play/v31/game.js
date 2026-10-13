@@ -8,7 +8,8 @@ import { CROWD_SPRITE_URL, CROWD_SOUNDS } from "/play/v28/crowd-soundpack.js?v=2
 import { loadOneDivingSave } from "/play/v31/diving-save-data.js?v=20261013-clip1";
 const v31ImportedPromise=loadOneDivingSave().catch(e=>{console.error("V31 Mixamo FBX data failed",e);return null;});
 const v31SourceToGLB={
- "Hips":"Hips", "Spine":"Spine","Spine1":"Spine.1","Spine2":"Spine.2",
+ "Hips":"Hips", // Quaternius GLB has no Spine/Spine1/Spine2 names.
+
  "RightShoulder":"Shoulder.R","LeftShoulder":"Shoulder.L",
  "RightArm":"UpperArm.R","LeftArm":"UpperArm.L",
  "RightForeArm":"LowerArm.R","LeftForeArm":"LowerArm.L",
@@ -1529,7 +1530,7 @@ class World3D{
    const direction=sim.kx>=0?1:-1;
    const left=sim.outcome==="save"?sim.ax:sim.kx;
    const endpoint=THREE.MathUtils.clamp(left*.78,-2.65,2.65);
-   v31Status("✓ ECHTE FBX-ANIMATION: Goalkeeper Diving Save · 24 Bewegungsphasen");
+   v31Status("✓ FBX-DIVING SAVE AKTIV: "+this.v31Mapped.length+" Gelenke · 24 Schlüsselbilder");
    await this.tween(115,(ease,t)=>{
      const p=t*t*(3-2*t);
      k.position.x=from.x+direction*.07*p;
