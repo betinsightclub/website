@@ -212,6 +212,8 @@ async function hydratePublicLinkPreview(root,url,lang){
 function renderPost(post,lang){
   const article=document.createElement("article");
   article.className="post";
+  article.dataset.unitPaid=post.unit_charge_status==="PAID"?"true":"false";
+  article.dataset.official=post.is_official===true?"true":"false";
 
   const inner=document.createElement("div");
   inner.className="post-inner";
@@ -238,7 +240,15 @@ function renderPost(post,lang){
   author.className="author";
   addText(author,"strong","",post.author||"Trainerprofil");
   addText(author,"small","",(post.team_name||"BetInsight Team")+" · "+localDate(post.created_at,lang));
-  head.appendChild(author);
+  if(post.public_slug){
+    const profileLink=document.createElement("a");
+    profileLink.className="bi-author-profile";
+    profileLink.href="https://app.betinsight.club/trainer/?p="+encodeURIComponent(post.public_slug);
+    profileLink.title="Alle Beiträge dieses Profils ansehen";
+    profileLink.appendChild(author);head.appendChild(profileLink);
+  }else{
+    head.appendChild(author);
+  }
 
   const rank=rankFromWins(post.author_wins);
   addText(head,"span","rank",rank.icon+" "+rank.label);
@@ -307,7 +317,7 @@ async function loadFeed(lang){
     const data=await response.json();
     if(!response.ok||data.ok!==true||!Array.isArray(data.posts))throw new Error("feed");
 
-    const posts=data.posts.slice(0,10);
+    const posts=data.posts.slice(0,80);
     box.innerHTML="";
     if(!posts.length){
       addText(box,"div","state",(COPY[lang]||COPY.de).empty);
@@ -340,5 +350,6 @@ document.getElementById("langSelect").addEventListener("change",event=>{
 });
 </script>
 <script src="/assets/footer-social.js?v=20260929-2" defer></script>
+<script src="../assets/community-tiles-v1.js?v=20261013" defer></script>
 </body>
 </html>
