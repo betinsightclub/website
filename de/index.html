@@ -870,7 +870,10 @@ async function loadHomeTrainerFeed(){
     const data=await response.json();
     if(!response.ok||data.ok!==true||!Array.isArray(data.posts))throw new Error("feed");
 
-    const posts=data.posts.slice(0,3);
+    /* Six compact public tiles; keep at least two recent paid global member posts visible. */
+    const paidPosts=data.posts.filter(p=>p.distribution_scope==="GLOBAL"&&p.unit_charge_status==="PAID").slice(0,2);
+    const protectedIds=new Set(paidPosts.map(p=>p.id));
+    const posts=[...paidPosts,...data.posts.filter(p=>!protectedIds.has(p.id))].slice(0,6);
     if(!posts.length){
       box.innerHTML='<div class="feed-loading">Noch keine globalen Trainer-Feed-Beiträge veröffentlicht.</div>';
       return;
@@ -892,7 +895,7 @@ async function loadHomeTrainerFeed(){
       const reactions=Array.isArray(p.reactions)?p.reactions.length:0;
       const comments=Array.isArray(p.comments)?p.comments.length:0;
 
-      return '<article class="trainer-post">'+
+      return '<article class="trainer-post" data-unit-paid="'+(p.unit_charge_status==="PAID"?"true":"false")+'" data-official="'+(p.is_official===true?"true":"false")+'">'+
         '<div class="trainer-post-head">'+
           '<div class="trainer-avatar rank-'+rank.key+'">'+avatar+'</div>'+
           '<div class="trainer-author"><strong>'+homeEsc(author)+'</strong><small>'+homeEsc(team)+' · '+homeEsc(homeFeedTime(p.created_at))+'</small></div>'+
@@ -1052,5 +1055,6 @@ applyLang(initial);
 const yearEl=document.getElementById("year"); if(yearEl) yearEl.textContent=new Date().getFullYear();
 </script>
   <script src="/assets/footer-social.js?v=20261003-3" defer></script>
+  <script src="../assets/community-tiles-v1.js?v=20261013" defer></script>
 </body>
 </html>
