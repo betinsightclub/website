@@ -240,7 +240,15 @@ function renderPost(post,lang){
   author.className="author";
   addText(author,"strong","",post.author||"Trainerprofil");
   addText(author,"small","",(post.team_name||"BetInsight Team")+" · "+localDate(post.created_at,lang));
-  head.appendChild(author);
+  if(post.public_slug){
+    const profileLink=document.createElement("a");
+    profileLink.className="bi-author-profile";
+    profileLink.href="https://app.betinsight.club/trainer/?p="+encodeURIComponent(post.public_slug);
+    profileLink.title="Alle Beiträge dieses Profils ansehen";
+    profileLink.appendChild(author);head.appendChild(profileLink);
+  }else{
+    head.appendChild(author);
+  }
 
   const rank=rankFromWins(post.author_wins);
   addText(head,"span","rank",rank.icon+" "+rank.label);
