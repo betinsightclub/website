@@ -19,12 +19,8 @@
 <section id="setup" class="panel setup"><section class="v32-panel"><strong>V32 · ORIGINAL-FBX STATT FALSCHER GELENK-ÜBERTRAGUNG</strong>
 <p>Wähle einmal <b>Goalkeeper Diving Save.fbx</b> von deinem Computer. Die Datei bleibt im Browser. Erst dann wird der Testknopf freigeschaltet.</p>
 <label class="v32-label">Original-FBX wählen <input id="v32FileSetup" type="file" accept=".fbx"></label>
-<small id="v32Status">Noch keine Original-FBX geladen.</small></section>
-<section class="v31-test-info">
-  <strong>V31 · ORIGINAL-MIXAMO-TEST</strong>
-  <p>Eine echte Bewegungsaufnahme: <b>Goalkeeper Diving Save.fbx</b>. Du wählst die Original-FBX einmal aus. Zum Testen: Duell starten → „MIXAMO-TEST: RECHTS OBEN“ → „SCHIESSEN“.</p>
-  <small id="v31Status">Bewegungsdaten werden geladen …</small>
-</section><section class="v28-crowd-panel" aria-label="Publikumsreaktionen">
+<small id="v32Status">Noch keine Original-FBX ausgewählt. Ohne Dateiauswahl bleibt der Native-Test gesperrt.</small></section>
+<section class="v28-crowd-panel" aria-label="Publikumsreaktionen">
   <strong>🏟️ V29 · PUBLIKUMSAUDIO MIT STATUSANZEIGE</strong>
   <p>Originalaufnahmen: Treffer = großer Jubel · gehalten / daneben / Latte / Pfosten = enttäuschtes Ooh.</p>
   <div class="v28-crowd-buttons">
@@ -46,7 +42,7 @@
     <label>Lautstärke <input type="range" id="v25SoundVolume" min="0" max="100" value="76"></label>
   </div>
   <small id="v25AudioStatus">Sobald du einen Testknopf drückst, werden die vier Geräusche geladen.</small>
-</section><section class="v24-status-panel"><b>🧤 V27 – Skeletbewegungen wieder aktiv</b><small id="v24Status">Animationsdaten werden geladen …</small><p>V27 verwendet die echten Bewegungsclips des Originalmodells, sodass Arme und Beine wieder animiert sind. Für eine realistische Torwart-Hechtparade müssen wir die Mixamo-FBX-Daten weiterhin korrekt auf dieses Skelett übertragen.</p></section>
+</section>
   <div class="hero">
     <span>BETINSIGHT PLAY</span>
     <h1>REAL 3D SHOOTOUT</h1>
@@ -110,7 +106,7 @@
 <label><input type="checkbox" id="v32Mirror"> Richtung spiegeln</label>
 <small id="v32GameStatus">Bitte Original-FBX wählen.</small></div>
 <button id="v31SetUpShot" class="v31-shot-button" type="button" disabled>🧤 NATIVE-FBX-TEST: RECHTS OBEN · 82 %</button>
-      <small id="v31GameStatus" class="v31-status">Lade eine echte FBX-Hechtparade …</small>
+      
       <button id="shootBtn" class="primary shoot" disabled>⚽ SCHIESSEN</button>
       <div id="commentary" class="commentary">Setze zuerst das Ziel.</div>
     </aside>
