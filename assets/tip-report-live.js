@@ -76,6 +76,8 @@ function storyHTML(story){
     const title=String(leg.home||"")+" – "+String(leg.away||"");
     const trLeg=translation?.legs?.[i];
     const narrative=trLeg?.narrative||(de?leg.narrative_de:leg.narrative_en);
+    const wagerLogic=trLeg?.wager_logic||(de?leg.wager_logic_de:leg.wager_logic_en)||"";
+    const logicLabel=({de:"Warum die Auswahl gewonnen oder verloren wurde",en:"Why this selection won or lost",es:"Por qué ganó o perdió esta selección",pt:"Porque esta seleção venceu ou perdeu",it:"Perché la selezione ha vinto o perso",fr:"Pourquoi ce pari a gagné ou perdu",nl:"Waarom deze selectie won of verloor",zh:"投注結算邏輯"})[lang]||"Selection settlement";
     const items=(Array.isArray(leg.key_events)?leg.key_events:[]).slice(0,14).map((ev,eventIndex)=>
       '<li><strong>'+esc(ev.minute||"")+'</strong> '+esc(trLeg?.events?.[eventIndex]||(de?ev.text:ev.text_en)||ev.text||"")+'</li>').join("");
     const source=String(leg.source_url||"");
@@ -84,6 +86,7 @@ function storyHTML(story){
       '<p class="story-leg-market">'+esc(trLeg?.market||biText.market(leg.market_label||"",lang))+' · '+esc(resultLabel(leg.selection_outcome))+'</p>'+
       '<ul class="story-events">'+items+'</ul>'+
       '<p>'+esc(narrative||"")+'</p>'+
+      (wagerLogic?'<p class="story-leg-logic"><strong>'+esc(logicLabel)+':</strong> '+esc(wagerLogic)+'</p>':'')+
       (isTrusted?'<p class="story-source"><a target="_blank" rel="noopener noreferrer" href="'+esc(source)+'">'+esc(lang==="de"?(leg.source_label||"Quelle"):(lang==="es"?"Fuente del partido":lang==="pt"?"Fonte do jogo":lang==="it"?"Fonte partita":lang==="fr"?"Source du match":"Match source"))+' ↗</a></p>':'')+
       '</section>';
   }).join("");
