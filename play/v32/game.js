@@ -31,10 +31,11 @@ async function v32UseFile(file){
     const clip=scene.animations?.[0];
     if(!clip||!mesh||bones<8)throw Error("Bitte die FBX MIT SKIN und Animation wählen");
     v32Asset={scene,clip,file:file.name,mesh,bones};
-    if(world)world.v32Install(v32Asset);
+    if(world && world.keeper?.userData?.isGLB)world.v32Install(v32Asset);
     if(button)button.disabled=false;
-    v32Status("✓ Original-Mixamo-Modell geladen · "+mesh+" SkinnedMesh · "+
-      bones+" Knochen · "+clip.duration.toFixed(2)+" s · bereit zum Test");
+    v32Status("✓ Original-FBX verarbeitet · "+mesh+" SkinnedMesh · "+
+      bones+" Knochen · "+clip.duration.toFixed(2)+" s · "+
+      (world?.v32Native?"IM SPIEL AKTIV":"wird beim Spielstart installiert"));
   }catch(e){v32Status("FBX nicht verwendbar: "+(e.message||e),true);console.error(e);}
 }
 
@@ -738,6 +739,8 @@ class World3D{
      this.playRigClip(this.player,"Idle",{fade:0});
      this.playRigClip(this.keeper,"Idle",{fade:0});
      this.realRigReady=true;
+     // A file selected before model readiness is installed as soon as the GLB is ready.
+     if(v32Asset&&!this.v32Native)this.v32Install(v32Asset);
      const el=$("#commentary");if(el)el.textContent="V20A.3: Shorts-Zone entlang der echten Modell-Höhenachse geladen."
    }catch(err){
      console.error("GLB character load failed; using procedural fallback",err);
@@ -2369,7 +2372,7 @@ function clearRenderError(){const box=$("#renderError");if(box){box.classList.ad
 function start(){kickAudio.prepare().then(()=>crowdAudio.prepare()).catch(err=>console.warn("V28 audio decode",err));S.A=T($("#teamA").value);S.B=T($("#teamB").value);S.stadiumId=selectedStadiumId;Object.assign(S,{side:"A",a:0,b:0,ta:0,tb:0,shots:[],power:78,busy:false,sudden:false,finished:false,playerPos:{x:-1.2,z:12.2}});S.target={x:0,y:1.2,set:false};S.contact={x:0,y:0};syncPower(78);$("#setup").classList.add("hidden");$("#result").classList.add("hidden");$("#game").classList.remove("hidden");applyStadiumAmbience();try{
    clearRenderError();
    if(!world)world=new World3D($("#stage"));
-   if(v32Asset&&!world.v32Native)world.v32Install(v32Asset);
+   if(v32Asset&&!world.v32Native&&world.keeper?.userData?.isGLB)world.v32Install(v32Asset);
    if(v23Files.size)world.installV23FBX().catch(e=>{console.error(e);v23Status('FBX-Fehler: '+(e?.message||e),true)});
    applyStadiumAmbience();
    setTimeout(ui,120);
