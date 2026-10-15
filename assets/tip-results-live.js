@@ -34,17 +34,16 @@ const n=v=>{const s=String(v??"").trim();return Number(s.includes(",")?s.replace
 const dnum=v=>{const m=String(v||"").match(/(\d{2})\.(\d{2})\.(\d{4})/);return m?Number(m[3]+m[2]+m[1]):0};
 fetch(URL,{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(rows=>{
  if(!Array.isArray(rows))return;
+ grid.replaceChildren(); // Live results are authoritative; remove stale pre-rendered editorial cards.
  rows.filter(r=>r&&r.qualitaetsrelevant==="JA"&&r.sichtbar_fuer_teilnehmer==="JA"&&(r.ergebnis_status==="GEWONNEN"||r.ergebnis_status==="VERLOREN")&&dnum(r.spiel_datum)>=20260828&&n(r.preis_units)>0)
  .sort((a,b)=>dnum(a.spiel_datum)-dnum(b.spiel_datum)||String(a.bestaetigt_am||"").localeCompare(String(b.bestaetigt_am||"")))
  .forEach(r=>{
-   const staticPath=reportMap[r.tipp_id];
-   if(staticPath&&grid.querySelector('a[href="'+staticPath+'"]'))return;
    if(grid.querySelector('[data-live-id="'+CSS.escape(String(r.tipp_id))+'"]'))return;
    const won=r.ergebnis_status==="GEWONNEN",el=document.createElement("a");
    el.className="report-card";el.dataset.liveId=String(r.tipp_id||"");
-   el.href=reviewedTipIds.has(String(r.tipp_id||""))?"ergebnis/"+encodeURIComponent(String(r.tipp_id))+"/":"bericht/?id="+encodeURIComponent(String(r.tipp_id||""));
+   el.href="bericht/?id="+encodeURIComponent(String(r.tipp_id||""));
    el.innerHTML='<span class="date">'+esc(r.spiel_datum)+' · '+esc(biText.league(r.liga||r.sportart||"",lang))+'</span><h2>'+esc(biText.match(r.spiel,lang))+'</h2><p>'+esc(biText.selection(r.tipp||r.markt||"",lang,r.tipp_id))+'</p><div class="cardmeta"><span>'+C.odds+' '+esc(r.quote)+'</span><span>'+esc(r.preis_units)+' '+C.units+'</span>'+(r.endergebnis?'<span>'+C.score+' '+esc(r.endergebnis)+'</span>':'')+'<span class="'+(won?"result-win":"result-loss")+'">'+(won?C.won:C.lost)+'</span></div><span class="read">'+C.read+'</span>';
    grid.appendChild(el);
  });
-}).catch(()=>{});
+}).catch(()=>{grid.innerHTML='<p class="lead" style="padding:16px">Die aktuelle Ergebnisliste ist momentan nicht abrufbar. Bitte später erneut versuchen.</p>';});
 })();
