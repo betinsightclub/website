@@ -82,7 +82,7 @@ function storyHTML(story){
       '<li><strong>'+esc(ev.minute||"")+'</strong> '+esc(trLeg?.events?.[eventIndex]||(de?ev.text:ev.text_en)||ev.text||"")+'</li>').join("");
     const source=String(leg.source_url||"");
     const isTrusted=/^https:\/\/[a-z0-9.-]+\//i.test(source);
-    return '<section class="story-leg"><div class="story-leg-header"><span class="story-leg-num">'+(i+1)+'</span><h3>'+esc(title)+'</h3><strong>'+esc(leg.score||"")+'</strong></div>'+
+    return '<section class="story-leg"><div class="story-leg-header"><span class="story-leg-num">'+(i+1)+'</span><h3>'+esc(title)+'</h3><strong>'+esc(leg.score_label||leg.score||"")+'</strong></div>'+
       '<p class="story-leg-market">'+esc(trLeg?.market||biText.market(leg.market_label||"",lang))+' · '+esc(resultLabel(leg.selection_outcome))+'</p>'+
       '<ul class="story-events">'+items+'</ul>'+
       '<p>'+esc(narrative||"")+'</p>'+
@@ -103,15 +103,20 @@ async function loadStory(r){
   if(!/^[A-Za-z0-9_-]{7,90}$/.test(id))return;
   try{
     let story=null;
-    const local=await fetch("/assets/match-report-stories/"+encodeURIComponent(id)+".json",{cache:"no-store"});
-    if(local.ok)story=await local.json();
+    // Authoritative Supabase report first: prevents obsolete static reports from surviving corrections.
+    const expectedOutcome=r.ergebnis_status==="GEWONNEN"?"WON":"LOST";
+    const api="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-public-result-story?id="+encodeURIComponent(id);
+    const remote=await fetch(api,{cache:"no-store"});
+    if(remote.ok){
+      const info=await remote.json();
+      if(info.ok&&info.status==="READY"&&info.story?.tipp_id===id&&info.story?.outcome===expectedOutcome)story=info.story;
+    }
+    // Old editorial reports remain available only if the Master outcome is still identical.
     if(!story){
-      // Read ONLY verified/cached summaries; never call the sports provider per browser visit.
-      const api="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-public-result-story?id="+encodeURIComponent(id);
-      const remote=await fetch(api,{cache:"no-store"});
-      if(remote.ok){
-        const info=await remote.json();
-        if(info.ok&&info.status==="READY")story=info.story;
+      const local=await fetch("/assets/match-report-stories/"+encodeURIComponent(id)+".json",{cache:"no-store"});
+      if(local.ok){
+        const candidate=await local.json();
+        if(candidate?.tipp_id===id&&candidate?.outcome===expectedOutcome)story=candidate;
       }
     }
     if(story&&story.tipp_id===id&&root.contains(slot)){
@@ -119,9 +124,9 @@ async function loadStory(r){
       const off=root.querySelector("[data-verified-final-score]");
       if(off&&Array.isArray(story.legs)){
         const scores=story.legs.filter(x=>x.score&&/^\d+:\d+$/.test(String(x.score)))
-          .map(x=>String(x.home||"")+" – "+String(x.away||"")+": "+String(x.score));
+          .map(x=>String(x.home||"")+" – "+String(x.away||"")+": "+String(x.score_label||x.score));
         if(scores.length){
-          off.innerHTML='<strong>'+esc(lang==="de"?"Unabhängig nachgewiesener offizieller Endstand: ":"Official final score verified independently: ")+esc(scores.join(" · "))+'</strong>';
+          off.innerHTML='<strong>'+esc(story.kind==="tennis"?(lang==="de"?"Quellengeprüfter Satzstand: ":"Verified sets won: "):(lang==="de"?"Unabhängig nachgewiesener offizieller Endstand: ":"Official final score verified independently: "))+esc(scores.join(" · "))+'</strong>';
           const src=story.legs[0].source_url;
           if(String(src||"").startsWith("https://"))off.innerHTML+=' · <a href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">'+esc(lang==="de"?"Spielquelle":"Match source")+' ↗</a>';
         }
