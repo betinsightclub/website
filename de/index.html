@@ -817,7 +817,14 @@ function applyLang(lang){
     const k=el.dataset.i18n;if(T[lang][k]) el.textContent=T[lang][k];
   });
   document.querySelectorAll(".route-link").forEach(a=>{
-    const r=routes[a.dataset.route]; if(r) a.href="/"+lang+"/"+r+"/";
+    const r=routes[a.dataset.route];
+    if(!r) return;
+    const routeKey=a.dataset.route;
+    const safeFallback=routeKey==="ads"?(lang==="en"?"/en/ads/":"/de/anzeigen/"):
+      routeKey==="terms"?"/de/agb/":
+      routeKey==="privacy"?"/de/datenschutz/":
+      routeKey==="imprint"?"/de/impressum/":"";
+    a.href=safeFallback||"/"+lang+"/"+r+"/";
   });
   document.getElementById("langSelect").value=lang;
   const publicFeedLink=document.getElementById("publicTrainerFeedLink");
