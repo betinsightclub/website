@@ -93,6 +93,18 @@
     }
     .bi-tile-grid .bi-tile.bi-open .bi-tile-preview{display:none}
     .bi-tile-grid .bi-tile .bi-tile-more{font-size:11px;color:#80c9f5;margin-top:auto;font-weight:750}
+    /* Dedicated full-article action for the NewsRadar 2026 long-read. */
+    .bi-tile-grid .bi-tile .bi-newsradar-read-full{
+      display:flex!important;align-items:center;justify-content:center;gap:8px;
+      width:calc(100% - 32px);box-sizing:border-box;margin:14px 16px 16px;
+      border-radius:12px;padding:13px 18px;border:1px solid rgba(113,210,255,.4);
+      color:#fff!important;background:linear-gradient(115deg,#1676c7,#2854c9)!important;
+      font:800 14px/1.35 inherit;text-align:center;text-decoration:none!important;
+      box-shadow:0 8px 25px rgba(16,95,173,.24);
+    }
+    .bi-tile-grid .bi-tile .bi-newsradar-read-full:hover{filter:brightness(1.13)}
+    .bi-tile-grid .bi-tile .bi-newsradar-read-full:focus-visible{outline:3px solid #7dd8ff;outline-offset:3px}
+    @media(max-width:520px){.bi-tile-grid .bi-tile .bi-newsradar-read-full{font-size:13px;padding:12px 10px}}
     .bi-tile-grid .bi-tile.bi-open .bi-tile-toggle{min-height:auto;background:rgba(56,163,224,.08)}
     .bi-tile-grid .bi-tile.bi-open .bi-tile-headline{font-size:18px!important;-webkit-line-clamp:unset}
     .bi-tile-grid .bi-tile.bi-open > .post-inner,
@@ -229,6 +241,26 @@
     }
     return row;
   }
+  /* The compact tile's "Weiterlesen" only expands the community post.
+     Give the linked NewsRadar background article an unmistakable second action. */
+  function ensureNewsradarArticleButton(item){
+    if(item.querySelector(".bi-newsradar-read-full"))return;
+    if(item.dataset.official!=="true")return;
+    const body=item.querySelector(".trainer-post-text,.dashboard-feed-text,.post-text,.body,.post-body");
+    const copy=body?.textContent||"";
+    if(!copy.includes("NEWSRADAR")||!copy.includes("Wenn der Staat die Wettmärkte stoppt"))return;
+    const href="https://betinsight.club/de/newsradar/buchmacher-wettverbote-2026/";
+    const a=document.createElement("a");
+    a.className="bi-newsradar-read-full";
+    a.href=href;
+    a.target="_blank";
+    a.rel="noopener noreferrer";
+    a.textContent="📖 Vollständigen Bericht lesen ↗";
+    a.setAttribute("aria-label","Vollständigen NewsRadar-Bericht öffnen");
+    const preview=item.querySelector('a[href*="/de/newsradar/buchmacher-wettverbote-2026/"]');
+    if(preview)preview.insertAdjacentElement("afterend",a);
+    else (item.querySelector(".post-inner,.post-body,.post-content")||body?.parentElement||item).appendChild(a);
+  }
   function enhance(item){
     if(item.classList.contains("bi-tile"))return;
     const tag=label(item),button=document.createElement("button");
@@ -245,6 +277,7 @@
     item.classList.add("bi-tile");
     item.insertBefore(header,item.firstChild);
     item.insertBefore(button,header.nextSibling);
+    ensureNewsradarArticleButton(item);
     button.addEventListener("click",function(){
       const open=item.classList.contains("bi-open");
       if(!open){
