@@ -180,7 +180,33 @@
     "runtime_players_total": 14537,
     "countries_done": 9
   },
-  "next_work": [],
+  "next_work": [
+    {
+      "country": "Ägypten",
+      "group": "Ägypten · Egyptian Premier League",
+      "teams": 50,
+      "source_players": 925,
+      "original_under15": 7,
+      "original_under11": 2,
+      "staged_supplement_teams": 6,
+      "remaining_under15_after_staging": 2,
+      "remaining": [
+        {
+          "team": "Ghazl El Mahalla 1972/73",
+          "players": 8,
+          "needTo15": 7
+        },
+        {
+          "team": "Al Mokawloon 1982/83",
+          "players": 12,
+          "needTo15": 3
+        }
+      ],
+      "trainer_audit": "pending all 50 championship seasons",
+      "integration": "NOT LOADED – sources incomplete",
+      "staging_file": "time-clash/egypt-research-stage-20261020.json"
+    }
+  ],
   "next_sequence": [
     "Ägypten",
     "Südafrika",
@@ -195,6 +221,7 @@
     "brazil": "1b7199a28b45d47a531c88c7ff4e3d09468f4ed6",
     "argentina": "569b05536bec60dab9ff71b3fa2fcc307bca824f",
     "mexicoStage": "8acccd7d48f9cb92ba0cbc2fadd55f9eb73ad275",
-    "mexico": "fb5011dde03867baa9878bb1d1aeb15a52936843"
+    "mexico": "fb5011dde03867baa9878bb1d1aeb15a52936843",
+    "egyptStage": "b7b13ccbf84777f546fe073aca11c89d9bf1bcf1"
   }
 }
