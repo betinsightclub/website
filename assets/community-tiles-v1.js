@@ -99,7 +99,7 @@
       width:calc(100% - 32px);box-sizing:border-box;margin:14px 16px 16px;
       border-radius:12px;padding:13px 18px;border:1px solid rgba(113,210,255,.4);
       color:#fff!important;background:linear-gradient(115deg,#1676c7,#2854c9)!important;
-      font:800 14px/1.35 inherit;text-align:center;text-decoration:none!important;
+      font-family:inherit;font-weight:800;font-size:14px;line-height:1.35;text-align:center;text-decoration:none!important;
       box-shadow:0 8px 25px rgba(16,95,173,.24);
     }
     .bi-tile-grid .bi-tile .bi-newsradar-read-full:hover{filter:brightness(1.13)}
