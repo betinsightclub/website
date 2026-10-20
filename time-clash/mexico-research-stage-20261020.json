@@ -1,0 +1,160 @@
+{
+  "project": "TIME CLASH Mexico history expansion",
+  "saved_at": "2026-10-20",
+  "status": "research staging ONLY; do not load live until full roster AND championship coach audit has zero gaps",
+  "group": "Mexiko · Liga MX",
+  "catalogTeams": 86,
+  "masterSheet": "https://docs.google.com/spreadsheets/d/1s3xTdqDg9WVXRPUrTwk_5adyHHQtKM4Hx6hPnXaT0es/edit",
+  "originalPlayerRows": 1929,
+  "minPlayerRequirement": 15,
+  "confirmedResearch": {
+    "Pachuca 1999 Invierno": {
+      "before": 11,
+      "verified_additions": [
+        "Jesús Alfaro",
+        "José Juan Hernández",
+        "Gabriel Martínez",
+        "Guillermo Rivarola",
+        "Jafet Soto",
+        "Daniel Guzmán"
+      ],
+      "after": 17,
+      "source": "https://www.worldfootball.net/teams/cf-pachuca/2000/2/",
+      "support": "https://tuzos.com.mx/campeon-invierno-1999/",
+      "coach": "Javier Aguirre",
+      "note": "Source is 1999/2000 season roster. Documents squad membership for the championship season, not individual autumn-match appearances."
+    },
+    "Pachuca 2003 Apertura": {
+      "before": 11,
+      "verified_additions": [
+        "Marco Garcés",
+        "Marco Sánchez Yacuta",
+        "Ricardo Esqueda",
+        "Edgar Hernández",
+        "Braulio Godínez",
+        "Harold Lozano",
+        "Gabriel Álvez",
+        "Claudio Da Silva (Claudinho)"
+      ],
+      "after": 19,
+      "source": "https://www.rsssf.org/tablesm/mex04.html",
+      "support": "https://tuzos.com.mx/campeon-apertura-2003/",
+      "coach": "Víctor Manuel Vucetich",
+      "note": "RSSSF lists the named players in Pachuca's Apertura 2003 champion squad; winner and manager confirmed by official Pachuca."
+    }
+  },
+  "stillUnder15": [
+    {
+      "team": "América 1970/71",
+      "uniquePlayers": 12,
+      "missingAtLeast": 3,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1970-71"
+    },
+    {
+      "team": "Cruz Azul 1971/72",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1971-72"
+    },
+    {
+      "team": "Cruz Azul 1972/73",
+      "uniquePlayers": 12,
+      "missingAtLeast": 3,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1972-73"
+    },
+    {
+      "team": "Cruz Azul 1973/74",
+      "uniquePlayers": 12,
+      "missingAtLeast": 3,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1973-74"
+    },
+    {
+      "team": "América 1975/76",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1975-76"
+    },
+    {
+      "team": "UNAM Pumas 1976/77",
+      "uniquePlayers": 13,
+      "missingAtLeast": 2,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1976-77"
+    },
+    {
+      "team": "Tigres UANL 1977/78",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1977-78"
+    },
+    {
+      "team": "Cruz Azul 1978/79",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1978-79"
+    },
+    {
+      "team": "Cruz Azul 1979/80",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1979-80"
+    },
+    {
+      "team": "UNAM Pumas 1980/81",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1980-81"
+    },
+    {
+      "team": "Tigres UANL 1981/82",
+      "uniquePlayers": 12,
+      "missingAtLeast": 3,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1981-82"
+    },
+    {
+      "team": "Puebla 1982/83",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1982-83"
+    },
+    {
+      "team": "América 1983/84",
+      "uniquePlayers": 13,
+      "missingAtLeast": 2,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1983-84"
+    },
+    {
+      "team": "América 1985 PRODE",
+      "uniquePlayers": 13,
+      "missingAtLeast": 2,
+      "source": "https://mexpedia.org/index.php/Primera_Divisi%C3%B3n_de_M%C3%A9xico_PRODE_1985"
+    },
+    {
+      "team": "Guadalajara 1986/87",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1986-87"
+    },
+    {
+      "team": "Puebla 1989/90",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1989-90"
+    },
+    {
+      "team": "León 1991/92",
+      "uniquePlayers": 11,
+      "missingAtLeast": 4,
+      "source": "https://footballia.net/es/partidos-completos/club-leon-club-puebla"
+    },
+    {
+      "team": "Necaxa 1995/96",
+      "uniquePlayers": 12,
+      "missingAtLeast": 3,
+      "source": "https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_M%C3%A9xico_1995-96"
+    }
+  ],
+  "stillUnder15Count": 18,
+  "headCoachChronology": "pending comprehensive 86-champion season/tournament verification",
+  "nextAction": "Complete 18 short rosters using season-specific historical sources; cross-check 86 champion coaches. Then create mexico-complete.js and load across six language pages.",
+  "antiFabricationRule": "Never fill historical team slots with invented player names or different-season players. Clearly label season roster vs. match-day starters."
+}
