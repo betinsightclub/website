@@ -1,0 +1,186 @@
+{
+  "project": "BetInsight TIME CLASH – historical championship rosters",
+  "saved_at": "2026-10-20",
+  "authoritative_repo": "betinsightclub/website",
+  "master_spreadsheet": "https://docs.google.com/spreadsheets/d/1s3xTdqDg9WVXRPUrTwk_5adyHHQtKM4Hx6hPnXaT0es/edit",
+  "policy": {
+    "zero_teams_under_15": true,
+    "zero_teams_under_11": true,
+    "zero_missing_champion_coaches": true,
+    "no_fabricated_players_or_coaches": true,
+    "blocked_under_11": true
+  },
+  "audit_scope": "56 seasons per completed country; player names are unique per season, coaches assigned by season; all six live language source pages link these files. End-to-end interactive browser gameplay NOT yet run.",
+  "completed": [
+    {
+      "country": "Belgien",
+      "group": "Belgien · Pro League",
+      "file": "time-clash/belgium-complete.js",
+      "teams": 56,
+      "source_players": 1403,
+      "min_unique_players": 15,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0
+    },
+    {
+      "country": "Deutschland",
+      "group": "Deutschland · Bundesliga-Meister",
+      "file": "time-clash/germany-complete.js",
+      "teams": 56,
+      "source_players": 1547,
+      "min_unique_players": 18,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0
+    },
+    {
+      "country": "Österreich",
+      "group": "Österreich · Bundesliga",
+      "file": "time-clash/austria-complete.js",
+      "teams": 56,
+      "source_players": 1445,
+      "min_unique_players": 18,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0
+    },
+    {
+      "country": "Schweiz",
+      "group": "Schweiz · Super League",
+      "file": "time-clash/switzerland-complete.js",
+      "teams": 56,
+      "source_players": 1456,
+      "min_unique_players": 15,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0
+    },
+    {
+      "country": "Türkei",
+      "group": "Türkei · Süper Lig",
+      "file": "time-clash/turkey-complete.js",
+      "teams": 56,
+      "source_players": 1549,
+      "min_unique_players": 19,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0
+    },
+    {
+      "country": "Schottland",
+      "group": "Schottland · Scottish Premiership",
+      "file": "time-clash/scotland-complete.js",
+      "teams": 56,
+      "source_players": 1904,
+      "min_unique_players": 19,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0
+    }
+  ],
+  "integrated_languages": [
+    "de",
+    "en",
+    "es",
+    "pt",
+    "fr",
+    "it"
+  ],
+  "progress": {
+    "completed_teams": 336,
+    "source_players_total": 9304,
+    "countries_done": 6
+  },
+  "next_work": [
+    {
+      "country": "Brasilien",
+      "group": "Brasilien · Série A",
+      "teams": 56,
+      "source_players": 1747,
+      "under_15": [
+        {
+          "team": "Palmeiras 1972",
+          "players": 13
+        },
+        {
+          "team": "Palmeiras 1973",
+          "players": 14
+        },
+        {
+          "team": "Internacional 1975",
+          "players": 11
+        },
+        {
+          "team": "Internacional 1976",
+          "players": 11
+        },
+        {
+          "team": "Internacional 1979",
+          "players": 12
+        },
+        {
+          "team": "Grêmio 1981",
+          "players": 13
+        },
+        {
+          "team": "Coritiba 1985",
+          "players": 13
+        },
+        {
+          "team": "Sport Recife 1987",
+          "players": 13
+        }
+      ],
+      "duplicate_names_in": [
+        "Flamengo 2009",
+        "Fluminense 2012",
+        "Flamengo 2020",
+        "Atlético Mineiro 2021",
+        "Palmeiras 2022"
+      ],
+      "coach_audit": "pending",
+      "integration": "not started",
+      "task": "verify/add only historical players present in same season (e.g. historical club databases), de-duplicate by identity, add verified champion managers. Do not claim complete until all 3 zero audits pass."
+    },
+    {
+      "country": "Argentinien",
+      "group": "Argentinien · Primera División",
+      "teams": 42,
+      "source_players": 1316,
+      "under_15": 0,
+      "duplicates_in": [
+        "Boca Juniors 2015",
+        "Boca Juniors 2016/17",
+        "Boca Juniors 2022"
+      ],
+      "coach_audit": "pending",
+      "integration": "not started"
+    },
+    {
+      "country": "Mexiko",
+      "group": "Mexiko · Liga MX",
+      "teams": 86,
+      "source_players": 1929,
+      "under_15_count": 20,
+      "under_11_count": 0,
+      "coach_audit": "pending",
+      "integration": "not started"
+    }
+  ],
+  "next_sequence": [
+    "Brasilien",
+    "Argentinien",
+    "Mexiko",
+    "Ägypten",
+    "Südafrika",
+    "Marokko"
+  ],
+  "note": "Earlier file betinsightclub/profil/time-clash/roster-expansion-status.json is a 2026-10-06 snapshot and does not reflect the 2026-10-20 website expansion. Do not use its totals as current.",
+  "last_verified_commits": {
+    "austria": "4a8cbcc4e30a9ec40e9d759f0b747b3b80841ed7",
+    "switzerland": "e4f6128c8549e847cbb230ca07e49f4af61da518",
+    "turkey": "bd5882641908fc557669e714681a20744562eb52",
+    "scotland": "92cf13a3f8b241e5a0164acc08c5dcda3981a3db"
+  }
+}
