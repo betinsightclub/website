@@ -10,7 +10,7 @@
     "no_fabricated_players_or_coaches": true,
     "blocked_under_11": true
   },
-  "audit_scope": "56 seasons per completed country; player names are unique per season, coaches assigned by season; all six live language source pages link these files. End-to-end interactive browser gameplay NOT yet run.",
+  "audit_scope": "Seven country sources loaded and tested in isolated JS with complete catalog. Every source has 0 teams under 15, 0 under 11 and 0 missing coaches. Full web browser interactions still to be smoke-tested.",
   "completed": [
     {
       "country": "Belgien",
@@ -77,6 +77,41 @@
       "under_15": 0,
       "under_11": 0,
       "missing_coaches": 0
+    },
+    {
+      "country": "Brasilien",
+      "group": "Brasilien · Série A",
+      "file": "time-clash/brazil-complete.js",
+      "teams": 56,
+      "source_players": 1747,
+      "verified_additions": 50,
+      "duplicate_source_rows_excluded": 6,
+      "runtime_players": 1791,
+      "min_unique_players": 15,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0,
+      "exact_runtime_script_test": "passed",
+      "integrated_languages": [
+        "de",
+        "en",
+        "es",
+        "pt",
+        "fr",
+        "it"
+      ],
+      "sources": [
+        "https://www.palmeiras.com.br/lightbox_galeria/campeonato-paulista-1972/",
+        "https://www.transfermarkt.com.br/se-palmeiras/kader/verein/1023/saison_id/1972",
+        "https://www.gremiopedia.com/wiki/Ficha_T%C3%A9cnica%3AGr%C3%AAmio_1_x_1_Internacional_-_06/08/1975",
+        "https://pt.wikipedia.org/wiki/Campeonato_Brasileiro_de_Futebol_de_1976",
+        "https://pt.wikipedia.org/wiki/Campeonato_Brasileiro_de_Futebol_de_1979",
+        "https://gremiopedia.com/wiki/Elenco_do_Gr%C3%AAmio_em_1981",
+        "https://www.curitibahistorica.com.br/publicacoes/880/coritiba-campeao-brasileiro-1985",
+        "https://www.transfermarkt.com.br/sport-recife/kader/verein/8718/saison_id/1986",
+        "https://sportrecife.com.br/titulos/"
+      ],
+      "note": "New historical additions documented per team in brazil-complete.js; raw Google master sheet intentionally unchanged, so it still contains initial small source rosters. Only the runtime is complete. Normal football season squad membership is not an assertion of Brazilian title tournament appearance."
     }
   ],
   "integrated_languages": [
@@ -88,61 +123,12 @@
     "it"
   ],
   "progress": {
-    "completed_teams": 336,
-    "source_players_total": 9304,
-    "countries_done": 6
+    "completed_teams": 392,
+    "source_players_total": 11051,
+    "runtime_players_total": 11095,
+    "countries_done": 7
   },
   "next_work": [
-    {
-      "country": "Brasilien",
-      "group": "Brasilien · Série A",
-      "teams": 56,
-      "source_players": 1747,
-      "under_15": [
-        {
-          "team": "Palmeiras 1972",
-          "players": 13
-        },
-        {
-          "team": "Palmeiras 1973",
-          "players": 14
-        },
-        {
-          "team": "Internacional 1975",
-          "players": 11
-        },
-        {
-          "team": "Internacional 1976",
-          "players": 11
-        },
-        {
-          "team": "Internacional 1979",
-          "players": 12
-        },
-        {
-          "team": "Grêmio 1981",
-          "players": 13
-        },
-        {
-          "team": "Coritiba 1985",
-          "players": 13
-        },
-        {
-          "team": "Sport Recife 1987",
-          "players": 13
-        }
-      ],
-      "duplicate_names_in": [
-        "Flamengo 2009",
-        "Fluminense 2012",
-        "Flamengo 2020",
-        "Atlético Mineiro 2021",
-        "Palmeiras 2022"
-      ],
-      "coach_audit": "pending",
-      "integration": "not started",
-      "task": "verify/add only historical players present in same season (e.g. historical club databases), de-duplicate by identity, add verified champion managers. Do not claim complete until all 3 zero audits pass."
-    },
     {
       "country": "Argentinien",
       "group": "Argentinien · Primera División",
@@ -169,7 +155,6 @@
     }
   ],
   "next_sequence": [
-    "Brasilien",
     "Argentinien",
     "Mexiko",
     "Ägypten",
@@ -181,6 +166,7 @@
     "austria": "4a8cbcc4e30a9ec40e9d759f0b747b3b80841ed7",
     "switzerland": "e4f6128c8549e847cbb230ca07e49f4af61da518",
     "turkey": "bd5882641908fc557669e714681a20744562eb52",
-    "scotland": "92cf13a3f8b241e5a0164acc08c5dcda3981a3db"
+    "scotland": "92cf13a3f8b241e5a0164acc08c5dcda3981a3db",
+    "brazil": "1b7199a28b45d47a531c88c7ff4e3d09468f4ed6"
   }
 }
