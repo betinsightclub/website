@@ -2,6 +2,7 @@
   "use strict";
 
   const YOUTUBE_URL = "https://www.youtube.com/@betinsightclub";
+  const BETINSIGHT_VIDEO_URL = "https://www.youtube.com/watch?v=gYsMrWiK3uo";
   const TELEGRAM_URL = "https://t.me/+iKZj1FvUf4RmMjdh";
   const X_URL = "https://x.com/betinsightclub";
   const FACEBOOK_URL = "https://www.facebook.com/betinsightclub";
@@ -174,6 +175,33 @@
       || document.querySelector(".footer");
   }
 
+  function ensureFooterVideoLink(footer,language){
+    const titles={
+      de:"▶ BetInsight-Video · ca. 8 Min.",
+      en:"▶ BetInsight video · 8 min",
+      es:"▶ Vídeo BetInsight · 8 min",
+      pt:"▶ Vídeo BetInsight · 8 min",
+      it:"▶ Video BetInsight · 8 min",
+      fr:"▶ Vidéo BetInsight · 8 min",
+      nl:"▶ BetInsight-video · 8 min",
+      "zh-tw":"▶ BetInsight 影片 · 約 8 分鐘"
+    };
+    const title=titles[language]||titles.en;
+    let link=footer.querySelector('a[data-bi-footer-video]');
+    if(!link){
+      link=document.createElement("a");
+      link.dataset.biFooterVideo="1";
+      link.target="_blank";
+      link.rel="noopener noreferrer";
+      const navigation=footer.querySelector(".footer-grid .footer-links");
+      const compact=footer.querySelector(".betinsight-footer-info-links");
+      (navigation||compact||footer).appendChild(link);
+    }
+    link.href=BETINSIGHT_VIDEO_URL;
+    link.textContent=title;
+    link.setAttribute("aria-label",title);
+  }
+
   function ensureInfoLinks(){
     const labels = {
       de:{about:"Was ist BetInsight?",faq:"FAQ"},
@@ -205,6 +233,7 @@
         faq.href = "/" + l + "/faq/";
         faq.textContent = copy.faq;
       }
+      ensureFooterVideoLink(footer,l);
       return;
     }
 
@@ -214,6 +243,7 @@
     line.className = "betinsight-footer-info-links";
     line.innerHTML = '<a data-bi-footer-info="about" href="/' + l + '/was-ist-betinsight/">' + copy.about + '</a><a data-bi-footer-info="faq" href="/' + l + '/faq/">' + copy.faq + '</a>';
     host.appendChild(line);
+    ensureFooterVideoLink(footer,l);
   }
 
   function ensureCompanyIdentity(){
