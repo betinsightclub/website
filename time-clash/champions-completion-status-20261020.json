@@ -10,7 +10,7 @@
     "no_fabricated_players_or_coaches": true,
     "blocked_under_11": true
   },
-  "audit_scope": "Eight countries loaded and programmatically executed against catalog; every country has zero under-15, zero under-11 and zero missing head-coach assignments. Browser end-to-end simulation not yet tested.",
+  "audit_scope": "Nine countries totaling 520 champion squads audited against real JS runtime, all with zero under15/under11/missing coach and linked in six language pages. Browser playthrough not yet tested.",
   "completed": [
     {
       "country": "Belgien",
@@ -141,6 +141,29 @@
         "https://www.ligaprofesional.ar/?p=75480"
       ],
       "note": "Original master sheet remains unchanged. Tournament-specific 2001–2026 labels retained, including 2025 annual-table recognition."
+    },
+    {
+      "country": "Mexiko",
+      "group": "Mexiko · Liga MX",
+      "file": "time-clash/mexico-complete.js",
+      "teams": 86,
+      "source_players": 1929,
+      "verified_additions": 201,
+      "runtime_players": 2130,
+      "min_unique_players": 16,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0,
+      "exact_runtime_script_test": "passed",
+      "integrated_languages": [
+        "de",
+        "en",
+        "es",
+        "pt",
+        "fr",
+        "it"
+      ],
+      "note": "20 additional champion squad player lists documented per team in Mexico stage. Google master source unchanged, JS runtime complete. End-to-end browser interaction not tested."
     }
   ],
   "integrated_languages": [
@@ -152,42 +175,13 @@
     "it"
   ],
   "progress": {
-    "completed_teams": 434,
-    "source_players_total": 12367,
-    "runtime_players_total": 12407,
-    "countries_done": 8
+    "completed_teams": 520,
+    "source_players_total": 14296,
+    "runtime_players_total": 14537,
+    "countries_done": 9
   },
-  "next_work": [
-    {
-      "country": "Mexiko",
-      "group": "Mexiko · Liga MX",
-      "teams": 86,
-      "source_players": 1929,
-      "under_15_count": 20,
-      "under_11_count": 0,
-      "coach_audit": "pending – 86 separate champions and managers",
-      "integration": "not started; incomplete country must not be marked complete",
-      "status": "research audit in progress (not yet added to runtime)",
-      "staging_file": "time-clash/mexico-research-stage-20261020.json",
-      "verified_stage_only": [
-        {
-          "team": "Pachuca 1999 Invierno",
-          "from": 11,
-          "to": 17,
-          "newPlayers": 6
-        },
-        {
-          "team": "Pachuca 2003 Apertura",
-          "from": 11,
-          "to": 19,
-          "newPlayers": 8
-        }
-      ],
-      "unresolved_under_15": 18
-    }
-  ],
+  "next_work": [],
   "next_sequence": [
-    "Mexiko",
     "Ägypten",
     "Südafrika",
     "Marokko"
@@ -200,6 +194,7 @@
     "scotland": "92cf13a3f8b241e5a0164acc08c5dcda3981a3db",
     "brazil": "1b7199a28b45d47a531c88c7ff4e3d09468f4ed6",
     "argentina": "569b05536bec60dab9ff71b3fa2fcc307bca824f",
-    "mexicoStage": "8acccd7d48f9cb92ba0cbc2fadd55f9eb73ad275"
+    "mexicoStage": "8acccd7d48f9cb92ba0cbc2fadd55f9eb73ad275",
+    "mexico": "fb5011dde03867baa9878bb1d1aeb15a52936843"
   }
 }
