@@ -10,7 +10,7 @@
     "no_fabricated_players_or_coaches": true,
     "blocked_under_11": true
   },
-  "audit_scope": "Seven country sources loaded and tested in isolated JS with complete catalog. Every source has 0 teams under 15, 0 under 11 and 0 missing coaches. Full web browser interactions still to be smoke-tested.",
+  "audit_scope": "Eight countries loaded and programmatically executed against catalog; every country has zero under-15, zero under-11 and zero missing head-coach assignments. Browser end-to-end simulation not yet tested.",
   "completed": [
     {
       "country": "Belgien",
@@ -112,6 +112,35 @@
         "https://sportrecife.com.br/titulos/"
       ],
       "note": "New historical additions documented per team in brazil-complete.js; raw Google master sheet intentionally unchanged, so it still contains initial small source rosters. Only the runtime is complete. Normal football season squad membership is not an assertion of Brazilian title tournament appearance."
+    },
+    {
+      "country": "Argentinien",
+      "group": "Argentinien · Primera División",
+      "file": "time-clash/argentina-complete.js",
+      "teams": 42,
+      "source_players": 1316,
+      "duplicate_source_rows_excluded": 4,
+      "runtime_players": 1312,
+      "min_unique_players": 20,
+      "under_15": 0,
+      "under_11": 0,
+      "missing_coaches": 0,
+      "exact_runtime_script_test": "passed",
+      "integrated_languages": [
+        "de",
+        "en",
+        "es",
+        "pt",
+        "fr",
+        "it"
+      ],
+      "sourceCoaches": [
+        "https://www.universofutbol.com.ar/Pria/historia/tecnicoscampeones.htm",
+        "https://www.afa.com.ar/clubdejugadores/pages/campeones-de-primera-division",
+        "https://www.afa.com.ar/historiadel/posts/la-campana-de-belgrano-de-cordoba-campeon-del-torneo-apertura-2026",
+        "https://www.ligaprofesional.ar/?p=75480"
+      ],
+      "note": "Original master sheet remains unchanged. Tournament-specific 2001–2026 labels retained, including 2025 annual-table recognition."
     }
   ],
   "integrated_languages": [
@@ -123,26 +152,12 @@
     "it"
   ],
   "progress": {
-    "completed_teams": 392,
-    "source_players_total": 11051,
-    "runtime_players_total": 11095,
-    "countries_done": 7
+    "completed_teams": 434,
+    "source_players_total": 12367,
+    "runtime_players_total": 12407,
+    "countries_done": 8
   },
   "next_work": [
-    {
-      "country": "Argentinien",
-      "group": "Argentinien · Primera División",
-      "teams": 42,
-      "source_players": 1316,
-      "under_15": 0,
-      "duplicates_in": [
-        "Boca Juniors 2015",
-        "Boca Juniors 2016/17",
-        "Boca Juniors 2022"
-      ],
-      "coach_audit": "pending",
-      "integration": "not started"
-    },
     {
       "country": "Mexiko",
       "group": "Mexiko · Liga MX",
@@ -155,7 +170,6 @@
     }
   ],
   "next_sequence": [
-    "Argentinien",
     "Mexiko",
     "Ägypten",
     "Südafrika",
@@ -167,6 +181,7 @@
     "switzerland": "e4f6128c8549e847cbb230ca07e49f4af61da518",
     "turkey": "bd5882641908fc557669e714681a20744562eb52",
     "scotland": "92cf13a3f8b241e5a0164acc08c5dcda3981a3db",
-    "brazil": "1b7199a28b45d47a531c88c7ff4e3d09468f4ed6"
+    "brazil": "1b7199a28b45d47a531c88c7ff4e3d09468f4ed6",
+    "argentina": "569b05536bec60dab9ff71b3fa2fcc307bca824f"
   }
 }
