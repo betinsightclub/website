@@ -165,8 +165,25 @@
       "source_players": 1929,
       "under_15_count": 20,
       "under_11_count": 0,
-      "coach_audit": "pending",
-      "integration": "not started"
+      "coach_audit": "pending – 86 separate champions and managers",
+      "integration": "not started; incomplete country must not be marked complete",
+      "status": "research audit in progress (not yet added to runtime)",
+      "staging_file": "time-clash/mexico-research-stage-20261020.json",
+      "verified_stage_only": [
+        {
+          "team": "Pachuca 1999 Invierno",
+          "from": 11,
+          "to": 17,
+          "newPlayers": 6
+        },
+        {
+          "team": "Pachuca 2003 Apertura",
+          "from": 11,
+          "to": 19,
+          "newPlayers": 8
+        }
+      ],
+      "unresolved_under_15": 18
     }
   ],
   "next_sequence": [
@@ -182,6 +199,7 @@
     "turkey": "bd5882641908fc557669e714681a20744562eb52",
     "scotland": "92cf13a3f8b241e5a0164acc08c5dcda3981a3db",
     "brazil": "1b7199a28b45d47a531c88c7ff4e3d09468f4ed6",
-    "argentina": "569b05536bec60dab9ff71b3fa2fcc307bca824f"
+    "argentina": "569b05536bec60dab9ff71b3fa2fcc307bca824f",
+    "mexicoStage": "8acccd7d48f9cb92ba0cbc2fadd55f9eb73ad275"
   }
 }
