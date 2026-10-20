@@ -1,0 +1,158 @@
+{
+  "project": "TIME CLASH Egyptian historic champions",
+  "date": "2026-10-20",
+  "status": "RESEARCH ONLY – NOT LIVE",
+  "originalMasterSheet": "https://docs.google.com/spreadsheets/d/1s3xTdqDg9WVXRPUrTwk_5adyHHQtKM4Hx6hPnXaT0es/edit",
+  "group": "Ägypten · Egyptian Premier League",
+  "championTeams": 50,
+  "originalSourcePlayers": 925,
+  "completedCountry": false,
+  "requiredThresholds": {
+    "under15": 0,
+    "under11": 0,
+    "coachMissing": 0
+  },
+  "sourceAudit": {
+    "initialUnder15": [
+      {
+        "team": "Ghazl El Mahalla 1972/73",
+        "players": 8
+      },
+      {
+        "team": "Al Ahly 1978/79",
+        "players": 13
+      },
+      {
+        "team": "Al Ahly 1979/80",
+        "players": 13
+      },
+      {
+        "team": "Al Mokawloon 1982/83",
+        "players": 9
+      },
+      {
+        "team": "Zamalek 1987/88",
+        "players": 13
+      },
+      {
+        "team": "Al Ahly 1988/89",
+        "players": 13
+      },
+      {
+        "team": "Zamalek 2000/01",
+        "players": 14
+      }
+    ],
+    "initialUnder11": [
+      {
+        "team": "Ghazl El Mahalla 1972/73",
+        "players": 8
+      },
+      {
+        "team": "Al Mokawloon 1982/83",
+        "players": 9
+      }
+    ]
+  },
+  "researchAdditions": {
+    "Al Ahly 1978/79": {
+      "before": 13,
+      "verified_additions": [
+        "Ahmed Nagui",
+        "Ahmed Abdel-Baqy",
+        "Medhat Ramadan",
+        "Magdy Abdel-Ghany",
+        "Gamal Abdel-Hamid",
+        "Sherif Abdel-Monem",
+        "Taher El-Sheikh"
+      ],
+      "after": 20,
+      "source": "https://national-football-teams.com/club/637/1978_1/Al_Ahly_Al_Qahira.html",
+      "note": "Season-specific National Football Teams roster"
+    },
+    "Al Ahly 1979/80": {
+      "before": 13,
+      "verified_additions": [
+        "Ahmed Nagy",
+        "Magdy Abdel-Ghany",
+        "Gamal Abdelhamid",
+        "Taher El Sheikh",
+        "Sherif Abdelmonem"
+      ],
+      "after": 18,
+      "source": "https://www.transfermarkt.com/al-ahly-fc/kader/verein/7/saison_id/1979",
+      "note": "1979/80 club-season squad; does not imply every player played every league game"
+    },
+    "Al Mokawloon 1982/83": {
+      "before": 9,
+      "verified_additions": [
+        "Ali Shehata",
+        "Karim Abdul Razak",
+        "Kamal Abouda"
+      ],
+      "after": 12,
+      "source": "https://www.national-football-teams.com/club/645/1982_1/Al_Mokawloon_Al_Arab_Al_Qahira.html",
+      "note": "Season-specific player names; additional players still needed"
+    },
+    "Zamalek 1987/88": {
+      "before": 13,
+      "verified_additions": [
+        "Adel El-Maamour",
+        "Badr Hamed",
+        "Reda Abdel-Aal",
+        "Hamada Abdel-Latif",
+        "Magdy Tolba",
+        "Zakaria Nasef"
+      ],
+      "after": 19,
+      "source": "https://national-football-teams.com/club/643/1987/Zamalek_Sc.html",
+      "note": "1987/88 champion-season squad with league appearances"
+    },
+    "Al Ahly 1988/89": {
+      "before": 13,
+      "verified_additions": [
+        "Hany Ramzy",
+        "Ibrahim Hassan",
+        "Mohamed Saad",
+        "Hamada Sedki",
+        "Hesham Ibrahim",
+        "Badr Ragab"
+      ],
+      "after": 19,
+      "source": "https://www.national-football-teams.com/club/637/1988_1/Al_Ahly_Al_Qahira.html",
+      "note": "Season-specific title-winning club roster"
+    },
+    "Zamalek 2000/01": {
+      "before": 14,
+      "verified_additions": [
+        "Wael El Qabbani"
+      ],
+      "after": 15,
+      "source": "https://www.transfermarkt.com/zamalek-sc/startseite/verein/664/saison_id/2000",
+      "note": "2000/01 official-season club roster"
+    }
+  },
+  "remainingUnder15AfterStagedResearch": [
+    {
+      "team": "Ghazl El Mahalla 1972/73",
+      "availablePlayers": 8,
+      "missingTo15": 7,
+      "source": "https://www.national-football-teams.com/app.php/club/3825/1972_1/Ghazl_El_Mahalla.html"
+    },
+    {
+      "team": "Al Mokawloon 1982/83",
+      "availablePlayers": 12,
+      "missingTo15": 3,
+      "source": "https://www.transfermarkt.com/al-mokavlun_al-ahli-kair/index/spielbericht/3744528"
+    }
+  ],
+  "remainingUnder15Count": 2,
+  "missingCoaches": "not yet fully verified against all 50 title seasons",
+  "notes": [
+    "Sourced candidate additions not applied to runtime and not added to Google master sheet.",
+    "No fabricated players, no simulated Xi.",
+    "Ghazl El Mahalla 1972/73 and Al Mokawloon 1982/83 require additional contemporaneous player records.",
+    "Full coaching chronology and zero checks mandatory before deployment."
+  ],
+  "nextAction": "Find remaining dated players for Ghazl El Mahalla 1972/73 and Al Mokawloon 1982/83; verify all 50 champion managers; only then add egypt-complete.js."
+}
