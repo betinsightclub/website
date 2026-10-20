@@ -48,8 +48,8 @@ for(const [team,names] of Object.entries(SQUADS)){
   });
 }
 const seasonOf=s=>{
-  const m=String(s||"").match(/((?:19|20)\d{2})\/(\d{2}|\d{4})$/);
-  return m?m[1]+"/"+m[2].slice(-2):"";
+  const m=String(s||"").match(/((?:19|20)\d{2})$/);
+  return m?m[1]:"";
 };
 window.TC_COACH_DB=window.TC_COACH_DB||{};
 const teams=(window.TC_CLUB_CATALOG&&window.TC_CLUB_CATALOG[BRAZIL_GROUP]||[]).map(row=>String(row).split("|")[0]);
