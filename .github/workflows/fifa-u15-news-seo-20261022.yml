@@ -22,4 +22,5 @@ jobs:
       - name: Verify article, original sources, Time Clash counts, metadata and links
         run: node scripts/check-fifa-u15-news-20261022.mjs
       - name: Validate sitemap XML
-        run: python3 -c 'import xml.etree.ElementTree as ET; ET.parse("sitemap.xml"); print("Sitemap XML: OK")'
+        run: |
+          python3 -c 'import xml.etree.ElementTree as ET; ET.parse("sitemap.xml"); print("Sitemap XML: OK")'
