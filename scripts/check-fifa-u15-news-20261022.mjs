@@ -1,0 +1,24 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import vm from 'node:vm';
+const read = p => fs.readFileSync(p,'utf8');
+const article=read('de/newsradar/fifa-u15-wm-2026-ohne-deutschland-time-clash/index.html');
+const news=read('de/newsradar/index.html');
+const home=read('de/index.html');
+const sitemap=read('sitemap.xml');
+const tc=read('de/time-clash/index.html');
+const nation=tc.match(/const catalog=\{\s*nation:\{([\s\S]*?)\}\s*,club:\{/);
+assert.ok(nation,'TIME CLASH national roster catalog must be available');
+const teams=[...nation[1].matchAll(/"([^"]+)\|([^|"]+)\|(\d+)"/g)].map(x=>x[1]);
+const choices=[...new Set(teams.map(t=>t.replace(/\s+\d{4}.*$/,'').trim()))];
+assert.equal(teams.length,49, 'TIME CLASH 49 national-team versions');
+assert.equal(choices.length,23,'TIME CLASH 23 named national/historical selections');
+for(const key of ['<title>','rel="canonical"','FIFA-U15-WM','189','190','191','49 auswählbare Teamversionen','23 heutigen oder historischen Nationalauswahlen','TIME CLASH','application/ld+json'])assert.ok(article.includes(key),key);
+const expected='https://betinsight.club/de/newsradar/fifa-u15-wm-2026-ohne-deutschland-time-clash/';
+assert.ok(article.includes(expected));assert.ok(news.includes('/de/newsradar/fifa-u15-wm-2026-ohne-deutschland-time-clash/'));assert.ok(home.includes('NewsRadar · Fußball-News'));assert.ok(sitemap.includes('<loc>'+expected+'</loc>'));assert.ok(sitemap.includes('<loc>https://betinsight.club/de/newsradar/</loc>'));
+for(const site of ['https://inside.fifa.com/de/organisation/news/u15-weltmeisterschaft-festival-aserbaidschan-erklaerung-arsene-wenger','https://www.fifa.com/en/articles/dates-venues-teams-format','https://www.mopo.de/sport/fussball/wie-bitte-fifa-veranstaltet-wm-mit-189-laendern-aber-ohne-deutschland/5048006'])assert.ok(article.includes(site),'Missing source '+site);
+assert.ok(!article.includes('Das FIFA-Turnier ist Teil von TIME CLASH'));
+const scripts=[...article.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)];let structured=false;
+for(const m of scripts){if(m[1].includes('application/ld+json')){const obj=JSON.parse(m[2]);assert.equal(obj['@type'],'NewsArticle');assert.equal(obj.inLanguage,'de-DE');structured=true;}else if(!m[1].includes('src'))new vm.Script(m[2]);}
+assert.ok(structured,'valid news schema');
+const smUrls=[...sitemap.matchAll(/<loc>(https:\/\/betinsight.club\/de\/newsradar\/[^<]*)<\/loc>/g)].map(x=>x[1]);
+assert.equal(new Set(smUrls).size,smUrls.length,'duplicate new sitemap entries');
+console.log('PASS: NewsRadar editorial SEO and source links; TIME CLASH 23 distinct selections/49 team versions; sitemap, home navigation and schema valid.');
