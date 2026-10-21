@@ -25,6 +25,21 @@
     nl:{music:"DE MUZIEK VAN TIME CLASH",choose:"Jouw favoriete versie",note:"Start zelf de muziek. Kies hieronder een land of een andere taal.",other:"Alle 10 versies",selected:"Geselecteerd",wiki:"Voetbalwiki",wikiSub:"Ontdek historische duels",gallery:"Galerij",gallerySub:"Beelden en momenten",community:"Community",communitySub:"Al gespeelde duels",rank:"Wereldranglijst",rankSub:"De beste teams",nav:"Meer ontdekken"},
     "zh-tw":{music:"TIME CLASH 音樂",choose:"選擇喜愛的版本",note:"音樂不會自動播放。可在下方選擇不同國家與語言版本。",other:"全部 10 個版本",selected:"已選擇",wiki:"足球維基",wikiSub:"探索歷史對決",gallery:"圖片集",gallerySub:"精彩畫面",community:"社群",communitySub:"已進行的對決",rank:"世界排行榜",rankSub:"表現最佳的球隊",nav:"探索更多"}
   };
+  // Localised video captions. Videos open on YouTube; the MP3 player stays on TIME CLASH.
+  var VIDEO_COPY = {
+    de:{title:"TIME CLASH – Musikvideos",note:"Höre den Song hier beim Spielen oder sieh dir das Video auf YouTube an.",watch:"Video ansehen",error:"Der Song konnte nicht geladen werden. Bitte versuche es erneut."},
+    en:{title:"TIME CLASH – Music videos",note:"Listen here while playing, or watch the video on YouTube.",watch:"Watch video",error:"The song could not be loaded. Please try again."},
+    es:{title:"TIME CLASH – Vídeos musicales",note:"Escucha la música mientras juegas o mira el vídeo en YouTube.",watch:"Ver vídeo",error:"No se pudo cargar la canción. Inténtalo de nuevo."},
+    pt:{title:"TIME CLASH – Videoclipes",note:"Ouça a música enquanto joga ou assista ao vídeo no YouTube.",watch:"Assistir ao vídeo",error:"Não foi possível carregar a música. Tente novamente."},
+    it:{title:"TIME CLASH – Video musicali",note:"Ascolta la canzone mentre giochi oppure guarda il video su YouTube.",watch:"Guarda il video",error:"Impossibile caricare il brano. Riprova."},
+    fr:{title:"TIME CLASH – Clips musicaux",note:"Écoutez la musique en jouant ou regardez la vidéo sur YouTube.",watch:"Voir la vidéo",error:"Impossible de charger la chanson. Réessayez."},
+    nl:{title:"TIME CLASH – Muziekvideo's",note:"Luister tijdens het spelen of bekijk de video op YouTube.",watch:"Video bekijken",error:"Het nummer kon niet worden geladen. Probeer opnieuw."},
+    "zh-tw":{title:"TIME CLASH – 音樂影片",note:"可邊玩邊聽音樂，或前往 YouTube 觀看影片。",watch:"觀看影片",error:"音樂載入失敗，請重試。"}
+  };
+  var VIDEOS = [
+    {flag:"🇩🇪",name:"Deutsch",id:"Xjp1HTDTTsc"},
+    {flag:"🇧🇷",name:"Português · Brasil",id:"dtM8aGMWQZ0"}
+  ];
   function elem(tag, cls, text) {
     var e = document.createElement(tag);
     if(cls) e.className = cls;
@@ -42,6 +57,7 @@
     locale = locale.toLowerCase();
     if(!I18N[locale]) locale = "en";
     var t = I18N[locale];
+    var vt = VIDEO_COPY[locale] || VIDEO_COPY.en;
     var initial = {de:"de",en:"en-gb",es:"es-es",pt:"pt-br",it:"it",fr:"fr",nl:"nl","zh-tw":"en-world"}[locale] || "en-world";
     var current = SONGS.filter(function(s){return s.id === initial;})[0] || SONGS[0];
     var css = elem("style");
@@ -63,6 +79,19 @@
       "#tcAudioV1 .tcSongTile:hover,#tcAudioV1 .tcSongTile:focus-visible{background:#10405b;border-color:#3ed5ff;transform:translateY(-1px)}",
       "#tcAudioV1 .tcSongTile[aria-pressed='true']{background:#104c56;border-color:#36dab9;box-shadow:inset 0 0 0 1px rgba(54,218,185,.16)}",
       "#tcAudioV1 .tcSongFlag{font-size:23px;line-height:1;flex:none}#tcAudioV1 .tcSongTileLabel{overflow-wrap:anywhere}",
+      "#tcAudioV1 .tcAudioStatus{display:none;font-size:12px;line-height:1.45;margin:2px 0 10px;color:#ffcf8d}#tcAudioV1 .tcAudioStatus:not(:empty){display:block}",
+      "#tcAudioV1 .tcVideoSection{margin-top:18px;padding-top:16px;border-top:1px solid rgba(116,217,255,.19)}",
+      "#tcAudioV1 .tcVideoSection h3{margin:0 0 4px;font-size:15px;letter-spacing:0;color:#ecf8ff}",
+      "#tcAudioV1 .tcVideoDescription{font-size:12px;line-height:1.5;color:#a8c6d6;margin:0 0 12px}",
+      "#tcAudioV1 .tcVideoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}",
+      "#tcAudioV1 a.tcVideoTile{display:flex;align-items:center;gap:12px;min-width:0;padding:9px;border:1px solid #28536c;border-radius:14px;background:#082838;color:#f3faff;text-decoration:none!important;transition:background .2s,border-color .2s,transform .2s}",
+      "#tcAudioV1 a.tcVideoTile:hover,#tcAudioV1 a.tcVideoTile:focus-visible{background:#0d3b51;border-color:#4ad4f5;transform:translateY(-1px)}",
+      "#tcAudioV1 .tcVideoVisual{position:relative;display:block;width:104px;flex:0 0 104px;aspect-ratio:16/9;overflow:hidden;border-radius:8px;background:#041722}",
+      "#tcAudioV1 .tcVideoThumb{width:100%;height:100%;display:block;object-fit:cover}",
+      "#tcAudioV1 .tcVideoPlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:30px;height:23px;border-radius:6px;background:#e52b2b;color:white;font-size:13px;box-shadow:0 3px 12px #0008}",
+      "#tcAudioV1 .tcVideoInfo{display:flex;flex-direction:column;min-width:0;gap:5px}",
+      "#tcAudioV1 .tcVideoName{font-size:13px;font-weight:850;color:#effaff;line-height:1.3}",
+      "#tcAudioV1 .tcVideoAction{font-size:11px;font-weight:750;color:#7dd9fa}",
       "#tcQuickNavV1{margin:4px 0 28px}#tcQuickNavV1 h2{font-size:16px;margin:0 0 11px;color:#d8ebf5}",
       "#tcQuickNavV1 .tcNavGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}",
       "#tcQuickNavV1 a.tcNavTile{display:flex;align-items:flex-start;gap:11px;min-height:86px;margin:0;padding:15px;text-decoration:none!important;border:1px solid #23516a;border-radius:15px;background:linear-gradient(145deg,#082a3d,#071d2b);color:#fff!important;transition:transform .15s,border-color .15s,background .15s}",
@@ -70,7 +99,7 @@
       "#tcQuickNavV1 .tcNavIcon{font-size:24px;line-height:1.1}#tcQuickNavV1 .tcNavTitle{font-size:14px;font-weight:900;display:block;line-height:1.2}#tcQuickNavV1 .tcNavSub{display:block;margin-top:5px;color:#a8c5d3;font-size:12px;line-height:1.3}",
       ".tcLegacyNavV1Hidden{display:none!important}",
       "@media(max-width:900px){#tcAudioV1 .tcSongGrid{grid-template-columns:repeat(3,minmax(0,1fr))}#tcQuickNavV1 .tcNavGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}",
-      "@media(max-width:560px){#tcAudioV1{padding:16px;margin:12px 0 18px}#tcAudioV1 .tcSongGrid{grid-template-columns:repeat(2,minmax(0,1fr))}#tcQuickNavV1 .tcNavGrid{grid-template-columns:1fr 1fr;gap:8px}#tcQuickNavV1 a.tcNavTile{padding:11px;min-height:90px;gap:7px}#tcQuickNavV1 .tcNavTitle{font-size:13px}#tcQuickNavV1 .tcNavSub{font-size:11px}}"
+      "@media(max-width:560px){#tcAudioV1 .tcVideoGrid{grid-template-columns:1fr}#tcAudioV1{padding:16px;margin:12px 0 18px}#tcAudioV1 .tcSongGrid{grid-template-columns:repeat(2,minmax(0,1fr))}#tcQuickNavV1 .tcNavGrid{grid-template-columns:1fr 1fr;gap:8px}#tcQuickNavV1 a.tcNavTile{padding:11px;min-height:90px;gap:7px}#tcQuickNavV1 .tcNavTitle{font-size:13px}#tcQuickNavV1 .tcNavSub{font-size:11px}}"
     ].join("\n");
     document.head.appendChild(css);
 
@@ -88,10 +117,20 @@
     details.appendChild(trackTitle);now.appendChild(details);music.appendChild(now);
     var player = elem("audio");
     player.controls = true;
-    player.preload = "none";
+    player.preload = "metadata";
     player.setAttribute("aria-label",t.choose);
     player.src = BASE + "/assets/time-clash/audio/" + encodeURIComponent(current.file);
     music.appendChild(player);
+    var audioStatus = elem("p","tcAudioStatus","");
+    audioStatus.setAttribute("role","status");
+    audioStatus.setAttribute("aria-live","polite");
+    music.appendChild(audioStatus);
+    player.addEventListener("error",function(){
+      audioStatus.textContent = vt.error;
+    });
+    player.addEventListener("loadedmetadata",function(){
+      audioStatus.textContent = "";
+    });
     music.appendChild(elem("h3","",t.other));
     var grid = elem("div","tcSongGrid");
     var buttons = [];
@@ -104,6 +143,7 @@
       b.appendChild(elem("span","tcSongTileLabel",song.name));
       b.addEventListener("click",function(){
         current = song;
+        audioStatus.textContent = "";
         player.pause();
         player.src = BASE + "/assets/time-clash/audio/" + encodeURIComponent(song.file);
         player.load();
@@ -115,6 +155,36 @@
       grid.appendChild(b);buttons.push(b);
     });
     music.appendChild(grid);
+
+    // Compact video links; no YouTube iframe or auto-play on the TIME CLASH page.
+    var videoSection = elem("section","tcVideoSection");
+    videoSection.setAttribute("aria-label",vt.title);
+    videoSection.appendChild(elem("h3","",vt.title));
+    videoSection.appendChild(elem("p","tcVideoDescription",vt.note));
+    var videoGrid = elem("div","tcVideoGrid");
+    VIDEOS.forEach(function(v){
+      var a = elem("a","tcVideoTile");
+      a.href = "https://www.youtube.com/watch?v=" + v.id;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.setAttribute("aria-label",v.name + " – " + vt.watch + " (YouTube)");
+      var visual = elem("span","tcVideoVisual");
+      var thumbnail = elem("img","tcVideoThumb");
+      thumbnail.src = "https://i.ytimg.com/vi/" + v.id + "/mqdefault.jpg";
+      thumbnail.alt = "";
+      thumbnail.loading = "lazy";
+      thumbnail.decoding = "async";
+      visual.appendChild(thumbnail);
+      visual.appendChild(elem("span","tcVideoPlay","▶"));
+      a.appendChild(visual);
+      var copy = elem("span","tcVideoInfo");
+      copy.appendChild(elem("span","tcVideoName",v.flag + " " + v.name));
+      copy.appendChild(elem("span","tcVideoAction",vt.watch + " ↗"));
+      a.appendChild(copy);
+      videoGrid.appendChild(a);
+    });
+    videoSection.appendChild(videoGrid);
+    music.appendChild(videoSection);
 
     var publicLocale = (locale === "nl" || locale === "zh-tw") ? "en" : locale;
     var nav = elem("section");
