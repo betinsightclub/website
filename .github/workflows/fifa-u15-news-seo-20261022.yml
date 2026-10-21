@@ -1,0 +1,25 @@
+name: FIFA U15 News SEO and integrity
+on:
+  pull_request:
+    paths:
+      - 'de/newsradar/**'
+      - 'de/index.html'
+      - 'de/time-clash/index.html'
+      - 'sitemap.xml'
+      - 'scripts/check-fifa-u15-news-20261022.mjs'
+      - '.github/workflows/fifa-u15-news-seo-20261022.yml'
+  workflow_dispatch:
+jobs:
+  news-integrity:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify article, original sources, Time Clash counts, metadata and links
+        run: node scripts/check-fifa-u15-news-20261022.mjs
+      - name: Validate sitemap XML
+        run: python3 -c 'import xml.etree.ElementTree as ET; ET.parse("sitemap.xml"); print("Sitemap XML: OK")'
