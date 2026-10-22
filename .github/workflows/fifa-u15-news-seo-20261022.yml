@@ -3,10 +3,19 @@ on:
   pull_request:
     paths:
       - 'de/newsradar/**'
+      - 'en/newsradar/**'
+      - 'es/newsradar/**'
+      - 'pt/newsradar/**'
+      - 'it/newsradar/**'
+      - 'fr/newsradar/**'
+      - 'nl/newsradar/**'
+      - 'zh-tw/newsradar/**'
+      - 'zh/newsradar/**'
       - 'de/index.html'
       - 'de/time-clash/index.html'
       - 'sitemap.xml'
       - 'scripts/check-fifa-u15-news-20261022.mjs'
+      - 'scripts/test-fifa-u15-news-languages.mjs'
       - '.github/workflows/fifa-u15-news-seo-20261022.yml'
   workflow_dispatch:
 jobs:
@@ -21,6 +30,8 @@ jobs:
           node-version: '22'
       - name: Verify article, original sources, Time Clash counts, metadata and links
         run: node scripts/check-fifa-u15-news-20261022.mjs
+      - name: Validate nine translated news articles and search engine alternatives
+        run: node scripts/test-fifa-u15-news-languages.mjs
       - name: Validate sitemap XML
         run: |
           python3 -c 'import xml.etree.ElementTree as ET; ET.parse("sitemap.xml"); print("Sitemap XML: OK")'
