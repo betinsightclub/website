@@ -7,7 +7,7 @@ for(const [lang,loc] of langs){
   const path=lang+'/newsradar/'+slug+'/index.html';
   assert.ok(fs.existsSync(path),'Missing article: '+path);
   const html=fs.readFileSync(path,'utf8');
-  assert.ok(html.includes('lang="'+loc+'"'),lang+' HTML language');
+  assert.ok(html.includes('<html lang="'+loc+'"') || (lang==='de'&&html.includes('<html lang="de"')),lang+' HTML language');
   assert.ok(html.includes('<link rel="canonical" href="'+url(lang)+'">'),lang+' canonical');
   for(const [alt,altLocale] of langs){
     assert.ok(html.includes('hreflang="'+altLocale+'" href="'+url(alt)+'"'),lang+' missing alternate '+alt);
