@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - '.github/workflows/build-time-clash-wiki.yml'
+      - '.github/scripts/build_time_clash_wiki.py'
   schedule:
     - cron: "17 2 * * *"
 
