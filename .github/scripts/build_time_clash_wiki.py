@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import html, json, pathlib, urllib.request, xml.sax.saxutils as xu
+import html, json, pathlib, time, urllib.error, urllib.request, xml.sax.saxutils as xu
 from datetime import datetime, timezone
 
 ROOT=pathlib.Path(__file__).resolve().parents[2]
@@ -8,9 +8,25 @@ OUT=ROOT/"de"/"wiki"/"time-clash"
 GA="G-044T64X2HD"
 
 def fetch():
+    # Retry only read-only requests. Supabase/PostgREST can occasionally reject a
+    # newly minted token with PGRST303 ("JWT issued at future").
     req=urllib.request.Request(API,headers={"User-Agent":"BetInsight-Wiki-Builder/1.0"})
-    with urllib.request.urlopen(req,timeout=30) as r:
-        return json.load(r)
+    delays=(3, 8, 18, 35)
+    for attempt in range(len(delays)+1):
+        try:
+            with urllib.request.urlopen(req,timeout=30) as r:
+                data=json.load(r)
+            if not data.get("ok") or not isinstance(data.get("pairs"),list) or not data["pairs"]:
+                raise ValueError("TIME CLASH Wiki API returned missing or empty pair data; refusing to overwrite existing Wiki")
+            return data
+        except (urllib.error.HTTPError, urllib.error.URLError) as exc:
+            status=getattr(exc,"code",None)
+            if status is not None and status not in (429,500,502,503,504):
+                raise
+            if attempt==len(delays):
+                raise
+            print(f"TIME CLASH Wiki read failed (HTTP {status or 'network'}, attempt {attempt+1}/{len(delays)+1}); retry in {delays[attempt]}s",flush=True)
+            time.sleep(delays[attempt])
 
 def e(v): return html.escape(str(v or ""),quote=True)
 def d(v):
