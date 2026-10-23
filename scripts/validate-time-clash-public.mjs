@@ -29,7 +29,13 @@ for(const lang of languages){
   requireIn(html,'time-clash-wordmark-clean-1024.png',"hero wordmark "+path);
   forbid(html,'time-clash-hero-cinematic.webp',"retired baked German hero "+path);
   requireIn(html,'/time-clash/rosters-all.js?v=20260930-1',"roster cache-bust "+path);
-  requireIn(html,'function rosterReady(side){return startingLineup(side).length>=11}',"roster readiness "+path);
+  requireIn(html,'function rosterReady(side){let lineup=startingLineup(side)',"roster readiness "+path);
+  requireIn(html,'keeper=all.find(p=>p.prole==="Torwart")||null',"historical goalkeeper prioritization "+path);
+  requireIn(html,'lineup.some(p=>p.prole==="Torwart")',"historic keeper gate "+path);
+  requireIn(html,'· ⏳ GK',"keeper status in team options "+path);
+  for(const module of ["egypt-1973-final-roster","morocco-southafrica-archive-20261023","morocco-wydad-2014-goalkeepers","national-coaches-verified-20261023"]){
+    requireIn(html,'/time-clash/'+module+'.js',"2026 historical roster extension "+module+" "+path);
+  }
   forbid(html,'for(let i=own.length;i<17',"generic roster padding "+path);
   forbid(html,'name:"Teamspieler ',"generic player names "+path);
 }
