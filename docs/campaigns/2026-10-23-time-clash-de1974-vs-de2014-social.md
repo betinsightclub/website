@@ -152,3 +152,46 @@ Was meinst du: 1974 oder 2014?
 - Instagram: OFFEN
 - Telegram: OFFEN
 - Quora: https://qr.ae/pFqXor (bereits veröffentlicht)
+
+## Deutsche Kontrollübersetzungen der englischen Plattformtexte
+
+Diese Texte dienen zur internen deutschen Kontrolle. Auf den globalen Konten wird vorrangig die englische Fassung veröffentlicht. Die jeweiligen englischen Kurzlinks bleiben dort bestehen. Die Übersetzungen werden nicht ungeprüft zusätzlich in X-/Bluesky-/Parler-Posts eingefügt, da die Zeichenlimits sonst überschritten werden.
+
+### X (DE – Kontrollfassung)
+
+Beckenbauers Weltmeister von 1974 gegen Lahms Team von 2014. Zwei Fußball-Epochen, ein imaginäres Duell. In unserer fiktiven TIME-CLASH-Dreierserie gewann 2014 zweimal, dazu kam ein Remis. Wie würde DEIN Rückspiel ausgehen? #TimeClash #Fussballgeschichte
+
+### BLUESKY (DE – Kontrollfassung)
+
+Deutschland 1974 gegen 2014: dasselbe Land, zwei Fußball-Epochen. In einer fiktiven TIME-CLASH-Dreierserie gab es zwei Siege für 2014 und ein Remis. Kein historischer Beweis, sondern ein spannendes Gedankenspiel. Für welche Generation würdest du stimmen?
+
+### MASTODON (DE – Kontrollfassung)
+
+Deutschland 1974 oder 2014? ⚽ Zwei Weltmeister-Generationen, die als genau diese Mannschaften nie gegeneinander spielten. Unser fiktiver TIME-CLASH-Vergleich endete 2:3, 1:2 und 0:0 (1974–2014). Das ist keine historische Aussage. Welche Ära gefällt dir besser?
+
+### MINDS (DE – Kontrollfassung)
+
+Beckenbauers Generation und Lahms Generation: zwei Weltmeistertitel im Abstand von 40 Jahren. TIME CLASH stellt sie in drei erfundenen Spielen gegenüber. In dieser fiktiven Serie gewann 2014 zweimal und spielte einmal unentschieden. Keine reale Vorhersage, sondern Fußballgeschichte neu gedacht.
+
+### PARLER (DE – Kontrollfassung)
+
+Deutschland 1974 gegen 2014: ein Land, zwei Weltmeister-Generationen. In einer fiktiven TIME-CLASH-Dreierserie gewann 2014 zweimal und spielte einmal Remis. Würde DEIN Duell anders ausgehen?
+
+### GAB (DE – Kontrollfassung)
+
+Beckenbauers Weltmeister von 1974 und Lahms Team von 2014. TIME CLASH lässt beide Generationen in drei erfundenen Begegnungen gegeneinander antreten. Keine realen Vorhersagen. Für wen stimmst du?
+
+### FLIPBOARD (DE – Kontrollfassung)
+
+Zwei Weltmeister-Generationen, eine historisch unmögliche Paarung: Deutschland 1974 gegen 2014. Drei fiktive TIME-CLASH-Spiele endeten 2:3, 1:2 und 0:0. Unser Artikel dokumentiert die deutschsprachige Quora-Diskussion und erklärt, warum Simulationen keine historische Überlegenheit beweisen können.
+
+## Abschlussprüfung pro tatsächlicher Veröffentlichung
+
+1. Richtigen Account, Sprache und Zeitpunkt prüfen; Pinterest bleibt ausgeschlossen.
+2. Nur freigegebene Bildrechte/Original-BetInsight-Logo; echte Weltmeister nur als historische Referenz, keine Fernsehszenen oder fremde Embleme.
+3. Zeichen einschließlich Hashtags und Link im jeweiligen Editor kontrollieren; X gewichtet Links pauschal, Bluesky rechnet den Text anders; Parler Free maximal 300.
+4. Eigene Plattform-Tracking-URL aus dieser Datei kopieren und Weiterleitung sowie Zielseite vor Veröffentlichung im Browser testen.
+5. Bei Instagram nur Bild/Reel posten, wenn das passende eigene Motiv vorhanden ist. Link gehört anklickbar ins Profil, nicht allein in die Caption.
+6. Flipboard als Link in ein passendes Magazin aufnehmen; Text nur als Begleit-Caption.
+7. Nach Veröffentlichung Original-Post-Link und Screenshot sichern, erst dann Datensatz als LIVE im BetInsight-Archiv ergänzen (Datum, Platform, Inhalt, Link, Sprache, Zielmarkt, UTM); keine geklonten SEO-Seiten erzeugen.
+8. GA4-Reichweite/Geografie später messen, Stadt nicht aus der Sprache oder dem UTM-Parameter erfinden. Bestehende Quora-URLs oder -Kommentare nicht ohne Anlass nachträglich ändern.
