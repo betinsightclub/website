@@ -125,7 +125,7 @@ function localTeamName(raw){
  s=s.replace(/ · Weltmeister/g," · "+L.world).replace(/ · Europameister/g," · "+L.euro);
  return s
 }
-function localTeamOption(raw){let name=String(raw||"").split("|")[0],ps=rosterDB[name],count=Array.isArray(ps)?ps.length:0;return localTeamName(name)+(count<11?" · ⏳ "+count+"/11":"")}
+function localTeamOption(raw){let name=String(raw||"").split("|")[0],ps=rosterDB[name],count=Array.isArray(ps)?ps.length:0,gk=Array.isArray(ps)&&ps.some(p=>["TW","GK","Torwart"].includes(p.pos||p.prole||p.role));return localTeamName(name)+(count<11?" · ⏳ "+count+"/11":!gk?" · ⏳ GK":"")}
 function relabelSelector(side){
  const group=$("#group"+side),team=$("#team"+side);
  if(group){[...group.options].forEach(o=>{const raw=o.value||o.textContent;o.textContent=localGroupName(raw)})}
@@ -199,9 +199,11 @@ function squad(side){
  return own.filter(p=>!otherIds.has(p.id)||conflictChoices[p.id]===side)
 }
 function startingLineup(side){
- let all=squad(side),starters=all.filter(p=>p.starter).slice(0,11),ids=new Set(starters.map(p=>p.id));
- if(starters.length<11){for(const p of all.filter(p=>!p.starter)){if(starters.length>=11)break;if(!ids.has(p.id)){starters.push({...p,promoted:true});ids.add(p.id)}}}
- return starters
+ const all=squad(side),keeper=all.find(p=>p.prole==="Torwart")||null;
+ const ordered=[...(keeper?[keeper]:[]),...all.filter(p=>p.starter&&p.prole!=="Torwart"),...all.filter(p=>!p.starter&&p.prole!=="Torwart")];
+ const chosen=[],ids=new Set();
+ for(const p of ordered){if(chosen.length>=11)break;if(ids.has(p.id))continue;chosen.push(p);ids.add(p.id)}
+ return chosen
 }
 function benchRoster(side){let ids=new Set(startingLineup(side).map(p=>p.id));return squad(side).filter(p=>!ids.has(p.id))}
 function activeRoster(side){return startingLineup(side)}
@@ -284,8 +286,8 @@ function scheduleCautionSub(side,player,minute,plans,dismissals){
  let incoming=weightedPick(pool,p=>Math.max(1,p.strength)),sub={m:Math.min(88,minute+4+rnd(8)),out:player,in:incoming,reason:"yellow"};
  plans[side].push(sub);plans[side].sort((a,b)=>a.m-b.m);return sub
 }
-function rosterReady(side){return startingLineup(side).length>=11}
-function rosterLabel(side){let t=side==="A"?TA:TB;return t.name+": "+startingLineup(side).length+" Startspieler verfügbar"}
+function rosterReady(side){let lineup=startingLineup(side),kind=side==="A"?kindAActive:kindBActive;return lineup.length>=11&&(["myclub","community"].includes(kind)||lineup.some(p=>p.prole==="Torwart"))}
+function rosterLabel(side){let t=side==="A"?TA:TB,xi=startingLineup(side),labels={de:"Torwart fehlt",en:"goalkeeper missing",es:"falta portero",fr:"gardien manquant",it:"portiere mancante",pt:"goleiro ausente"},lang=document.documentElement.lang||"de";return t.name+": "+xi.length+" Startspieler verfügbar"+(xi.some(p=>p.prole==="Torwart")?"":" · "+(labels[lang]||labels.de))}
 function lineupMetrics(lineup){
  let attackW={Torwart:.02,Abwehr:.22,Mittelfeld:.72,Sturm:1,Feldspieler:.62},defW={Torwart:.35,Abwehr:1,Mittelfeld:.62,Sturm:.18,Feldspieler:.62},midW={Torwart:.05,Abwehr:.45,Mittelfeld:1,Sturm:.48,Feldspieler:.65};
  let calc=w=>{let s=0,d=0;for(const p of lineup){let k=w[p.prole]??w.Feldspieler;s+=Number(p.strength||1)*k;d+=k}return d?s/d:8};
