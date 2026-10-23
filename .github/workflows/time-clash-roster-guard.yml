@@ -1,0 +1,38 @@
+name: TIME CLASH Roster Guard
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'time-clash/**'
+      - 'de/time-clash/index.html'
+      - 'en/time-clash/index.html'
+      - 'es/time-clash/index.html'
+      - 'fr/time-clash/index.html'
+      - 'it/time-clash/index.html'
+      - 'pt/time-clash/index.html'
+      - 'scripts/validate-time-clash-roster-reconstruction.mjs'
+      - '.github/workflows/time-clash-roster-guard.yml'
+  pull_request:
+    paths:
+      - 'time-clash/**'
+      - 'de/time-clash/index.html'
+      - 'en/time-clash/index.html'
+      - 'es/time-clash/index.html'
+      - 'fr/time-clash/index.html'
+      - 'it/time-clash/index.html'
+      - 'pt/time-clash/index.html'
+      - 'scripts/validate-time-clash-roster-reconstruction.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  squad-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate roster reconstruction & all languages
+        run: node scripts/validate-time-clash-roster-reconstruction.mjs
