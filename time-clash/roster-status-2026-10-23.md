@@ -1,3 +1,5 @@
+> **HISTORISCHER ZWISCHENSTAND (vor der Rekonstruktionsfreigabe):** Die untenstehenden Zählungen sind durch später am 23.10.2026 eingecheckte Ergänzungen überholt. Aktueller technischer Stand und abweichende Kataloggröße: [Rekonstruktion und Simulationstest](roster-reconstruction-completion-2026-10-23.md). Die Quelle selbst bleibt zur Chronologie erhalten.
+
 # TIME CLASH – Kader- und Simulationsstatus · 23.10.2026
 
 ## Verifizierte Architektur
