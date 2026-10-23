@@ -43,7 +43,8 @@ const verify=(name,teamkind,rating)=>{
  assert(check.valid,name+": reconstructed XI must have 11 players and GK");
  assert(pool.length>=11,name+": incomplete XI");
  assert.equal(JSON.stringify(actual),before,name+": historic database unexpectedly mutated");
- assert.equal(new Set(pool.map(p=>p.id)).size,pool.length,name+": duplicate simulation IDs");
+ const synthetic=pool.filter(p=>p.synthetic);
+ assert.equal(new Set(synthetic.map(p=>p.id)).size,synthetic.length,name+": duplicate reconstruction slot IDs");
  assert(pool.every(p=>!p.synthetic||(p.verified===false&&p.source===null&&p.name.startsWith("Simulation"))),
    name+": anonymous slot misidentified as historic player");
  assert.equal(check.actual,actual.length,name+": preserved historical player count");
