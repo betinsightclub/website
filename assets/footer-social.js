@@ -311,7 +311,18 @@
   const langObserver = new MutationObserver(() => {
     ensureInfoLinks();
     const wrapper = document.querySelector("[data-betinsight-footer-social]");
-    if (wrapper) ensureReviewLink(wrapper);
+    if (wrapper) {
+      ensureLinks(wrapper);
+      const c = COPY[lang()] || COPY.de;
+      const gab = wrapper.querySelector('[data-social="gab"]');
+      if (gab) {
+        gab.setAttribute("aria-label",c.gab || COPY.en.gab);
+        gab.title = c.gab || COPY.en.gab;
+      }
+      const follow = wrapper.querySelector(".betinsight-footer-social-label");
+      if (follow) follow.textContent = c.follow;
+      ensureReviewLink(wrapper);
+    }
   });
   langObserver.observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
 })();
