@@ -125,7 +125,7 @@ function localTeamName(raw){
  s=s.replace(/ · Weltmeister/g," · "+L.world).replace(/ · Europameister/g," · "+L.euro);
  return s
 }
-function localTeamOption(raw){return localTeamName(String(raw||"").split("|")[0])}
+function localTeamOption(raw){let name=String(raw||"").split("|")[0],ps=rosterDB[name],count=Array.isArray(ps)?ps.length:0;return localTeamName(name)+(count<11?" · ⏳ "+count+"/11":"")}
 function relabelSelector(side){
  const group=$("#group"+side),team=$("#team"+side);
  if(group){[...group.options].forEach(o=>{const raw=o.value||o.textContent;o.textContent=localGroupName(raw)})}
