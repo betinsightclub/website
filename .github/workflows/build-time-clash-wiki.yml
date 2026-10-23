@@ -2,6 +2,9 @@ name: Build TIME CLASH Wiki
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-time-clash-wiki.yml'
   schedule:
     - cron: "17 2 * * *"
 
@@ -23,7 +26,8 @@ jobs:
       - name: Build Wiki from completed TIME CLASH series
         run: python .github/scripts/build_time_clash_wiki.py
       - name: Validate sitemap
-        run: python - <<'PY'
+        run: |
+          python - <<'PY'
           import xml.etree.ElementTree as ET
           ET.parse("sitemap.xml")
           print("sitemap.xml OK")
