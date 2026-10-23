@@ -24,6 +24,39 @@ for(const [land,season,gks] of PACK){
   if(matched)touched.add(team);
  }
 }
+/* A player's goalkeeper role remains valid in nearby championship seasons.
+   Conservative reconciliation: exact full name, same country and within ten
+   calendar years of an independently TW-marked master record. Never promote a
+   player with an existing, contradictory explicit outfield position. */
+const nearby=new Map();
+for(const [land,season,gks] of PACK){
+ const yy=String(season).match(/(?:19|20)\d{2}/),year=yy?Number(yy[0]):null;
+ if(year===null)continue;
+ if(!nearby.has(land))nearby.set(land,new Map());
+ const byName=nearby.get(land);
+ for(const name of gks){
+  if(name.trim().split(/\s+/).length<2)continue;
+  const id=norm(name);
+  if(!byName.has(id))byName.set(id,new Set());
+  byName.get(id).add(year);
+ }
+}
+audit.crossSeasonConfirmed=[];
+for(const [group,entries] of Object.entries(catalog)){
+ const land=group.split(" ·")[0],reference=nearby.get(land);
+ if(!reference)continue;
+ for(const entry of entries){
+  const team=String(entry).split("|")[0],squad=db[team],m=team.match(/(?:19|20)\d{2}/),year=m?Number(m[0]):null;
+  if(year===null||!Array.isArray(squad)||squad.some(p=>p.pos==="TW"||p.prole==="Torwart"))continue;
+  const match=squad.find(p=>!p.pos&&!p.prole&&reference.has(norm(p.name))&&
+    [...reference.get(norm(p.name))].some(y=>Math.abs(y-year)<=10));
+  if(match){
+   match.pos="TW";match.prole="Torwart";
+   match.verificationPosition="BetInsight Meisterkader · confirmed TW, same country, nearby year";
+   touched.add(team);audit.crossSeasonConfirmed.push({team,name:match.name});
+  }
+ }
+}
 audit.teamsUpdated=[...touched];
 window.TC_MASTER_GOALKEEPER_AUDIT=audit;
 })();
