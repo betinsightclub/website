@@ -1,6 +1,6 @@
 # BetInsight – TIME CLASH Social-Publishing-Paket
 Stand: 23.10.2026 | Thema: Deutschland 1974 gegen Deutschland 2014
-Status: TEXTVORLAGEN. Diese Posts sind NICHT automatisch auf den Plattformen veröffentlicht.
+Status: Sechs Originalbeiträge wurden vom Betreiber am 23.10.2026 als veröffentlicht gemeldet. VORLAGEN und LIVE-Nachweise bleiben getrennt. Wortlaut, Zeitpunkt und tatsächlich eingebauter UTM-Link sind noch nicht unabhängig bestätigt.
 
 ## Grundregeln
 - Es sind ausdrücklich fiktive Fußballsimulationen; keine historischen Fakten, Quoten oder Wettaufforderungen.
@@ -141,12 +141,12 @@ Was meinst du: 1974 oder 2014?
 - telegram: https://betinsight.club/go/tc74tg/ → https://betinsight.club/de/time-clash/?utm_source=telegram&utm_medium=social&utm_campaign=time_clash_de1974_de2014_20261023&utm_content=telegram_channel_de&utm_term=de_country_de_city_unspecified
 
 ## Originalveröffentlichungen nach Veröffentlichung
-- Facebook: OFFEN
-- X: OFFEN
-- Bluesky: OFFEN
-- Mastodon: OFFEN
-- Minds: OFFEN
-- Parler: OFFEN
+- Facebook: VOM BETREIBER ALS VERÖFFENTLICHT GEMELDET – https://www.facebook.com/share/p/1Km9A323c4/ · erfasst 23.10.2026 · Wortlaut, Originaldatum und UTM-Einbau nicht unabhängig verifiziert
+- X: VOM BETREIBER ALS VERÖFFENTLICHT GEMELDET – https://x.com/betinsightclub/status/2113689058404659615?s=20 · erfasst 23.10.2026 · Wortlaut, Originaldatum und UTM-Einbau nicht unabhängig verifiziert
+- Bluesky: VOM BETREIBER ALS VERÖFFENTLICHT GEMELDET – https://bsky.app/profile/betinsight.bsky.social/post/3mykqh27mas2b · erfasst 23.10.2026 · Wortlaut, Originaldatum und UTM-Einbau nicht unabhängig verifiziert
+- Mastodon: VOM BETREIBER ALS VERÖFFENTLICHT GEMELDET – https://mastodon.social/@timeclash/117491486650873334 · erfasst 23.10.2026 · Wortlaut, Originaldatum und UTM-Einbau nicht unabhängig verifiziert
+- Minds: VOM BETREIBER ALS VERÖFFENTLICHT GEMELDET – https://www.minds.com/newsfeed/1960425593191272448?referrer=betinsightclub · erfasst 23.10.2026 · Wortlaut, Originaldatum und UTM-Einbau nicht unabhängig verifiziert
+- Parler: VOM BETREIBER ALS VERÖFFENTLICHT GEMELDET – https://app.parler.com/post/01m5my8mmmdshnv88esmyhp28x?ref=fYsHp9OrPIe4WTc6 · erfasst 23.10.2026 · Wortlaut, Originaldatum und UTM-Einbau nicht unabhängig verifiziert
 - Gab: OFFEN
 - Flipboard: OFFEN
 - Instagram: OFFEN
@@ -195,3 +195,24 @@ Zwei Weltmeister-Generationen, eine historisch unmögliche Paarung: Deutschland 
 6. Flipboard als Link in ein passendes Magazin aufnehmen; Text nur als Begleit-Caption.
 7. Nach Veröffentlichung Original-Post-Link und Screenshot sichern, erst dann Datensatz als LIVE im BetInsight-Archiv ergänzen (Datum, Platform, Inhalt, Link, Sprache, Zielmarkt, UTM); keine geklonten SEO-Seiten erzeugen.
 8. GA4-Reichweite/Geografie später messen, Stadt nicht aus der Sprache oder dem UTM-Parameter erfinden. Bestehende Quora-URLs oder -Kommentare nicht ohne Anlass nachträglich ändern.
+
+## Originalbeiträge – verbindliche Nachweisliste
+
+Sechs direkte URLs wurden vom Betreiber eingereicht und als seine veröffentlichten Beiträge bezeichnet. Erfasst am 23.10.2026, ursprüngliche Post-Timestamps nicht unabhängig bestätigt. Die Veröffentlichungsvorlagen dieser Datei sind kein Beweis, dass die Originalbeiträge exakt gleich lauten. Auch die tatsächliche Verwendung der eigens angelegten Kurz-/UTM-Links ist nicht nachgewiesen.
+
+| Plattform | Betreiber-gemeldete Original-URL | Status |
+|---|---|---|
+| Facebook | https://www.facebook.com/share/p/1Km9A323c4/ | gemeldet LIVE, Details offen |
+| X | https://x.com/betinsightclub/status/2113689058404659615?s=20 | gemeldet LIVE, Details offen |
+| Bluesky | https://bsky.app/profile/betinsight.bsky.social/post/3mykqh27mas2b | gemeldet LIVE, Details offen |
+| Mastodon | https://mastodon.social/@timeclash/117491486650873334 | gemeldet LIVE, Details offen |
+| Minds | https://www.minds.com/newsfeed/1960425593191272448?referrer=betinsightclub | gemeldet LIVE, Details offen |
+| Parler | https://app.parler.com/post/01m5my8mmmdshnv88esmyhp28x?ref=fYsHp9OrPIe4WTc6 | gemeldet LIVE, Details offen |
+
+Deutschsprachige Zusammenfassung: https://betinsight.club/de/anzeigen/time-clash-deutschland-1974-vs-2014-social/
+
+English summary: https://betinsight.club/en/ads/time-clash-germany-1974-vs-2014-social/
+
+Technische Datensatzdatei: `data/social-publications/time-clash-de1974-de2014-2026-10-23.json`.
+
+Noch nicht gemeldet: Gab, Flipboard, Instagram, Telegram und Pinterest. Quora wurde bereits separat dokumentiert.
