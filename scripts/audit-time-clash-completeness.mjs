@@ -38,12 +38,14 @@ const teamData=(name,group)=>{
   const goalkeepers=named.filter(p=>["TW","Torwart","GK","Goalkeeper"].includes(p.pos||p.prole||p.role));
   return {team:name,group,count:named.length,goalkeepers:goalkeepers.length,duplicateNames:named.length-uniqueNames.size,
     missingCoach:!coaches[name],ready11:named.length>=11,ready15:named.length>=15,
+    playable:named.length>=11&&goalkeepers.length>0&&uniqueNames.size>=11,
     complete:named.length>=15&&goalkeepers.length>0&&uniqueNames.size===named.length};
 };
 const teamRows=groups.flatMap(x=>x.names.map(n=>teamData(n,x.group)));
 const byGroup=groups.map(g=>{
  const rows=teamRows.filter(x=>x.group===g.group);
  return {group:g.group,total:rows.length,ready11:rows.filter(x=>x.ready11).length,
+   playable:rows.filter(x=>x.playable).length,
    complete:rows.filter(x=>x.complete).length,
    under11:rows.filter(x=>!x.ready11).length,
    under15:rows.filter(x=>!x.ready15).length,
@@ -55,9 +57,11 @@ const summary={date:"2026-10-23",loadedModules:srcs.length,groups:byGroup.length
   clubs:byGroup.filter(x=>x.group!=="Nationalmannschaften").reduce((a,g)=>a+g.total,0),
   nationalTeams:nationalNames.length,
   under11:teamRows.filter(x=>!x.ready11).length,
+  unplayable:teamRows.filter(x=>!x.playable).length,
   missingGoalkeepers:teamRows.filter(x=>!x.goalkeepers).length,
   noCoach:teamRows.filter(x=>x.missingCoach).length};
-const report={summary,byGroup,blocked:teamRows.filter(x=>!x.ready11),
+const report={summary,byGroup,blocked:teamRows.filter(x=>!x.playable),
+  physicallyUnder11:teamRows.filter(x=>!x.ready11),
   needingVerification:teamRows.filter(x=>!x.complete),
   moduleErrors:errors};
 if(process.argv.includes("--json"))console.log(JSON.stringify(report,null,2));
@@ -65,7 +69,7 @@ else {
  console.log("TIME CLASH roster completeness audit");
  console.log(JSON.stringify(summary,null,2));
  for(const g of byGroup)console.log(
-   g.group+": "+g.ready11+"/"+g.total+" ≥11; "+g.complete+"/"+g.total+
+   g.group+": "+g.playable+"/"+g.total+" spielbar (11+ und Torwart); "+g.complete+"/"+g.total+
    " ≥15 + goalkeeper + no duplicates; missing coach "+g.missingCoaches
  );
  if(report.blocked.length){
@@ -75,7 +79,7 @@ else {
  if(errors.length){console.error("\nRuntime module load failures:",errors);}
 }
 const national=byGroup.find(g=>g.group==="Nationalmannschaften");
-if(errors.length||!national||national.total!==49||national.under11!==0||national.under15!==0){
+if(errors.length||!national||national.total!==49||national.under11!==0||national.under15!==0||national.playable!==49){
  console.error("AUDIT FAIL: module error or incomplete national team list");
  process.exitCode=1;
 }
