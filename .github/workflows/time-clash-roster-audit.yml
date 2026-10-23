@@ -1,0 +1,30 @@
+name: TIME CLASH squad audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "time-clash/**"
+      - "de/time-clash/index.html"
+      - "en/time-clash/index.html"
+      - "es/time-clash/index.html"
+      - "fr/time-clash/index.html"
+      - "it/time-clash/index.html"
+      - "pt/time-clash/index.html"
+      - "scripts/audit-time-clash-completeness.mjs"
+      - ".github/workflows/time-clash-roster-audit.yml"
+jobs:
+  verify-rosters:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify all 49 national teams and report incomplete clubs
+        run: node scripts/audit-time-clash-completeness.mjs --json > time-clash-roster-audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: time-clash-roster-audit
+          path: time-clash-roster-audit.json
+          retention-days: 14
