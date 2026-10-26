@@ -8,21 +8,20 @@
   const FACEBOOK_URL = "https://www.facebook.com/betinsightclub";
   const BLUESKY_URL = "https://bsky.app/profile/betinsight.bsky.social";
   const MINDS_URL = "https://www.minds.com/betinsightclub/";
-  const GAB_URL = "https://gab.com/betinsightclub/";
   const TRUSTPILOT_REVIEW_URL = "https://www.trustpilot.com/evaluate/betinsight.club";
   const COMPANY_NAME = "LucMedia LTDA";
   const COMPANY_CNPJ = "69.449.797/0001-05";
   const SUPPORTED = ["de","en","es","pt","it","fr","nl","zh-tw","zh"];
   const COPY = {
-    de:{follow:"Folge uns",youtube:"BetInsight Club auf YouTube öffnen",telegram:"BetInsight Club auf Telegram öffnen",x:"BetInsight Club auf X öffnen",facebook:"BetInsight Club auf Facebook öffnen",bluesky:"BetInsight Club auf Bluesky öffnen",minds:"BetInsight Club auf Minds öffnen",gab:"BetInsight Club auf Gab öffnen"},
-    en:{follow:"Follow us",youtube:"Open BetInsight Club on YouTube",telegram:"Open BetInsight Club on Telegram",x:"Open BetInsight Club on X",facebook:"Open BetInsight Club on Facebook",bluesky:"Open BetInsight Club on Bluesky",minds:"Open BetInsight Club on Minds",gab:"Open BetInsight Club on Gab"},
-    es:{follow:"Síguenos",youtube:"Abrir BetInsight Club en YouTube",telegram:"Abrir BetInsight Club en Telegram",x:"Abrir BetInsight Club en X",facebook:"Abrir BetInsight Club en Facebook",bluesky:"Abrir BetInsight Club en Bluesky",minds:"Abrir BetInsight Club en Minds",gab:"Abrir BetInsight Club en Gab"},
-    pt:{follow:"Siga-nos",youtube:"Abrir BetInsight Club no YouTube",telegram:"Abrir BetInsight Club no Telegram",x:"Abrir BetInsight Club no X",facebook:"Abrir BetInsight Club no Facebook",bluesky:"Abrir BetInsight Club no Bluesky",minds:"Abrir BetInsight Club no Minds",gab:"Abrir BetInsight Club no Gab"},
-    it:{follow:"Seguici",youtube:"Apri BetInsight Club su YouTube",telegram:"Apri BetInsight Club su Telegram",x:"Apri BetInsight Club su X",facebook:"Apri BetInsight Club su Facebook",bluesky:"Apri BetInsight Club su Bluesky",minds:"Apri BetInsight Club su Minds",gab:"Apri BetInsight Club su Gab"},
-    fr:{follow:"Suivez-nous",youtube:"Ouvrir BetInsight Club sur YouTube",telegram:"Ouvrir BetInsight Club sur Telegram",x:"Ouvrir BetInsight Club sur X",facebook:"Ouvrir BetInsight Club sur Facebook",bluesky:"Ouvrir BetInsight Club sur Bluesky",minds:"Ouvrir BetInsight Club sur Minds",gab:"Ouvrir BetInsight Club sur Gab"},
-    nl:{follow:"Volg ons",youtube:"BetInsight Club op YouTube openen",telegram:"BetInsight Club op Telegram openen",x:"BetInsight Club op X openen",facebook:"BetInsight Club op Facebook openen",bluesky:"BetInsight Club op Bluesky openen",minds:"BetInsight Club op Minds openen",gab:"BetInsight Club op Gab openen"},
-    "zh-tw":{follow:"追蹤我們",youtube:"在 YouTube 開啟 BetInsight Club",telegram:"在 Telegram 開啟 BetInsight Club",x:"在 X 開啟 BetInsight Club",facebook:"在 Facebook 開啟 BetInsight Club",bluesky:"在 Bluesky 開啟 BetInsight Club",minds:"在 Minds 開啟 BetInsight Club",gab:"在 Gab 開啟 BetInsight Club"},
-    zh:{follow:"关注我们",youtube:"在 YouTube 打开 BetInsight Club",telegram:"在 Telegram 打开 BetInsight Club",x:"在 X 打开 BetInsight Club",facebook:"在 Facebook 打开 BetInsight Club",bluesky:"在 Bluesky 打开 BetInsight Club",minds:"在 Minds 打开 BetInsight Club",gab:"在 Gab 打开 BetInsight Club"}
+    de:{follow:"Folge uns",youtube:"BetInsight Club auf YouTube öffnen",telegram:"BetInsight Club auf Telegram öffnen",x:"BetInsight Club auf X öffnen",facebook:"BetInsight Club auf Facebook öffnen",bluesky:"BetInsight Club auf Bluesky öffnen",minds:"BetInsight Club auf Minds öffnen"},
+    en:{follow:"Follow us",youtube:"Open BetInsight Club on YouTube",telegram:"Open BetInsight Club on Telegram",x:"Open BetInsight Club on X",facebook:"Open BetInsight Club on Facebook",bluesky:"Open BetInsight Club on Bluesky",minds:"Open BetInsight Club on Minds"},
+    es:{follow:"Síguenos",youtube:"Abrir BetInsight Club en YouTube",telegram:"Abrir BetInsight Club en Telegram",x:"Abrir BetInsight Club en X",facebook:"Abrir BetInsight Club en Facebook",bluesky:"Abrir BetInsight Club en Bluesky",minds:"Abrir BetInsight Club en Minds"},
+    pt:{follow:"Siga-nos",youtube:"Abrir BetInsight Club no YouTube",telegram:"Abrir BetInsight Club no Telegram",x:"Abrir BetInsight Club no X",facebook:"Abrir BetInsight Club no Facebook",bluesky:"Abrir BetInsight Club no Bluesky",minds:"Abrir BetInsight Club no Minds"},
+    it:{follow:"Seguici",youtube:"Apri BetInsight Club su YouTube",telegram:"Apri BetInsight Club su Telegram",x:"Apri BetInsight Club su X",facebook:"Apri BetInsight Club su Facebook",bluesky:"Apri BetInsight Club su Bluesky",minds:"Apri BetInsight Club su Minds"},
+    fr:{follow:"Suivez-nous",youtube:"Ouvrir BetInsight Club sur YouTube",telegram:"Ouvrir BetInsight Club sur Telegram",x:"Ouvrir BetInsight Club sur X",facebook:"Ouvrir BetInsight Club sur Facebook",bluesky:"Ouvrir BetInsight Club sur Bluesky",minds:"Ouvrir BetInsight Club sur Minds"},
+    nl:{follow:"Volg ons",youtube:"BetInsight Club op YouTube openen",telegram:"BetInsight Club op Telegram openen",x:"BetInsight Club op X openen",facebook:"BetInsight Club op Facebook openen",bluesky:"BetInsight Club op Bluesky openen",minds:"BetInsight Club op Minds openen"},
+    "zh-tw":{follow:"追蹤我們",youtube:"在 YouTube 開啟 BetInsight Club",telegram:"在 Telegram 開啟 BetInsight Club",x:"在 X 開啟 BetInsight Club",facebook:"在 Facebook 開啟 BetInsight Club",bluesky:"在 Bluesky 開啟 BetInsight Club",minds:"在 Minds 開啟 BetInsight Club"},
+    zh:{follow:"关注我们",youtube:"在 YouTube 打开 BetInsight Club",telegram:"在 Telegram 打开 BetInsight Club",x:"在 X 打开 BetInsight Club",facebook:"在 Facebook 打开 BetInsight Club",bluesky:"在 Bluesky 打开 BetInsight Club",minds:"在 Minds 打开 BetInsight Club"}
   };
 
   const REVIEW_COPY = {
@@ -142,12 +141,7 @@
         '<svg class="betinsight-footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#ffd21f"/><path d="M5.5 17.5v-11h2.7l3.8 4.7 3.8-4.7h2.7v11h-2.8v-6.6L12 15.3l-3.7-4.4v6.6Z" fill="#171717"/></svg>'
       ));
     }
-    if (!wrapper.querySelector('[data-social="gab"]') && !wrapper.querySelector('a[href*="gab.com/betinsightclub"]')) {
-      wrapper.appendChild(link(
-        "gab", GAB_URL, c.gab || COPY.en.gab, "BetInsight Club · Gab",
-        '<svg class="betinsight-footer-social-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#00b77f"/><text x="12" y="17" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="900" text-anchor="middle">g</text></svg>'
-      ));
-    }
+    wrapper.querySelectorAll('[data-social="gab"],a[href*="gab.com/betinsightclub"]').forEach((node) => node.remove());
   }
 
   function ensureReviewLink(wrapper){
@@ -314,11 +308,7 @@
     if (wrapper) {
       ensureLinks(wrapper);
       const c = COPY[lang()] || COPY.de;
-      const gab = wrapper.querySelector('[data-social="gab"]');
-      if (gab) {
-        gab.setAttribute("aria-label",c.gab || COPY.en.gab);
-        gab.title = c.gab || COPY.en.gab;
-      }
+      wrapper.querySelectorAll('[data-social="gab"],a[href*="gab.com/betinsightclub"]').forEach((node) => node.remove());
       const follow = wrapper.querySelector(".betinsight-footer-social-label");
       if (follow) follow.textContent = c.follow;
       ensureReviewLink(wrapper);
