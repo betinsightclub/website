@@ -152,7 +152,8 @@
     }
 @media(max-width:1050px){.suite-grid{grid-template-columns:repeat(2,1fr)}.suite:last-child{grid-column:span 2}.links{display:none}.live-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:760px){html{scroll-snap-type:none}.nav{height:auto;padding:13px 0;flex-wrap:wrap}.brand{min-width:132px;height:60px}.brand img{height:50px;transform:scale(1.25)}.actions{margin-left:auto}.hero{min-height:640px}.hero-content{padding:70px 0}.suite-grid,.two,.pro-grid,.worlds,.live-grid,.growth-grid{grid-template-columns:1fr}.suite:last-child{grid-column:auto}.matchup{gap:12px;width:100%}.flag{font-size:50px}.duel-caption p{font-size:13px}.duel-caption a{display:none}.duel-viewport{min-height:330px}.foot{align-items:flex-start;flex-direction:column}.foot nav{margin-left:0}.hide-mobile{display:none}main>section{min-height:auto;display:block;scroll-snap-align:none}}
-  </style>
+  .links .world-dropdown{position:relative;align-self:center;color:#cbd7e6}.links .world-dropdown summary{display:list-item;list-style:none;cursor:pointer;white-space:nowrap}.links .world-dropdown summary::-webkit-details-marker{display:none}.links .world-dropdown summary:after{content:"⌄";padding-left:5px}.links .world-dropdown-menu{position:absolute;top:calc(100% + 14px);left:-16px;display:flex;flex-direction:column;gap:0;min-width:213px;background:#0b1b2b;border:1px solid #35536c;box-shadow:0 16px 30px #0009;border-radius:12px;padding:8px;z-index:60}.links .world-dropdown-menu a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;white-space:nowrap}.links .world-dropdown-menu a:hover,.links .world-dropdown-menu a:focus-visible{background:#173d50;color:#70e5db}.world-home-section{padding:52px 0;border-bottom:1px solid var(--line)}.world-home-card{display:grid;grid-template-columns:minmax(200px,33%) 1fr;align-items:center;gap:34px;border:1px solid #27465c;border-radius:24px;background:linear-gradient(105deg,#071b2c,#123448 70%,#0a2634);padding:31px}.world-home-graphic{display:grid;place-items:center;font-size:clamp(110px,14vw,200px);filter:drop-shadow(0 15px 25px #0009)}.world-home-copy h2{font-size:clamp(26px,3vw,40px);line-height:1.15;margin:12px 0}.world-home-copy p{color:#aec4d3;line-height:1.65}.world-home-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}@media(max-width:760px){.world-home-card{grid-template-columns:1fr;gap:4px}.world-home-graphic{font-size:110px}.links .world-dropdown-menu{left:0}}
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -160,7 +161,7 @@
     <a class="brand" href="#top"><img src="../assets/betinsight-logo.png" alt="BetInsight"></a>
     <nav class="links">
       <a href="#ecosystem" data-i18n="navEcosystem">Ecosistema</a>
-      <a href="#duels" data-i18n="navDuels">Duelos muestra</a>
+      <details class="world-dropdown"><summary data-i18n="navDiscover">Entdecken</summary><div class="world-dropdown-menu"><a href="#duels" data-i18n="navDuels">Musterduelle</a><a class="stadium-world-link" href="/stadionwelt/?lang=de" data-i18n="navWorld">Stadionwelt</a><a class="stadium-passport-link" href="https://app.betinsight.club/stadionwelt/?lang=de" data-i18n="navPassport">Mein Stadionpass</a></div></details>
       <a href="#trainer-feed" data-i18n="navFeed">Feed de entrenadores</a>
       <a href="#pros" data-i18n="navPros">Expertos</a>
       <a href="#stats" data-i18n="navStats">Estadísticas</a>
@@ -192,7 +193,7 @@
     </div>
   </div>
 </section>
-
+<section id="stadionwelt-preview" class="world-home-section"><div class="wrap world-home-card"><div class="world-home-graphic" aria-hidden="true">🌍</div><div class="world-home-copy"><div class="eyebrow" data-i18n="worldKicker">STADIONWELT</div><h2 data-i18n="worldHeading">Die Fußballwelt auf einer Karte.</h2><p data-i18n="worldLead">Entdecke Stadien und deine Erinnerungen.</p><div class="world-home-actions"><a class="btn primary stadium-world-link" href="/stadionwelt/?lang=de" data-i18n="worldLink">Stadionwelt ansehen</a><a class="btn secondary stadium-passport-link" href="https://app.betinsight.club/stadionwelt/?lang=de" data-i18n="worldPass">Mein Stadionpass</a></div></div></div></section>
 <section id="ecosystem">
   <div class="wrap">
     <div class="section-head">
@@ -809,6 +810,14 @@ Object.assign(T.fr,{footerAbout:"Qu'est-ce que BetInsight ?",footerFaq:"Question
 Object.assign(T.nl,{footerAbout:"Wat is BetInsight?",footerFaq:"Veelgestelde vragen"});
 Object.assign(T["zh-tw"],{footerAbout:"什麼是 BetInsight？",footerFaq:"常見問題"});
 
+Object.assign(T["de"],{"navDiscover":"Entdecken","navWorld":"Stadionwelt","navPassport":"Mein Stadionpass","worldKicker":"STADIONWELT","worldHeading":"Die Fußballwelt auf einer Karte.","worldLead":"Stadien entdecken, persönliche Besuche sammeln. Die öffentliche Suche wird nach der Datenprüfung freigeschaltet.","worldLink":"Stadionwelt ansehen","worldPass":"Mein Stadionpass"});
+Object.assign(T["en"],{"navDiscover":"Explore","navWorld":"Stadium World","navPassport":"My stadium passport","worldKicker":"STADIUM WORLD","worldHeading":"Explore football on a world map.","worldLead":"Discover stadiums and record your visits. Public search will open after the data review.","worldLink":"Explore Stadium World","worldPass":"My stadium passport"});
+Object.assign(T["es"],{"navDiscover":"Descubrir","navWorld":"Mundo de estadios","navPassport":"Mi pasaporte","worldKicker":"MUNDO DE ESTADIOS","worldHeading":"El fútbol en un mapa mundial.","worldLead":"Descubre estadios y guarda tus visitas. La búsqueda pública llegará tras revisar los datos.","worldLink":"Descubrir estadios","worldPass":"Mi pasaporte"});
+Object.assign(T["pt"],{"navDiscover":"Descobrir","navWorld":"Mundo dos estádios","navPassport":"Meu passaporte","worldKicker":"MUNDO DOS ESTÁDIOS","worldHeading":"O futebol num mapa mundial.","worldLead":"Descobre estádios e guarda visitas. A pesquisa pública abrirá após a revisão dos dados.","worldLink":"Explorar estádios","worldPass":"Meu passaporte"});
+Object.assign(T["it"],{"navDiscover":"Esplora","navWorld":"Mondo degli stadi","navPassport":"Il mio passaporto","worldKicker":"MONDO DEGLI STADI","worldHeading":"Il calcio su una mappa del mondo.","worldLead":"Scopri gli stadi e conserva le visite. La ricerca pubblica arriverà dopo la verifica.","worldLink":"Esplora gli stadi","worldPass":"Il mio passaporto"});
+Object.assign(T["fr"],{"navDiscover":"Découvrir","navWorld":"Monde des stades","navPassport":"Mon passeport","worldKicker":"MONDE DES STADES","worldHeading":"Le football sur une carte du monde.","worldLead":"Explorez les stades et conservez vos visites. La recherche publique ouvrira après vérification.","worldLink":"Découvrir les stades","worldPass":"Mon passeport"});
+Object.assign(T["nl"],{"navDiscover":"Ontdekken","navWorld":"Stadionwereld","navPassport":"Mijn stadionpas","worldKicker":"STADIONWERELD","worldHeading":"Voetbal op een wereldkaart.","worldLead":"Ontdek stadions en bewaar bezoeken. Openbaar zoeken volgt na controle.","worldLink":"Stadionwereld ontdekken","worldPass":"Mijn stadionpas"});
+Object.assign(T["zh-tw"],{"navDiscover":"探索","navWorld":"球場世界","navPassport":"我的球場護照","worldKicker":"球場世界","worldHeading":"在世界地圖上探索足球。","worldLead":"探索足球場並保存造訪紀錄。資料審核後將開放公開搜尋。","worldLink":"探索球場世界","worldPass":"我的球場護照"});
 const routes={calculator:"rechner",stats:"statistik-vorschau","time-clash":"time-clash","time-clash-community":"time-clash/community",events:"events",tips:"tipps",ads:"anzeigen",terms:"agb",imprint:"impressum",privacy:"datenschutz",about:"was-ist-betinsight",faq:"faq"};
 function applyLang(lang){
   if(!T[lang]) lang="de";
@@ -826,6 +835,8 @@ function applyLang(lang){
       routeKey==="imprint"?"/de/impressum/":"";
     a.href=safeFallback||"/"+lang+"/"+r+"/";
   });
+  document.querySelectorAll(".stadium-world-link").forEach(a=>a.href="/stadionwelt/?lang="+encodeURIComponent(lang));
+  document.querySelectorAll(".stadium-passport-link").forEach(a=>a.href="https://app.betinsight.club/stadionwelt/?lang="+encodeURIComponent(lang));
   document.getElementById("langSelect").value=lang;
   const publicFeedLink=document.getElementById("publicTrainerFeedLink");
   if(publicFeedLink) publicFeedLink.href="/trainer-feed/?lang="+encodeURIComponent(lang);
