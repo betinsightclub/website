@@ -161,7 +161,7 @@
     <a class="brand" href="#top"><img src="../assets/betinsight-logo.png" alt="BetInsight"></a>
     <nav class="links">
       <a href="#ecosystem" data-i18n="navEcosystem">Ecosistema</a>
-      <details class="world-dropdown"><summary data-i18n="navDiscover">Entdecken</summary><div class="world-dropdown-menu"><a href="#duels" data-i18n="navDuels">Musterduelle</a><a class="stadium-world-link" href="/stadionwelt/?lang=de" data-i18n="navWorld">Stadionwelt</a><a class="stadium-passport-link" href="https://app.betinsight.club/stadionwelt/?lang=de" data-i18n="navPassport">Mein Stadionpass</a></div></details>
+      <details class="world-dropdown"><summary data-i18n="navDiscover">Entdecken</summary><div class="world-dropdown-menu"><a href="#duels" data-i18n="navDuels">Musterduelle</a><a class="stadium-world-link" href="/stadionwelt/?lang=de" data-i18n="navWorld">Stadionwelt</a><a class="stadium-passport-link" href="https://app.betinsight.club/stadionwelt/?lang=de&tab=passport" data-i18n="navPassport">Mein Stadionpass</a></div></details>
       <a href="#trainer-feed" data-i18n="navFeed">Feed allenatori</a>
       <a href="#pros" data-i18n="navPros">Esperti</a>
       <a href="#stats" data-i18n="navStats">Statistiche</a>
@@ -193,7 +193,7 @@
     </div>
   </div>
 </section>
-<section id="stadionwelt-preview" class="world-home-section"><div class="wrap world-home-card"><div class="world-home-graphic" aria-hidden="true">🌍</div><div class="world-home-copy"><div class="eyebrow" data-i18n="worldKicker">STADIONWELT</div><h2 data-i18n="worldHeading">Die Fußballwelt auf einer Karte.</h2><p data-i18n="worldLead">Entdecke Stadien und deine Erinnerungen.</p><div class="world-home-actions"><a class="btn primary stadium-world-link" href="/stadionwelt/?lang=de" data-i18n="worldLink">Stadionwelt ansehen</a><a class="btn secondary stadium-passport-link" href="https://app.betinsight.club/stadionwelt/?lang=de" data-i18n="worldPass">Mein Stadionpass</a></div></div></div></section>
+<section id="stadionwelt-preview" class="world-home-section"><div class="wrap world-home-card"><div class="world-home-graphic" aria-hidden="true">🌍</div><div class="world-home-copy"><div class="eyebrow" data-i18n="worldKicker">STADIONWELT</div><h2 data-i18n="worldHeading">Die Fußballwelt auf einer Karte.</h2><p data-i18n="worldLead">Entdecke Stadien und deine Erinnerungen.</p><div class="world-home-actions"><a class="btn primary stadium-world-link" href="/stadionwelt/?lang=de" data-i18n="worldLink">Stadionwelt ansehen</a><a class="btn secondary stadium-passport-link" href="https://app.betinsight.club/stadionwelt/?lang=de&tab=passport" data-i18n="worldPass">Mein Stadionpass</a></div></div></div></section>
 <section id="ecosystem">
   <div class="wrap">
     <div class="section-head">
@@ -836,7 +836,7 @@ function applyLang(lang){
     a.href=safeFallback||"/"+lang+"/"+r+"/";
   });
   document.querySelectorAll(".stadium-world-link").forEach(a=>a.href="/stadionwelt/?lang="+encodeURIComponent(lang));
-  document.querySelectorAll(".stadium-passport-link").forEach(a=>a.href="https://app.betinsight.club/stadionwelt/?lang="+encodeURIComponent(lang));
+  document.querySelectorAll(".stadium-passport-link").forEach(a=>a.href="https://app.betinsight.club/stadionwelt/?lang="+encodeURIComponent(lang)+"&tab=passport");
   document.getElementById("langSelect").value=lang;
   const publicFeedLink=document.getElementById("publicTrainerFeedLink");
   if(publicFeedLink) publicFeedLink.href="/trainer-feed/?lang="+encodeURIComponent(lang);
