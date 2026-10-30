@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "record_type": "external_social_publication",
+  "platform": "Parler",
+  "account_display_name": "Betinsight Club | TIME CLASH",
+  "account_handle": "@betinsight.club",
+  "post_id": "01m6744k7fkcwvt2estrrn6n3n",
+  "original_post_url": "https://app.parler.com/post/01m6744k7fkcwvt2estrrn6n3n?ref=fYsHp9OrPIe4WTc6",
+  "source_language": "en",
+  "recorded_on": "2026-10-30",
+  "source_screenshot_time_local": "2026-10-30 22:07:52 Europe/Berlin",
+  "source_post_timestamp": "1h ago (relative, not independently verified)",
+  "source_evidence": "Operator-supplied screenshot and exact Parler post URL; external fetch unavailable",
+  "source_text_visible": "👻⚽ HALLOWEEN TIME CLASH\nWhat would be your ultimate football nightmare matchup?\n🇧🇷 Brazil 2002 vs 🇩🇪 Germany 2014?\n🇪🇸 Spain 2010 vs another legend?\nCreate your own clash & try it free:\nbetinsight.club/go/tchx30\n#TimeClash #HalloweenFootball #Football #BetInsight",
+  "original_artwork": "Halloween-themed football poster with BetInsight logo, players, VS, TRY IT FREE NOW",
+  "archival_illustration_is_same_image": false,
+  "observed_shortlink_in_original": "https://betinsight.club/go/tchx30/",
+  "shared_with_x_campaign": true,
+  "observed_shortlink_target_confirmed_in_github": "https://betinsight.club/en/time-clash/?utm_source=x&utm_medium=social&utm_campaign=halloween_timeclash_20261030&utm_content=post01",
+  "attribution_risk": "Parler visitors following the X shortlink may be classified as x source, not Parler; past attribution cannot reliably be reconstructed.",
+  "prepared_parler_shortlink": "https://betinsight.club/go/tchparler30/",
+  "prepared_parler_destination": "https://betinsight.club/en/time-clash/?utm_source=parler&utm_medium=organic_social&utm_campaign=halloween_timeclash_20261030&utm_content=post_01m6744k7fkcwvt2estrrn6n3n",
+  "prepared_source": "parler",
+  "prepared_campaign": "halloween_timeclash_20261030",
+  "prepared_content": "post_01m6744k7fkcwvt2estrrn6n3n",
+  "prepared_link_confirmed_in_original": false,
+  "needs_original_post_edit": true,
+  "site_archives": {
+    "en": "https://betinsight.club/en/ads/parler-halloween-time-clash-football-nightmare-matchup-01m6744k7fkcwvt2estrrn6n3n/",
+    "de": "https://betinsight.club/de/anzeigen/parler-halloween-time-clash-fussball-albtraumduell-01m6744k7fkcwvt2estrrn6n3n/"
+  },
+  "metrics": {
+    "views": null,
+    "likes": null,
+    "reposts": null,
+    "link_clicks": null,
+    "website_sessions": null,
+    "registrations": null,
+    "conversions": null
+  },
+  "note": "Existing X /go/tchx30/ redirect remains unchanged. Future Parler attribution requires replacing that URL in the original Parler post. No post edit was performed.",
+  "review_dates": [
+    "2026-10-31",
+    "2026-11-02",
+    "2026-11-06"
+  ]
+}
