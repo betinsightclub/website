@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "record_type": "external_social_publication",
+  "platform": "X",
+  "account": "@betinsightclub",
+  "post_id": "2116248147026473047",
+  "source_url": "https://x.com/betinsightclub/status/2116248147026473047",
+  "provided_url": "https://x.com/betinsightclub/status/2116248147026473047?a=bvduUtMJCTS49Xgp1fE&s=20",
+  "original_language": "en",
+  "date_on_operator_screenshot": "2026-10-30",
+  "operator_screenshot_local_time": "2026-10-30T21:40:03+01:00",
+  "post_time_derived_from_x_snowflake": "2026-10-30T19:17:30.897Z",
+  "timestamp_provenance": "Decoded X snowflake post ID; source website fetch unavailable",
+  "source_evidence": "Operator screenshot captured from X timeline; direct post URL supplied",
+  "source_post_fetched_independently": false,
+  "original_text_visible": "🎃⚽ HALLOWEEN TIME CLASH\n\nWhat would be your ultimate football nightmare matchup?\n\n🇧🇷 Brazil 2002 vs 🇩🇪 Germany 2014?\n🇪🇸 Spain 2010 vs another legend?\nCreate your own clash & try it free:\nbetinsight.club/go/tchx30/\n\n#TimeClash #HalloweenFootball #Football #BetInsight",
+  "screenshot_artwork": "Halloween TIME CLASH BetInsight logo, football players, stadium, central VS, 'TRY IT FREE NOW' call to action",
+  "article_illustration_is_original_screenshot_artwork": false,
+  "shortlink_used_in_post": "https://betinsight.club/go/tchx30/",
+  "shortlink_found_in_live_github_file": true,
+  "utm_destination_verified_in_github": "https://betinsight.club/en/time-clash/?utm_source=x&utm_medium=social&utm_campaign=halloween_timeclash_20261030&utm_content=post01",
+  "utm_source": "x",
+  "utm_medium": "social",
+  "utm_campaign": "halloween_timeclash_20261030",
+  "utm_content": "post01",
+  "tracking_present_in_original_post_screenshot": true,
+  "archive_urls": {
+    "en": "https://betinsight.club/en/ads/x-halloween-time-clash-ultimate-football-nightmare-2116248147026473047/",
+    "de": "https://betinsight.club/de/anzeigen/x-halloween-time-clash-fussball-albtraumduell-2116248147026473047/"
+  },
+  "metrics": {
+    "impressions": null,
+    "link_clicks": null,
+    "betinsight_website_visits": null,
+    "registrations": null,
+    "conversions": null
+  },
+  "caveats": [
+    "GitHub redirect inspected; analytics attribution possible but not independently proven by click data.",
+    "No independent X website fetch; source grounded in operator screenshot.",
+    "TIME CLASH fictional simulation, no real-money betting."
+  ],
+  "checkpoints": [
+    "2026-10-31",
+    "2026-11-02",
+    "2026-11-06"
+  ]
+}
