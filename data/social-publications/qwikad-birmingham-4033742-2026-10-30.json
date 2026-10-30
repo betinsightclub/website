@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "platform": "QwikAd",
+  "post_id": "4033742",
+  "source_url": "https://qwikad.com/showad.php?cityid=1720&city=Birmingham&cid=3&cat=1&postid=4033742&title=what-would-be-your-ultimate-football-nightmare-matchup",
+  "market": {
+    "city": "Birmingham",
+    "country": "United Kingdom",
+    "iso_country": "GB"
+  },
+  "language_of_published_ad": "en-GB",
+  "original_title": "What would be your ultimate football nightmare matchup?",
+  "campaign": "Halloween TIME CLASH",
+  "date_on_user_screenshot": "2026-10-30",
+  "screenshot_time_approx_cet": "20:30",
+  "date_source": "operator-provided screenshot",
+  "baseline_ad_views": 1,
+  "baseline_is_verified_page_clicks": false,
+  "site_visits": null,
+  "site_clicks": null,
+  "registrations": null,
+  "source_status": "operator screenshot supplied; inaccessible to independent QwikAd fetch",
+  "ad_website_link_observed": "https://betinsight.club/en/time-clash/",
+  "tracked_link_prepared": "https://betinsight.club/go/qwikad-birmingham-4033742/",
+  "tracking_target": "https://betinsight.club/en/time-clash/?utm_source=qwikad&utm_medium=classified&utm_campaign=gb_birmingham_timeclash_halloween_20261030&utm_content=post_4033742",
+  "tracked_link_confirmed_in_post": false,
+  "archive": {
+    "en": "https://betinsight.club/en/ads/qwikad-birmingham-halloween-time-clash-nightmare-matchup/",
+    "de": "https://betinsight.club/de/anzeigen/qwikad-birmingham-halloween-time-clash-albtraumduell/"
+  },
+  "evaluation_due": [
+    "2026-10-31",
+    "2026-11-02",
+    "2026-11-06"
+  ],
+  "notes": [
+    "Source screenshot shows 1 QwikAd view only; no verified click or conversion figures.",
+    "The ad already links directly to /en/time-clash/ and cannot be attributed to the new campaign until edited to use the short link.",
+    "TIME CLASH is a fictional football simulation."
+  ]
+}
