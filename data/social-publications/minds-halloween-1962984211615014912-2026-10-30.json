@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "record_type": "external_social_publication",
+  "platform": "Minds",
+  "account": "@betinsightclub",
+  "post_id": "1962984211615014912",
+  "original_post_url": "https://www.minds.com/newsfeed/1962984211615014912?referrer=betinsightclub",
+  "language_of_visible_post": "en",
+  "date_recorded": "2026-10-30",
+  "screenshot_captured_at_local": "2026-10-30 21:49:59 Europe/Berlin",
+  "published_at": null,
+  "date_source": "operator-provided screenshot and direct post URL; exact source publication time not independently verified",
+  "source_fetch_status": "Minds direct post not independently accessible in external web lookup",
+  "visible_post_excerpt": [
+    "Spain 2010 against another legendary generation?",
+    "Or would you create a completely different clash?",
+    "Legendary teams",
+    "Different football eras",
+    "Create your own matchup",
+    "Try it for free",
+    "TIME CLASH: https://betinsight.club/en/time-clash/",
+    "Which two teams should meet this Halloween?",
+    "Hashtags: #TimeClash #Halloween #Soccer #FootballHistory #WorldChampions"
+  ],
+  "post_start_visible_in_screenshot": false,
+  "original_artwork": "Halloween TIME CLASH poster, logo, players, blue/orange stadium, VS, TRY IT FREE NOW",
+  "archive_uses_original_artwork": false,
+  "original_outbound_url_observed": "https://betinsight.club/en/time-clash/",
+  "tracking_shortlink_prepared": "https://betinsight.club/go/minds-halloween-1962984211615014912/",
+  "tracking_destination_prepared": "https://betinsight.club/en/time-clash/?utm_source=minds&utm_medium=organic_social&utm_campaign=halloween_timeclash_20261030&utm_content=post_1962984211615014912",
+  "tracking_link_confirmed_in_original_post": false,
+  "source_referrer_parameter": "referrer=betinsightclub (Minds-side referral parameter, not UTM)",
+  "site_archive_urls": {
+    "de": "https://betinsight.club/de/anzeigen/minds-halloween-time-clash-fussball-albtraumduell-1962984211615014912/",
+    "en": "https://betinsight.club/en/ads/minds-halloween-time-clash-football-nightmare-matchup-1962984211615014912/"
+  },
+  "metrics": {
+    "minds_views": null,
+    "minds_likes": null,
+    "minds_shares": null,
+    "site_visits": null,
+    "registrations": null,
+    "conversions": null
+  },
+  "notes": [
+    "The screenshot crops the first lines of the post. Do not claim full original wording was verified.",
+    "New shortlink is prepared and not claimed to appear in the already published post.",
+    "Original publication time and analytics conversions have not been independently verified."
+  ],
+  "checkpoints": [
+    "2026-10-31",
+    "2026-11-02",
+    "2026-11-06"
+  ]
+}
