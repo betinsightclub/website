@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "type": "external_social_publication",
+  "platform": "Mastodon",
+  "account": "@timeclash@mastodon.social",
+  "account_name": "TIME CLASH | BetInsight Club",
+  "post_id": "117531361013528683",
+  "original_post_url": "https://mastodon.social/@timeclash/117531361013528683",
+  "original_language": "en",
+  "recorded_on": "2026-10-30",
+  "original_published_at": "2026-10-30T18:50:45Z",
+  "original_published_at_method": "Derived from Mastodon's snowflake post ID (millisecond timestamp in high bits); not independently confirmed via live Mastodon API",
+  "evidence": "User-provided screenshot captured on 2026-10-30 21:14:48 (German computer clock)",
+  "fetched_live": false,
+  "visible_post_text": "👻⚽ HALLOWEEN TIME CLASH\n\nWhat would be your ultimate football nightmare matchup?\n\n🇧🇷 Brazil 2002 vs. 🇩🇪 Germany 2014?\n🇪🇸 Spain 2010 against another legendary generation?\nOr would you create a completely different clash?\n\n🔥 Legendary teams\n⚔️ Different football eras\n🏟️ Create your own matchup\n🎮 Try it for free\n\n👉 TIME CLASH:\nbetinsight.club/en/time-clash/\n\nWhich two teams should meet this Halloween? 👇",
+  "original_media": "Halloween-themed TIME CLASH promotional football image, BetInsight logo, two teams of players, central VS, free CTA; actual media URL not independently fetched",
+  "original_outbound_url_observed": "https://betinsight.club/en/time-clash/",
+  "original_link_tracking_confirmed": false,
+  "tracking_short_url_prepared": "https://betinsight.club/go/mastodon-halloween-117531361013528683/",
+  "tracking_target": "https://betinsight.club/en/time-clash/?utm_source=mastodon&utm_medium=organic_social&utm_campaign=halloween_timeclash_20261030&utm_content=post_117531361013528683",
+  "tracking_short_url_confirmed_in_post": false,
+  "site_archives": {
+    "de": "https://betinsight.club/de/anzeigen/mastodon-halloween-time-clash-fussball-albtraumduell-117531361013528683/",
+    "en": "https://betinsight.club/en/ads/mastodon-halloween-time-clash-football-nightmare-matchup-117531361013528683/"
+  },
+  "metrics": {
+    "mastodon_views": null,
+    "likes": null,
+    "reposts": null,
+    "betinsight_sessions": null,
+    "registrations": null
+  },
+  "notes": [
+    "Do not confuse the archival illustration with the original Mastodon image.",
+    "Do not treat prepared tracking as having been published in the Mastodon post.",
+    "No independently verified reach or conversion numbers."
+  ],
+  "checkpoints": [
+    "2026-10-31",
+    "2026-11-02",
+    "2026-11-06"
+  ]
+}
