@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "record_type": "external_publication",
+  "platform": "QwikAd",
+  "post_id": "4033741",
+  "original_title": "Welches Fußball-Duell wäre dein persönlicher Albtraum?",
+  "source_url": "https://qwikad.com/showad.php?cityid=1603&city=Berlin&cid=&cat=1&postid=4033741&title=welches-fu%C3%9Fball-duell-w%C3%A4re-dein-pers%C3%B6nlicher-albtraum",
+  "country": "DE",
+  "city": "Berlin",
+  "language_of_published_ad": "de",
+  "publication_date": "2026-10-30",
+  "publication_date_source": "operator-provided screenshot dated 30 October 2026, posted 41 minutes before screenshot",
+  "screenshot_local_time": "2026-10-30 21:07 Europe/Berlin",
+  "screenshot_qwikad_ad_views": 1,
+  "metric_interpretation": "QwikAd view count in screenshot, not website visits",
+  "website_sessions": null,
+  "registrations": null,
+  "conversions": null,
+  "ad_link_observed": "https://betinsight.club/de/time-clash/",
+  "ad_link_uses_utm": false,
+  "tracked_short_url_prepared": "https://betinsight.club/go/qwikad-berlin-4033741/",
+  "tracked_destination_prepared": "https://betinsight.club/de/time-clash/?utm_source=qwikad&utm_medium=classified&utm_campaign=de_berlin_timeclash_halloween_20261030&utm_content=post_4033741",
+  "tracked_link_confirmed_in_original": false,
+  "archive_urls": {
+    "de": "https://betinsight.club/de/anzeigen/qwikad-berlin-halloween-time-clash-fussball-albtraumduell/",
+    "en": "https://betinsight.club/en/ads/qwikad-berlin-halloween-time-clash-football-nightmare-matchup/"
+  },
+  "source_verification": "Operator screenshot shows publication; external source fetch unavailable",
+  "theme": "Halloween TIME CLASH",
+  "campaign_content": [
+    "Brazil 2002 vs Germany 2014",
+    "Spain 2010 vs another legendary generation",
+    "user-created historical/hypothetical football clashes",
+    "free TIME CLASH game"
+  ],
+  "source_uses_original_image": true,
+  "archived_site_illustration_is_different": true,
+  "analysis_checkpoints": [
+    "2026-10-31",
+    "2026-11-02",
+    "2026-11-06"
+  ]
+}
