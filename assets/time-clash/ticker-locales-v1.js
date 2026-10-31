@@ -70,14 +70,32 @@ function uiText(s,l){
  let z=String(s),v=(k,x)=>t(k,x,l);const fixed=label(z,l);if(fixed)return fixed;
  if(/^SERIENSIEGER:\s*/.test(z))return z.replace(/^SERIENSIEGER:\s*/,v("seriesWin",{t:""}));
  if(/^GAME\s+\d+\s+VON\s+\d+/.test(z))return z.replace(/^GAME\s+(\d+)\s+VON\s+(\d+)/,(_,n,x)=>v("game",{n,x}));
+ if(/^SPIEL\s+\d+\s+VON\s+\d+/i.test(z))return z.replace(/^SPIEL\s+(\d+)\s+VON\s+(\d+)/i,(_,n,x)=>v("game",{n,x}));
+ if(/^GAME\s+\d+$/.test(z))return z.replace(/^GAME\s+(\d+)$/,(_,n)=>({en:"MATCH",es:"PARTIDO",fr:"MATCH",it:"PARTITA",pt:"JOGO",nl:"WEDSTRIJD","zh-tw":"比賽"}[l]||"MATCH")+" "+n);
+ if(/^SPIEL\s+\d+$/.test(z))return z.replace(/^SPIEL\s+(\d+)$/,(_,n)=>({en:"MATCH",es:"PARTIDO",fr:"MATCH",it:"PARTITA",pt:"JOGO",nl:"WEDSTRIJD","zh-tw":"比賽"}[l]||"MATCH")+" "+n);
+ if(/^SOON$/.test(z))return ({en:"SOON",es:"PRÓXIMO",fr:"BIENTÔT",it:"A BREVE",pt:"EM BREVE",nl:"BINNENKORT","zh-tw":"即將開始"}[l]||z);
+ if(/^WAITING$/.test(z))return ({en:"WAITING",es:"ESPERANDO",fr:"EN ATTENTE",it:"IN ATTESA",pt:"AGUARDANDO",nl:"WACHTEN","zh-tw":"等待中"}[l]||z);
+
  if(/^Spiel\s+(\d+)\s+beendet!/.test(z))return z.replace(/^Spiel\s+(\d+)\s+beendet!/,(_,n)=>v("saveTitle",{n}));
  if(/^Spiel\s+(\d+):/.test(z))return z.replace(/^Spiel\s+(\d+):/,(_,n)=>({en:"Match",es:"Partido",fr:"Match",it:"Partita",pt:"Jogo",nl:"Wedstrijd","zh-tw":"第"}[l]||"Match")+" "+n+(l==="zh-tw"?" 場：":":"));
  if(/^Nächstes Spiel startet/.test(z))return v("next",{});
  if(/^Nächstes Ereignis/.test(z))return ({en:"Next event in approximately 3–5 seconds…",es:"Siguiente jugada en unos 3–5 segundos…",fr:"Prochaine action dans environ 3 à 5 secondes…",it:"Prossima azione tra circa 3–5 secondi…",pt:"Próximo lance em cerca de 3–5 segundos…",nl:"Volgende gebeurtenis over ongeveer 3–5 seconden…","zh-tw":"約 3–5 秒後出現下一個事件…"}[l]||z);
- if(/^Kurzbericht:/.test(z)){const points=(z.match(/Serienstand:\s*(\d+:\d+)/)||[])[1]||"";return v("summary",{})+": "+(points?v("pointsLead",{})+" "+points+".":"");}
+ if(/^Kurzbericht:/.test(z)){
+ const points=(z.match(/Serienstand:\s*(\d+:\d+)/)||[])[1]||"";
+ const winner=(z.match(/^Kurzbericht:\s*(.*?) gewinnt und erhält/)||[])[1]||"";
+ const draw=/Unentschieden/.test(z);
+ const status=draw?({en:"Draw — both teams earn one series point.",es:"Empate: ambos equipos reciben un punto.",fr:"Match nul : un point pour chaque équipe.",it:"Pareggio: un punto per squadra.",pt:"Empate: um ponto para cada equipe.",nl:"Gelijkspel: elk team krijgt één punt.","zh-tw":"平手，雙方各得 1 分。"}[l]||""):winner?({en:winner+" wins and earns three points.",es:winner+" gana y suma tres puntos.",fr:winner+" gagne et marque trois points.",it:winner+" vince e ottiene tre punti.",pt:winner+" vence e ganha três pontos.",nl:winner+" wint en krijgt drie punten.","zh-tw":winner+" 獲勝，取得 3 分。"}[l]||""):"";
+ return v("summary",{})+": "+status+(points?" "+v("pointsLead",{})+": "+points+".":"");
+}
  if(/^Punktestand ausgeglichen$/.test(z))return ({en:"Level on points",es:"Empate a puntos",fr:"Égalité aux points",it:"Parità di punti",pt:"Empate em pontos",nl:"Gelijk in punten","zh-tw":"積分相同"}[l]||z);
  if(/ führt nach Punkten$/.test(z)){const team=z.replace(/ führt nach Punkten$/,"");return ({en:team+" leads on points",es:team+" lidera por puntos",fr:team+" mène aux points",it:team+" è in vantaggio ai punti",pt:team+" lidera em pontos",nl:team+" leidt op punten","zh-tw":team+" 積分領先"}[l]||z)}
- if(/^TIME CLASH beendet/.test(z)){let score=(z.match(/Serienpunkte\s+(\d+:\d+)/)||[])[1]||"";return v("seriesDone",{})+(score?" · "+v("pointsLead",{})+": "+score:"")}
+ if(/^TIME CLASH beendet/.test(z)){
+ const score=(z.match(/Serienpunkte\s+(\d+:\d+)/)||[])[1]||"";
+ const winner=(z.match(/\s·\s([^·]+?) gewinnt\. Dein Tipp:/)||[])[1]||"";
+ const hit=z.includes("RICHTIG ✓");
+ const result=hit?({en:"Correct prediction",es:"Pronóstico acertado",fr:"Prédiction correcte",it:"Pronostico corretto",pt:"Palpite correto",nl:"Correct voorspeld","zh-tw":"預測正確"}[l]||""):( {en:"Incorrect prediction",es:"Pronóstico incorrecto",fr:"Prédiction incorrecte",it:"Pronostico errato",pt:"Palpite incorreto",nl:"Voorspelling onjuist","zh-tw":"預測未中"}[l]||"");
+ return v("seriesDone",{})+(score?" · "+v("pointsLead",{})+": "+score:"")+(winner?" · "+v("seriesWin",{t:winner}):"")+" · "+result;
+}
  if(/^Serienbericht wird erstellt/.test(z))return ({en:"Creating series report…",es:"Preparando informe de la serie…",fr:"Création du rapport de série…",it:"Preparazione del rapporto della serie…",pt:"Preparando relatório da série…",nl:"Serieverslag wordt opgesteld…","zh-tw":"正在建立系列賽報告…"}[l]||z);
  if(/^Bericht nach Serienende verfügbar/.test(z))return ({en:"Report available after the series",es:"Informe disponible al terminar la serie",fr:"Rapport disponible après la série",it:"Rapporto disponibile al termine della serie",pt:"Relatório disponível após a série",nl:"Verslag beschikbaar na de serie","zh-tw":"系列賽結束後可查看報告"}[l]||z);
  if(/^Bericht erneut versuchen$/.test(z))return ({en:"Retry report",es:"Reintentar informe",fr:"Réessayer le rapport",it:"Riprova il rapporto",pt:"Tentar relatório novamente",nl:"Verslag opnieuw proberen","zh-tw":"重新取得報告"}[l]||z);
