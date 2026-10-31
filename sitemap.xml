@@ -1368,6 +1368,9 @@
   </url>
 
 
+  <!-- TIME CLASH guest start landing: publicly indexable, single canonical URL; language changes are on-page -->
+  <url><loc>https://betinsight.club/time-clash/start/</loc><lastmod>2026-10-31</lastmod></url>
+
   <!-- PUBLIC TIME CLASH SEO URLS START -->
   <url>
     <loc>https://betinsight.club/de/time-clash/</loc>
