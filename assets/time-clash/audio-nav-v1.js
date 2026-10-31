@@ -232,7 +232,7 @@
     if(document.getElementById("biTcEntryLoader"))return;
     var js=document.createElement("script");
     js.id="biTcEntryLoader";
-    js.src="https://betinsight.club/assets/time-clash-entry-guide-v1.js?v=20261031-1";
+    js.src="https://betinsight.club/assets/time-clash-entry-guide-v1.js?v=20261031-4";
     js.async=true;
     document.head.appendChild(js);
     /* Keep legacy heading consistent when the free-entry flow selects one game. */
@@ -257,7 +257,7 @@
   function load(id,url){if(document.getElementById(id))return;var e=document.createElement("script");e.id=id;e.src=url;e.defer=true;document.head.appendChild(e);}
   load("biTcGuestClaimLoader","https://betinsight.club/assets/time-clash-guest-bridge-v1.js?v=20261031-6");
   if(host==="app.betinsight.club"&&/^\/time-clash\/?$/.test(location.pathname))
-    load("biTcAppGuestSaveLoader","https://betinsight.club/assets/time-clash-app-guest-save-v1.js?v=20261031-2");
+    load("biTcAppGuestSaveLoader","https://betinsight.club/assets/time-clash-app-guest-save-v1.js?v=20261031-4");
   if(/^\/(de|en|es|fr|it|pt)\/time-clash\/?$/.test(location.pathname))
-    load("biTcGuestResumeLoader","https://betinsight.club/assets/time-clash-guest-resume-v1.js?v=20261031-2");
+    load("biTcGuestResumeLoader","https://betinsight.club/assets/time-clash-guest-resume-v1.js?v=20261031-4");
 })();
