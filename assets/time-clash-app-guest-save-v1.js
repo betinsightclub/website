@@ -96,7 +96,7 @@ async function restoreLater(){
   const panel=notice(L[5],L[3].replace("{x}",String(x.completed)).replace("{y}",String(x.seriesLen)));
   button(panel,L[6],function(){
     panel.remove();
-    if(signedIn)window.__biClaimedGuestSeries={team_a:x.teamA.name,team_b:x.teamB.name,series_length:x.seriesLen,guest_ref:guestId()};
+    if(signedIn)window.__biClaimedGuestSeries={team_a:x.teamA.name,team_b:x.teamB.name,series_length:x.seriesLen,guest_ref:d.progress.guest_ref||guestId()};
     if(typeof window.tcSetMode==="function")window.tcSetMode("lab");
     restoreActiveSeries();
   });
@@ -115,13 +115,13 @@ function init(){
      const linked=window.__biClaimedGuestSeries;
      if(!linked||payload.team_a!==linked.team_a||payload.team_b!==linked.team_b||
         Number(payload.series_length)!==linked.series_length||
-        payload.guest_ref!==linked.guest_ref)return originalArchive(payload,attempts);
+        !linked.guest_ref)return originalArchive(payload,attempts);
      const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},
-       body:JSON.stringify(Object.assign({},payload,{credential:""}))});
+       body:JSON.stringify(Object.assign({},payload,{guest_ref:linked.guest_ref,credential:""}))});
      const data=await res.json();
      if(!res.ok||!data.report_url)throw new Error(data.error||"archive_failed");
      window.__biClaimedGuestSeries=null;
-     api("clear_guest_progress").catch(function(){});
+     api("clear_guest_progress",{guest_ref:linked.guest_ref}).catch(function(){});
      return data;
    };
  }
