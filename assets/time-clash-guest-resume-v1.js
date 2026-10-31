@@ -60,6 +60,27 @@ function button(where,label,click,important){
  b.addEventListener("click",click);where.appendChild(b);return b;
 }
 function countMessage(o){return T[6].replace("{x}",o.completed).replace("{y}",o.seriesLen);}
+var SOFT={
+de:["Spiel {x} abgeschlossen!","Möchtest du deinen bisherigen Spielstand unter deinem Namen speichern? Das geht kostenlos mit einem BetInsight-Profil. Die Serie läuft automatisch weiter.","Kostenlos unter meinem Namen sichern","Später"],
+en:["Match {x} complete!","Want to save your progress under your name? Create a free BetInsight profile. The series continues automatically.","Save under my name for free","Later"],
+es:["¡Partido {x} terminado!","¿Quieres guardar tu progreso a tu nombre? Crea un perfil gratuito. La serie continúa automáticamente.","Guardar gratis a mi nombre","Más tarde"],
+fr:["Match {x} terminé !","Tu souhaites enregistrer les résultats à ton nom ? Crée un profil gratuit. La série continue automatiquement.","Enregistrer à mon nom gratuitement","Plus tard"],
+it:["Partita {x} conclusa!","Vuoi salvare i risultati a tuo nome? Crea un profilo gratuito. La serie continua automaticamente.","Salva gratis a mio nome","Più tardi"],
+pt:["Jogo {x} concluído!","Quer salvar os resultados no seu nome? Crie um perfil grátis. A série continua automaticamente.","Salvar grátis no meu nome","Depois"]
+}[lang];
+function removeSoft(){document.getElementById("biTcGuestSoftPrompt")?.remove()}
+function showSoft(){
+ if(ownerRef())return;
+ removeSoft();
+ var panel=document.createElement("aside");panel.id="biTcGuestSoftPrompt";
+ panel.style.cssText="position:fixed;right:16px;bottom:16px;z-index:76;max-width:320px;width:calc(100% - 32px);background:#092738ec;border:1px solid #6abfd7;border-radius:13px;padding:14px;box-shadow:0 12px 28px #0009;color:#f4fbff;font:13px/1.4 system-ui";
+ var h=document.createElement("strong");h.textContent=SOFT[0].replace("{x}",String(g));h.style.cssText="display:block;font-size:15px;color:#ffda8a";
+ var p=document.createElement("p");p.textContent=SOFT[1];p.style.cssText="margin:7px 0 10px;color:#cfe9f3";
+ panel.append(h,p);
+ button(panel,SOFT[2],function(){removeSoft();guest();registration();},true);
+ button(panel,SOFT[3],removeSoft,false);
+ document.body.appendChild(panel);
+}
 function checkpoint(){
  if(!!ownerRef()||!g||g>=seriesLen||seriesLen<3||!["nation","club"].includes(kindAActive)||!["nation","club"].includes(kindBActive))return;
  var o=make();localWrite(o);
@@ -113,13 +134,15 @@ function resume(o){
 function onReady(){
  if(typeof finishGame!=="function"||typeof finishSeries!=="function"||typeof beginGame!=="function"||typeof guestRef!=="function")return;
  guest();
- var oldFinish=finishGame,oldSeries=finishSeries;
+ var oldFinish=finishGame,oldSeries=finishSeries,oldBegin=beginGame;
+ beginGame=function(){removeSoft();return oldBegin();};
  finishGame=function(){
    oldFinish();
    // After the first/second game: save silently, keep the engine's next-game timer.
-   if(g>0&&g<seriesLen&&!ownerRef())checkpoint();
+   if(g>0&&g<seriesLen&&!ownerRef()){checkpoint();showSoft();}
  };
  finishSeries=function(){
+   removeSoft();
    oldSeries();
    if(ownerRef())return;
    // Only offer profile storage once Supabase archive succeeded and the URL is ready.
