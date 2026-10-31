@@ -37,7 +37,7 @@ async function api(action,data){
  const d=await res.json();if(!res.ok||d.ok!==true)throw Error(d.error||"request_failed");return d;
 }
 function snapshot(){
- return {v:1,savedAt:Date.now(),completed:g,seriesLen,teamA:TA,teamB:TB,pick,games:JSON.parse(JSON.stringify(games)),
+ return {v:1,origin:"app",savedAt:Date.now(),completed:g,seriesLen,teamA:TA,teamB:TB,pick,games:JSON.parse(JSON.stringify(games)),
  kindA:kindAActive,kindB:kindBActive,scoreA:serA,scoreB:serB,selectedStartStadium,
  chosenA,chosenB};
 }
@@ -80,20 +80,26 @@ function canRestore(x){
  return x&&x.v===1&&[3,5,10].includes(x.seriesLen)&&x.completed>=1&&x.completed<x.seriesLen&&Array.isArray(x.games)&&x.games.length===x.seriesLen;
 }
 async function restoreLater(){
- if(ownerRef())return;
+ const signedIn=!!ownerRef();
  try{
-  const d=await api("get_guest_progress");
+  const d=signedIn?await api("load_member_progress",{credential:ownerRef()}):await api("get_guest_progress");
   const x=d.progress?.snapshot;
   if(!canRestore(x))return;
+  if(signedIn&&x.origin!=="app")return;
   const current=JSON.parse(localStorage.getItem(SERIES)||"null");
   if(current&&Number(current.g)>=x.completed&&Date.now()-Number(current.saved_at||0)<1000*60*60*24)return;
   localStorage.setItem(SERIES,JSON.stringify({
-   saved_at:Date.now(),owner:guestId(),TA:x.teamA,TB:x.teamB,kindAActive:x.kindA,kindBActive:x.kindB,
+   saved_at:Date.now(),owner:signedIn?ownerRef():guestId(),TA:x.teamA,TB:x.teamB,kindAActive:x.kindA,kindBActive:x.kindB,
    activeMode:"public",seriesLen:x.seriesLen,selectedStartStadium:x.selectedStartStadium||"",
    pick:x.pick,g:x.completed,serA:x.scoreA,serB:x.scoreB,games:x.games,chosenA:true,chosenB:true,fast:false
   }));
   const panel=notice(L[5],L[3].replace("{x}",String(x.completed)).replace("{y}",String(x.seriesLen)));
-  button(panel,L[6],function(){panel.remove();if(typeof window.tcSetMode==="function")window.tcSetMode("lab");restoreActiveSeries();});
+  button(panel,L[6],function(){
+    panel.remove();
+    if(signedIn)window.__biClaimedGuestSeries={team_a:x.teamA.name,team_b:x.teamB.name,series_length:x.seriesLen,guest_ref:guestId()};
+    if(typeof window.tcSetMode==="function")window.tcSetMode("lab");
+    restoreActiveSeries();
+  });
  }catch(_){}
 }
 function init(){
@@ -101,6 +107,43 @@ function init(){
  guestId();
  const old=finishGame;
  finishGame=function(){old();afterGame();};
+ // A previously claimed GUEST series keeps its historical ownership and never
+ // consumes another token or creates new member rewards when it is resumed.
+ if(typeof sendReportArchive==="function"){
+   const originalArchive=sendReportArchive;
+   sendReportArchive=async function(payload,attempts){
+     const linked=window.__biClaimedGuestSeries;
+     if(!linked||payload.team_a!==linked.team_a||payload.team_b!==linked.team_b||
+        Number(payload.series_length)!==linked.series_length||
+        payload.guest_ref!==linked.guest_ref)return originalArchive(payload,attempts);
+     const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},
+       body:JSON.stringify(Object.assign({},payload,{credential:""}))});
+     const data=await res.json();
+     if(!res.ok||!data.report_url)throw new Error(data.error||"archive_failed");
+     window.__biClaimedGuestSeries=null;
+     api("clear_guest_progress").catch(function(){});
+     return data;
+   };
+ }
+ if(typeof finishSeries==="function"){
+   const originalSeries=finishSeries;
+   finishSeries=function(){
+     const linked=window.__biClaimedGuestSeries;
+     if(!linked)return originalSeries();
+     const prev={points:matchPoints,played:played,correct:correct,streak:streak};
+     originalSeries();
+     matchPoints=prev.points;played=prev.played;correct=prev.correct;streak=prev.streak;
+     try{
+       localStorage.setItem("biMatchPoints",String(matchPoints));
+       localStorage.setItem("biMatchPlayed",String(played));
+       localStorage.setItem("biMatchCorrect",String(correct));
+       localStorage.setItem("biMatchStreak",String(streak));
+     }catch(_){}
+     showPoints();
+     var label=document.getElementById("next");
+     if(label)label.textContent="Gastserie abgeschlossen – dem Konto zugeordnet; keine zusätzliche Punkte- oder Unit-Gutschrift.";
+   };
+ }
  restoreLater();
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
