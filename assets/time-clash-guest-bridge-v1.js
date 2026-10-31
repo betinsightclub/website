@@ -119,7 +119,7 @@
   async function inspectGuest() {
     var guest=getValidGuest(),cred=credential();
     if(!guest||!cred)return;
-    try{if(sessionStorage.getItem("bi_tc_claim_handled_"+guest)==="1")return;}catch(e){}
+    // Recheck for newly completed series even if a previous claim succeeded.
     try{
       var res=await fetch(REPORT_API,{method:"POST",mode:"cors",cache:"no-store",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"inspect_guest",credential:cred,guest_ref:guest})});
       if(!res.ok)return;
