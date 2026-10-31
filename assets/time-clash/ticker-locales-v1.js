@@ -62,9 +62,9 @@ function translateGame(game,l,A,B,idx){
  return game;
 }
 function translateDecision(dec,l,A,B,count,score){
- if(!dec||l==="de"||dec.__localized===l)return dec;
+ if(!dec||l==="de")return dec;
  for(const e of dec.events||[])e.msg=event(e,l,A,B,count,{idx:count-1,score,extra:String(dec.extra_a||0)+":"+String(dec.extra_b||0),winner:dec.winner,penalties:String(dec.penalties_a||0)+":"+String(dec.penalties_b||0)});
- dec.__localized=l;return dec;
+ return dec;
 }
 function uiText(s,l){
  if(l==="de"||!s)return s;
