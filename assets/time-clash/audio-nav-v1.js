@@ -224,3 +224,16 @@
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded",init,{once:true});
   else init();
 })();
+/* Optional quick-start: requested exclusively by the new public landing page.
+   No changes to music, existing TIME CLASH links or ordinary navigation. */
+(function(){
+  try{
+    if(new URLSearchParams(location.search).get("entry")!=="free")return;
+    if(document.getElementById("biTcEntryLoader"))return;
+    var js=document.createElement("script");
+    js.id="biTcEntryLoader";
+    js.src="https://betinsight.club/assets/time-clash-entry-guide-v1.js?v=20261031-1";
+    js.async=true;
+    document.head.appendChild(js);
+  }catch(_){}
+})();
