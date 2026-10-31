@@ -18,6 +18,11 @@ pt:["Salvar progresso","Progresso salvo","Continuar","Retomar série","Continuar
 var guestPattern=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 function guest(){
  var id="";try{id=localStorage.getItem(GUEST)||"";}catch(_){}
+ if(!guestPattern.test(id)){
+   var cookie=document.cookie.match(/(?:^|; )bi_time_clash_guest=([^;]+)/);
+   if(cookie){try{id=decodeURIComponent(cookie[1]);}catch(_){}}
+   if(guestPattern.test(id)){try{localStorage.setItem(GUEST,id);}catch(_){}}
+ }
  if(!guestPattern.test(id)){try{id=guestRef();}catch(_){}}
  if(guestPattern.test(id))document.cookie=GUEST+"="+encodeURIComponent(id)+"; Max-Age=7776000; Path=/; Domain=.betinsight.club; SameSite=Lax; Secure";
  return guestPattern.test(id)?id:"";
@@ -149,6 +154,18 @@ function onReady(){
  };
  var saved=localRead();
  if(saved&&!ownerRef())setTimeout(function(){showPaused(saved,true);},450);
+ else if(!saved&&!ownerRef()){
+   // Recover from Supabase when this browser still has the guest cookie but localStorage is empty.
+   post("get_guest_progress").then(function(d){
+      if(!d.progress||!d.progress.snapshot)return;
+      var remote=d.progress.snapshot;
+      if(remote&&remote.v===1&&remote.completed>0&&remote.completed<remote.seriesLen){
+        remote.savedAt=Date.now();
+        localWrite(remote);
+        showPaused(remote,true);
+      }
+   }).catch(function(){});
+ }
  // Intercept START after a saved checkpoint is present: never charge another guest game for resume.
  document.addEventListener("click",function(e){
    var target=e.target.closest?.("#start");
