@@ -138,7 +138,11 @@ function showSoft(){
  box.style.cssText="position:fixed;right:14px;bottom:14px;z-index:99996;max-width:320px;width:calc(100% - 28px);padding:14px;background:#09283bed;color:#fff;border:1px solid #78c9e0;border-radius:12px;box-shadow:0 12px 30px #000a;font:13px/1.4 system-ui";
  var h=document.createElement("b");h.textContent=copy[0].replace("{n}",String(g));h.style.cssText="display:block;color:#ffdc89;font-size:15px";
  var p=document.createElement("p");p.textContent=copy[1];p.style.cssText="margin:8px 0";box.append(h,p);
- button(box,copy[2],function(){removeSoft();register()});
+ button(box,copy[2],async function(){
+ this.disabled=true;
+ try{await backup();removeSoft();register();}
+ catch(_){this.disabled=false;this.textContent=L[7];}
+});
  button(box,copy[3],removeSoft);
  document.body.appendChild(box);
 }
