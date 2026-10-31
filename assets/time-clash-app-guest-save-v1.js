@@ -199,6 +199,17 @@ async function restoreLater(){
 function init(){
  if(typeof finishGame!=="function"||typeof saveActiveSeries!=="function")return;
  guestId();
+ if(!ownerRef()){
+   const label={de:"1 Spiel",en:"1 match",es:"1 partido",fr:"1 match",it:"1 partita",pt:"1 jogo",nl:"1 wedstrijd","zh-tw":"1 場比賽"}[locale]||"1 match";
+   document.querySelectorAll(".biGuestOneLen").forEach(function(b){
+     b.hidden=false;
+     if(b.closest(".tcInlineLength"))b.textContent="1";else b.textContent=label;
+   });
+   // Default to one match for new guests; they can freely choose 3, 5 or 10.
+   if(!localStorage.getItem(SERIES)){
+     document.querySelector('.lengthpick .biGuestOneLen')?.click();
+   }
+ }
  updateFreeBalance();
  const originalBegin=beginGame;
  beginGame=function(){removeSoft();return originalBegin();};
