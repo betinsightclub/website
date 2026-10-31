@@ -47,7 +47,7 @@
     if(!/^[a-z0-9-]{4,140}$/.test(slug))return "";
     return "https://betinsight.club/"+lang+"/time-clash/bericht/?clash="+encodeURIComponent(slug);
   }
-  function showClaim(guest,cred,available) {
+  function showClaim(guest,cred,available,hasProgress) {
     if(document.getElementById("biTcGuestClaim"))return;
     var panel=document.createElement("aside");
     panel.id="biTcGuestClaim";
@@ -61,7 +61,7 @@
     var heading=document.createElement("strong");heading.textContent="Deine Gastspiele übernehmen";
     heading.style.cssText="display:block;font-size:17px;padding-right:25px;margin-bottom:7px";
     var body=document.createElement("p");
-    body.textContent=available+" abgeschlossene Gastserie"+(available===1?"":"n")+" aus diesem Browser gefunden. Möchtest du sie deinem BetInsight-Konto zuordnen? Keine zusätzliche Unit- oder Punktgutschrift.";
+    body.textContent=available+" abgeschlossene Gastserie"+(available===1?"":"n")+" aus diesem Browser"+(hasProgress?" und ein gespeicherter Zwischenstand":"")+" gefunden. Möchtest du sie deinem Konto zuordnen? Keine zusätzliche Unit- oder Punktgutschrift.";
     body.style.cssText="margin:0 0 12px;color:#c3dce8";
     var action=document.createElement("button");
     action.type="button";action.textContent="Jetzt meinem Profil zuordnen";
@@ -80,6 +80,13 @@
         var n=Number(data.claimed||0);
         status.textContent=n>0?n+" Gastserie"+(n===1?" wurde":"n wurden")+" deinem Konto zugeordnet.":"Keine neuen Gastberichte zu übernehmen.";
         action.remove();
+        if(data.saved_progress){
+          var next=document.createElement("a");
+          next.href="https://betinsight.club/de/time-clash/?entry=free";
+          next.textContent="Gespeicherte Serie fortsetzen";
+          next.style.cssText="display:block;margin-top:9px;color:#9fe7ff;text-decoration:underline";
+          status.appendChild(next);
+        }
         try{sessionStorage.setItem("bi_tc_claim_handled_"+guest,"1");}catch(e){}
         (Array.isArray(data.reports)?data.reports:[]).slice(0,5).forEach(function(r){
           var href=reportLink(r);
@@ -103,7 +110,7 @@
       var res=await fetch(REPORT_API,{method:"POST",mode:"cors",cache:"no-store",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"inspect_guest",credential:cred,guest_ref:guest})});
       if(!res.ok)return;
       var d=await res.json();
-      if(d.ok===true&&Number(d.available)>0)showClaim(guest,cred,Number(d.available));
+      if(d.ok===true&&(Number(d.available)>0||d.saved_progress===true))showClaim(guest,cred,Number(d.available),d.saved_progress===true);
     }catch(e){}
   }
   function ready(){
