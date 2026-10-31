@@ -1,5 +1,5 @@
 /* TIME CLASH guest continuity v1: only public TIME CLASH browser play.
- * Saves a checkpoint after game 1/2 of a paid guest series; never consumes credit on resume.
+ * Saves a checkpoint silently after game 1/2; never interrupts the series.
  * Finished series remain archived by the unchanged time-clash-report endpoint.
  */
 (function(){
@@ -63,9 +63,8 @@ function countMessage(o){return T[6].replace("{x}",o.completed).replace("{y}",o.
 function checkpoint(){
  if(!!ownerRef()||!g||g>=seriesLen||seriesLen<3||!["nation","club"].includes(kindAActive)||!["nation","club"].includes(kindBActive))return;
  var o=make();localWrite(o);
- // Saving is also attempted automatically at each completed match, then explicitly on request.
+ // Silent background checkpoint: do NOT interrupt the six-second transition.
  post("save_guest_progress",{snapshot:o,completed_games:o.completed,series_length:o.seriesLen}).catch(function(){});
- showPaused(o,false);
 }
 function showPaused(o,returned){
  var b=status(returned?T[3]:T[0],returned?T[9].replace("{x}",o.completed).replace("{y}",o.seriesLen):countMessage(o));
@@ -117,40 +116,37 @@ function onReady(){
  var oldFinish=finishGame,oldSeries=finishSeries;
  finishGame=function(){
    oldFinish();
-   if(g>0&&g<seriesLen&&!ownerRef()){
-     clearTimeout(timer);
-     running=false;
-     checkpoint();
-   }
+   // After the first/second game: save silently, keep the engine's next-game timer.
+   if(g>0&&g<seriesLen&&!ownerRef())checkpoint();
  };
  finishSeries=function(){
    oldSeries();
    if(ownerRef())return;
-   var b=status(T[0],T[7]);
-   button(b,T[0],function(){
-      guest();
-      var link=document.getElementById("reportLink");
-      if(!link||link.getAttribute("href")==="#"||!link.href.includes("/time-clash/bericht/")){
-         document.getElementById("biGuestSaveDetail").textContent=T[11];return;
-      }
-      this.disabled=true;this.textContent=T[1];
-   },true);
-   button(b,T[5],function(){
-     guest();
+   // Only offer profile storage once Supabase archive succeeded and the URL is ready.
+   // If archiving fails, leave the existing retry flow intact; never claim saved.
+   var attempts=0;
+   var watcher=setInterval(function(){
      var link=document.getElementById("reportLink");
-     if(!link||!link.href.includes("/time-clash/bericht/")){
-       document.getElementById("biGuestSaveDetail").textContent=T[11];return;
+     var href=link&&link.getAttribute("href");
+     if(!href||href==="#"||!href.includes("/time-clash/bericht/")){
+       if(++attempts>=90)clearInterval(watcher);
+       return;
      }
-     registration();
-   },false);
-   // Do not erase a last-good partial checkpoint until the completed archive has a link.
-   var watch=setInterval(function(){
-      var link=document.getElementById("reportLink");
-      if(link&&link.href.includes("/time-clash/bericht/")){
-        clearInterval(watch);localClear();post("clear_guest_progress").catch(function(){});
-      }
-   },800);
-   setTimeout(function(){clearInterval(watch);},25000);
+     clearInterval(watcher);
+     localClear();
+     post("clear_guest_progress").catch(function(){});
+     var b=status(
+       lang==="de"?"Deine Serie ist abgeschlossen!":T[1],
+       lang==="de"?"Der Spielbericht wurde gespeichert. Du kannst ihn jetzt ansehen oder deine Ergebnisse durch kostenlose Registrierung dauerhaft deinem Profil zuordnen.":T[7]
+     );
+     button(b,lang==="de"?"Bericht ansehen":T[1],function(){
+       window.open(link.href,"_blank","noopener,noreferrer");
+     },true);
+     button(b,T[5],function(){guest();registration();},false);
+     button(b,lang==="de"?"Schließen":T[2],function(){
+       document.getElementById("biGuestCheckpoint")?.remove();
+     },false);
+   },350);
  };
  var saved=localRead();
  if(saved&&!ownerRef())setTimeout(function(){showPaused(saved,true);},450);
