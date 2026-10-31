@@ -21,6 +21,8 @@
     "zh-tw":{title:"TIME CLASH 快速入門",intro:"無須註冊。選擇兩支真實或歷史球隊，立即展開你的對戰。",steps:["1. 選擇兩支球隊","2. 選出你看好的勝方","3. 開始模擬並查看賽事報告"],remaining:"還剩 {n}／3 場免費訪客比賽",registered:"你已登入。選好球隊即可開始。",one:"已為首次體驗選擇單場比賽。",multi:"請先選擇最短的系列賽。",next:"繼續選擇勝方並開賽 ↓",back:"↑ 更換球隊",used:"你已用完三場免費訪客比賽。免費註冊後可繼續遊玩。",here:"選擇球隊",hint:"音樂、統計、社群及所有其他功能都會保留。"}
   };
   var T=i18n[lang]||i18n.de;
+  var SERIES_WORDS={"de":["Noch {n} von 3 kostenlosen Serien","Deine 3 kostenlosen Serien sind verbraucht. Registriere dich kostenlos für weitere Durchgänge."],"en":["{n} of 3 free series remain","Your 3 free series are used. Register free to play more."],"es":["Te quedan {n} de 3 series gratuitas","Has utilizado tus 3 series gratuitas. Regístrate para continuar."],"fr":["Encore {n} séries gratuites sur 3","Tes 3 séries gratuites sont épuisées. Inscris-toi gratuitement."],"it":["Restano {n} serie gratuite su 3","Hai usato le tue 3 serie gratuite. Registrati per continuare."],"pt":["Restam {n} de 3 séries grátis","Você usou suas 3 séries grátis. Cadastre-se para continuar."],"nl":["Nog {n} van 3 gratis reeksen","Je 3 gratis reeksen zijn gebruikt. Registreer je gratis."],"zh-tw":["剩餘 {n}／3 次免費系列賽","你已用完 3 次免費系列賽。免費註冊後可繼續遊玩。"]};
+  T.remaining=SERIES_WORDS[lang][0];T.used=SERIES_WORDS[lang][1];
   function el(tag,cls,text){
     var n=document.createElement(tag);
     if(cls)n.className=cls;
