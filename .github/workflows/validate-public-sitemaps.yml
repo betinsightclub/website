@@ -52,6 +52,7 @@ jobs:
               *(f"https://betinsight.club/{language}/time-clash/" for language in ("de","en","es","pt","it","fr")),
               "https://betinsight.club/de/time-clash/italien-2006-vs-spanien-2026/",
               "https://betinsight.club/play/",
+              "https://betinsight.club/time-clash/start/",
           }
           assert set(mini) == expected, "Unexpected mini-sitemap contents"
           assert expected <= main, "TIME CLASH URL missing from main sitemap"
