@@ -72,7 +72,7 @@
       guide.appendChild(el("p","",T.one));
       var buttons=chooser.querySelectorAll(".lengthpick [data-len]");
       buttons.forEach(function(btn){
-        if(Number(btn.dataset.len)>remaining) {
+        if(remaining<1) {
           btn.disabled=true;btn.setAttribute("aria-disabled","true");btn.style.opacity=".45";btn.style.cursor="not-allowed";
         }
       });
