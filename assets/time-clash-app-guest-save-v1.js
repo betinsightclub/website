@@ -18,6 +18,66 @@ nl:["Spelstand opslaan","Opgeslagen – later verder spelen","Volgende wedstrijd
 "zh-tw":["儲存進度","已儲存，稍後可以繼續","下一場比賽","已完成 {x}／{y} 場比賽。","註冊並連結賽事結果","找到已儲存的系列賽。要繼續嗎？","繼續","無法線上儲存，本機瀏覽器仍保有進度。"]
 };
 const L=I[locale]||I.de;
+const GUEST_SERIES_KEY="bi_time_clash_guest_series_used_v2";
+const FREE_TOTAL=3;
+const FREE_COPY={
+de:["Deine 3 kostenlosen Serien sind aufgebraucht. Registriere dich kostenlos für weitere Durchgänge.","Gastzugang konnte nicht geprüft werden. Bitte erneut versuchen.","Kostenlose Gastserien: {n} von 3 übrig"],
+en:["Your 3 free series are used. Register free to continue.","Cannot verify free access. Please retry.","Free guest series: {n} of 3 left"],
+es:["Tus 3 series gratuitas se han agotado. Regístrate gratis.","No se pudo verificar el acceso. Inténtalo de nuevo.","Series gratis: {n} de 3"],
+fr:["Vos 3 séries gratuites sont épuisées. Inscrivez-vous gratuitement.","Impossible de vérifier l'accès. Réessayez.","Séries gratuites : {n} sur 3 restantes"],
+it:["Le 3 serie gratuite sono terminate. Registrati gratis.","Impossibile verificare l'accesso. Riprova.","Serie gratis: {n} su 3"],
+pt:["As 3 séries grátis acabaram. Cadastre-se gratuitamente.","Não foi possível verificar o acesso gratuito. Tente novamente.","Séries grátis: {n} de 3 restantes"],
+nl:["Je 3 gratis reeksen zijn gebruikt. Registreer je gratis.","Kan je gratis toegang niet controleren. Probeer opnieuw.","Gratis reeksen: nog {n} van 3"],
+"zh-tw":["你已用完 3 次免費系列賽。免費註冊後可繼續遊玩。","無法確認免費遊玩資格，請重試。","免費系列賽：剩餘 {n}／3 次"]
+};
+const FREE_WORDS=FREE_COPY[locale]||FREE_COPY.de;
+function seriesUsed(){
+ var local=0,cookie=0;
+ try{local=Number(localStorage.getItem(GUEST_SERIES_KEY)||0)||0;}catch(_){}
+ var m=document.cookie.match(/(?:^|; )bi_time_clash_guest_series_used_v2=([^;]+)/);
+ if(m)cookie=Number(m[1])||0;
+ return Math.min(FREE_TOTAL,Math.max(0,local,cookie))
+}
+function recordSeriesUsed(n){
+ n=Math.min(FREE_TOTAL,Math.max(0,Number(n)||0));
+ try{localStorage.setItem(GUEST_SERIES_KEY,String(n));}catch(_){}
+ document.cookie=GUEST_SERIES_KEY+"="+n+"; Max-Age=31536000; Path=/; Domain=.betinsight.club; SameSite=Lax; Secure";
+ updateFreeBalance();
+}
+function updateFreeBalance(){
+ var el=document.getElementById("biTcGuestSeriesNotice");
+ if(!el&&typeof ownerRef==="function"&&!ownerRef()){
+   var parent=document.querySelector(".chooser")||document.querySelector(".tcUxHub");
+   if(parent){
+     el=document.createElement("p");el.id="biTcGuestSeriesNotice";
+     el.style.cssText="background:#0d3446;border:1px solid #417f91;color:#c9f4fc;border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:800";
+     parent.prepend(el);
+   }
+ }
+ if(el)el.textContent=FREE_WORDS[2].replace("{n}",String(FREE_TOTAL-seriesUsed()));
+}
+window.biTimeClashGuestConsume=async function(length){
+ if(typeof ownerRef==="function"&&ownerRef())return true;
+ if(![1,3,5,10].includes(Number(length)))return false;
+ if(seriesUsed()>=FREE_TOTAL){document.getElementById("next").textContent=FREE_WORDS[0];return false}
+ var id=guestId(),pending=null;
+ try{pending=JSON.parse(sessionStorage.getItem("bi_tc_guest_start_v2")||"null")}catch(_){}
+ if(!pending||pending.guest_ref!==id||pending.series_length!==length||Date.now()-pending.created>180000){
+  pending={guest_ref:id,series_length:length,start_ref:crypto.randomUUID(),created:Date.now()};
+  try{sessionStorage.setItem("bi_tc_guest_start_v2",JSON.stringify(pending))}catch(_){}
+ }
+ try{
+   var d=await api("consume_guest_start",{start_ref:pending.start_ref,series_length:length});
+   recordSeriesUsed(Math.max(seriesUsed(),FREE_TOTAL-Number(d.remaining)));
+   try{sessionStorage.removeItem("bi_tc_guest_start_v2")}catch(_){}
+   return true;
+ }catch(e){
+   if(String(e.message).includes("guest_limit_reached"))recordSeriesUsed(FREE_TOTAL);
+   document.getElementById("next").textContent=String(e.message).includes("guest_limit_reached")?FREE_WORDS[0]:FREE_WORDS[1];
+   return false;
+ }
+};
+
 function guestId(){
  const found=document.cookie.match(/(?:^|; )bi_time_clash_guest=([^;]+)/);
  let v="";
@@ -115,6 +175,7 @@ async function restoreLater(){
 function init(){
  if(typeof finishGame!=="function"||typeof saveActiveSeries!=="function")return;
  guestId();
+ updateFreeBalance();
  const old=finishGame;
  finishGame=function(){old();afterGame();};
  // Offer to save/link the result only after a confirmed Supabase archive.
