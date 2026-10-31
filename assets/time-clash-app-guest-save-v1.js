@@ -61,20 +61,30 @@ function register(){
  location.href=a?.href||"https://betinsight.systeme.io/registrierung?ref=POOL";
 }
 function afterGame(){
+ // Keep the 6-second automatic transition intact; no interruption after game 1/2.
  if(ownerRef()||g<1||g>=seriesLen)return;
- clearTimeout(timer);
- running=false;
- const details=L[3].replace("{x}",String(g)).replace("{y}",String(seriesLen));
- let box=notice(L[0],details);
- button(box,L[0],async function(){
-  saveActiveSeries();
-  this.disabled=true;
-  try{await backup();this.textContent=L[1];}catch(_){this.textContent=L[7];this.disabled=false;}
- });
- button(box,L[2],function(){box.remove();beginGame();});
- button(box,L[4],register);
- // Automatic server backup also survives closing the tab without pressing Save.
  backup().catch(function(){});
+}
+function afterArchivedReport(){
+ if(ownerRef())return;
+ var link=document.getElementById("reportLink");
+ var href=link&&link.getAttribute("href");
+ if(!href||href==="#"||!href.includes("/time-clash/bericht/"))return;
+ api("clear_guest_progress").catch(function(){});
+ var names={
+ de:["Serie abgeschlossen – Bericht gespeichert!","Dein vollständiger Spielbericht wurde gesichert. Möchtest du ihn ansehen oder die Ergebnisse über eine kostenlose Registrierung deinem Profil zuordnen?","Bericht ansehen","Kostenlos registrieren und Ergebnisse übernehmen","Schließen"],
+ en:["Series finished – report saved!","Your match report is saved. View it or register free to link the results to your profile.","View report","Register free and claim results","Close"],
+ es:["Serie terminada – informe guardado","Tu informe está guardado. Puedes verlo o registrarte gratis para vincularlo a tu perfil.","Ver informe","Registro gratis y vincular resultados","Cerrar"],
+ fr:["Série terminée – rapport enregistré","Votre rapport est enregistré. Consultez-le ou inscrivez-vous gratuitement pour le lier à votre profil.","Voir le rapport","S'inscrire et récupérer les résultats","Fermer"],
+ it:["Serie terminata – rapporto salvato","Il rapporto è stato salvato. Aprilo o registrati gratis per collegare i risultati al profilo.","Apri rapporto","Registrati e collega i risultati","Chiudi"],
+ pt:["Série concluída – relatório salvo","O relatório foi salvo. Veja os resultados ou cadastre-se grátis para vinculá-los ao seu perfil.","Ver relatório","Cadastrar grátis e vincular resultados","Fechar"],
+ nl:["Reeks voltooid – verslag opgeslagen","Je wedstrijdverslag is opgeslagen. Bekijk het of registreer je gratis om de uitslag aan je profiel te koppelen.","Verslag bekijken","Gratis registreren en resultaten koppelen","Sluiten"],
+ "zh-tw":["系列賽結束－報告已儲存","賽事報告已儲存。你可以查看報告，或免費註冊以將結果連結到個人檔案。","查看報告","免費註冊並連結結果","關閉"]
+ };
+ var labels=names[locale]||names.de,box=notice(labels[0],labels[1]);
+ button(box,labels[2],function(){window.open(link.href,"_blank","noopener,noreferrer");});
+ button(box,labels[3],register);
+ button(box,labels[4],function(){box.remove();});
 }
 function canRestore(x){
  return x&&x.v===1&&[3,5,10].includes(x.seriesLen)&&x.completed>=1&&x.completed<x.seriesLen&&Array.isArray(x.games)&&x.games.length===x.seriesLen;
@@ -107,6 +117,14 @@ function init(){
  guestId();
  const old=finishGame;
  finishGame=function(){old();afterGame();};
+ // Offer to save/link the result only after a confirmed Supabase archive.
+ if(typeof applyReportArchiveUi==="function"){
+   const originalUi=applyReportArchiveUi;
+   applyReportArchiveUi=function(data){
+     originalUi(data);
+     if(data?.report_url&&!ownerRef())afterArchivedReport();
+   };
+ }
  // A previously claimed GUEST series keeps its historical ownership and never
  // consumes another token or creates new member rewards when it is resumed.
  if(typeof sendReportArchive==="function"){
