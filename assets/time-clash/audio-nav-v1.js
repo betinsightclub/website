@@ -235,5 +235,17 @@
     js.src="https://betinsight.club/assets/time-clash-entry-guide-v1.js?v=20261031-1";
     js.async=true;
     document.head.appendChild(js);
+    /* Keep legacy heading consistent when the free-entry flow selects one game. */
+    var oneWords={de:"EIN SPIEL. EIN SIEGER.",en:"ONE MATCH. ONE WINNER.",es:"UN PARTIDO. UN GANADOR.",fr:"UN MATCH. UN VAINQUEUR.",it:"UNA PARTITA. UN VINCITORE.",pt:"UM JOGO. UM VENCEDOR.",nl:"ÉÉN WEDSTRIJD. ÉÉN WINNAAR.","zh-tw":"一場比賽，一位勝方。"};
+    function syncOne(){
+      var first=document.querySelector('.lengthpick [data-len="1"].sel');
+      var h=document.getElementById("heroClaim");
+      var loc=new URLSearchParams(location.search).get("lang")||location.pathname.split("/")[1]||"de";
+      if(first&&h)h.textContent=oneWords[loc]||oneWords.de;
+    }
+    document.addEventListener("click",function(e){
+      if(e.target.closest&&e.target.closest('.lengthpick [data-len="1"]'))setTimeout(syncOne,25);
+    });
+    setTimeout(syncOne,1200);
   }catch(_){}
 })();
