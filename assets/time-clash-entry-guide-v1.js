@@ -34,8 +34,8 @@
   }
   function getRemaining(){
     var used=0;
-    try{used=Number(localStorage.getItem("bi_time_clash_guest_games_used")||0)||0;}catch(_){}
-    var m=document.cookie.match(/(?:^|; )bi_time_clash_guest_games_used=([^;]+)/);
+    try{used=Number(localStorage.getItem("bi_time_clash_guest_series_used_v2")||0)||0;}catch(_){}
+    var m=document.cookie.match(/(?:^|; )bi_time_clash_guest_series_used_v2=([^;]+)/);
     if(m)used=Math.max(used,Number(m[1])||0);
     return Math.max(0,3-Math.min(3,Math.max(0,used)));
   }
