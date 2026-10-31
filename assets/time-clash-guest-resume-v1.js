@@ -77,7 +77,18 @@ function showSoft(){
  var h=document.createElement("strong");h.textContent=SOFT[0].replace("{x}",String(g));h.style.cssText="display:block;font-size:15px;color:#ffda8a";
  var p=document.createElement("p");p.textContent=SOFT[1];p.style.cssText="margin:7px 0 10px;color:#cfe9f3";
  panel.append(h,p);
- button(panel,SOFT[2],function(){removeSoft();guest();registration();},true);
+ button(panel,SOFT[2],async function(){
+ this.disabled=true;
+ var checkpoint=localRead();
+ try{
+  if(!checkpoint)throw new Error("checkpoint_not_ready");
+  await post("save_guest_progress",{snapshot:checkpoint,completed_games:checkpoint.completed,series_length:checkpoint.seriesLen});
+  removeSoft();guest();registration();
+ }catch(_){
+  this.disabled=false;
+  this.textContent=T[8];
+ }
+},true);
  button(panel,SOFT[3],removeSoft,false);
  document.body.appendChild(panel);
 }
