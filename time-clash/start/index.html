@@ -73,7 +73,7 @@ var cookie=document.cookie.match(/(?:^|; )bi_time_clash_guest_games_used=([^;]+)
 if(cookie)used=Math.max(used,Number(cookie[1])||0);
 used=Math.max(0,Math.min(3,used));
 if(used>0)setText("guestStatus",t.guestCount.replace("{n}",String(3-used)));
-var play= (v==="nl"||v==="zh-tw")?withParams("https://app.betinsight.club/time-clash/?lang="+encodeURIComponent(v)):withParams("/"+v+"/time-clash/");
+var play= (v==="nl"||v==="zh-tw")?withParams("https://app.betinsight.club/time-clash/?lang="+encodeURIComponent(v)+"&entry=free"):withParams("/"+v+"/time-clash/?entry=free");
 document.getElementById("playTop").href=play;
 document.getElementById("playMiddle").href=play;
 document.getElementById("registerLink").href=withParams("https://betinsight.systeme.io/registrierung?ref="+encodeURIComponent(ref));
