@@ -120,12 +120,36 @@ function register(){
  let a=document.querySelector("[data-time-clash-registration]");
  location.href=a?.href||"https://betinsight.systeme.io/registrierung?ref=POOL";
 }
+const SOFT_TEXT={
+de:["Spiel {n} beendet!","Spielstand unter deinem Namen speichern? Das geht kostenlos mit einer Registrierung. Dein nächstes Spiel startet automatisch.","Kostenlos registrieren","Später"],
+en:["Match {n} finished!","Save these results under your name with free registration. Your next match starts automatically.","Register for free","Later"],
+es:["¡Partido {n} terminado!","Guarda los resultados a tu nombre con un registro gratis. El siguiente partido comienza automáticamente.","Registrarse gratis","Después"],
+fr:["Match {n} terminé !","Enregistre les résultats à ton nom en t'inscrivant gratuitement. Le prochain match démarre automatiquement.","Inscription gratuite","Plus tard"],
+it:["Partita {n} terminata!","Salva i risultati a tuo nome registrandoti gratis. La prossima partita inizia automaticamente.","Registrati gratis","Più tardi"],
+pt:["Jogo {n} concluído!","Salve os resultados no seu nome com um cadastro gratuito. O próximo jogo começa automaticamente.","Cadastrar grátis","Depois"],
+nl:["Wedstrijd {n} afgelopen!","Bewaar de uitslag op je naam door je gratis te registreren. De volgende wedstrijd start automatisch.","Gratis registreren","Later"],
+"zh-tw":["第 {n} 場比賽結束！","想將結果儲存在自己的名下嗎？免費註冊即可。下一場比賽會自動開始。","免費註冊","稍後"]
+};
+function removeSoft(){document.getElementById("biTcAppSoftSave")?.remove()}
+function showSoft(){
+ var copy=SOFT_TEXT[locale]||SOFT_TEXT.de;
+ removeSoft();
+ var box=document.createElement("aside");box.id="biTcAppSoftSave";
+ box.style.cssText="position:fixed;right:14px;bottom:14px;z-index:99996;max-width:320px;width:calc(100% - 28px);padding:14px;background:#09283bed;color:#fff;border:1px solid #78c9e0;border-radius:12px;box-shadow:0 12px 30px #000a;font:13px/1.4 system-ui";
+ var h=document.createElement("b");h.textContent=copy[0].replace("{n}",String(g));h.style.cssText="display:block;color:#ffdc89;font-size:15px";
+ var p=document.createElement("p");p.textContent=copy[1];p.style.cssText="margin:8px 0";box.append(h,p);
+ button(box,copy[2],function(){removeSoft();register()});
+ button(box,copy[3],removeSoft);
+ document.body.appendChild(box);
+}
 function afterGame(){
  // Keep the 6-second automatic transition intact; no interruption after game 1/2.
  if(ownerRef()||g<1||g>=seriesLen)return;
  backup().catch(function(){});
+ showSoft();
 }
 function afterArchivedReport(){
+ removeSoft();
  if(ownerRef())return;
  var link=document.getElementById("reportLink");
  var href=link&&link.getAttribute("href");
@@ -176,6 +200,8 @@ function init(){
  if(typeof finishGame!=="function"||typeof saveActiveSeries!=="function")return;
  guestId();
  updateFreeBalance();
+ const originalBegin=beginGame;
+ beginGame=function(){removeSoft();return originalBegin();};
  const old=finishGame;
  finishGame=function(){old();afterGame();};
  // Offer to save/link the result only after a confirmed Supabase archive.
