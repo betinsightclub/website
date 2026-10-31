@@ -15,7 +15,7 @@ function event(e,l,A,B,n,series){
  const otherTeam=side==="A"?B?.name:side==="B"?A?.name:"";
  const actor=e.player||e.scenePlayer||e.attacker||"";
  const fallback=ownTeam||"";
- const put=(k,v)=>t(k,v,l);
+ const put=(k,v)=>{const vals={...v};if(vals.t&&typeof window.localTeamName==="function"){try{vals.t=window.localTeamName(vals.t)||vals.t}catch(_){}}return t(k,vals,l)};
  if(type==="chance")return put("chance",{p:e.scenePlayer||ownTeam||"",t:ownTeam|| (e.sceneSide==="A"?A?.name:B?.name)});
  if(/^shot[AB]$/.test(type))return put("shot",{p:e.scenePlayer||ownTeam,t:ownTeam});
  if(/^target[AB]$/.test(type))return put(e.sceneKind==="shot"?"miss":"save",{p:e.scenePlayer||e.attacker||ownTeam,t:e.sceneKind==="shot"?ownTeam:(e.sceneSide==="A"?A?.name:B?.name)||otherTeam});
@@ -68,10 +68,18 @@ function uiText(s,l){
  if(/^SERIENSIEGER:\s*/.test(z))return z.replace(/^SERIENSIEGER:\s*/,v("seriesWin",{t:""}));
  if(/^GAME\s+\d+\s+VON\s+\d+/.test(z))return z.replace(/^GAME\s+(\d+)\s+VON\s+(\d+)/,(_,n,x)=>v("game",{n,x}));
  if(/^Spiel\s+(\d+)\s+beendet!/.test(z))return z.replace(/^Spiel\s+(\d+)\s+beendet!/,(_,n)=>v("saveTitle",{n}));
- if(/^Spiel\s+(\d+):/.test(z))return z.replace(/^Spiel\s+(\d+):/,(_,n)=>v("game",{n,x:""})+":");
+ if(/^Spiel\s+(\d+):/.test(z))return z.replace(/^Spiel\s+(\d+):/,(_,n)=>({en:"Match",es:"Partido",fr:"Match",it:"Partita",pt:"Jogo",nl:"Wedstrijd","zh-tw":"第"}[l]||"Match")+" "+n+(l==="zh-tw"?" 場：":":"));
  if(/^Nächstes Spiel startet/.test(z))return v("next",{});
- if(/^Nächstes Ereignis/.test(z))return v("next",{});
- if(/^Kurzbericht:/.test(z))return z.replace(/^Kurzbericht:/,v("summary",{})+":");
+ if(/^Nächstes Ereignis/.test(z))return ({en:"Next event in approximately 3–5 seconds…",es:"Siguiente jugada en unos 3–5 segundos…",fr:"Prochaine action dans environ 3 à 5 secondes…",it:"Prossima azione tra circa 3–5 secondi…",pt:"Próximo lance em cerca de 3–5 segundos…",nl:"Volgende gebeurtenis over ongeveer 3–5 seconden…","zh-tw":"約 3–5 秒後出現下一個事件…"}[l]||z);
+ if(/^Kurzbericht:/.test(z)){const points=(z.match(/Serienstand:\s*(\d+:\d+)/)||[])[1]||"";return v("summary",{})+": "+(points?v("pointsLead",{})+" "+points+".":"");}
+ if(/^Punktestand ausgeglichen$/.test(z))return ({en:"Level on points",es:"Empate a puntos",fr:"Égalité aux points",it:"Parità di punti",pt:"Empate em pontos",nl:"Gelijk in punten","zh-tw":"積分相同"}[l]||z);
+ if(/ führt nach Punkten$/.test(z)){const team=z.replace(/ führt nach Punkten$/,"");return ({en:team+" leads on points",es:team+" lidera por puntos",fr:team+" mène aux points",it:team+" è in vantaggio ai punti",pt:team+" lidera em pontos",nl:team+" leidt op punten","zh-tw":team+" 積分領先"}[l]||z)}
+ if(/^TIME CLASH beendet/.test(z)){let score=(z.match(/Serienpunkte\s+(\d+:\d+)/)||[])[1]||"";return v("seriesDone",{})+(score?" · "+v("pointsLead",{})+": "+score:"")}
+ if(/^Serienbericht wird erstellt/.test(z))return ({en:"Creating series report…",es:"Preparando informe de la serie…",fr:"Création du rapport de série…",it:"Preparazione del rapporto della serie…",pt:"Preparando relatório da série…",nl:"Serieverslag wordt opgesteld…","zh-tw":"正在建立系列賽報告…"}[l]||z);
+ if(/^Bericht nach Serienende verfügbar/.test(z))return ({en:"Report available after the series",es:"Informe disponible al terminar la serie",fr:"Rapport disponible après la série",it:"Rapporto disponibile al termine della serie",pt:"Relatório disponível após a série",nl:"Verslag beschikbaar na de serie","zh-tw":"系列賽結束後可查看報告"}[l]||z);
+ if(/^Bericht erneut versuchen$/.test(z))return ({en:"Retry report",es:"Reintentar informe",fr:"Réessayer le rapport",it:"Riprova il rapporto",pt:"Tentar relatório novamente",nl:"Verslag opnieuw proberen","zh-tw":"重新取得報告"}[l]||z);
+ if(/^ENDE$/.test(z))return ({en:"FULL-TIME",es:"FINAL",fr:"TERMINÉ",it:"FINALE",pt:"FIM",nl:"AFGELOPEN","zh-tw":"完場"}[l]||z);
+ if(/^📰 ZEITUNGSBILD ERSTELLEN$/.test(z))return ({en:"📰 CREATE NEWSPAPER IMAGE",es:"📰 CREAR IMAGEN DE PERIÓDICO",fr:"📰 CRÉER UNE IMAGE DE JOURNAL",it:"📰 CREA IMMAGINE GIORNALE",pt:"📰 CRIAR IMAGEM DE JORNAL",nl:"📰 KRANTENAFBEELDING MAKEN","zh-tw":"📰 製作報紙圖片"}[l]||z);
  if(/^SERIE ENDE$/.test(z))return v("seriesDone",{});
  if(/^Kostenlos registrieren$/.test(z))return v("register",{});
  if(/^Später$/.test(z))return v("later",{});
