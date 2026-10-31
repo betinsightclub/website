@@ -51,7 +51,7 @@
   }
   function credential() {
     try{if(typeof window.ownerRef==="function")return String(window.ownerRef()||"").trim();}catch(e){}
-    try{return String(localStorage.getItem("betinsight_dashboard_token")||localStorage.getItem("betinsight_profile_token")||"").trim();}catch(e){return "";}
+    try{return String(new URLSearchParams(location.search).get("token")||localStorage.getItem("betinsight_dashboard_token")||localStorage.getItem("betinsight_profile_token")||"").trim();}catch(e){return "";}
   }
   function reportLink(r) {
     var lang=String(r.language||"de").toLowerCase();
@@ -129,7 +129,7 @@
   }
   function ready(){
     if(publicMode)syncPublicGuest();
-    else inspectGuest();
+    else{inspectGuest();setTimeout(inspectGuest,1700);}
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",ready,{once:true});
   else ready();
