@@ -249,3 +249,13 @@
     setTimeout(syncOne,1200);
   }catch(_){}
 })();
+
+/* TIME CLASH guest continuity and authenticated report handoff; independent of the game engine. */
+(function(){
+  var host=location.hostname;
+  if(host!=="betinsight.club"&&host!=="www.betinsight.club"&&host!=="app.betinsight.club")return;
+  function load(id,url){if(document.getElementById(id))return;var e=document.createElement("script");e.id=id;e.src=url;e.defer=true;document.head.appendChild(e);}
+  load("biTcGuestClaimLoader","https://betinsight.club/assets/time-clash-guest-bridge-v1.js?v=20261031-2");
+  if(/^\/(de|en|es|fr|it|pt)\/time-clash\/?$/.test(location.pathname))
+    load("biTcGuestResumeLoader","https://betinsight.club/assets/time-clash-guest-resume-v1.js?v=20261031-1");
+})();
