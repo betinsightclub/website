@@ -22,12 +22,159 @@ const dateNum=v=>{const m=String(v||"").match(/(\d{2})\.(\d{2})\.(\d{4})/);retur
 const slugify=v=>String(v||"tipp").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ß/g,"ss").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 function calcModel(rows){let bf=1000,gf=1000,bc=1000,gc=1000;const out={fixed:{blue:[1000],green:[1000],total:[1000]},compound:{blue:[1000],green:[1000],total:[1000]}};for(const g of rows){const q=pn(g[5]),u=pn(g[6]),won=g[8]==="won",frank=tipperMap[g[0]]==="Frank";const fd=won?u*10*(q-1):-u*10;if(frank)gf+=fd;else bf+=fd;const base=frank?gc:bc,stake=base*(u/100),cd=won?stake*(q-1):-stake;if(frank)gc+=cd;else bc+=cd;g[9]=fd;g[10]=cd;out.fixed.blue.push(bf);out.fixed.green.push(gf);out.fixed.total.push(1000+(bf-1000)+(gf-1000));out.compound.blue.push(bc);out.compound.green.push(gc);out.compound.total.push(1000+(bc-1000)+(gc-1000))}return out}
 try{const rr=await fetch(LIVE_RESULTS_URL,{cache:"no-store"});if(rr.ok){const live=await rr.json();if(Array.isArray(live)){const bySlug=new Map(G.map((g,i)=>[g[0],i]));const valid=live.filter(r=>r&&r.qualitaetsrelevant==="JA"&&r.sichtbar_fuer_teilnehmer==="JA"&&(r.ergebnis_status==="GEWONNEN"||r.ergebnis_status==="VERLOREN")&&dateNum(r.spiel_datum)>=20260828&&pn(r.preis_units)>0).sort((a,b)=>dateNum(a.spiel_datum)-dateNum(b.spiel_datum)||String(a.bestaetigt_am||"").localeCompare(String(b.bestaetigt_am||"")));for(const r of valid){let slug=knownIdToSlug[r.tipp_id];if(slug&&bySlug.has(slug)){const g=G[bySlug.get(slug)];if(r.endergebnis)g[4]=r.endergebnis;if(r.quote)g[5]=r.quote;if(r.preis_units)g[6]=pn(r.preis_units);if(r.markt)g[7]=r.markt;g[8]=r.ergebnis_status==="GEWONNEN"?"won":"lost";tipperMap[slug]=r.tippgeber||tipperMap[slug];continue}slug=slugify(r.spiel)+"-"+String(r.spiel_datum||"").replace(/\./g,"-");if(bySlug.has(slug))continue;const tx=String(r.tipp||r.spiel||"");const tips={de:tx,en:tx,es:tx,pt:tx,it:tx,fr:tx};G.push([slug,r.spiel||"",r.spiel_datum||"",r.liga||"",r.endergebnis||"—",r.quote||"",pn(r.preis_units),r.markt||"",r.ergebnis_status==="GEWONNEN"?"won":"lost",0,0,tips,"__auto__:"+String(r.tipp_id||"")]);tipperMap[slug]=r.tippgeber||"";knownIdToSlug[r.tipp_id]=slug;bySlug.set(slug,G.length-1)}}}}catch(e){}
+
 G.sort((a,b)=>dateNum(a[2])-dateNum(b[2]));
-let M=calcModel(G);const c=document.documentElement.lang.toLowerCase().split("-")[0],t=I[c]||I.de,pendingText=({de:"Spielbericht wird vorbereitet",en:"Match report is being prepared",es:"El informe del partido se está preparando",pt:"Relatório da partida em preparação",it:"Resoconto della partita in preparazione",fr:"Compte rendu du match en préparation",nl:"Wedstrijdverslag wordt voorbereid",zh:"比賽報告正在準備中"}[c]||"Spielbericht wird vorbereitet"),loc={de:"de-DE",en:"en-GB",es:"es-ES",pt:"pt-PT",it:"it-IT",fr:"fr-FR",nl:"nl-NL",zh:"zh-TW"}[c]||"de-DE",money=n=>new Intl.NumberFormat(loc,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(n),delta=n=>(n>=0?"+":"−")+money(Math.abs(n));document.querySelector("[data-ey]").textContent=t.ey;document.querySelector("h1").textContent=t.title;document.querySelector("[data-lead]").textContent=t.lead;document.querySelector("[data-back]").textContent=t.back;document.querySelector("[data-facts]").innerHTML=t.facts.map(x=>'<span class="fact">'+x+'</span>').join("");document.querySelector("[data-chart-title]").textContent=t.chart;document.querySelector("[data-chart-lead]").textContent=t.chartLead;document.querySelector("[data-start-pill]").textContent=t.start;document.querySelector("[data-cap]").textContent=t.cap;[0,1,2,3].forEach(i=>document.querySelector("[data-k"+i+"]").textContent=t.k[i]);document.querySelector("[data-hist]").textContent=t.hist;document.querySelector("[data-confirmed]").textContent=t.confirmed;document.querySelector('[data-mode="fixed"]').textContent=t.fixed;document.querySelector('[data-mode="compound"]').textContent=t.compound;document.querySelector("thead tr").innerHTML=t.headers.map(x=>"<th>"+x+"</th>").join("");const tb=document.querySelector("tbody");const i18n=window.BetInsightResultI18n||{match:(v)=>v,market:(v)=>v,league:(v)=>v,selection:(v)=>v};G.forEach((g,i)=>{const [slug,n,d,l,score,q,u,m,s,fd,cd,tip,reportPath]=g,tr=document.createElement("tr"),autoId=String(reportPath||"").startsWith("__auto__:")?String(reportPath).slice(9):"";tr.innerHTML='<td>'+(i+1)+'</td><td>'+d+'</td><td>'+i18n.match(n,c)+'</td><td>'+q+'</td><td>'+u+'</td><td class="'+(s==="won"?"win":"loss")+' ch" data-fixed="'+delta(fd)+'" data-compound="'+delta(cd)+'">'+delta(fd)+'</td><td><span class="status '+(s==="won"?"win":"loss")+'">'+(s==="won"?t.won:t.lost)+'</span></td><td><button class="detail-btn" data-target="d'+i+'">'+t.details+'</button></td>';tb.appendChild(tr);const rr=document.createElement("tr");rr.id="d"+i;rr.className="detail-row";const knownId=autoId||Object.keys(knownIdToSlug).find(id=>knownIdToSlug[id]===slug)||"",reviewedIds=new Set(["BI-20261004-011406-MAR","BI-20261004-011255-MAR","BI-20261002-145749-MAR","BI-20260927-040207-MAR","BI-20260925-185756-MAR","BI-20261009-172442-MAR","BI-20260826-001536-MAR","BI-20260904-163328-FRA","BI-20260908-151838-FRA","BI-20260911-110018-FRA","BI-20260911-105547-FRA","BI-20260912-004348-MAR","BI-20260914-175440-MAR","BI-20260917-003712-MAR","BI-20260917-003813-MAR","BI-20260918-160859-FRA","BI-20260918-164427-FRA","BI-20260920-134759-MAR"]),reportHref=knownId&&reviewedIds.has(knownId)?("/"+c+"/tipps/ergebnis/"+encodeURIComponent(knownId)+"/"):autoId?("/"+c+"/tipps/bericht/?id="+encodeURIComponent(autoId)):(reportPath||("../tipps/"+slug+"/"));rr.innerHTML='<td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>'+t.league+'</span><strong>'+i18n.league(l,c)+'</strong></div><div class="detail-item"><span>'+t.market+'</span><strong>'+i18n.market(m,c)+'</strong></div><div class="detail-item"><span>'+t.tip+'</span><strong>'+i18n.selection(tip[c]||tip.de,c,knownId)+'</strong></div><div class="detail-item"><span>'+t.stake+'</span><strong>'+u+' Units</strong></div></div><div class="detail-copy">'+i18n.selection(tip[c]||tip.de,c,knownId)+' · '+score+'</div><a class="report-link" href="'+reportHref+'">'+t.report+'</a></div></td>';if(reportPath==="__none__"){const a=rr.querySelector(".report-link");if(a){a.removeAttribute("href");a.textContent=pendingText;a.classList.add("report-pending");a.setAttribute("aria-disabled","true")}}tb.appendChild(rr)});document.querySelectorAll(".detail-btn").forEach(b=>b.onclick=()=>{const r=document.getElementById(b.dataset.target),o=r.classList.toggle("open");b.textContent=o?t.close:t.details});const W=1120,H=430,L=78,R=138,T=38,B=56,ns="http://www.w3.org/2000/svg",nPoints=M.fixed.total.length,x=i=>L+i*((W-L-R)/Math.max(nPoints-1,1)),mk=(tag,a={})=>{const e=document.createElementNS(ns,tag);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));return e},grid=document.getElementById("grid"),labels=document.getElementById("labels"),axisStart=({de:"Start",en:"Start",es:"Inicio",pt:"Início",it:"Inizio",fr:"Départ",nl:"Start",zh:"起點"}[c]||"Start");
+const c=document.documentElement.lang.toLowerCase().split("-")[0],t=I[c]||I.de;
+const ui={
+de:{label:"Statistik nach Tippgeber",intro:"Wähle einen Tippgeber aus, um ausschließlich seine Ergebnisse zu sehen.",martin:"Tippgeber A · Martin",frank:"Tippgeber B · Frank",chart:"Individueller Kapitalverlauf · nur die Tipps des ausgewählten Tippgebers",frankPause:"Frank veröffentlicht derzeit keine neuen Tipps. Seine bisherigen Ergebnisse bleiben weiterhin einsehbar.",current:"Aktueller Wert",profit:"Gewinn / Verlust",last:"Letzter gewerteter Tipp",empty:"Für diesen Tippgeber liegen noch keine gewerteten Tipps vor."},
+en:{label:"Statistics by tipster",intro:"Select a tipster to see only their results.",martin:"Tipster A · Martin",frank:"Tipster B · Frank",chart:"Individual bankroll performance · selected tipster only",frankPause:"Frank is currently not publishing new tips. His previous results remain available.",current:"Current value",profit:"Profit / loss",last:"Last counted tip",empty:"No counted tips for this tipster yet."},
+es:{label:"Estadísticas por pronosticador",intro:"Elige un pronosticador para ver solo sus resultados.",martin:"Pronosticador A · Martin",frank:"Pronosticador B · Frank",chart:"Evolución individual del capital · solo el pronosticador elegido",frankPause:"Frank no publica nuevos pronósticos por el momento. Sus resultados anteriores siguen disponibles.",current:"Valor actual",profit:"Beneficio / pérdida",last:"Último pronóstico contabilizado",empty:"Todavía no hay pronósticos contabilizados para este pronosticador."},
+pt:{label:"Estatísticas por analista",intro:"Escolhe um analista para veres apenas os seus resultados.",martin:"Analista A · Martin",frank:"Analista B · Frank",chart:"Evolução individual do capital · apenas o analista selecionado",frankPause:"Frank não está a publicar novos prognósticos neste momento. Os resultados anteriores continuam disponíveis.",current:"Valor atual",profit:"Lucro / perda",last:"Último prognóstico contabilizado",empty:"Ainda não há prognósticos contabilizados para este analista."},
+it:{label:"Statistiche per tipster",intro:"Seleziona un tipster per vedere solo i suoi risultati.",martin:"Tipster A · Martin",frank:"Tipster B · Frank",chart:"Andamento individuale del capitale · solo il tipster selezionato",frankPause:"Frank al momento non pubblica nuovi pronostici. I suoi risultati precedenti restano consultabili.",current:"Valore attuale",profit:"Profitto / perdita",last:"Ultimo pronostico conteggiato",empty:"Non ci sono ancora pronostici conteggiati per questo tipster."},
+fr:{label:"Statistiques par pronostiqueur",intro:"Choisissez un pronostiqueur pour afficher uniquement ses résultats.",martin:"Pronostiqueur A · Martin",frank:"Pronostiqueur B · Frank",chart:"Évolution individuelle du capital · pronostiqueur sélectionné uniquement",frankPause:"Frank ne publie actuellement plus de nouveaux pronostics. Ses anciens résultats restent consultables.",current:"Valeur actuelle",profit:"Gain / perte",last:"Dernier pronostic comptabilisé",empty:"Aucun pronostic comptabilisé pour ce pronostiqueur."},
+nl:{label:"Statistieken per tipgever",intro:"Kies een tipgever om alleen zijn resultaten te bekijken.",martin:"Tipgever A · Martin",frank:"Tipgever B · Frank",chart:"Individueel kapitaalverloop · alleen gekozen tipgever",frankPause:"Frank publiceert momenteel geen nieuwe tips. Zijn eerdere resultaten blijven zichtbaar.",current:"Huidige waarde",profit:"Winst / verlies",last:"Laatste meegetelde tip",empty:"Nog geen meegetelde tips voor deze tipgever."},
+zh:{label:"按分析員查看統計",intro:"選擇分析員，僅查看該分析員的成績。",martin:"分析員 A · Martin",frank:"分析員 B · Frank",chart:"個別資金表現 · 僅顯示所選分析員",frankPause:"Frank 目前暫停發布新預測，其過往成績仍可查看。",current:"目前資金",profit:"盈虧",last:"最近納入統計的預測",empty:"此分析員尚無納入統計的預測。"}
+}[c]||null;
+const U=ui||{label:"Statistik nach Tippgeber",intro:"Wähle einen Tippgeber aus.",martin:"Tippgeber A · Martin",frank:"Tippgeber B · Frank",chart:"Individueller Kapitalverlauf",frankPause:"Frank veröffentlicht derzeit keine neuen Tipps.",current:"Aktueller Wert",profit:"Gewinn / Verlust",last:"Letzter gewerteter Tipp",empty:"Noch keine gewerteten Tipps."};
+const loc={de:"de-DE",en:"en-GB",es:"es-ES",pt:"pt-PT",it:"it-IT",fr:"fr-FR",nl:"nl-NL",zh:"zh-TW"}[c]||"de-DE";
+const money=n=>new Intl.NumberFormat(loc,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+const delta=n=>(n>=0?"+":"−")+money(Math.abs(n));
+const pendingText=({de:"Spielbericht wird vorbereitet",en:"Match report is being prepared",es:"El informe del partido se está preparando",pt:"Relatório da partida em preparação",it:"Resoconto della partita in preparazione",fr:"Compte rendu du match en préparation",nl:"Wedstrijdverslag wordt voorbereid",zh:"比賽報告正在準備中"}[c]||"Spielbericht wird vorbereitet");
+const i18n=window.BetInsightResultI18n||{match:v=>v,market:v=>v,league:v=>v,selection:v=>v};
+function tipperOf(row){
+ const raw=String(tipperMap[row[0]]||"").trim().toLowerCase();
+ if(raw.includes("martin")||/(^|[^a-z])mar([^a-z]|$)/.test(raw))return "Martin";
+ if(raw.includes("frank")||/(^|[^a-z])fra([^a-z]|$)/.test(raw))return "Frank";
+ if(raw)return "";
+ const report=String(row[12]||"");
+ const id=report.startsWith("__auto__:")?report.slice(9):Object.keys(knownIdToSlug).find(k=>knownIdToSlug[k]===row[0])||"";
+ return /-MAR$/i.test(id)?"Martin":/-FRA$/i.test(id)?"Frank":"";
+}
+function calcTipperModel(rows){
+ let fixed=1000,compound=1000;
+ const model={fixed:[fixed],compound:[compound]};
+ for(const r of rows){
+  const quote=pn(r[5]),units=pn(r[6]),won=r[8]==="won";
+  const fixedChange=won?units*10*(quote-1):-units*10;
+  const stake=compound*units/100;
+  const compoundChange=won?stake*(quote-1):-stake;
+  fixed+=fixedChange;compound+=compoundChange;
+  r[9]=fixedChange;r[10]=compoundChange;
+  model.fixed.push(fixed);model.compound.push(compound);
+ }
+ return model;
+}
+document.querySelector("[data-ey]").textContent=t.ey;
+document.querySelector("h1").textContent=t.title;
+document.querySelector("[data-lead]").textContent=t.lead;
+document.querySelector("[data-back]").textContent=t.back;
+document.querySelector("[data-chart-title]").textContent=t.chart;
+document.querySelector("[data-chart-lead]").textContent=U.chart;
+document.querySelector("[data-start-pill]").textContent=t.start;
+document.querySelector("[data-cap]").textContent=t.cap;
+document.querySelector("[data-k0]").textContent=t.k[0];
+document.querySelector("[data-k1]").textContent=U.current;
+document.querySelector("[data-k2]").textContent=U.profit;
+document.querySelector("[data-k3]").textContent=t.k[3];
+document.querySelector("[data-hist]").textContent=t.hist;
+document.querySelector("[data-confirmed]").textContent=t.confirmed;
+document.querySelector('[data-mode="fixed"]').textContent=t.fixed;
+document.querySelector('[data-mode="compound"]').textContent=t.compound;
+document.querySelector("thead tr").innerHTML=t.headers.map(x=>"<th>"+x+"</th>").join("");
+document.querySelector("[data-start]").textContent=money(1000);
+const tb=document.querySelector("tbody");
+const picker=document.createElement("div");
+picker.className="tipper-filter";
+picker.innerHTML='<div class="tipper-filter-heading"><div><h2>'+U.label+'</h2><p>'+U.intro+'</p></div><div class="tipper-tabs" role="group" aria-label="'+U.label+'"><button type="button" class="tipper-tab active" data-tipper="Martin" aria-pressed="true">'+U.martin+'</button><button type="button" class="tipper-tab" data-tipper="Frank" aria-pressed="false">'+U.frank+'</button></div></div><p class="tipper-pause" role="status" hidden>'+U.frankPause+'</p>';
+document.querySelector(".chart-card").before(picker);
+let selected="Martin",mode="fixed",visible=[],model=calcTipperModel([]);
+const reviewedIds=new Set(["BI-20261004-011406-MAR","BI-20261004-011255-MAR","BI-20261002-145749-MAR","BI-20260927-040207-MAR","BI-20260925-185756-MAR","BI-20261009-172442-MAR","BI-20260826-001536-MAR","BI-20260904-163328-FRA","BI-20260908-151838-FRA","BI-20260911-110018-FRA","BI-20260911-105547-FRA","BI-20260912-004348-MAR","BI-20260914-175440-MAR","BI-20260917-003712-MAR","BI-20260917-003813-MAR","BI-20260918-160859-FRA","BI-20260918-164427-FRA","BI-20260920-134759-MAR"]);
+function renderHistory(){
+ tb.innerHTML="";
+ if(!visible.length){const row=document.createElement("tr");const cell=document.createElement("td");cell.colSpan=8;cell.textContent=U.empty;row.appendChild(cell);tb.appendChild(row);return;}
+ visible.forEach((g,i)=>{
+  const [slug,n,d,l,score,q,u,m,s,fd,cd,tip,reportPath]=g;
+  const tr=document.createElement("tr");
+  tr.innerHTML='<td>'+(i+1)+'</td><td>'+d+'</td><td>'+i18n.match(n,c)+'</td><td>'+q+'</td><td>'+u+'</td><td class="'+(s==="won"?"win":"loss")+' ch" data-fixed="'+delta(fd)+'" data-compound="'+delta(cd)+'">'+delta(mode==="fixed"?fd:cd)+'</td><td><span class="status '+(s==="won"?"win":"loss")+'">'+(s==="won"?t.won:t.lost)+'</span></td><td><button type="button" class="detail-btn" data-target="tip-detail-'+i+'">'+t.details+'</button></td>';
+  tb.appendChild(tr);
+  const rr=document.createElement("tr");rr.id="tip-detail-"+i;rr.className="detail-row";
+  const autoId=String(reportPath||"").startsWith("__auto__:")?String(reportPath).slice(9):"";
+  const knownId=autoId||Object.keys(knownIdToSlug).find(id=>knownIdToSlug[id]===slug)||"";
+  const reportHref=knownId&&reviewedIds.has(knownId)?("/"+c+"/tipps/ergebnis/"+encodeURIComponent(knownId)+"/"):autoId?("/"+c+"/tipps/bericht/?id="+encodeURIComponent(autoId)):(reportPath||("../tipps/"+slug+"/"));
+  rr.innerHTML='<td colspan="8"><div class="detail-box"><div class="detail-grid"><div class="detail-item"><span>'+t.league+'</span><strong>'+i18n.league(l,c)+'</strong></div><div class="detail-item"><span>'+t.market+'</span><strong>'+i18n.market(m,c)+'</strong></div><div class="detail-item"><span>'+t.tip+'</span><strong>'+i18n.selection(tip[c]||tip.de,c,knownId)+'</strong></div><div class="detail-item"><span>'+t.stake+'</span><strong>'+u+' Units</strong></div></div><div class="detail-copy">'+i18n.selection(tip[c]||tip.de,c,knownId)+' · '+score+'</div><a class="report-link" href="'+reportHref+'">'+t.report+'</a></div></td>';
+  if(reportPath==="__none__"){const a=rr.querySelector(".report-link");if(a){a.removeAttribute("href");a.textContent=pendingText;a.classList.add("report-pending");a.setAttribute("aria-disabled","true")}}
+  tb.appendChild(rr);
+ });
+ tb.querySelectorAll(".detail-btn").forEach(b=>b.onclick=()=>{const r=document.getElementById(b.dataset.target),opened=r.classList.toggle("open");b.textContent=opened?t.close:t.details;});
+}
+const W=1120,H=430,L=78,R=138,T=38,B=56,ns="http://www.w3.org/2000/svg";
+const grid=document.getElementById("grid"),labels=document.getElementById("labels");
+const axisStart=({de:"Start",en:"Start",es:"Inicio",pt:"Início",it:"Inizio",fr:"Départ",nl:"Start",zh:"起點"}[c]||"Start");
+const mk=(tag,a={})=>{const el=document.createElementNS(ns,tag);Object.entries(a).forEach(([k,v])=>el.setAttribute(k,v));return el};
+let nPoints=1;
+const x=i=>L+i*((W-L-R)/Math.max(nPoints-1,1));
 function niceStep(span,target=5){const raw=Math.max(span/target,.01),pow=Math.pow(10,Math.floor(Math.log10(raw))),f=raw/pow,m=f<=1.5?1:f<=3?2:f<=7?5:10;return m*pow}
-function scaleFor(d){const values=[1000,...d.blue,...d.green,...d.total].filter(Number.isFinite);let low=Math.min(...values),high=Math.max(...values),span=Math.max(high-low,40),pad=Math.max(span*.14,8);low-=pad;high+=pad;const step=niceStep(high-low,5);let min=Math.floor(low/step)*step,max=Math.ceil(high/step)*step;if(!(max>min))max=min+step;return{min,max,step,y:v=>T+(max-v)*((H-T-B)/(max-min))}}
+function scaleFor(a){
+ const values=[1000,...a].filter(Number.isFinite);
+ const low=Math.min(...values),high=Math.max(...values),span=Math.max(high-low,40),pad=Math.max(span*.14,8);
+ const step=niceStep(span+2*pad,5);
+ let min=Math.floor((low-pad)/step)*step,max=Math.ceil((high+pad)/step)*step;
+ if(!(max>min))max=min+step;
+ return{min,max,step,y:v=>T+(max-v)*((H-T-B)/(max-min))};
+}
 function path(a,y){return a.map((v,i)=>(i?"L":"M")+x(i)+" "+y(v)).join(" ")}
-function drawGrid(scale){const y=scale.y;grid.innerHTML="";const ticks=[];for(let v=scale.min;v<=scale.max+scale.step*.1;v+=scale.step)ticks.push(Number(v.toFixed(10)));if(1000>scale.min&&1000<scale.max&&!ticks.some(v=>Math.abs(v-1000)<scale.step*.05))ticks.push(1000);ticks.sort((a,b)=>a-b);ticks.forEach(v=>{grid.appendChild(mk("line",{x1:L,y1:y(v),x2:W-R+20,y2:y(v),class:Math.abs(v-1000)<.001?"start-line":"grid"}));const z=mk("text",{x:8,y:y(v)+4,class:"axis-text"});z.textContent=money(v);grid.appendChild(z)});const every=nPoints<=18?1:Math.max(1,Math.ceil((nPoints-1)/12));for(let i=0;i<nPoints;i++){if(i!==0&&i!==nPoints-1&&i%every!==0)continue;grid.appendChild(mk("line",{x1:x(i),y1:T,x2:x(i),y2:H-B,class:"grid"}));const z=mk("text",{x:x(i),y:H-24,"text-anchor":"middle",class:"axis-text"});z.textContent=i===0?axisStart:i;grid.appendChild(z)}}
-function pts(a,id,col,y){const g=document.getElementById(id);g.innerHTML="";a.forEach((v,i)=>g.appendChild(mk("circle",{cx:x(i),cy:y(v),r:i===a.length-1?6:4,fill:col,class:"dot "+(i===a.length-1?"last":"")})))}
-function render(mode){const d=M[mode],scale=scaleFor(d),y=scale.y;drawGrid(scale);document.getElementById("lineBlue").setAttribute("d",path(d.blue,y));document.getElementById("lineGreen").setAttribute("d",path(d.green,y));document.getElementById("lineTotal").setAttribute("d",path(d.total,y));document.getElementById("areaTotal").setAttribute("d",path(d.total,y)+" L "+x(d.total.length-1)+" "+(H-B)+" L "+x(0)+" "+(H-B)+" Z");pts(d.blue,"pointsBlue","#1687ff",y);pts(d.green,"pointsGreen","#1fe28f",y);pts(d.total,"pointsTotal","#cfff22",y);labels.innerHTML="";[{v:d.blue.at(-1),g:d.blue.at(-1)-1000,c:"#1687ff",dy:15},{v:d.green.at(-1),g:d.green.at(-1)-1000,c:"#1fe28f",dy:3},{v:d.total.at(-1),g:d.total.at(-1)-1000,c:"#cfff22",dy:-18}].forEach(o=>{const xx=x(d.total.length-1)+16,yy=y(o.v)+o.dy;labels.appendChild(mk("rect",{x:xx-6,y:yy-17,width:100,height:27,rx:9,fill:o.c,opacity:.95}));const tx=mk("text",{x:xx+44,y:yy+2,"text-anchor":"middle",class:"end-label",fill:"#031018"});tx.textContent=delta(o.g);labels.appendChild(tx)});document.querySelector("[data-current]").textContent=money(d.total.at(-1));document.querySelector("[data-gain]").textContent=delta(d.total.at(-1)-1000);document.querySelector("[data-note]").textContent=mode==="fixed"?t.fixedNote:t.compoundNote;document.querySelector("[data-disc]").textContent=mode==="fixed"?t.df:t.dc;document.querySelectorAll(".ch").forEach(e=>e.textContent=e.dataset[mode]);document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode))}
-document.querySelector('[data-mode="fixed"]').onclick=()=>render("fixed");document.querySelector('[data-mode="compound"]').onclick=()=>render("compound");document.querySelector("[data-start]").textContent=money(1000);document.querySelector("[data-count]").textContent=G.length;render("fixed")})();
+function drawGrid(scale){
+ const y=scale.y;grid.innerHTML="";
+ const ticks=[];
+ for(let v=scale.min;v<=scale.max+scale.step*.1;v+=scale.step)ticks.push(Number(v.toFixed(10)));
+ if(1000>scale.min&&1000<scale.max&&!ticks.some(v=>Math.abs(v-1000)<scale.step*.05))ticks.push(1000);
+ ticks.sort((a,b)=>a-b);
+ ticks.forEach(v=>{
+  grid.appendChild(mk("line",{x1:L,y1:y(v),x2:W-R+20,y2:y(v),class:Math.abs(v-1000)<.001?"start-line":"grid"}));
+  const label=mk("text",{x:8,y:y(v)+4,class:"axis-text"});label.textContent=money(v);grid.appendChild(label);
+ });
+ const every=nPoints<=18?1:Math.max(1,Math.ceil((nPoints-1)/12));
+ for(let i=0;i<nPoints;i++){
+  if(i!==0&&i!==nPoints-1&&i%every!==0)continue;
+  grid.appendChild(mk("line",{x1:x(i),y1:T,x2:x(i),y2:H-B,class:"grid"}));
+  const label=mk("text",{x:x(i),y:H-24,"text-anchor":"middle",class:"axis-text"});label.textContent=i===0?axisStart:i;grid.appendChild(label);
+ }
+}
+function render(){
+ const a=model[mode],color=selected==="Martin"?"#1687ff":"#1fe28f";
+ nPoints=a.length;const scale=scaleFor(a),y=scale.y;
+ drawGrid(scale);
+ document.getElementById("lineBlue").setAttribute("d",selected==="Martin"?path(a,y):"");
+ document.getElementById("lineGreen").setAttribute("d",selected==="Frank"?path(a,y):"");
+ // The former yellow combined series and combined area are deliberately removed.
+ document.getElementById("lineTotal").setAttribute("d","");
+ document.getElementById("areaTotal").setAttribute("d","");
+ ["pointsBlue","pointsGreen","pointsTotal"].forEach(id=>document.getElementById(id).innerHTML="");
+ const dots=document.getElementById(selected==="Martin"?"pointsBlue":"pointsGreen");
+ a.forEach((v,i)=>dots.appendChild(mk("circle",{cx:x(i),cy:y(v),r:i===a.length-1?6:4,fill:color,class:"dot "+(i===a.length-1?"last":"")})));
+ labels.innerHTML="";
+ const xx=x(a.length-1)+16,yy=y(a.at(-1))-4;
+ labels.appendChild(mk("rect",{x:xx-6,y:yy-17,width:106,height:27,rx:9,fill:color,opacity:.96}));
+ const tx=mk("text",{x:xx+47,y:yy+2,"text-anchor":"middle",class:"end-label",fill:"#031018"});tx.textContent=delta(a.at(-1)-1000);labels.appendChild(tx);
+ document.querySelector("[data-current]").textContent=money(a.at(-1));
+ document.querySelector("[data-gain]").textContent=delta(a.at(-1)-1000);
+ document.querySelector("[data-gain]").classList.toggle("positive",a.at(-1)>=1000);
+ document.querySelector("[data-note]").textContent=mode==="fixed"?t.fixedNote:t.compoundNote;
+ document.querySelector("[data-disc]").textContent=mode==="fixed"?t.df:t.dc;
+ document.querySelectorAll(".ch").forEach(e=>e.textContent=e.dataset[mode]);
+ document.querySelectorAll(".mode-btn").forEach(b=>{const active=b.dataset.mode===mode;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active));});
+}
+function chooseTipper(name){
+ selected=name;visible=G.filter(r=>tipperOf(r)===selected);model=calcTipperModel(visible);
+ picker.querySelectorAll(".tipper-tab").forEach(btn=>{const active=btn.dataset.tipper===selected;btn.classList.toggle("active",active);btn.setAttribute("aria-pressed",String(active));});
+ picker.querySelector(".tipper-pause").hidden=selected!=="Frank";
+ document.querySelector("[data-chart-title]").textContent=t.chart+" · "+selected;
+ document.querySelector("[data-count]").textContent=visible.length;
+ const latest=visible.length?visible[visible.length-1][2]:"—";
+ document.querySelector("[data-facts]").innerHTML=[...t.facts.slice(0,3),U.last+": "+latest].map(s=>'<span class="fact">'+s+"</span>").join("");
+ renderHistory();render();
+}
+picker.querySelectorAll(".tipper-tab").forEach(btn=>btn.addEventListener("click",()=>chooseTipper(btn.dataset.tipper)));
+document.querySelectorAll(".mode-btn").forEach(btn=>btn.addEventListener("click",()=>{mode=btn.dataset.mode;render()}));
+chooseTipper("Martin");
+})();
