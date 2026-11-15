@@ -9,11 +9,11 @@ grant select,insert,update on public.betinsight_editorial_jobs_v1 to service_rol
 create or replace function public.betinsight_editorial_claim_v1(p_tipp_id text) returns jsonb language plpgsql security invoker set search_path=public,pg_temp as $$
 declare r public.betinsight_tip_results%rowtype;t public.betinsight_tips%rowtype; rev text; affected integer;
 begin
- select * into r from public.betinsight_tip_results where tipp_id=p_tipp_id for update;
- if not found or r.bestaetigungsstatus is distinct from 'BESTAETIGT' or r.sichtbar_fuer_teilnehmer is distinct from 'JA' or r.qualitaetsrelevant is distinct from 'JA' or coalesce(r.ergebnis_status,'') not in ('GEWONNEN','VERLOREN') then return jsonb_build_object('ok',false,'error','NOT_ELIGIBLE');end if;
  select * into t from public.betinsight_tips where tipp_id=p_tipp_id for share;
  if not found or coalesce(t.tipp_quelle,'') in ('SYSTEMTEST','TIPPGEBER_TEST') then return jsonb_build_object('ok',false,'error','NOT_ELIGIBLE');end if;
- rev:=md5(jsonb_build_array(r.ergebnis_status,r.bestaetigt_am,t.spiel,t.spiel_datum,t.tipp,t.markt,t.liga,t.sportart,t.analyse_text)::text);
+ select * into r from public.betinsight_tip_results where tipp_id=p_tipp_id for update;
+ if not found or r.bestaetigungsstatus is distinct from 'BESTAETIGT' or r.sichtbar_fuer_teilnehmer is distinct from 'JA' or r.qualitaetsrelevant is distinct from 'JA' or coalesce(r.ergebnis_status,'') not in ('GEWONNEN','VERLOREN') then return jsonb_build_object('ok',false,'error','NOT_ELIGIBLE');end if;
+ rev:=md5(jsonb_build_array(r.ergebnis_status,r.bestaetigt_am,r.endergebnis,t.spiel,t.spiel_datum,t.tipp,t.markt,t.liga,t.sportart,t.analyse_text)::text);
  if exists(select 1 from public.betinsight_public_match_stories where tipp_id=p_tipp_id and status='READY' and provider='editorial-web-verified' and payload->>'outcome'=case when r.ergebnis_status='GEWONNEN' then 'WON' else 'LOST' end) then return jsonb_build_object('ok',false,'error','EDITORIAL_ALREADY_READY');end if;
  insert into public.betinsight_editorial_jobs_v1(tipp_id,revision,status) values(p_tipp_id,rev,'RUNNING') on conflict do nothing;
  get diagnostics affected=row_count;
@@ -23,11 +23,11 @@ end $$;
 create or replace function public.betinsight_editorial_finish_v1(p_tipp_id text,p_revision text,p_story jsonb,p_error text) returns jsonb language plpgsql security invoker set search_path=public,pg_temp as $$
 declare r public.betinsight_tip_results%rowtype;t public.betinsight_tips%rowtype; rev text; affected integer;
 begin
- select * into r from public.betinsight_tip_results where tipp_id=p_tipp_id for update;
- if not found then return jsonb_build_object('ok',false,'error','NOT_ELIGIBLE');end if;
  select * into t from public.betinsight_tips where tipp_id=p_tipp_id for share;
  if not found then return jsonb_build_object('ok',false,'error','NOT_ELIGIBLE');end if;
- rev:=md5(jsonb_build_array(r.ergebnis_status,r.bestaetigt_am,t.spiel,t.spiel_datum,t.tipp,t.markt,t.liga,t.sportart,t.analyse_text)::text);
+ select * into r from public.betinsight_tip_results where tipp_id=p_tipp_id for update;
+ if not found then return jsonb_build_object('ok',false,'error','NOT_ELIGIBLE');end if;
+ rev:=md5(jsonb_build_array(r.ergebnis_status,r.bestaetigt_am,r.endergebnis,t.spiel,t.spiel_datum,t.tipp,t.markt,t.liga,t.sportart,t.analyse_text)::text);
  if rev is distinct from p_revision or r.bestaetigungsstatus is distinct from 'BESTAETIGT' or r.sichtbar_fuer_teilnehmer is distinct from 'JA' or r.qualitaetsrelevant is distinct from 'JA' or coalesce(r.ergebnis_status,'') not in ('GEWONNEN','VERLOREN') or coalesce(t.tipp_quelle,'') in ('SYSTEMTEST','TIPPGEBER_TEST') then
   update public.betinsight_editorial_jobs_v1 set status='FAILED',last_error='STALE_RESULT',updated_at=now() where tipp_id=p_tipp_id and revision=p_revision and status='RUNNING';
   return jsonb_build_object('ok',false,'error','STALE_RESULT');end if;
