@@ -4,6 +4,7 @@ const SB=Deno.env.get("SUPABASE_URL")||"",SERVICE=Deno.env.get("SUPABASE_SERVICE
 const db=createClient(SB,SERVICE,{auth:{persistSession:false,autoRefreshToken:false}});
 const clean=(v:unknown)=>String(v??"").trim(),reply=(v:unknown,status=200)=>Response.json(v,{status,headers:{"Cache-Control":"no-store"}});
 Deno.serve(async req=>{
+ if(req.method==="GET"&&new URL(req.url).searchParams.get("health")==="1"){const ready=Deno.env.get("BETINSIGHT_REPORT_WEB_ENABLED")==="true"&&!!Deno.env.get("BETINSIGHT_REPORT_OPENAI_API_KEY");return reply({ok:true,status:ready?"CONFIGURED":"NOT_CONFIGURED"});}
  if(req.method!=="POST")return reply({ok:false,error:"METHOD_NOT_ALLOWED"},405);
  if(!SERVICE||req.headers.get("authorization")!=="Bearer "+SERVICE)return reply({ok:false,error:"INTERNAL_AUTH_REQUIRED"},403);
  const id=clean(new URL(req.url).searchParams.get("id"));
