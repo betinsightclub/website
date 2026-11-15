@@ -82,12 +82,17 @@ function storyHTML(story){
       '<li><strong>'+esc(ev.minute||"")+'</strong> '+esc(trLeg?.events?.[eventIndex]||(de?ev.text:ev.text_en)||ev.text||"")+'</li>').join("");
     const source=String(leg.source_url||"");
     const isTrusted=/^https:\/\/[a-z0-9.-]+\//i.test(source);
+    const links=(Array.isArray(leg.sources)?leg.sources:[]).map((item)=>{
+      const u=typeof item==="string"?item:String(item?.url||"");
+      return {url:u,title:typeof item==="string"?u:String(item?.title||u)};
+    }).filter(item=>/^https:\/\/[a-z0-9.-]+\//i.test(item.url));
+    const editorialLinks=links.length?'<p class="story-source">'+links.map((item,i)=>'<a target="_blank" rel="noopener noreferrer" href="'+esc(item.url)+'">['+(i+1)+'] '+esc(item.title)+' ↗</a>').join(' · ')+'</p>':"";
     return '<section class="story-leg"><div class="story-leg-header"><span class="story-leg-num">'+(i+1)+'</span><h3>'+esc(title)+'</h3><strong>'+esc(leg.score_label||leg.score||"")+'</strong></div>'+
       '<p class="story-leg-market">'+esc(trLeg?.market||biText.market(leg.market_label||"",lang))+' · '+esc(resultLabel(leg.selection_outcome))+'</p>'+
       '<ul class="story-events">'+items+'</ul>'+
       '<p>'+esc(narrative||"")+'</p>'+
       (wagerLogic?'<p class="story-leg-logic"><strong>'+esc(logicLabel)+':</strong> '+esc(wagerLogic)+'</p>':'')+
-      (isTrusted?'<p class="story-source"><a target="_blank" rel="noopener noreferrer" href="'+esc(source)+'">'+esc(lang==="de"?(leg.source_label||"Quelle"):(lang==="es"?"Fuente del partido":lang==="pt"?"Fonte do jogo":lang==="it"?"Fonte partita":lang==="fr"?"Source du match":"Match source"))+' ↗</a></p>':'')+
+      (editorialLinks|| (isTrusted?'<p class="story-source"><a target="_blank" rel="noopener noreferrer" href="'+esc(source)+'">'+esc(lang==="de"?(leg.source_label||"Quelle"):(lang==="es"?"Fuente del partido":lang==="pt"?"Fonte do jogo":lang==="it"?"Fonte partita":lang==="fr"?"Source du match":"Match source"))+' ↗</a></p>':''))+
       '</section>';
   }).join("");
   const conclusion=translation?.summary||(de?story.summary_de:story.summary_en);
