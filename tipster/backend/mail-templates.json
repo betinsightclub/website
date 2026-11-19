@@ -1,0 +1,55 @@
+{
+  "admin": {
+    "recipient": "betinsight.club@gmail.com",
+    "subject": "BetInsight – Neue Tippgeber-Bewerbung",
+    "fields": [
+      "id",
+      "name",
+      "alias",
+      "email",
+      "country",
+      "languages",
+      "sports",
+      "experience",
+      "frequency",
+      "history_url",
+      "profile_url",
+      "strategy",
+      "created_at"
+    ]
+  },
+  "applicant": {
+    "de": {
+      "subject": "Deine BetInsight-Tippgeber-Bewerbung",
+      "body": "Vielen Dank für deine Bewerbung. Wir prüfen deine Angaben und melden uns bei dir."
+    },
+    "en": {
+      "subject": "Your BetInsight tipster application",
+      "body": "Thank you for your application. We will review your information and contact you."
+    },
+    "es": {
+      "subject": "Tu solicitud de pronosticador de BetInsight",
+      "body": "Gracias por tu solicitud. Revisaremos tus datos y nos pondremos en contacto contigo."
+    },
+    "pt": {
+      "subject": "Sua candidatura de tipster BetInsight",
+      "body": "Obrigado pela candidatura. Vamos analisar suas informações e entrar em contato."
+    },
+    "it": {
+      "subject": "La tua candidatura come tipster BetInsight",
+      "body": "Grazie per la candidatura. Esamineremo i tuoi dati e ti contatteremo."
+    },
+    "fr": {
+      "subject": "Votre candidature de pronostiqueur BetInsight",
+      "body": "Merci pour votre candidature. Nous examinerons vos informations et vous contacterons."
+    },
+    "nl": {
+      "subject": "Jouw BetInsight-tipgeversaanvraag",
+      "body": "Bedankt voor je aanvraag. We beoordelen je gegevens en nemen contact met je op."
+    },
+    "zh-tw": {
+      "subject": "您的 BetInsight 體育賽事分析師申請",
+      "body": "感謝您的申請。我們會審核您的資料並與您聯絡。"
+    }
+  }
+}
