@@ -8,7 +8,7 @@
   "tipster.name": "Nom et prénom",
   "tipster.alias": "Nom de pronostiqueur",
   "tipster.email": "Adresse e-mail",
-  "tipster.country": "Pays",
+  "tipster.country": "Pays de résidence",
   "tipster.languages": "Langues de vos analyses",
   "tipster.sports": "Sports",
   "tipster.experience": "Années d’expérience",
@@ -34,5 +34,6 @@
   "tipster.privacy": "Ne saisissez aucune pièce d’identité ni donnée bancaire ou de paiement.",
   "tipster.draft": "Texte de candidature",
   "tipster.privacyLink": "Confidentialité",
-  "tipster.privacyAck": "J’ai lu la notice de confidentialité."
+  "tipster.privacyAck": "J’ai lu la notice de confidentialité.",
+  "tipster.contactLanguage": "Langue de contact préférée"
 }
