@@ -1,0 +1,2 @@
+# Design V2 – preview only
+Based on MCT `dev/mct-member-tabler-v01/app-tabler/index.html` (Tabler 1.7.5, MIT, same pinned stylesheet) and existing MCT public landing card, kicker and float CSS. Reuses BetInsight production logo asset without modification. Central i18n JSON dictionaries; form and manual email behavior preserved. No backend activation, no production merge. Abstract decorative graph has no data. Preview must stay noindex.
