@@ -17,9 +17,9 @@
   "tipster.frequency": "Pronósticos por semana (aprox.)",
   "tipster.message": "Cuéntanos tu estrategia",
   "tipster.confirm": "Tengo al menos 18 años y confirmo que mis datos son correctos.",
-  "tipster.submit": "Validar solicitud",
-  "tipster.demo": "Versión de prueba: no se envían datos a BetInsight.",
-  "tipster.done": "Formulario validado. No se ha enviado ninguna solicitud.",
+  "tipster.submit": "Preparar correo",
+  "tipster.demo": "Este formulario prepara un correo para BetInsight. Debes enviarlo tú mismo. Aún no hay almacenamiento ni confirmación automáticos.",
+  "tipster.done": "El borrador está listo. Envíalo desde tu aplicación de correo o copia el texto y envíalo a betinsight.club@gmail.com.",
   "tipster.back": "Volver a BetInsight",
   "tipster.select": "Selecciona una opción",
   "tipster.football": "Fútbol",
@@ -31,5 +31,8 @@
   "tipster.other": "Otros",
   "tipster.noHistory": "Aún no tengo historial público",
   "tipster.optional": "opcional",
-  "tipster.privacy": "No introduzcas datos de identidad, bancarios ni de pago."
+  "tipster.privacy": "No introduzcas datos de identidad, bancarios ni de pago.",
+  "tipster.draft": "Texto de la solicitud",
+  "tipster.privacyLink": "Privacidad",
+  "tipster.privacyAck": "He leído el aviso de privacidad."
 }
