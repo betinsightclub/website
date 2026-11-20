@@ -8,7 +8,7 @@
   "tipster.name": "姓名",
   "tipster.alias": "分析師暱稱",
   "tipster.email": "電子郵件",
-  "tipster.country": "國家或地區",
+  "tipster.country": "居住國家或地區",
   "tipster.languages": "分析使用的語言",
   "tipster.sports": "運動項目",
   "tipster.experience": "經驗年數",
@@ -34,5 +34,6 @@
   "tipster.privacy": "請勿輸入身分證明、銀行或付款資料。",
   "tipster.draft": "申請內容",
   "tipster.privacyLink": "隱私權聲明",
-  "tipster.privacyAck": "我已閱讀隱私權聲明。"
+  "tipster.privacyAck": "我已閱讀隱私權聲明。",
+  "tipster.contactLanguage": "偏好的聯絡語言"
 }
