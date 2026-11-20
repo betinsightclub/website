@@ -17,9 +17,9 @@
   "tipster.frequency": "每週預測數量（約）",
   "tipster.message": "請介紹您的分析策略",
   "tipster.confirm": "我已年滿 18 歲，並確認所填資料正確。",
-  "tipster.submit": "檢查申請表",
-  "tipster.demo": "測試版本：不會傳送資料至 BetInsight。",
-  "tipster.done": "表單驗證成功，尚未送出申請。",
+  "tipster.submit": "準備電子郵件",
+  "tipster.demo": "此表單會準備寄給 BetInsight 的電子郵件。請自行寄出。目前尚無自動儲存及確認功能。",
+  "tipster.done": "郵件草稿已準備好。請使用郵件程式寄出，或複製下方文字並寄至 betinsight.club@gmail.com。",
   "tipster.back": "返回 BetInsight",
   "tipster.select": "請選擇",
   "tipster.football": "足球",
@@ -31,5 +31,8 @@
   "tipster.other": "其他",
   "tipster.noHistory": "尚無公開紀錄",
   "tipster.optional": "選填",
-  "tipster.privacy": "請勿輸入身分證明、銀行或付款資料。"
+  "tipster.privacy": "請勿輸入身分證明、銀行或付款資料。",
+  "tipster.draft": "申請內容",
+  "tipster.privacyLink": "隱私權聲明",
+  "tipster.privacyAck": "我已閱讀隱私權聲明。"
 }
