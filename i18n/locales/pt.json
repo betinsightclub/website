@@ -17,9 +17,9 @@
   "tipster.frequency": "Palpites por semana (aprox.)",
   "tipster.message": "Conte-nos sobre sua estratégia",
   "tipster.confirm": "Tenho pelo menos 18 anos e confirmo que meus dados estão corretos.",
-  "tipster.submit": "Validar candidatura",
-  "tipster.demo": "Versão de teste: nenhum dado é enviado à BetInsight.",
-  "tipster.done": "Formulário validado. Nenhuma candidatura foi enviada.",
+  "tipster.submit": "Preparar e-mail",
+  "tipster.demo": "Este formulário prepara um e-mail para a BetInsight. Você precisa enviá-lo. Ainda não há armazenamento nem confirmação automáticos.",
+  "tipster.done": "O rascunho está pronto. Envie pelo seu aplicativo de e-mail ou copie o texto e envie para betinsight.club@gmail.com.",
   "tipster.back": "Voltar à BetInsight",
   "tipster.select": "Selecione uma opção",
   "tipster.football": "Futebol",
@@ -31,5 +31,8 @@
   "tipster.other": "Outros",
   "tipster.noHistory": "Ainda não tenho histórico público",
   "tipster.optional": "opcional",
-  "tipster.privacy": "Não informe documentos, dados bancários ou de pagamento."
+  "tipster.privacy": "Não informe documentos, dados bancários ou de pagamento.",
+  "tipster.draft": "Texto da candidatura",
+  "tipster.privacyLink": "Privacidade",
+  "tipster.privacyAck": "Li o aviso de privacidade."
 }
