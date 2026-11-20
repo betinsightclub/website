@@ -11,7 +11,7 @@ form.addEventListener('submit',e=>{
  e.preventDefault();syncSports();if(!form.reportValidity())return;
  const d=new FormData(form), t=k=>i18n.t('tipster.'+k);
  const value=k=>String(d.get(k)||'').trim();
- const lines=['BetInsight – Tipster application', 'Language: '+i18n.lang, ...['name','alias','email','country','languages','experience','frequency'].map(k=>t(k)+': '+value(k)),t('sports')+': '+d.getAll('sports').map(k=>t(k)).join(', '),t('history')+': '+(noHistory.checked?t('noHistory'):value('history')),t('profile')+': '+value('profile'),t('message')+': '+value('message'),t('confirm'),t('privacyAck')];
+ const lines=['BetInsight – Tipster application', 'Form locale: '+i18n.lang, ...['name','alias','email','country','contactLanguage','languages','experience','frequency'].map(k=>t(k)+': '+value(k)),t('sports')+': '+d.getAll('sports').map(k=>t(k)).join(', '),t('history')+': '+(noHistory.checked?t('noHistory'):value('history')),t('profile')+': '+value('profile'),t('message')+': '+value('message'),t('confirm'),t('privacyAck')];
  const body=lines.join('\r\n');validated=true;result.textContent=t('done');document.querySelector('#draft').value=body;document.querySelector('#draftBox').hidden=false;
  const url='mailto:betinsight.club@gmail.com?subject='+encodeURIComponent('BetInsight – Tipster application')+'&body='+encodeURIComponent(body);
  if(url.length<=1800)location.href=url;

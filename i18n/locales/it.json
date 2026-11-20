@@ -8,7 +8,7 @@
   "tipster.name": "Nome e cognome",
   "tipster.alias": "Nome da tipster",
   "tipster.email": "Email",
-  "tipster.country": "Paese",
+  "tipster.country": "Paese di residenza",
   "tipster.languages": "Lingue delle analisi",
   "tipster.sports": "Sport",
   "tipster.experience": "Anni di esperienza",
@@ -34,5 +34,6 @@
   "tipster.privacy": "Non inserire documenti, dati bancari o di pagamento.",
   "tipster.draft": "Testo della candidatura",
   "tipster.privacyLink": "Informativa sulla privacy",
-  "tipster.privacyAck": "Ho letto l'informativa sulla privacy."
+  "tipster.privacyAck": "Ho letto l'informativa sulla privacy.",
+  "tipster.contactLanguage": "Lingua di contatto preferita"
 }
