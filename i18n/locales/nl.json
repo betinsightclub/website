@@ -8,7 +8,7 @@
   "tipster.name": "Voor- en achternaam",
   "tipster.alias": "Naam als tipgever",
   "tipster.email": "E-mailadres",
-  "tipster.country": "Land",
+  "tipster.country": "Woonland",
   "tipster.languages": "Talen van je analyses",
   "tipster.sports": "Sporten",
   "tipster.experience": "Jaren ervaring",
@@ -34,5 +34,6 @@
   "tipster.privacy": "Voer geen identiteits-, bank- of betaalgegevens in.",
   "tipster.draft": "Aanvraagtekst",
   "tipster.privacyLink": "Privacyverklaring",
-  "tipster.privacyAck": "Ik heb de privacyverklaring gelezen."
+  "tipster.privacyAck": "Ik heb de privacyverklaring gelezen.",
+  "tipster.contactLanguage": "Voorkeurstaal voor contact"
 }
