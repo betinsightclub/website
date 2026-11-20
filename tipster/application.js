@@ -4,7 +4,7 @@ let i18n, validated=false;
 function syncSports(){sports[0].required=!sports.some(x=>x.checked)}
 function syncHistory(){historyField.disabled=noHistory.checked;historyField.required=!noHistory.checked}
 function syncLinks(){const url=new URL('/',location.href);url.searchParams.set('lang',i18n.lang);for(const id of ['home','back'])document.getElementById(id).href=url.href;}
-function apply(){document.title='BetInsight – '+i18n.t('tipster.title');syncLinks();if(validated)result.textContent=i18n.t('tipster.done')}
+function apply(){document.title='BetInsight – '+i18n.t('tipster.title');language.setAttribute('aria-label',i18n.t('tipster.languageLabel'));syncLinks();if(validated)result.textContent=i18n.t('tipster.done')}
 sports.forEach(x=>x.addEventListener('change',syncSports));noHistory.addEventListener('change',syncHistory);
 form.addEventListener('input',()=>{validated=false;result.textContent='';document.querySelector('#draftBox').hidden=true;document.querySelector('#draft').value=''});
 form.addEventListener('submit',e=>{
@@ -20,3 +20,5 @@ try{
  i18n=await initI18n();language.replaceChildren(...i18n.languages.map(x=>new Option(x.label,x.code)));language.value=i18n.lang;apply();syncSports();syncHistory();fields.disabled=false;language.disabled=false;
  language.addEventListener('change',async()=>{language.disabled=true;fields.disabled=true;try{const url=new URL(location.href);url.searchParams.set('lang',language.value);window.history.replaceState(null,'',url);try{localStorage.setItem('betinsight_language',language.value)}catch{}i18n=await initI18n();apply()}catch(err){console.error(err);location.reload();return}fields.disabled=false;language.disabled=false});
 }catch(err){console.error(err);result.textContent='Language loading failed. No data sent.'}
+
+const art=document.querySelector('.hero-art');if(art&&matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches){art.addEventListener('pointermove',e=>{const r=art.getBoundingClientRect();art.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');art.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%')});art.addEventListener('pointerleave',()=>{art.style.setProperty('--mx','50%');art.style.setProperty('--my','50%')})}
