@@ -8,7 +8,7 @@
   "tipster.name": "Vor- und Nachname",
   "tipster.alias": "Tippgebername",
   "tipster.email": "E-Mail-Adresse",
-  "tipster.country": "Land",
+  "tipster.country": "Land, in dem du lebst",
   "tipster.languages": "Sprachen für deine Analysen",
   "tipster.sports": "Sportarten",
   "tipster.experience": "Erfahrung in Jahren",
@@ -34,5 +34,6 @@
   "tipster.privacy": "Bitte keine Ausweis-, Bank- oder Zahlungsdaten eingeben.",
   "tipster.draft": "Bewerbungstext",
   "tipster.privacyLink": "Datenschutz",
-  "tipster.privacyAck": "Ich habe die Datenschutzhinweise gelesen."
+  "tipster.privacyAck": "Ich habe die Datenschutzhinweise gelesen.",
+  "tipster.contactLanguage": "Bevorzugte Kontaktsprache"
 }
