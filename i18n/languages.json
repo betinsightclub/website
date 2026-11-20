@@ -1,0 +1,45 @@
+{
+  "default": "de",
+  "languages": [
+    {
+      "code": "de",
+      "label": "Deutsch",
+      "dir": "ltr"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Español",
+      "dir": "ltr"
+    },
+    {
+      "code": "pt",
+      "label": "Português (Brasil)",
+      "dir": "ltr"
+    },
+    {
+      "code": "it",
+      "label": "Italiano",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Français",
+      "dir": "ltr"
+    },
+    {
+      "code": "nl",
+      "label": "Nederlands",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh-tw",
+      "label": "繁體中文",
+      "dir": "ltr"
+    }
+  ]
+}
