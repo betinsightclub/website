@@ -17,9 +17,9 @@
   "tipster.frequency": "Tips per week (ongeveer)",
   "tipster.message": "Vertel ons over je strategie",
   "tipster.confirm": "Ik ben minstens 18 jaar en bevestig dat mijn gegevens juist zijn.",
-  "tipster.submit": "Aanvraag controleren",
-  "tipster.demo": "Testversie: er worden geen gegevens naar BetInsight verzonden.",
-  "tipster.done": "Formulier gecontroleerd. Er is geen aanvraag verzonden.",
+  "tipster.submit": "E-mail voorbereiden",
+  "tipster.demo": "Dit formulier maakt een e-mail aan BetInsight klaar. Verstuur deze zelf. Automatische opslag en bevestiging zijn nog niet beschikbaar.",
+  "tipster.done": "Je concept is klaar. Verstuur het via je e-mailprogramma of kopieer de tekst en stuur deze naar betinsight.club@gmail.com.",
   "tipster.back": "Terug naar BetInsight",
   "tipster.select": "Maak een keuze",
   "tipster.football": "Voetbal",
@@ -31,5 +31,8 @@
   "tipster.other": "Anders",
   "tipster.noHistory": "Nog geen openbare historie",
   "tipster.optional": "optioneel",
-  "tipster.privacy": "Voer geen identiteits-, bank- of betaalgegevens in."
+  "tipster.privacy": "Voer geen identiteits-, bank- of betaalgegevens in.",
+  "tipster.draft": "Aanvraagtekst",
+  "tipster.privacyLink": "Privacyverklaring",
+  "tipster.privacyAck": "Ik heb de privacyverklaring gelezen."
 }
