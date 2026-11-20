@@ -318,3 +318,31 @@
 })();
 /* BetInsight Football Wiki enhancements */
 if(location.pathname.includes("/wiki/")){const s=document.createElement("script");s.src="https://betinsight.club/assets/time-clash-wiki-ui.js?v=20261006-2";s.defer=true;document.head.appendChild(s);}
+
+/* BetInsight tipster recruitment: shared, language-aware footer link. */
+(() => {
+  if (!["betinsight.club","www.betinsight.club"].includes(location.hostname) || location.pathname.startsWith("/tipster/")) return;
+  const registryURL="/i18n/languages.json";
+  let registryPromise, generation=0;
+  async function update(){
+    const footer=document.querySelector(".site-footer,footer,.footer");
+    if(!footer)return;
+    const current=++generation;
+    try{
+      registryPromise ||= fetch(registryURL).then(r=>{if(!r.ok)throw Error("registry");return r.json()});
+      const registry=await registryPromise;
+      const codes=registry.languages.map(x=>x.code);
+      const normalize=v=>{const s=String(v||"").toLowerCase().replaceAll("_","-");return codes.includes(s)?s:s.startsWith("zh")&&codes.includes("zh-tw")?"zh-tw":codes.includes(s.split("-")[0])?s.split("-")[0]:null};
+      const locale=normalize(new URL(location.href).searchParams.get("lang"))||normalize(document.documentElement.lang)||registry.default;
+      const d=await fetch("/i18n/locales/"+locale+".json").then(r=>{if(!r.ok)throw Error("locale");return r.json()});
+      if(current!==generation||!d["footer.tipster"])return;
+      let link=footer.querySelector("[data-bi-tipster]");
+      if(!link){link=document.createElement("a");link.dataset.biTipster="1";const host=footer.querySelector(".footer-grid .footer-links,.betinsight-footer-info-links,.footer-links")||footer;host.appendChild(link)}
+      link.href="/tipster/?lang="+encodeURIComponent(locale);
+      link.textContent=d["footer.tipster"];
+      link.style.fontWeight="700";
+    }catch(e){console.warn("Tipster footer link unavailable",e)}
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",update,{once:true});else update();
+  new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+})();
