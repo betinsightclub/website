@@ -14,6 +14,8 @@
 ["girona-fc-albacete-25-09-2026","Girona FC – Albacete","25.09.2026","LaLiga 2","—","1,56",4,"1X2","won",0,0,{"de":"Girona FC gewinnt","en":"Girona FC to win","es":"Gana Girona FC","pt":"Girona FC vence","it":"Vittoria Girona FC","fr":"Victoire de Girona FC"},"/de/tipps/girona-fc-albacete-25-09-2026/"],
 ["real-valladolid-cf-cordoba-27-09-2026","Real Valladolid CF – Córdoba","27.09.2026","LaLiga 2","—","2,46",3,"1X2","won",0,0,{"de":"Real Valladolid CF gewinnt","en":"Real Valladolid CF to win","es":"Gana Real Valladolid CF","pt":"Real Valladolid CF vence","it":"Vittoria Real Valladolid CF","fr":"Victoire du Real Valladolid CF"},"__auto__:BI-20260927-040207-MAR"]
 ];
+const AI_WEEKLY="BetInsight KI Wochen-Spezial";
+const isWeeklyId=id=>/^BI-WS-/i.test(String(id||""));
 const LIVE_RESULTS_URL="https://lszlaglwlixejzytrurg.supabase.co/functions/v1/betinsight-member-gateway?route=tip-results";
 const tipperMap={"crystal-palace-man-city-28-08-2026":"Martin","hoffenheim-dortmund-05-09-2026":"Frank","dortmund-villarreal-08-09-2026":"Frank","darmstadt-bielefeld-11-09-2026":"Frank","bochum-greuther-fuerth-12-09-2026":"Frank","real-sociedad-atletico-chelsea-hull-12-09-2026":"Martin","villarreal-real-betis-leeds-newcastle-14-09-2026":"Martin","real-betis-getafe-17-09-2026":"Martin","malaga-villarreal-17-09-2026":"Martin","holstein-kiel-vfl-osnabrueck-19-09-2026":"Frank","kaiserslautern-braunschweig-19-09-2026":"Frank","valencia-real-sociedad-20-09-2026":"Martin","girona-fc-albacete-25-09-2026":"Martin","real-valladolid-cf-cordoba-27-09-2026":"Martin"};
 const knownIdToSlug={"BI-20260826-001536-MAR":"crystal-palace-man-city-28-08-2026","BI-20260904-163328-FRA":"hoffenheim-dortmund-05-09-2026","BI-20260908-151838-FRA":"dortmund-villarreal-08-09-2026","BI-20260911-110018-FRA":"darmstadt-bielefeld-11-09-2026","BI-20260911-105547-FRA":"bochum-greuther-fuerth-12-09-2026","BI-20260912-004348-MAR":"real-sociedad-atletico-chelsea-hull-12-09-2026","BI-20260914-175440-MAR":"villarreal-real-betis-leeds-newcastle-14-09-2026","BI-20260917-003712-MAR":"real-betis-getafe-17-09-2026","BI-20260917-003813-MAR":"malaga-villarreal-17-09-2026","BI-20260918-160859-FRA":"holstein-kiel-vfl-osnabrueck-19-09-2026","BI-20260918-164427-FRA":"kaiserslautern-braunschweig-19-09-2026","BI-20260920-134759-MAR":"valencia-real-sociedad-20-09-2026","BI-20260925-185756-MAR":"girona-fc-albacete-25-09-2026","BI-20260927-040207-MAR":"real-valladolid-cf-cordoba-27-09-2026"};
@@ -21,43 +23,46 @@ const pn=v=>{const s=String(v??"").trim();if(!s)return 0;return Number(s.include
 const dateNum=v=>{const m=String(v||"").match(/(\d{2})\.(\d{2})\.(\d{4})/);return m?Number(m[3]+m[2]+m[1]):0};
 const slugify=v=>String(v||"tipp").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ß/g,"ss").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 function calcModel(rows){let bf=1000,gf=1000,bc=1000,gc=1000;const out={fixed:{blue:[1000],green:[1000],total:[1000]},compound:{blue:[1000],green:[1000],total:[1000]}};for(const g of rows){const q=pn(g[5]),u=pn(g[6]),won=g[8]==="won",frank=tipperMap[g[0]]==="Frank";const fd=won?u*10*(q-1):-u*10;if(frank)gf+=fd;else bf+=fd;const base=frank?gc:bc,stake=base*(u/100),cd=won?stake*(q-1):-stake;if(frank)gc+=cd;else bc+=cd;g[9]=fd;g[10]=cd;out.fixed.blue.push(bf);out.fixed.green.push(gf);out.fixed.total.push(1000+(bf-1000)+(gf-1000));out.compound.blue.push(bc);out.compound.green.push(gc);out.compound.total.push(1000+(bc-1000)+(gc-1000))}return out}
-try{const rr=await fetch(LIVE_RESULTS_URL,{cache:"no-store"});if(rr.ok){const live=await rr.json();if(Array.isArray(live)){const bySlug=new Map(G.map((g,i)=>[g[0],i]));const valid=live.filter(r=>r&&r.qualitaetsrelevant==="JA"&&r.sichtbar_fuer_teilnehmer==="JA"&&(r.ergebnis_status==="GEWONNEN"||r.ergebnis_status==="VERLOREN")&&dateNum(r.spiel_datum)>=20260828&&pn(r.preis_units)>0).sort((a,b)=>dateNum(a.spiel_datum)-dateNum(b.spiel_datum)||String(a.bestaetigt_am||"").localeCompare(String(b.bestaetigt_am||"")));for(const r of valid){let slug=knownIdToSlug[r.tipp_id];if(slug&&bySlug.has(slug)){const g=G[bySlug.get(slug)];if(r.endergebnis)g[4]=r.endergebnis;if(r.quote)g[5]=r.quote;if(r.preis_units)g[6]=pn(r.preis_units);if(r.markt)g[7]=r.markt;g[8]=r.ergebnis_status==="GEWONNEN"?"won":"lost";tipperMap[slug]=r.tippgeber||tipperMap[slug];continue}slug=slugify(r.spiel)+"-"+String(r.spiel_datum||"").replace(/\./g,"-");if(bySlug.has(slug))continue;const tx=String(r.tipp||r.spiel||"");const tips={de:tx,en:tx,es:tx,pt:tx,it:tx,fr:tx};G.push([slug,r.spiel||"",r.spiel_datum||"",r.liga||"",r.endergebnis||"—",r.quote||"",pn(r.preis_units),r.markt||"",r.ergebnis_status==="GEWONNEN"?"won":"lost",0,0,tips,"__auto__:"+String(r.tipp_id||"")]);tipperMap[slug]=r.tippgeber||"";knownIdToSlug[r.tipp_id]=slug;bySlug.set(slug,G.length-1)}}}}catch(e){}
+try{const rr=await fetch(LIVE_RESULTS_URL,{cache:"no-store"});if(rr.ok){const live=await rr.json();if(Array.isArray(live)){const bySlug=new Map(G.map((g,i)=>[g[0],i]));const valid=live.filter(r=>r&&r.qualitaetsrelevant==="JA"&&r.sichtbar_fuer_teilnehmer==="JA"&&(r.ergebnis_status==="GEWONNEN"||r.ergebnis_status==="VERLOREN")&&dateNum(r.spiel_datum)>=20260828&&pn(r.preis_units)>0).sort((a,b)=>dateNum(a.spiel_datum)-dateNum(b.spiel_datum)||String(a.bestaetigt_am||"").localeCompare(String(b.bestaetigt_am||"")));for(const r of valid){const weekly=isWeeklyId(r.tipp_id);let slug=knownIdToSlug[r.tipp_id];if(slug&&bySlug.has(slug)){const g=G[bySlug.get(slug)];if(r.endergebnis)g[4]=r.endergebnis;if(r.quote)g[5]=r.quote;if(r.preis_units)g[6]=weekly?1:pn(r.preis_units);if(r.markt)g[7]=r.markt;g[8]=r.ergebnis_status==="GEWONNEN"?"won":"lost";tipperMap[slug]=weekly?AI_WEEKLY:(r.tippgeber||tipperMap[slug]);continue}slug=weekly?"wochen-spezial-"+String(r.tipp_id):slugify(r.spiel)+"-"+String(r.spiel_datum||"").replace(/\./g,"-");if(bySlug.has(slug))continue;const tx=String(r.tipp||r.spiel||"");const tips={de:tx,en:tx,es:tx,pt:tx,it:tx,fr:tx};G.push([slug,r.spiel||"",r.spiel_datum||"",r.liga||"",r.endergebnis||"—",r.quote||"",weekly?1:pn(r.preis_units),r.markt||"",r.ergebnis_status==="GEWONNEN"?"won":"lost",0,0,tips,"__auto__:"+String(r.tipp_id||"")]);tipperMap[slug]=weekly?AI_WEEKLY:(r.tippgeber||"");knownIdToSlug[r.tipp_id]=slug;bySlug.set(slug,G.length-1)}}}}catch(e){}
 
 G.sort((a,b)=>dateNum(a[2])-dateNum(b[2]));
 const c=document.documentElement.lang.toLowerCase().split("-")[0],t=I[c]||I.de;
 const ui={
-de:{label:"Statistik nach Tippgeber",intro:"Wähle einen Tippgeber aus, um ausschließlich seine Ergebnisse zu sehen.",martin:"Tippgeber A · Martin",frank:"Tippgeber B · Frank",chart:"Individueller Kapitalverlauf · nur die Tipps des ausgewählten Tippgebers",frankPause:"Frank veröffentlicht derzeit keine neuen Tipps. Seine bisherigen Ergebnisse bleiben weiterhin einsehbar.",current:"Aktueller Wert",profit:"Gewinn / Verlust",last:"Letzter gewerteter Tipp",empty:"Für diesen Tippgeber liegen noch keine gewerteten Tipps vor."},
-en:{label:"Statistics by tipster",intro:"Select a tipster to see only their results.",martin:"Tipster A · Martin",frank:"Tipster B · Frank",chart:"Individual bankroll performance · selected tipster only",frankPause:"Frank is currently not publishing new tips. His previous results remain available.",current:"Current value",profit:"Profit / loss",last:"Last counted tip",empty:"No counted tips for this tipster yet."},
-es:{label:"Estadísticas por pronosticador",intro:"Elige un pronosticador para ver solo sus resultados.",martin:"Pronosticador A · Martin",frank:"Pronosticador B · Frank",chart:"Evolución individual del capital · solo el pronosticador elegido",frankPause:"Frank no publica nuevos pronósticos por el momento. Sus resultados anteriores siguen disponibles.",current:"Valor actual",profit:"Beneficio / pérdida",last:"Último pronóstico contabilizado",empty:"Todavía no hay pronósticos contabilizados para este pronosticador."},
-pt:{label:"Estatísticas por analista",intro:"Escolhe um analista para veres apenas os seus resultados.",martin:"Analista A · Martin",frank:"Analista B · Frank",chart:"Evolução individual do capital · apenas o analista selecionado",frankPause:"Frank não está a publicar novos prognósticos neste momento. Os resultados anteriores continuam disponíveis.",current:"Valor atual",profit:"Lucro / perda",last:"Último prognóstico contabilizado",empty:"Ainda não há prognósticos contabilizados para este analista."},
-it:{label:"Statistiche per tipster",intro:"Seleziona un tipster per vedere solo i suoi risultati.",martin:"Tipster A · Martin",frank:"Tipster B · Frank",chart:"Andamento individuale del capitale · solo il tipster selezionato",frankPause:"Frank al momento non pubblica nuovi pronostici. I suoi risultati precedenti restano consultabili.",current:"Valore attuale",profit:"Profitto / perdita",last:"Ultimo pronostico conteggiato",empty:"Non ci sono ancora pronostici conteggiati per questo tipster."},
-fr:{label:"Statistiques par pronostiqueur",intro:"Choisissez un pronostiqueur pour afficher uniquement ses résultats.",martin:"Pronostiqueur A · Martin",frank:"Pronostiqueur B · Frank",chart:"Évolution individuelle du capital · pronostiqueur sélectionné uniquement",frankPause:"Frank ne publie actuellement plus de nouveaux pronostics. Ses anciens résultats restent consultables.",current:"Valeur actuelle",profit:"Gain / perte",last:"Dernier pronostic comptabilisé",empty:"Aucun pronostic comptabilisé pour ce pronostiqueur."},
-nl:{label:"Statistieken per tipgever",intro:"Kies een tipgever om alleen zijn resultaten te bekijken.",martin:"Tipgever A · Martin",frank:"Tipgever B · Frank",chart:"Individueel kapitaalverloop · alleen gekozen tipgever",frankPause:"Frank publiceert momenteel geen nieuwe tips. Zijn eerdere resultaten blijven zichtbaar.",current:"Huidige waarde",profit:"Winst / verlies",last:"Laatste meegetelde tip",empty:"Nog geen meegetelde tips voor deze tipgever."},
-zh:{label:"按分析員查看統計",intro:"選擇分析員，僅查看該分析員的成績。",martin:"分析員 A · Martin",frank:"分析員 B · Frank",chart:"個別資金表現 · 僅顯示所選分析員",frankPause:"Frank 目前暫停發布新預測，其過往成績仍可查看。",current:"目前資金",profit:"盈虧",last:"最近納入統計的預測",empty:"此分析員尚無納入統計的預測。"}
+de:{label:"Statistik nach Tippgeber und Strategie",intro:"Wähle Martin, Frank oder BetInsight KI Wochen-Spezial aus.",martin:"Tippgeber Martin",frank:"Tippgeber Frank",chart:"Individueller Kapitalverlauf · nur die Tipps des ausgewählten Tippgebers",frankPause:"Frank veröffentlicht derzeit keine neuen Tipps. Seine bisherigen Ergebnisse bleiben weiterhin einsehbar.",current:"Aktueller Wert",profit:"Gewinn / Verlust",last:"Letzter gewerteter Tipp",empty:"Für diesen Tippgeber liegen noch keine gewerteten Tipps vor."},
+en:{label:"Statistics by tipster",intro:"Select a tipster to see only their results.",martin:"Tipster Martin",frank:"Tipster Frank",chart:"Individual bankroll performance · selected tipster only",frankPause:"Frank is currently not publishing new tips. His previous results remain available.",current:"Current value",profit:"Profit / loss",last:"Last counted tip",empty:"No counted tips for this tipster yet."},
+es:{label:"Estadísticas por pronosticador",intro:"Elige un pronosticador para ver solo sus resultados.",martin:"Pronosticador Martin",frank:"Pronosticador Frank",chart:"Evolución individual del capital · solo el pronosticador elegido",frankPause:"Frank no publica nuevos pronósticos por el momento. Sus resultados anteriores siguen disponibles.",current:"Valor actual",profit:"Beneficio / pérdida",last:"Último pronóstico contabilizado",empty:"Todavía no hay pronósticos contabilizados para este pronosticador."},
+pt:{label:"Estatísticas por analista",intro:"Escolhe um analista para veres apenas os seus resultados.",martin:"Analista Martin",frank:"Analista Frank",chart:"Evolução individual do capital · apenas o analista selecionado",frankPause:"Frank não está a publicar novos prognósticos neste momento. Os resultados anteriores continuam disponíveis.",current:"Valor atual",profit:"Lucro / perda",last:"Último prognóstico contabilizado",empty:"Ainda não há prognósticos contabilizados para este analista."},
+it:{label:"Statistiche per tipster",intro:"Seleziona un tipster per vedere solo i suoi risultati.",martin:"Tipster Martin",frank:"Tipster Frank",chart:"Andamento individuale del capitale · solo il tipster selezionato",frankPause:"Frank al momento non pubblica nuovi pronostici. I suoi risultati precedenti restano consultabili.",current:"Valore attuale",profit:"Profitto / perdita",last:"Ultimo pronostico conteggiato",empty:"Non ci sono ancora pronostici conteggiati per questo tipster."},
+fr:{label:"Statistiques par pronostiqueur",intro:"Choisissez un pronostiqueur pour afficher uniquement ses résultats.",martin:"Pronostiqueur Martin",frank:"Pronostiqueur Frank",chart:"Évolution individuelle du capital · pronostiqueur sélectionné uniquement",frankPause:"Frank ne publie actuellement plus de nouveaux pronostics. Ses anciens résultats restent consultables.",current:"Valeur actuelle",profit:"Gain / perte",last:"Dernier pronostic comptabilisé",empty:"Aucun pronostic comptabilisé pour ce pronostiqueur."},
+nl:{label:"Statistieken per tipgever",intro:"Kies een tipgever om alleen zijn resultaten te bekijken.",martin:"Tipgever Martin",frank:"Tipgever Frank",chart:"Individueel kapitaalverloop · alleen gekozen tipgever",frankPause:"Frank publiceert momenteel geen nieuwe tips. Zijn eerdere resultaten blijven zichtbaar.",current:"Huidige waarde",profit:"Winst / verlies",last:"Laatste meegetelde tip",empty:"Nog geen meegetelde tips voor deze tipgever."},
+zh:{label:"按分析員查看統計",intro:"選擇分析員，僅查看該分析員的成績。",martin:"分析員 Martin",frank:"分析員 Frank",chart:"個別資金表現 · 僅顯示所選分析員",frankPause:"Frank 目前暫停發布新預測，其過往成績仍可查看。",current:"目前資金",profit:"盈虧",last:"最近納入統計的預測",empty:"此分析員尚無納入統計的預測。"}
 }[c]||null;
-const U=ui||{label:"Statistik nach Tippgeber",intro:"Wähle einen Tippgeber aus.",martin:"Tippgeber A · Martin",frank:"Tippgeber B · Frank",chart:"Individueller Kapitalverlauf",frankPause:"Frank veröffentlicht derzeit keine neuen Tipps.",current:"Aktueller Wert",profit:"Gewinn / Verlust",last:"Letzter gewerteter Tipp",empty:"Noch keine gewerteten Tipps."};
+const U=ui||{label:"Statistik nach Tippgeber",intro:"Wähle einen Tippgeber aus.",martin:"Tippgeber Martin",frank:"Tippgeber Frank",chart:"Individueller Kapitalverlauf",frankPause:"Frank veröffentlicht derzeit keine neuen Tipps.",current:"Aktueller Wert",profit:"Gewinn / Verlust",last:"Letzter gewerteter Tipp",empty:"Noch keine gewerteten Tipps."};
+const WEEKLY_STAKE_NOTE=({de:"BetInsight KI Wochen-Spezial: Eigene Statistik, Startkapital 1.000 €, immer 1 Unit = 10 € je Tipp. Kein Zinseszins und keine Übernahme anderer Tippgeber.",en:"BetInsight AI Weekly Special: independent €1,000 bankroll, fixed 1 Unit = €10 per tip, no compounding."}[c]||"BetInsight KI Wochen-Spezial: separate €1,000 bankroll, fixed €10 stake per tip.");
 const loc={de:"de-DE",en:"en-GB",es:"es-ES",pt:"pt-PT",it:"it-IT",fr:"fr-FR",nl:"nl-NL",zh:"zh-TW"}[c]||"de-DE";
 const money=n=>new Intl.NumberFormat(loc,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
 const delta=n=>(n>=0?"+":"−")+money(Math.abs(n));
 const pendingText=({de:"Spielbericht wird vorbereitet",en:"Match report is being prepared",es:"El informe del partido se está preparando",pt:"Relatório da partida em preparação",it:"Resoconto della partita in preparazione",fr:"Compte rendu du match en préparation",nl:"Wedstrijdverslag wordt voorbereid",zh:"比賽報告正在準備中"}[c]||"Spielbericht wird vorbereitet");
 const i18n=window.BetInsightResultI18n||{match:v=>v,market:v=>v,league:v=>v,selection:v=>v};
 function tipperOf(row){
+ const report=String(row[12]||"");
+ const id=report.startsWith("__auto__:")?report.slice(9):Object.keys(knownIdToSlug).find(k=>knownIdToSlug[k]===row[0])||"";
  const raw=String(tipperMap[row[0]]||"").trim().toLowerCase();
+ if(isWeeklyId(id)||raw.includes("wochen-spezial")||raw.includes("weekly-special"))return AI_WEEKLY;
  if(raw.includes("martin")||/(^|[^a-z])mar([^a-z]|$)/.test(raw))return "Martin";
  if(raw.includes("frank")||/(^|[^a-z])fra([^a-z]|$)/.test(raw))return "Frank";
  if(raw)return "";
- const report=String(row[12]||"");
- const id=report.startsWith("__auto__:")?report.slice(9):Object.keys(knownIdToSlug).find(k=>knownIdToSlug[k]===row[0])||"";
  return /-MAR$/i.test(id)?"Martin":/-FRA$/i.test(id)?"Frank":"";
 }
-function calcTipperModel(rows){
+function calcTipperModel(rows,weeklyFlat=false){
  let fixed=1000,compound=1000;
  const model={fixed:[fixed],compound:[compound]};
  for(const r of rows){
-  const quote=pn(r[5]),units=pn(r[6]),won=r[8]==="won";
+  const quote=pn(r[5]),units=weeklyFlat?1:pn(r[6]),won=r[8]==="won";
+  if(weeklyFlat)r[6]=1;
   const fixedChange=won?units*10*(quote-1):-units*10;
   const stake=compound*units/100;
-  const compoundChange=won?stake*(quote-1):-stake;
+  const compoundChange=weeklyFlat?fixedChange:(won?stake*(quote-1):-stake);
   fixed+=fixedChange;compound+=compoundChange;
   r[9]=fixedChange;r[10]=compoundChange;
   model.fixed.push(fixed);model.compound.push(compound);
@@ -85,7 +90,7 @@ document.querySelector("[data-start]").textContent=money(1000);
 const tb=document.querySelector("tbody");
 const picker=document.createElement("div");
 picker.className="tipper-filter";
-picker.innerHTML='<div class="tipper-filter-heading"><div><h2>'+U.label+'</h2><p>'+U.intro+'</p></div><div class="tipper-tabs" role="group" aria-label="'+U.label+'"><button type="button" class="tipper-tab active" data-tipper="Martin" aria-pressed="true">'+U.martin+'</button><button type="button" class="tipper-tab" data-tipper="Frank" aria-pressed="false">'+U.frank+'</button></div></div><p class="tipper-pause" role="status" hidden>'+U.frankPause+'</p>';
+picker.innerHTML='<div class="tipper-filter-heading"><div><h2>'+U.label+'</h2><p>'+U.intro+'</p></div><div class="tipper-tabs" role="group" aria-label="'+U.label+'"><button type="button" class="tipper-tab active" data-tipper="Martin" aria-pressed="true">'+U.martin+'</button><button type="button" class="tipper-tab" data-tipper="Frank" aria-pressed="false">'+U.frank+'</button><button type="button" class="tipper-tab" data-tipper="'+AI_WEEKLY+'" aria-pressed="false">'+AI_WEEKLY+'</button></div></div><p class="tipper-pause" role="status" hidden>'+U.frankPause+'</p><p class="tipper-pause" data-weekly-stake hidden>'+WEEKLY_STAKE_NOTE+'</p>';
 document.querySelector(".chart-card").before(picker);
 let selected="Martin",mode="fixed",visible=[],model=calcTipperModel([]);
 const reviewedIds=new Set(["BI-20261004-011406-MAR","BI-20261004-011255-MAR","BI-20261002-145749-MAR","BI-20260927-040207-MAR","BI-20260925-185756-MAR","BI-20261009-172442-MAR","BI-20260826-001536-MAR","BI-20260904-163328-FRA","BI-20260908-151838-FRA","BI-20260911-110018-FRA","BI-20260911-105547-FRA","BI-20260912-004348-MAR","BI-20260914-175440-MAR","BI-20260917-003712-MAR","BI-20260917-003813-MAR","BI-20260918-160859-FRA","BI-20260918-164427-FRA","BI-20260920-134759-MAR"]);
@@ -141,16 +146,16 @@ function drawGrid(scale){
  }
 }
 function render(){
- const a=model[mode],color=selected==="Martin"?"#1687ff":"#1fe28f";
+ const a=model[mode],isWeekly=selected===AI_WEEKLY,color=isWeekly?"#cfff22":selected==="Martin"?"#1687ff":"#1fe28f";
  nPoints=a.length;const scale=scaleFor(a),y=scale.y;
  drawGrid(scale);
  document.getElementById("lineBlue").setAttribute("d",selected==="Martin"?path(a,y):"");
  document.getElementById("lineGreen").setAttribute("d",selected==="Frank"?path(a,y):"");
  // The former yellow combined series and combined area are deliberately removed.
- document.getElementById("lineTotal").setAttribute("d","");
+ document.getElementById("lineTotal").setAttribute("d",isWeekly?path(a,y):"");
  document.getElementById("areaTotal").setAttribute("d","");
  ["pointsBlue","pointsGreen","pointsTotal"].forEach(id=>document.getElementById(id).innerHTML="");
- const dots=document.getElementById(selected==="Martin"?"pointsBlue":"pointsGreen");
+ const dots=document.getElementById(isWeekly?"pointsTotal":selected==="Martin"?"pointsBlue":"pointsGreen");
  a.forEach((v,i)=>dots.appendChild(mk("circle",{cx:x(i),cy:y(v),r:i===a.length-1?6:4,fill:color,class:"dot "+(i===a.length-1?"last":"")})));
  labels.innerHTML="";
  const xx=x(a.length-1)+16,yy=y(a.at(-1))-4;
@@ -159,22 +164,22 @@ function render(){
  document.querySelector("[data-current]").textContent=money(a.at(-1));
  document.querySelector("[data-gain]").textContent=delta(a.at(-1)-1000);
  document.querySelector("[data-gain]").classList.toggle("positive",a.at(-1)>=1000);
- document.querySelector("[data-note]").textContent=mode==="fixed"?t.fixedNote:t.compoundNote;
- document.querySelector("[data-disc]").textContent=mode==="fixed"?t.df:t.dc;
+ document.querySelector("[data-note]").textContent=isWeekly?WEEKLY_STAKE_NOTE:(mode==="fixed"?t.fixedNote:t.compoundNote);
+ document.querySelector("[data-disc]").textContent=isWeekly?WEEKLY_STAKE_NOTE:(mode==="fixed"?t.df:t.dc);
  document.querySelectorAll(".ch").forEach(e=>e.textContent=e.dataset[mode]);
  document.querySelectorAll(".mode-btn").forEach(b=>{const active=b.dataset.mode===mode;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active));});
 }
 function chooseTipper(name){
- selected=name;visible=G.filter(r=>tipperOf(r)===selected);model=calcTipperModel(visible);
+ selected=name;const weekly=selected===AI_WEEKLY;if(weekly)mode="fixed";visible=G.filter(r=>tipperOf(r)===selected);model=calcTipperModel(visible,weekly);const cb=document.querySelector('[data-mode="compound"]');cb.hidden=weekly;cb.disabled=weekly;
  picker.querySelectorAll(".tipper-tab").forEach(btn=>{const active=btn.dataset.tipper===selected;btn.classList.toggle("active",active);btn.setAttribute("aria-pressed",String(active));});
- picker.querySelector(".tipper-pause").hidden=selected!=="Frank";
+ picker.querySelector(".tipper-pause").hidden=selected!=="Frank";picker.querySelector("[data-weekly-stake]").hidden=!weekly;document.querySelector("[data-chart-lead]").textContent=weekly?WEEKLY_STAKE_NOTE:U.chart;
  document.querySelector("[data-chart-title]").textContent=t.chart+" · "+selected;
  document.querySelector("[data-count]").textContent=visible.length;
  const latest=visible.length?visible[visible.length-1][2]:"—";
- document.querySelector("[data-facts]").innerHTML=[...t.facts.slice(0,3),U.last+": "+latest].map(s=>'<span class="fact">'+s+"</span>").join("");
+ document.querySelector("[data-facts]").innerHTML=(weekly?[t.facts[0],WEEKLY_STAKE_NOTE,U.last+": "+latest]:[...t.facts.slice(0,3),U.last+": "+latest]).map(s=>'<span class="fact">'+s+"</span>").join("");
  renderHistory();render();
 }
 picker.querySelectorAll(".tipper-tab").forEach(btn=>btn.addEventListener("click",()=>chooseTipper(btn.dataset.tipper)));
-document.querySelectorAll(".mode-btn").forEach(btn=>btn.addEventListener("click",()=>{mode=btn.dataset.mode;render()}));
+document.querySelectorAll(".mode-btn").forEach(btn=>btn.addEventListener("click",()=>{if(btn.disabled)return;mode=btn.dataset.mode;render()}));
 chooseTipper("Martin");
 })();
