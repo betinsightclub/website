@@ -25,9 +25,34 @@ const dnum=v=>{const m=String(v||"").match(/(\d{2})\.(\d{2})\.(\d{4})/);return m
 const locale={de:"de-DE",en:"en-GB",es:"es-ES",pt:"pt-PT",it:"it-IT",fr:"fr-FR"}[lang]||"de-DE";
 const money=n=>new Intl.NumberFormat(locale,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
 const delta=n=>(n>=0?"+":"−")+money(Math.abs(n));
-const tipper=r=>String(r.tippgeber||r.admin_name||"").trim()||(String(r.tipp_id||"").includes("-FRA")?"Frank":String(r.tipp_id||"").includes("-MAR")?"Martin":"");
+const isAiWeekly=r=>/^BI-WS-/i.test(String(r.tipp_id||""));
+const tipper=r=>isAiWeekly(r)?"BetInsight KI Wochen-Spezial":(String(r.tippgeber||r.admin_name||"").trim()||(String(r.tipp_id||"").includes("-FRA")?"Frank":String(r.tipp_id||"").includes("-MAR")?"Martin":""));
+const tipperGroup=r=>{
+ if(isAiWeekly(r))return "KI_WEEKLY";
+ const name=tipper(r).toLowerCase();
+ if(/-MAR$/i.test(String(r.tipp_id||""))||name.includes("martin"))return "MARTIN";
+ if(/-FRA$/i.test(String(r.tipp_id||""))||name.includes("frank"))return "FRANK";
+ return "OTHER:"+name;
+};
 function validRows(rows){return rows.filter(r=>r&&r.qualitaetsrelevant==="JA"&&r.sichtbar_fuer_teilnehmer==="JA"&&(r.ergebnis_status==="GEWONNEN"||r.ergebnis_status==="VERLOREN")&&dnum(r.spiel_datum)>=20260828&&num(r.preis_units)>0).sort((a,b)=>dnum(a.spiel_datum)-dnum(b.spiel_datum)||String(a.bestaetigt_am||"").localeCompare(String(b.bestaetigt_am||"")))}
-function calculate(rows,id){let bf=1000,gf=1000,bc=1000,gc=1000,hit=null;for(const r of rows){const q=num(r.quote),u=num(r.preis_units),won=r.ergebnis_status==="GEWONNEN",who=tipper(r),frank=/frank/i.test(who)||String(r.tipp_id||"").includes("-FRA");const fd=won?u*10*(q-1):-u*10;if(frank)gf+=fd;else bf+=fd;const base=frank?gc:bc,stake=base*(u/100),cd=won?stake*(q-1):-stake;if(frank)gc+=cd;else bc+=cd;const fixedTotal=1000+(bf-1000)+(gf-1000),compoundTotal=1000+(bc-1000)+(gc-1000);if(String(r.tipp_id)===String(id))hit={fd,cd,fixedTotal,compoundTotal}}return hit}
+function calculate(rows,id){
+ const target=rows.find(r=>String(r.tipp_id)===String(id));
+ if(!target)return null;
+ // Every tipster / AI strategy has an independent initial balance of 1,000 EUR.
+ const group=tipperGroup(target),weekly=group==="KI_WEEKLY";
+ let fixed=1000,compound=1000,hit=null;
+ for(const r of rows){
+  if(tipperGroup(r)!==group)continue;
+  const q=num(r.quote),u=weekly?1:num(r.preis_units),won=r.ergebnis_status==="GEWONNEN";
+  const fd=won?u*10*(q-1):-u*10;
+  // KI weekly stakes stay at 1 Unit = 10 EUR, regardless of account balance.
+  const stake=weekly?10:compound*(u/100);
+  const cd=weekly?fd:(won?stake*(q-1):-stake);
+  fixed+=fd;compound+=cd;
+  if(String(r.tipp_id)===String(id))hit={fd,cd,fixedTotal:fixed,compoundTotal:compound,weekly,stake,paidOut:won?stake*q:0};
+ }
+ return hit;
+}
 function setMeta(r){if(embedded)return;document.title=(r.spiel||"BetInsight")+" – "+(r.ergebnis_status==="GEWONNEN"?L.won:L.lost)+" | BetInsight";const desc=document.querySelector('meta[name="description"]');if(desc)desc.setAttribute("content",L.metaDesc+" "+String(r.spiel||""));let can=document.querySelector('link[rel="canonical"]');if(!can){can=document.createElement("link");can.rel="canonical";document.head.appendChild(can)}can.href=location.origin+location.pathname+"?id="+encodeURIComponent(String(r.tipp_id||""))}
 
 function resultCover(r){
@@ -149,7 +174,17 @@ async function loadStory(r){
   }
 }
 
-function render(r,calc){const won=r.ergebnis_status==="GEWONNEN",status=won?L.won:L.lost,score=String(r.endergebnis||"").trim(),who=tipper(r)||"—",confirmed=String(r.bestaetigt_am||"").trim();setMeta(r);root.innerHTML=(embedded?'':resultCover(r))+'<div class="wrap layout"><article class="article"><h2>'+esc(L.published)+'</h2><p>'+esc(L.publishedCopy)+'</p><div class="tipbox"><strong>'+esc(biText.selection(r.tipp||r.markt||"",lang,r.tipp_id))+'</strong><div class="tipmeta"><div><span>'+esc(L.odds)+'</span><b>'+esc(r.quote||"")+'</b></div><div><span>'+esc(L.units)+'</span><b>'+esc(r.preis_units||"")+'</b></div><div><span>'+esc(L.market)+'</span><b>'+esc(biText.market(r.markt||"",lang))+'</b></div></div></div><h2>'+esc(L.outcome)+'</h2><div class="outcome '+(won?"":"loss")+'"><p>'+(won?esc(L.outWon):esc(L.outLost))+'</p></div><div data-story-slot></div><h2>'+esc(L.scoreTitle)+'</h2><p>'+esc(score?L.scoreKnown:L.scoreMissing)+(score?' <strong>'+esc(score)+'</strong>.':'')+'<span data-verified-final-score></span></p><h2>'+esc(L.impact)+'</h2><p>'+esc(L.impactCopy)+'</p><div class="stats-grid"><div class="stat-card"><span>'+esc(L.fixed)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(delta(calc.fd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.fixedTotal))+'</b></div><div class="stat-card"><span>'+esc(L.compound)+'</span><b class="'+(calc.cd>=0?"pos":"neg")+'">'+esc(delta(calc.cd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.compoundTotal))+'</b></div></div><h2>'+esc(L.confirmed)+'</h2><p>'+esc(L.reportAuto)+(confirmed?' · '+esc(confirmed):'')+'</p><div class="note">'+esc(L.note)+'</div></article><aside class="sidebar"><div class="sidecard"><h3>'+esc(L.sidebarTitle)+'</h3><p>'+esc(L.sidebarCopy)+'</p><a class="sidebtn" href="../">'+esc(L.sidebarBtn)+'</a><a class="sidebtn secondary" href="../../statistik-vorschau/">'+esc(L.statsBtn)+'</a></div><div class="sidecard"><h3>BetInsight.club</h3><a class="sidebtn secondary" href="../../">'+esc(L.home)+'</a></div></aside></div>'}
+const weeklyReportText=({
+ de:{title:"Auswirkung auf die BetInsight KI Wochen-Spezial-Statistik",copy:"Eigene Statistik ab 1.000 € Startkapital. Pro Tipp immer 1 Unit = 10 € Einsatz, ohne Zinseszins. Nicht mit Martin oder Frank vermischt.",fixed:"Fester Einsatz: 1 Unit = 10 €",payout:"Bruttoauszahlung (inkl. Einsatz)",profit:"Nettogewinn"},
+ en:{title:"Impact on BetInsight AI Weekly Special statistics",copy:"Separate €1,000 starting balance. Always a fixed 1 Unit = €10 per selection, no compounding or mixing with Martin and Frank.",fixed:"Fixed stake: 1 Unit = €10",payout:"Total payout (stake included)",profit:"Net profit"},
+ es:{title:"Impacto en las estadísticas del Especial Semanal IA",copy:"Capital inicial independiente de 1.000 €. Siempre 1 Unit = 10 € por pronóstico, sin interés compuesto.",fixed:"Apuesta fija: 1 Unit = 10 €",payout:"Cobro total (incluye apuesta)",profit:"Ganancia neta"},
+ pt:{title:"Impacto nas estatísticas do Especial Semanal IA",copy:"Saldo inicial independente de 1.000 €. Sempre 1 Unit = 10 € por palpite, sem juros compostos.",fixed:"Aposta fixa: 1 Unit = 10 €",payout:"Pagamento total (inclui aposta)",profit:"Lucro líquido"},
+ it:{title:"Impatto sulla statistica Speciale Settimanale IA",copy:"Saldo iniziale indipendente di 1.000 €. Sempre 1 Unit = 10 € per pronostico, senza interesse composto.",fixed:"Puntata fissa: 1 Unit = 10 €",payout:"Pagamento totale (puntata inclusa)",profit:"Profitto netto"},
+ fr:{title:"Impact sur les statistiques Spécial hebdomadaire IA",copy:"Capital initial indépendant de 1 000 €. Toujours 1 Unit = 10 € par pronostic, sans intérêts composés.",fixed:"Mise fixe : 1 Unit = 10 €",payout:"Paiement total (mise comprise)",profit:"Bénéfice net"},
+ nl:{title:"Impact op de statistiek AI Week-Special",copy:"Onafhankelijk startkapitaal van € 1.000. Per tip altijd 1 Unit = € 10, zonder samengestelde rente.",fixed:"Vaste inzet: 1 Unit = € 10",payout:"Totale uitbetaling (inclusief inzet)",profit:"Nettowinst"},
+ zh:{title:"BetInsight AI 每週特別分析統計",copy:"獨立初始資金 1,000 歐元；每注固定 1 Unit = 10 歐元，不複利。",fixed:"固定投注：1 Unit = 10 歐元",payout:"總派彩（含本金）",profit:"淨利"}
+}[lang]||{title:"BetInsight KI Wochen-Spezial",copy:"1.000 € Startkapital und immer 10 € Einsatz.",fixed:"1 Unit = 10 €",payout:"Bruttoauszahlung",profit:"Nettogewinn"});
+function render(r,calc){const won=r.ergebnis_status==="GEWONNEN",status=won?L.won:L.lost,score=String(r.endergebnis||"").trim(),who=tipper(r)||"—",confirmed=String(r.bestaetigt_am||"").trim();setMeta(r);root.innerHTML=(embedded?'':resultCover(r))+'<div class="wrap layout"><article class="article"><h2>'+esc(L.published)+'</h2><p>'+esc(L.publishedCopy)+'</p><div class="tipbox"><strong>'+esc(biText.selection(r.tipp||r.markt||"",lang,r.tipp_id))+'</strong><div class="tipmeta"><div><span>'+esc(L.odds)+'</span><b>'+esc(r.quote||"")+'</b></div><div><span>'+esc(L.units)+'</span><b>'+esc(r.preis_units||"")+'</b></div><div><span>'+esc(L.market)+'</span><b>'+esc(biText.market(r.markt||"",lang))+'</b></div></div></div><h2>'+esc(L.outcome)+'</h2><div class="outcome '+(won?"":"loss")+'"><p>'+(won?esc(L.outWon):esc(L.outLost))+'</p></div><div data-story-slot></div><h2>'+esc(L.scoreTitle)+'</h2><p>'+esc(score?L.scoreKnown:L.scoreMissing)+(score?' <strong>'+esc(score)+'</strong>.':'')+'<span data-verified-final-score></span></p><h2>'+esc(calc.weekly?weeklyReportText.title:L.impact)+'</h2><p>'+esc(calc.weekly?weeklyReportText.copy:L.impactCopy)+'</p><div class="stats-grid'+(calc.weekly?' is-weekly':'')+'"><div class="stat-card"><span>'+esc(calc.weekly?weeklyReportText.fixed:L.fixed)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(delta(calc.fd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.fixedTotal))+'</b></div>'+(calc.weekly?'<div class="stat-card"><span>'+esc(won?weeklyReportText.payout:weeklyReportText.profit)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(won?money(calc.paidOut):delta(calc.fd))+'</b><span>'+esc(weeklyReportText.profit)+'</span><b class="'+(calc.fd>=0?"pos":"neg")+'">'+esc(delta(calc.fd))+'</b></div>':'<div class="stat-card"><span>'+esc(L.compound)+'</span><b class="'+(calc.cd>=0?"pos":"neg")+'">'+esc(delta(calc.cd))+'</b><span>'+esc(L.after)+'</span><b>'+esc(money(calc.compoundTotal))+'</b></div>')+'</div><h2>'+esc(L.confirmed)+'</h2><p>'+esc(L.reportAuto)+(confirmed?' · '+esc(confirmed):'')+'</p><div class="note">'+esc(L.note)+'</div></article><aside class="sidebar"><div class="sidecard"><h3>'+esc(L.sidebarTitle)+'</h3><p>'+esc(L.sidebarCopy)+'</p><a class="sidebtn" href="../">'+esc(L.sidebarBtn)+'</a><a class="sidebtn secondary" href="../../statistik-vorschau/">'+esc(L.statsBtn)+'</a></div><div class="sidecard"><h3>BetInsight.club</h3><a class="sidebtn secondary" href="../../">'+esc(L.home)+'</a></div></aside></div>'}
 const pathReport=location.pathname.match(/\/(?:de|en|es|pt|it|fr|nl|zh)\/tipps\/ergebnis\/(BI-[A-Za-z0-9_-]+)\/?$/);
 const id=new URLSearchParams(location.search).get("id")||(pathReport&&pathReport[1]);
 const reviewedNew=new Set(["BI-20261004-011406-MAR","BI-20261004-011255-MAR","BI-20261002-145749-MAR","BI-20260927-040207-MAR","BI-20260925-185756-MAR","BI-20261009-172442-MAR","BI-20260826-001536-MAR","BI-20260904-163328-FRA","BI-20260908-151838-FRA","BI-20260911-110018-FRA","BI-20260911-105547-FRA","BI-20260912-004348-MAR","BI-20260914-175440-MAR","BI-20260917-003712-MAR","BI-20260917-003813-MAR","BI-20260918-160859-FRA","BI-20260918-164427-FRA","BI-20260920-134759-MAR"]);
