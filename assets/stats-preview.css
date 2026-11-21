@@ -9,6 +9,7 @@
 .tipper-tab{cursor:pointer;min-height:45px;padding:11px 17px;border-radius:12px;border:1px solid rgba(130,195,225,.25);background:rgba(255,255,255,.035);color:#c3d4dc;font:inherit;font-size:13px;font-weight:850;transition:background .15s,border-color .15s}
 .tipper-tab[data-tipper="Martin"].active{background:rgba(22,135,255,.18);border-color:#1687ff;color:#e6f3ff}
 .tipper-tab[data-tipper="Frank"].active{background:rgba(31,226,143,.12);border-color:#1fe28f;color:#d8ffed}
+.tipper-tab[data-tipper="BetInsight KI Wochen-Spezial"].active{background:rgba(207,255,34,.13);border-color:#cfff22;color:#f3ffd0}
 .tipper-tab:hover{background:rgba(255,255,255,.09)}
 .tipper-tab:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .tipper-pause{margin:17px 0 0;padding:13px 15px;border:1px solid rgba(170,190,200,.22);border-radius:12px;background:rgba(255,255,255,.04);color:#d5e0e6;font-size:13px;line-height:1.5}
